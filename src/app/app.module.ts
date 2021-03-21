@@ -11,6 +11,7 @@ import { MaterialModule } from './material/material.module';
 import { CoreModule } from './core/core.module';
 import { environment } from '../environments/environment';
 import homeReducer from './redux/reducers/homeReducer';
+import { MainModule } from './main/main.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -18,6 +19,7 @@ import homeReducer from './redux/reducers/homeReducer';
         BrowserModule,
         AppRoutingModule,
         CoreModule,
+        MainModule,
         BrowserAnimationsModule,
         MaterialModule,
         StoreModule.forRoot({ home: homeReducer }),
