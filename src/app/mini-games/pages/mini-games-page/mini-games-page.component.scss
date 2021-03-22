@@ -16,7 +16,7 @@
     width: 100%;
     height: 100%;
     margin: auto;
-    background: rgba(#344557, 0.85);
+    background: rgba(#344557, .85);
   }
 
   .game-cards-row {
@@ -50,8 +50,11 @@
 }
 
 @media (max-width: 500px) {
+
   :host {
+
     .game-cards-row {
+
       .game-card {
         min-width: 70vw;
       }

@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-full-screen-button',
@@ -7,6 +7,7 @@ import { Component, HostListener, Inject, OnInit } from '@angular/core';
   styleUrls: ['./full-screen-button.component.scss'],
 })
 export class FullScreenButtonComponent implements OnInit {
+  @Input() color = 'primary'; // primary || accent || warn || disabled
   elem: any;
   isFullScreen = false;
   constructor(@Inject(DOCUMENT) private document: any) {}
