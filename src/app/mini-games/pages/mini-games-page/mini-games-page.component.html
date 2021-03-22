@@ -1,0 +1,16 @@
+<div class="game-cards-row">
+  <mat-card class="game-card" matRipple [routerLink]="[gameCard.route]" *ngFor="let gameCard of gameCards">
+    <mat-card-header>
+      <mat-card-title>{{ gameCard.name }}</mat-card-title>
+      <mat-card-subtitle>Мини Игра</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="game-card-description">
+        <span class="material-icons">{{ gameCard.icon }}</span>
+        {{ gameCard.description }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<router-outlet></router-outlet>
