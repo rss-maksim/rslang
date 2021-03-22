@@ -9,24 +9,24 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
-    declarations: [],
-    imports: [
-        CommonModule,
-        MatCardModule,
-        MatGridListModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSliderModule,
-        MatRippleModule,
-    ],
-    exports: [
-        MatCardModule,
-        MatGridListModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSelectModule,
-        MatSliderModule,
-        MatRippleModule,
-    ],
+  declarations: [],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatGridListModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSliderModule,
+    MatRippleModule,
+  ],
+  exports: [
+    MatCardModule,
+    MatGridListModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatRippleModule,
+  ],
 })
 export class MaterialModule {}

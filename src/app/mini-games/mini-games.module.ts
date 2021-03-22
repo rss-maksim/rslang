@@ -7,7 +7,7 @@ import { MiniGamesRoutingModule } from './mini-games-routing.module';
 import { MaterialModule } from '../material/material.module';
 
 @NgModule({
-    declarations: [SprintMiniGameComponent, MiniGamesPageComponent],
-    imports: [CommonModule, MiniGamesRoutingModule, MaterialModule],
+  declarations: [SprintMiniGameComponent, MiniGamesPageComponent],
+  imports: [CommonModule, MiniGamesRoutingModule, MaterialModule],
 })
 export class MiniGamesModule {}
