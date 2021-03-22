@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './sprint-mini-game.component.html',
   styleUrls: ['./sprint-mini-game.component.scss'],
 })
-export class SprintMiniGameComponent {
-  constructor() {}
-}
+export class SprintMiniGameComponent {}
