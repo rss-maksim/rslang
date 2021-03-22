@@ -1,0 +1,45 @@
+:host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #07073d;
+}
+
+.page-not-found {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../../../../assets/images/page-not-found.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.go-home {
+  position: absolute;
+  left: 65%;
+  bottom: 15%;
+  padding: 10px 50px 10px 10px;
+  transform: translateX(-65%);
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 20px;
+  line-height: 140%;
+  font-weight: bold;
+  border-radius: 5px;
+
+  &:hover {
+    color: white;
+    background-color: royalblue;
+  }
+
+  &::after {
+    position: absolute;
+    right: 10px;
+    content: "\1F680";
+  }
+}
