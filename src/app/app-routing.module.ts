@@ -10,12 +10,18 @@ const routes: Routes = [
         path: 'dictionary',
         loadChildren: () => import('./dictionary/dictionary.module').then((m) => m.DictionaryModule),
     },
-    { path: 'mini-games', loadChildren: () => import('./mini-games/mini-games.module').then((m) => m.MiniGamesModule) },
+    {
+        path: 'mini-games',
+        loadChildren: () => import('./mini-games/mini-games.module').then((m) => m.MiniGamesModule),
+    },
     {
         path: 'statistics',
         loadChildren: () => import('./statistics/statistics.module').then((m) => m.StatisticsModule),
     },
-    { path: 'login', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule) },
+    {
+        path: 'login',
+        loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    },
     { path: '**', component: NotFoundComponent },
 ];
 
