@@ -4,4 +4,4 @@
 npm run lint
 npm run lint-styles
 # npm test
-npm run pretty-quick
+# npm run pretty-quick
