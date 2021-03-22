@@ -1,0 +1,26 @@
+<mat-card class="teammate-card">
+  <mat-card-header>
+    <a
+      mat-card-avatar
+      class="teammate-card__header-image"
+      [ngStyle]="{ 'background-image': 'url(' + mate.pictureUrl + ')' }"
+      [href]="mate.github"
+      target="_blank"
+    ></a>
+    <mat-card-title>
+      <a class="teammate-card__github-link" [href]="mate.github" target="_blank">{{ mate.name }}</a>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <span>{{ mate.role }}</span>
+      <span class="teammate-card__location" *ngIf="mate.location">({{ mate.location }})</span>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="teammate-card__content">
+    <h4 class="teammate-card__contribution-title">Вклад:</h4>
+    <ul class="teammate-card__contribution">
+      <li class="teammate-card__contribution-item" *ngFor="let item of mate.contribution; trackBy: trackByFn">
+        {{ item }}
+      </li>
+    </ul>
+  </mat-card-content>
+</mat-card>
