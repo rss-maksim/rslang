@@ -1,8 +1,1 @@
-<svg  class="page-header__icon-textbook" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="50px" height="50px" fill="white" viewBox="0 0 512 512" xml:space="preserve">
-<g>
-	<path d="M464,64v416H80c-17.672,0-32-14.312-32-32s14.328-32,32-32h352V0H80C44.656,0,16,28.656,16,64v384
-		c0,35.344,28.656,64,64,64h416V64H464z M80,128V96V32h320v352H80V128z M336,96H144V64h192V96z M272,160H144v-32h128V160z M208,224
-		h-64v-32h64V224z"/>
-</g>
-</svg>
+<svg class="page-header__icon-textbook" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#fff" viewBox="0 0 512 512"><path d="M464 64v416H80c-17.672 0-32-14.312-32-32s14.328-32 32-32h352V0H80C44.656 0 16 28.656 16 64v384c0 35.344 28.656 64 64 64h416V64h-32zM80 128V32h320v352H80V128zm256-32H144V64h192v32zm-64 64H144v-32h128v32zm-64 64h-64v-32h64v32z"/></svg>
