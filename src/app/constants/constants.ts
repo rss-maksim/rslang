@@ -1,1 +1,1 @@
-export const APIURL = 'https://guarded-eyrie-57031.herokuapp.com/';
+export const APIURL = 'https://guarded-eyrie-57031.herokuapp.com';
