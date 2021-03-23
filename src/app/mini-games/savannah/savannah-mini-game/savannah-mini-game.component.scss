@@ -1,7 +1,7 @@
 :host {
   position: relative;
   background: url("../../shared/assets/savannah-background.jpg") no-repeat center center fixed;
-  //filter: blur(3px);
+  // filter: blur(3px);
   background-size: cover;
   min-height: 85vh;
   display: flex;
@@ -20,4 +20,29 @@
 
     background: rgba(#087829, .50);
   }
+}
+
+.savannah {
+  color: white;
+
+  &-words {
+
+    &_item {
+      font-size: 1.5em;
+    }
+  }
+
+  &-progress {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+  }
+}
+
+.fullscreen-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
 }

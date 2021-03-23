@@ -1,10 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-full-screen-button',
   templateUrl: './full-screen-button.component.html',
   styleUrls: ['./full-screen-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FullScreenButtonComponent implements OnInit {
   @Input() color = 'primary'; // primary || accent || warn || disabled

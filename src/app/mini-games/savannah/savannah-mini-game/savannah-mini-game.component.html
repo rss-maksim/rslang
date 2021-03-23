@@ -1,5 +1,10 @@
-<div class="savannah-container">
-  <mat-progress-spinner value="70"></mat-progress-spinner>
+<div class="savannah">
+  <div class="savannah-words">
+    <button mat-button class="savannah-words_item" *ngFor="let word of words; let i = index">
+      {{ i + 1 }}.{{ word.word | uppercase }}
+    </button>
+  </div>
+  <mat-progress-spinner class="savannah-progress" diameter="70" value="70"></mat-progress-spinner>
 
-  <app-full-screen-button color="warn"></app-full-screen-button>
+  <app-full-screen-button color="warn" class="fullscreen-btn"></app-full-screen-button>
 </div>
