@@ -1,6 +1,6 @@
 :host {
   position: relative;
-  background: #344557 url(https://unsplash.imgix.net/photo-1423683249427-8ca22bd873e0?fit=crop&fm=jpg&h=700&q=75&w=1050) 0 0 no-repeat;
+  background: #344557 url("../../../../assets/images/mini-games/mini-games-bg.jpg") 0 0 no-repeat;
   background-size: cover;
   min-height: 85vh;
   display: flex;
@@ -23,29 +23,29 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+  }
+}
 
-    .game-card {
-      width: 35vw;
-      min-width: 25rem;
-      min-height: 10rem;
-      margin: 1rem;
-      cursor: pointer;
-      box-shadow: 0 2px 4px 0 rgb(0 0 0 / 16%), 0 0 1px 0 rgb(0 0 0 / 12%);
-      user-select: none;
+.game-card {
+  width: 35vw;
+  min-width: 25rem;
+  min-height: 10rem;
+  margin: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 16%), 0 0 1px 0 rgb(0 0 0 / 12%);
+  user-select: none;
 
-      &:active {
-        outline: none;
-      }
+  &:active {
+    outline: none;
+  }
+}
 
-      .game-card-description {
-        display: flex;
-        gap: 1rem;
+.game-card-description {
+  display: flex;
+  gap: 1rem;
 
-        .material-icons {
-          font-size: 3rem;
-        }
-      }
-    }
+  .material-icons {
+    font-size: 3rem;
   }
 }
 
