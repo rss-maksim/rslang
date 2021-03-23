@@ -1,10 +1,15 @@
 :host {
+<<<<<<< HEAD
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background: #344557 url("../../../../assets/images/mini-games/mini-games-bg.jpg") 0 0 no-repeat;
+=======
+  position: relative;
+  background: #344557 url("../../../../assets/images/mini-games-page-background.jpeg") 0 0 no-repeat;
+>>>>>>> feat: add game sprint background
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -21,12 +26,12 @@
     margin: auto;
     background: rgba(#344557, .85);
   }
+}
 
-  .game-cards-row {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
+.game-cards-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .game-card {
@@ -41,26 +46,21 @@
   &:active {
     outline: none;
   }
-}
 
-.game-card-description {
-  display: flex;
-  gap: 1rem;
-
-  .material-icons {
-    font-size: 3rem;
+  .game-card-description {
+    display: flex;
+    gap: 1rem;
   }
 }
 
+.material-icons {
+  font-size: 3rem;
+}
+
 @media (max-width: 500px) {
-
-  :host {
-
-    .game-cards-row {
-
-      .game-card {
-        min-width: 70vw;
-      }
+  .game-cards-row {
+    .game-card {
+      min-width: 70vw;
     }
   }
 }
