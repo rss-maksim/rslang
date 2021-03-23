@@ -9,13 +9,14 @@ import { ChangeDetectionStrategy, Component, HostListener, Inject, Input, OnInit
 })
 export class FullScreenButtonComponent implements OnInit {
   @Input() color = 'primary'; // primary || accent || warn || disabled
-  elem: any;
+  elem!: Element;
   isFullScreen = false;
   constructor(@Inject(DOCUMENT) private document: any) {}
 
   ngOnInit(): void {
     this.checkScreenMode();
     this.elem = document.documentElement;
+    console.log(this.elem);
   }
 
   @HostListener('document:fullscreenchange', ['$event'])
@@ -27,33 +28,14 @@ export class FullScreenButtonComponent implements OnInit {
   }
 
   checkScreenMode() {
-    if (document.fullscreenElement) {
-      this.isFullScreen = true;
-    } else {
-      this.isFullScreen = false;
-    }
+    this.isFullScreen = Boolean(document.fullscreenElement);
   }
+
   changeScreen() {
     if (!this.isFullScreen) {
-      if (this.elem.requestFullscreen) {
-        this.elem.requestFullscreen();
-      } else if (this.elem.mozRequestFullScreen) {
-        this.elem.mozRequestFullScreen();
-      } else if (this.elem.webkitRequestFullscreen) {
-        this.elem.webkitRequestFullscreen();
-      } else if (this.elem.msRequestFullscreen) {
-        this.elem.msRequestFullscreen();
-      }
+      this.elem.requestFullscreen();
     } else {
-      if (this.document.exitFullscreen) {
-        this.document.exitFullscreen();
-      } else if (this.document.mozCancelFullScreen) {
-        this.document.mozCancelFullScreen();
-      } else if (this.document.webkitExitFullscreen) {
-        this.document.webkitExitFullscreen();
-      } else if (this.document.msExitFullscreen) {
-        this.document.msExitFullscreen();
-      }
+      this.document.exitFullscreen();
     }
   }
 }

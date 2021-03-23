@@ -1,6 +1,6 @@
 <div class="savannah">
   <div class="savannah-words">
-    <button mat-button class="savannah-words_item" *ngFor="let word of words; let i = index">
+    <button mat-button class="savannah-words_item" *ngFor="let word of words; let i = index; trackBy: trackByFn">
       {{ i + 1 }}.{{ word.word | uppercase }}
     </button>
   </div>

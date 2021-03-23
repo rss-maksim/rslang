@@ -32,4 +32,8 @@ export class SavannahMiniGameComponent implements OnInit {
   ngOnInit(): void {
     return;
   }
+
+  trackByFn(index: number) {
+    return index;
+  }
 }
