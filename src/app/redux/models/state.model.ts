@@ -1,7 +1,5 @@
-export interface AppState {
-    home: number;
-}
+import { HomeState } from './home.state.model';
 
-export interface HomeState {
-    counter: number;
+export interface AppState {
+  home: HomeState;
 }

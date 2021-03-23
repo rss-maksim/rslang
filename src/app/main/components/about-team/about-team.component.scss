@@ -1,0 +1,16 @@
+.about-team {
+  width: 100%;
+  margin-top: 2rem;
+
+  &__title {
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  &__cards {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+}

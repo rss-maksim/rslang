@@ -1,0 +1,12 @@
+.demo {
+  &__title {
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  &__video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
