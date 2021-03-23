@@ -1,6 +1,6 @@
 :host {
   position: relative;
-  background: url("../../shared/assets/savannah-background.jpg") no-repeat center center fixed;
+  background: url("../../../../assets/images/mini-games/savannah-background.jpg") no-repeat center center fixed;
   background-size: cover;
   min-height: 85vh;
   display: flex;
@@ -27,7 +27,7 @@
   &-words {
 
     &_item {
-      font-size: 1.5em;
+      font-size: 1.5rem;
     }
   }
 

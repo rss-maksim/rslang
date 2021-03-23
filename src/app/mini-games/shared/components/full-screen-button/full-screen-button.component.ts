@@ -16,7 +16,6 @@ export class FullScreenButtonComponent implements OnInit {
   ngOnInit(): void {
     this.checkScreenMode();
     this.elem = document.documentElement;
-    console.log(this.elem);
   }
 
   @HostListener('document:fullscreenchange', ['$event'])
