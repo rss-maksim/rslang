@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HomeComponent } from './components/home/home.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 import { SharedModule } from '../shared/shared.module';
+import { CoreModule } from '../core/core.module';
+import { MaterialModule } from '../material/material.module';
+import { AboutTeamComponent } from './components/about-team/about-team.component';
+import { TeammateCardComponent } from './components/teammate-card/teammate-card.component';
+import { DemoComponent } from './components/demo/demo.component';
 
 @NgModule({
-    declarations: [HomeComponent],
-    imports: [CommonModule, SharedModule],
+  declarations: [HomePageComponent, AboutTeamComponent, TeammateCardComponent, DemoComponent],
+  imports: [CommonModule, SharedModule, CoreModule, MaterialModule],
 })
 export class MainModule {}
