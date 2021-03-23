@@ -1,12 +1,12 @@
 <header class="page-header">
   <nav class="page-header__navigation">
     <ul>
-      <li *ngFor="let item of headerMenu">
+      <li *ngFor="let item of headerMenu; trackBy: identify">
         <a [routerLink]="item.router" routerLinkActive="active">
           <span class="page-header__icon">
-            <img [src]="item.srcImg" alt="item.name">
+            <img [src]="item.srcImg" alt="item.name" />
           </span>
-          <span class="page-header-linkText">{{item.name}}</span>
+          <span class="page-header-linkText">{{ item.name }}</span>
         </a>
       </li>
     </ul>
@@ -16,7 +16,7 @@
     <a [routerLink]="['/login']" *ngIf="!isAuthorization; else logOut">Sing up / Login</a>
     <ng-template #logOut>
       <div class="page-header__userBlock">
-        <img [src]="userPhoto" alt="User Photo">
+        <img [src]="userPhoto" alt="User Photo" />
         <a class="page-header__logOut" href="#!">Log Out</a>
       </div>
     </ng-template>
