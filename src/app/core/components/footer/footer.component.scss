@@ -1,3 +1,69 @@
 :host {
+  display: flex;
+  flex-direction: column;
   margin-top: auto;
+  padding: .5rem 1rem;
+  background-color: royalblue;
+  box-sizing: border-box;
+}
+
+.page-footer__list {
+  max-width: 62.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 .5rem;
+  }
+}
+
+hr {
+  margin-block-start: .05rem;
+  margin-block-end: .5rem;
+}
+
+.page-footer__image {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 2.5rem;
+  margin-bottom: .5rem;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.page-footer__info {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+    display: block;
+    width: 4rem;
+  }
+
+  span {
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 520px) {
+
+  .page-footer__image {
+    width: 2rem;
+    height: 2rem;
+  }
 }
