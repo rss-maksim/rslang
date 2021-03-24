@@ -1,0 +1,47 @@
+:host {
+  position: relative;
+  background: url("../../../../assets/images/mini-games/savannah-background.jpg") no-repeat center center fixed;
+  background-size: cover;
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+
+    background: rgba(#087829, .50);
+  }
+}
+
+.savannah {
+  color: white;
+
+  &-words {
+
+    &_item {
+      font-size: 1.5rem;
+    }
+  }
+
+  &-progress {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+  }
+}
+
+.fullscreen-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
