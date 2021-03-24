@@ -10,3 +10,12 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.container {
+  margin: 0 auto;
+  padding: 0 40px;
+  max-width: 1200px;
+  width: 100%;
+
+  box-sizing: border-box;
+}

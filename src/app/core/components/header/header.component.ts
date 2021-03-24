@@ -14,22 +14,22 @@ export class HeaderComponent {
 
   headerMenu = [
     {
-      name: 'Home',
+      name: 'Главная',
       router: ['/home'],
       srcImg: HeaderLinks.iconHome,
     },
     {
-      name: 'Textbook',
+      name: 'Словарь',
       router: ['/dictionary'],
       srcImg: HeaderLinks.iconTextbook,
     },
     {
-      name: 'Mini Games',
+      name: 'Мини Игры',
       router: ['/mini-games'],
       srcImg: HeaderLinks.iconMiniGames,
     },
     {
-      name: 'Statistics',
+      name: 'Статистика',
       router: ['/statistics'],
       srcImg: HeaderLinks.iconStatistic,
     },
