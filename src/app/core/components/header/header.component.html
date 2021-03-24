@@ -13,11 +13,11 @@
   </nav>
 
   <div class="page-header__authorization">
-    <a [routerLink]="['/login']" *ngIf="!isAuthorization; else logOut">Sing up / Login</a>
+    <a [routerLink]="['/login']" *ngIf="!isAuthorization; else logOut">Войти</a>
     <ng-template #logOut>
       <div class="page-header__userBlock">
         <img [src]="userPhoto" alt="User Photo" />
-        <a class="page-header__logOut" href="#!">Log Out</a>
+        <a class="page-header__logOut" href="#!">Выйти</a>
       </div>
     </ng-template>
   </div>

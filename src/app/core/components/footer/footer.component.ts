@@ -19,8 +19,8 @@ export class FooterComponent implements OnInit {
   rssUrl = RSSLinks.url;
   constructor(private store: Store<AppState>) {}
 
-  onClick() {
-    console.log(this.teammates$);
+  trackByFn(index: number): number {
+    return index;
   }
 
   ngOnInit() {
