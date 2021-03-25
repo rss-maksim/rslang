@@ -1,0 +1,15 @@
+<ng-template #introBlock>
+  <div>
+    <div class="intro">
+      <h2 class="title">Аудиовызов</h2>
+      <p class="text">Тренировка улучшает восприятие речи на слух</p>
+      <button class="start_btn" (click)="startGame()">Начать</button>
+    </div>
+  </div>
+</ng-template>
+
+<div *ngIf="isGameStarted$ | async; else introBlock">
+  <app-audiochallenge-game></app-audiochallenge-game>
+</div>
+
+<ng-template #gameBlock> </ng-template>

@@ -14,6 +14,8 @@ import { environment } from '../environments/environment';
 import homeReducer from './redux/reducers/homeReducer';
 import { MainModule } from './main/main.module';
 import { TeamEffects } from './redux/effects/team.effect';
+import audiochallengeReducer from './redux/reducers/audiochallengeReducer';
+import { AudiochallengeEffects } from './redux/effects/audiochallenge.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,8 +27,8 @@ import { TeamEffects } from './redux/effects/team.effect';
     MainModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot({ home: homeReducer }),
-    EffectsModule.forRoot([TeamEffects]),
+    StoreModule.forRoot({ home: homeReducer, audiochallenge: audiochallengeReducer }),
+    EffectsModule.forRoot([TeamEffects, AudiochallengeEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

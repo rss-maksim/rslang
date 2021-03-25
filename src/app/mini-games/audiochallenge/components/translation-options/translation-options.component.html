@@ -1,0 +1,7 @@
+<ul class="translations">
+  <li *ngFor="let item of options" class="translations__option">
+    <div class="option__number">{{ options.indexOf(item) + 1 }}</div>
+    <div class="answer-indication"></div>
+    <span class="option__text">{{ item }}</span>
+  </li>
+</ul>

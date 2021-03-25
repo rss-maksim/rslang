@@ -1,0 +1,28 @@
+.audiochallenge__button {
+  height: 60px;
+  background-color: hsla(0, 0%, 100%, 0.096);
+  display: inline-block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  padding: 19px 15px;
+  min-width: 162px;
+  border: 1px solid hsla(0, 0%, 100%, 0.2);
+  border-radius: 3px;
+  text-align: center;
+  text-decoration: none;
+  color: hsla(0, 0%, 100%, 0.9);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.audiochallenge__button_arrow-right {
+  background-image: url(../../../../../assets/images/icons/mini-games/arrow_right_alt-24px.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80%;
+}
