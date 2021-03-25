@@ -12,13 +12,15 @@
     </ul>
   </nav>
 
-  <div class="page-header__authorization">
-    <a [routerLink]="['/login']" *ngIf="!isAuthorization; else logOut">Войти</a>
-    <ng-template #logOut>
-      <div class="page-header__userBlock">
-        <img [src]="userPhoto" alt="User Photo" />
-        <a class="page-header__logOut" href="#!">Выйти</a>
-      </div>
+  <div *ngIf="!isLoginPage" class="page-header__authorization">
+    <div class="page-header__userBlock" *ngIf="user$ | async as user; else login">
+      <img [src]="user?.pictureUrl || userDefaultPhoto" alt="User Photo" />
+      <button mat-icon-button aria-label="Logout icon button" title="Выйти" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+    <ng-template #login>
+      <a [routerLink]="['/auth/login']">Войти</a>
     </ng-template>
   </div>
 </header>

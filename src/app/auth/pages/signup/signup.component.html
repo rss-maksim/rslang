@@ -1,0 +1,75 @@
+<div class="signup">
+  <h1>Регистрация</h1>
+  <form class="signup__form" (submit)="register($event)" [formGroup]="signupForm" novalidate>
+    <div class="signup__form-field-container">
+      <mat-form-field class="signup__form-field" appearance="outline">
+        <mat-label>Имя пользователя</mat-label>
+        <input type="text" matInput [formControl]="usernameFormControl" placeholder="Имя пользователя" />
+        <mat-error *ngIf="usernameFormControl.hasError('required')"> Username is required </mat-error>
+        <mat-error *ngIf="usernameFormControl.hasError('minlength')"> Username should be 3 characters min </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="signup__form-field-container">
+      <mat-form-field class="signup__form-field" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput [formControl]="emailFormControl" placeholder="Email" />
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Введите валидный email
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')"> Email <strong>обязателен</strong> </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="signup__form-field-container">
+      <mat-form-field class="signup__form-field" appearance="outline">
+        <mat-label>Пароль</mat-label>
+        <input
+          [type]="visibility.passwordIsVisible ? 'text' : 'password'"
+          matInput
+          [formControl]="passwordFormControl"
+          placeholder="Пароль"
+          (input)="onPasswordInput()"
+        />
+        <mat-icon class="signup__visibility-icon" matSuffix (click)="changeVisibility('passwordIsVisible')">
+          {{ visibility.passwordIsVisible ? "visibility" : "visibility_off" }}
+        </mat-icon>
+        <mat-error *ngIf="passwordFormControl.hasError('required')"> Пароль обязателен </mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('pattern')">
+          Пароль должен содержать не менее 8 символов, одну прописную, одну строчную букву, цифры и специальный символ
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="signup__form-field-container">
+      <mat-form-field class="signup__form-field" appearance="outline">
+        <mat-label>Подтвердите пароль</mat-label>
+        <input
+          [type]="visibility.confirmPasswordIsVisible ? 'text' : 'password'"
+          matInput
+          [formControl]="confirmPasswordFormControl"
+          placeholder="Подтвердите пароль"
+          (input)="onPasswordInput()"
+        />
+        <mat-icon class="signup__visibility-icon" matSuffix (click)="changeVisibility('confirmPasswordIsVisible')">
+          {{ visibility.confirmPasswordIsVisible ? "visibility" : "visibility_off" }}
+        </mat-icon>
+        <mat-error *ngIf="confirmPasswordFormControl.dirty && signupForm.hasError('matchingError')">
+          Пароли не совпадают
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <button class="signup__submit-btn" type="submit" mat-stroked-button color="primary" [disabled]="signupForm.invalid">
+      Создать аккаунт
+    </button>
+
+    <div class="signup__go-login">
+      <span class="signup__go-login-text">Есть аккаунт?</span>
+      <a class="signup__go-login-link" routerLink="/auth/login">Войти</a>
+    </div>
+
+    <div *ngIf="serverError" class="mat-error signup__server-error">{{ serverError }}</div>
+  </form>
+  <app-progress *ngIf="loading"></app-progress>
+</div>
