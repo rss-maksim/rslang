@@ -1,4 +1,4 @@
-import { SavannahMiniGameComponent } from './savannah/savannah-mini-game/savannah-mini-game.component';
+import { SavannahMiniGameComponent } from './savannah/pages/savannah-mini-game/savannah-mini-game.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
