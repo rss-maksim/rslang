@@ -1,8 +1,12 @@
 .translations {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
   list-style: none;
+  width: 100%;
 }
 
 .translations__option {
@@ -30,6 +34,7 @@
   // font-size: 1.5rem;
   color: rgba(255, 255, 255, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 3px;
 }
 
 .option__text {

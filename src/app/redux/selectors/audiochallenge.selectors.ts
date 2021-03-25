@@ -1,6 +1,4 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { IWord } from '../actions/audiochallenge.actions';
-
 import { AudiochallengeState } from '../models/audiochallenge.state.model';
 import { AppState } from '../models/state.model';
 

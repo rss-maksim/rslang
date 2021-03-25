@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatRippleModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
 @NgModule({
@@ -19,6 +20,7 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatSliderModule,
     MatRippleModule,
+    MatInputModule,
     MatProgressSpinnerModule,
     MatListModule,
   ],
@@ -30,6 +32,7 @@ import { MatListModule } from '@angular/material/list';
     MatSelectModule,
     MatSliderModule,
     MatRippleModule,
+    MatInputModule,
     MatProgressSpinnerModule,
     MatListModule,
   ],

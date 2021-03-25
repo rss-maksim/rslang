@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   margin-top: auto;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   background-color: royalblue;
   box-sizing: border-box;
 }
@@ -21,13 +21,13 @@
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    padding: 0 .5rem;
+    padding: 0 0.5rem;
   }
 }
 
 hr {
-  margin-block-start: .05rem;
-  margin-block-end: .5rem;
+  margin-block-start: 0.05rem;
+  margin-block-end: 0.5rem;
 }
 
 .page-footer__image {
@@ -35,12 +35,13 @@ hr {
   align-items: center;
   position: relative;
   width: 2.5rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 
   img {
     width: 100%;
     object-fit: cover;
     object-position: center;
+    border-radius: 50%;
   }
 }
 
@@ -61,7 +62,6 @@ hr {
 }
 
 @media (max-width: 520px) {
-
   .page-footer__image {
     width: 2rem;
     height: 2rem;

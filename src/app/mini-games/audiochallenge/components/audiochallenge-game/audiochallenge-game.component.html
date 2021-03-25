@@ -1,11 +1,7 @@
 <ng-template [ngIf]="currentWord$ | async" let-currentWord>
   <div class="audiochallenge__container">
-    <!-- word info - audio | word card: audio icon + word + translate -->
     <app-audiochallenge-word-card [word]="currentWord" [img]="currentWord.image"></app-audiochallenge-word-card>
-    <!-- translation variants - translation array + right translation -->
-
     <app-translation-options></app-translation-options>
-
-    <app-decision-buttons></app-decision-buttons>
+    <app-decision-buttons [id]="id"></app-decision-buttons>
   </div>
 </ng-template>

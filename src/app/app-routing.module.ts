@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'statistics',
     loadChildren: () => import('./statistics/statistics.module').then((m) => m.StatisticsModule),
   },
-  { path: 'login', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule) },
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule) },
   { path: '**', component: NotFoundComponent },
 ];
 

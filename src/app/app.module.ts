@@ -12,11 +12,13 @@ import { MaterialModule } from './material/material.module';
 import { CoreModule } from './core/core.module';
 import { environment } from '../environments/environment';
 import homeReducer from './redux/reducers/homeReducer';
+import userReducer from './redux/reducers/userReducer';
 import { MainModule } from './main/main.module';
 import { TeamEffects } from './redux/effects/team.effect';
 import audiochallengeReducer from './redux/reducers/audiochallengeReducer';
 import { AudiochallengeEffects } from './redux/effects/audiochallenge.effects';
-
+import { UserEffects } from './redux/effects/user.effect';
+import { httpInterceptorsProviders } from './shared/interceptors';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -27,14 +29,14 @@ import { AudiochallengeEffects } from './redux/effects/audiochallenge.effects';
     MainModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot({ home: homeReducer, audiochallenge: audiochallengeReducer }),
-    EffectsModule.forRoot([TeamEffects, AudiochallengeEffects]),
+    StoreModule.forRoot({ home: homeReducer, user: userReducer, audiochallenge: audiochallengeReducer }),
+    EffectsModule.forRoot([TeamEffects, UserEffects, AudiochallengeEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
   ],
-  providers: [],
+  providers: [...httpInterceptorsProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

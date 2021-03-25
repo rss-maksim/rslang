@@ -8,6 +8,7 @@ import {
   wordByIdLoadedSuccess,
   initialWord,
   translationChoosed,
+  nextWord,
 } from '../actions/audiochallenge.actions';
 import { AudiochallengeState } from '../models/audiochallenge.state.model';
 
@@ -43,6 +44,9 @@ const audiochallengeReducer = createReducer(
   }),
   on(translationChoosed, (state) => {
     return { ...state, isTranslationChoosed: true };
+  }),
+  on(nextWord, (state) => {
+    return { ...state, isTranslationChoosed: false };
   }),
 );
 

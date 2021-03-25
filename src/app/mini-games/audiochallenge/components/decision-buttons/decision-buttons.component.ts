@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IWord, nextWord, translationChoosed } from 'src/app/redux/actions/audiochallenge.actions';
@@ -9,23 +9,17 @@ import { selectIsChoosed, selectWords } from 'src/app/redux/selectors/audiochall
   selector: 'app-decision-buttons',
   templateUrl: './decision-buttons.component.html',
   styleUrls: ['./decision-buttons.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DecisionButtonsComponent implements OnInit {
-  words$!: Observable<IWord[]>;
-  word$!: Observable<IWord[]>;
-  id!: string;
+  @Input() id!: string;
   guessed$!: Observable<boolean>;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.guessed$ = this.store.select(selectIsChoosed);
-    this.words$ = this.store.select(selectWords);
-    this.words$.subscribe((value) => {
-      if (value.length > 0) {
-        this.id = value[value.length - 1].id;
-      }
-    });
+    console.log(this.id);
   }
 
   guess() {
