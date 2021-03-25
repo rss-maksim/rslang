@@ -3,8 +3,8 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
-import { serverErrorText } from './const';
 import { regExpEmailPattern } from '../../const/patterns';
+import { ErrorsParserService } from '../../services/errors-parser.service';
 
 interface MatchingError {
   matchingError: true;
@@ -39,7 +39,12 @@ export class SignupComponent {
     return password === confirm ? null : { matchingError: true };
   }
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private parser: ErrorsParserService,
+  ) {
     this.usernameFormControl = fb.control('', [Validators.required, Validators.minLength(3)]);
     this.emailFormControl = fb.control('', [Validators.required, Validators.email]);
     this.passwordFormControl = fb.control('', [Validators.required, Validators.pattern(regExpEmailPattern)]);
@@ -83,7 +88,7 @@ export class SignupComponent {
           }
         },
         ({ error }) => {
-          this.serverError = typeof error === 'string' ? error : serverErrorText;
+          this.serverError = typeof error === 'string' ? error : this.parser.parseError(error?.error);
           this.loading = false;
         },
         () => {

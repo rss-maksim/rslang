@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../../services/auth.service';
-import { serverErrorText } from '../signup/const';
 import { regExpEmailPattern } from '../../const/patterns';
+import { ErrorsParserService } from '../../services/errors-parser.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,12 @@ export class LoginComponent {
   passwordIsVisible = false;
   loading = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private parser: ErrorsParserService,
+  ) {
     const { email } = window.history.state;
     this.emailFormControl = fb.control(email ?? '', [Validators.required, Validators.email]);
     this.passwordFormControl = fb.control('', [Validators.required, Validators.pattern(regExpEmailPattern)]);
@@ -42,7 +47,7 @@ export class LoginComponent {
           }
         },
         ({ error }) => {
-          this.serverError = typeof error === 'string' ? error : serverErrorText;
+          this.serverError = typeof error === 'string' ? error : this.parser.parseError(error?.error);
           this.loading = false;
         },
         () => {
