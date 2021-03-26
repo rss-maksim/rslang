@@ -3,7 +3,7 @@ import { HeaderLinks } from '../../constants';
 export const headerMenu = [
   {
     name: 'Главная',
-    router: ['/home'],
+    router: ['/'],
     srcImg: HeaderLinks.iconHome,
   },
   {
