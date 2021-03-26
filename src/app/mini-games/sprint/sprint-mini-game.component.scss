@@ -1,14 +1,15 @@
 .background-container {
-  position: absolute;
-  top: -3.8rem;
-  bottom: -2rem;
+  position: fixed;
+  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  background: #95aac0 url("../../../assets/images/mini-games-sprint-background.jpg") 0 0 no-repeat;
+  background: #95aac0 url("../../../assets/images/mini-games/sprint/mini-games-sprint-background.jpg") 0 0 no-repeat;
   background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 
   &::before {
     content: "";
@@ -20,16 +21,51 @@
     margin: auto;
     background: rgba(#95aac0, 0.65);
   }
-
-  .container {
-    z-index: 1;
-  }
 }
 
-.container {
-  p {
+.game-container {
+  z-index: 2;
+  user-select: none;
+}
+
+.game {
+  &__counter {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+  }
+
+  &__start-text {
+    margin-left: -2rem;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  &__text {
     margin-top: 0.8rem;
     font-size: 1.5rem;
     text-align: center;
   }
+
+  &__score {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__mute {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    font-size: 2.4rem;
+  }
+
+  &__fullscreen {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 2.5rem;
+  }
+}
+
+mat-icon:hover {
+  cursor: pointer;
 }

@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CounterComponent } from './components/counter/counter.component';
 import { ProgressComponent } from './components/progress/progress.component';
 import { MaterialModule } from '../material/material.module';
 
 @NgModule({
-  declarations: [CounterComponent, ProgressComponent],
+  declarations: [ProgressComponent],
   imports: [CommonModule, MaterialModule],
-  exports: [CounterComponent, ProgressComponent],
+  exports: [ProgressComponent],
 })
 export class SharedModule {}

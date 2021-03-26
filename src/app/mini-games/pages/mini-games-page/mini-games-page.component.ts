@@ -1,39 +1,5 @@
 import { Component } from '@angular/core';
-
-type GameCard = {
-  name: string;
-  icon: string;
-  route: string;
-  description: string;
-};
-
-const GAME_CARDS: GameCard[] = [
-  {
-    name: 'Спринт',
-    icon: 'timer',
-    route: 'sprint',
-    description:
-      'Учит быстро переводить с английского на ваш родной язык. Для этой тренировки используются слова из вашего словаря',
-  },
-  {
-    name: 'Аудиовызов',
-    icon: 'audiotrack',
-    route: 'audiochallenge',
-    description: 'Улучшает восприятие английской речи на слух',
-  },
-  {
-    name: 'Саванна',
-    icon: 'pets',
-    route: 'savannah',
-    description: 'Оттачивает понимание речи и быстрого перевода слов, помогает не забыть выученные слова',
-  },
-  {
-    name: 'Своя игра',
-    icon: 'contact_support',
-    route: 'custom-game',
-    description: 'Помогает не забывать уже выученные слова, тренировка проходит по алгоритму "кривой забывания"',
-  },
-];
+import { GameCard, GAME_CARDS } from 'src/app/core/constants/mini-games';
 
 @Component({
   selector: 'app-mini-games-page',
