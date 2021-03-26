@@ -14,8 +14,8 @@
 
   <div *ngIf="!isLoginPage" class="page-header__authorization">
     <div class="page-header__userBlock" *ngIf="user$ | async as user; else login">
-      <img [src]="user?.pictureUrl || userDefaultPhoto" alt="User Photo" />
-      <button mat-icon-button aria-label="Logout icon button" title="Выйти" (click)="logout()">
+      <img [src]="user?.pictureUrl || userDefaultPhoto" [matTooltip]="user.username" alt="User Photo" />
+      <button mat-icon-button aria-label="Logout icon button" (click)="logout()" matTooltip="Выйти">
         <mat-icon>logout</mat-icon>
       </button>
     </div>
