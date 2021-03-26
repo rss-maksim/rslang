@@ -33,6 +33,14 @@
     font-size: 2.3rem;
   }
 
+  &__points {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: default;
+    font-size: 1.5rem;
+  }
+
   &__volume {
     width: 3rem;
     height: 3rem;

@@ -8,6 +8,8 @@
       <mat-icon class="game-card__star" *ngIf="onStreakChange(streak).thirdStar">star</mat-icon>
     </div>
 
+    <button class="game-card__points" mat-fab color="warn" disableRipple>+{{ 10 * multiplier }}</button>
+
     <p class="game-card__text">
       {{ word }}
       <mat-icon

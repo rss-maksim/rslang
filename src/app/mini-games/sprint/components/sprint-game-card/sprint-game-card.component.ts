@@ -1,4 +1,5 @@
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+
 import { Sprinter } from 'src/app/core/constants/sprint-game';
 import { Answers, KeyboardKeys, StreakLevel } from '../../../../core/models/ISprintGame';
 
@@ -11,6 +12,7 @@ export class SprintGameCardComponent {
   @Input() word = '';
   @Input() translation = '';
   @Input() streak = 0;
+  @Input() multiplier = 1;
   @Output() pronounceWord = new EventEmitter();
   @Output() handleTurn = new EventEmitter<string>();
   @HostListener('window:keyup', ['$event']) keyEvent(event: KeyboardEvent) {

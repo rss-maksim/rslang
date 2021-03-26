@@ -7,7 +7,7 @@
     <ng-container *ngIf="game.gameState === 'SETUP'"> Game SETUP </ng-container>
 
     <ng-container *ngIf="game.gameState === 'READY'">
-      <app-counter *ngIf="isStarterCounterShown" (countIsOver)="readyToPlay()"></app-counter>
+      <app-counter [count]="0" *ngIf="isStarterCounterShown" (countIsOver)="readyToPlay()"></app-counter>
       <p class="game__start-text">{{ loadingWordsMessage || "Приготовьтесь" }}</p>
     </ng-container>
 
@@ -41,6 +41,7 @@
         [word]="game.word"
         [translation]="game.wordTranslation"
         [streak]="game.streak"
+        [multiplier]="game.multiplier"
         (pronounceWord)="pronounceWord()"
         (handleTurn)="handleTurn($event)"
         #answerRipple
