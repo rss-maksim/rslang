@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { selectTeammates } from '../../../redux/selectors/home.selector';
 import { Teammate } from '../../../redux/models/teammate.model';
 import { AppState } from '../../../redux/models/state.model';
-import { fetchTeam } from '../../../redux/actions';
-import { RSSLinks } from '../../constants/index';
+import { RSSLinks } from '../../constants';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
   teammates$: Observable<Teammate[]> = this.store.select(selectTeammates);
   rssImage = RSSLinks.image;
   rssUrl = RSSLinks.url;
@@ -21,9 +20,5 @@ export class FooterComponent implements OnInit {
 
   trackByFn(index: number): number {
     return index;
-  }
-
-  ngOnInit() {
-    this.store.dispatch(fetchTeam());
   }
 }

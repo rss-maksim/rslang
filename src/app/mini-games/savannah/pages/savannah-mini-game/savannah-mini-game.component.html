@@ -1,7 +1,14 @@
 <div class="savannah">
   <div class="savannah-container">
     <div class="savannah-container_flex">
-      <div class="savannah-container_word" *ngIf="visible" [@word-slide]="wordState">WORD</div>
+      <div
+        class="savannah-container_word"
+        [@word-slide]="wordState"
+        (@word-slide.start)="onAnimationEvent($event)"
+        (@word-slide.done)="onAnimationEvent($event)"
+      >
+        WORD
+      </div>
     </div>
     <mat-progress-spinner class="savannah-container_progress" diameter="70" value="70"></mat-progress-spinner>
   </div>

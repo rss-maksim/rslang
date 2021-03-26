@@ -1,0 +1,46 @@
+<div class="login">
+  <h1>Логин</h1>
+  <form class="login__form" (submit)="login($event)" [formGroup]="loginForm" novalidate>
+    <div class="login__form-field-container">
+      <mat-form-field class="login__form-field" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput [formControl]="emailFormControl" placeholder="Email" />
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Введите валидный email
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')"> Email <strong>обязателен</strong> </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="login__form-field-container">
+      <mat-form-field class="login__form-field" appearance="outline">
+        <mat-label>Пароль</mat-label>
+        <input
+          [type]="passwordIsVisible ? 'text' : 'password'"
+          matInput
+          [formControl]="passwordFormControl"
+          placeholder="Пароль"
+        />
+        <mat-icon class="login__visibility-icon" matSuffix (click)="changeVisibility()">{{
+          passwordIsVisible ? "visibility" : "visibility_off"
+        }}</mat-icon>
+        <mat-error *ngIf="passwordFormControl.hasError('required')"> Пароль обязателен </mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('pattern')">
+          Пароль должен содержать не менее 8 символов, одну прописную, одну строчную букву, цифры и специальный символ
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <button class="login__submit-btn" type="submit" mat-stroked-button color="primary" [disabled]="loginForm.invalid">
+      Войти
+    </button>
+
+    <div class="login__go-signup">
+      <span class="login__go-signup-text">Нет аккаунта?</span>
+      <a class="login__go-signup-link" routerLink="/auth/signup">Зарегистрироваться</a>
+    </div>
+
+    <div *ngIf="serverError" class="mat-error login__server-error">{{ serverError }}</div>
+  </form>
+  <app-progress *ngIf="loading"></app-progress>
+</div>
