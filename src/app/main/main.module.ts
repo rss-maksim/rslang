@@ -8,9 +8,10 @@ import { MaterialModule } from '../material/material.module';
 import { AboutTeamComponent } from './components/about-team/about-team.component';
 import { TeammateCardComponent } from './components/teammate-card/teammate-card.component';
 import { DemoComponent } from './components/demo/demo.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [HomePageComponent, AboutTeamComponent, TeammateCardComponent, DemoComponent],
-  imports: [CommonModule, SharedModule, CoreModule, MaterialModule],
+  imports: [CommonModule, SharedModule, CoreModule, MaterialModule, RouterModule],
 })
 export class MainModule {}

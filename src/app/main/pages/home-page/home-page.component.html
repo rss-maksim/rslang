@@ -9,10 +9,16 @@
           соревновательный дух, страницу статистики для отслеживания индивидульного прогресса, вы сможете изучать
           английский язык легко и с удовольствием.
         </div>
-        <div class="home-page__actions">
-          <a class="home-page__action" mat-button href="/auth/signup">Создать аккаунт</a>
-          <a class="home-page__action" mat-button href="/auth/login">Войти</a>
+        <div class="home-page__actions" *ngIf="isAuthorized$ | async as isAuthorized; else anonymousLinks">
+          <a class="home-page__action" mat-button [routerLink]="['/dictionary']">К учебнику</a>
+          <a class="home-page__action" mat-button [routerLink]="['/mini-games']">Играть</a>
         </div>
+        <ng-template #anonymousLinks>
+          <div class="home-page__actions">
+            <a class="home-page__action" mat-button [routerLink]="['/auth/signup']">Создать аккаунт</a>
+            <a class="home-page__action" mat-button [routerLink]="['/auth/login']">Войти</a>
+          </div>
+        </ng-template>
       </div>
       <div class="home-page__picture"></div>
     </div>
