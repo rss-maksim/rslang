@@ -18,7 +18,6 @@ export const selectIsGameStarted = createSelector(
   (state: AudiochallengeState) => state.isGameStarted,
 );
 export const selectAudio = createSelector(selectAudiochallenge, (state: AudiochallengeState) => state.audio);
-export const selectImage = createSelector(selectAudiochallenge, (state: AudiochallengeState) => state.image);
 export const selectIsChoosed = createSelector(
   selectAudiochallenge,
   (state: AudiochallengeState) => state.isTranslationChoosed,

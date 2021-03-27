@@ -1,9 +1,8 @@
-import { Component, Input, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { IWord, playWordSound } from 'src/app/redux/actions/audiochallenge.actions';
+import { IWord } from 'src/app/redux/actions/audiochallenge.actions';
 import { AppState } from 'src/app/redux/models/state.model';
-import { selectIsChoosed } from 'src/app/redux/selectors/audiochallenge.selectors';
+import { assetsApiUrl } from 'src/app/redux/reducers/audiochallengeReducer';
 
 @Component({
   selector: 'app-audiochallenge-word-card',
@@ -13,22 +12,17 @@ import { selectIsChoosed } from 'src/app/redux/selectors/audiochallenge.selector
 })
 export class AudiochallengeWordCardComponent implements OnChanges {
   @Input() word!: IWord;
-
-  @Input() img!: string;
+  @Input() guessed!: boolean | null;
+  @Output() playEvent = new EventEmitter();
   path!: string;
-
-  guessed$!: Observable<boolean>;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnChanges() {
-    this.guessed$ = this.store.select(selectIsChoosed);
-    if (this.img.length) {
-      this.path = `data:image/jpeg;base64,${this.img}`;
-    }
+    this.path = `${assetsApiUrl}/${this.word.image}?raw=true`;
   }
 
-  play() {
-    this.store.dispatch(playWordSound());
+  onPlay() {
+    this.playEvent.emit();
   }
 }

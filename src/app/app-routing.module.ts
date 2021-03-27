@@ -4,8 +4,7 @@ import { NotFoundComponent } from './core/components/not-found/not-found.compone
 import { HomePageComponent } from './main/pages/home-page/home-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomePageComponent },
+  { path: '', component: HomePageComponent, pathMatch: 'full' },
   {
     path: 'dictionary',
     loadChildren: () => import('./dictionary/dictionary.module').then((m) => m.DictionaryModule),

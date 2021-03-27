@@ -11,23 +11,24 @@ export const audiochallengeStarted = createAction('[AudiochallengeGameComponent]
 
 export const audiochallengeEnded = createAction('[AudiochallengeGameComponent] Audiochallenge Ended');
 
-export const getCurrentWord = createAction('[AudiochallengeGameComponent] Get Word', (payload: string) => ({
-  payload,
-}));
-
-export const wordByIdLoadedSuccess = createAction(
-  '[AudiochallengeGameComponent] Word By Id Loaded Success',
-  (payload: IWord) => ({
-    payload,
-  }),
+export const translationsLoadedSuccess = createAction(
+  '[AudiochallengeGameComponent] Translation Loaded Success',
+  props<{ payload: string[] }>(),
 );
 
+export const checkAnswer = createAction('[AudiochallengeGameComponent] Check Answer', props<{ payload: string }>());
+
+export const rightAnswer = createAction('[AudiochallengeGameComponent] Right Answer');
+export const wrongAnswer = createAction('[AudiochallengeGameComponent] Wrong Answer');
+
 export const playWordSound = createAction('[AudiochallengeGameComponent] Play Word Sound');
-export const nextWord = createAction('[AudiochallengeGameComponent] Next Word', (payload: string) => ({
-  payload,
-}));
+export const showNextWord = createAction('[AudiochallengeGameComponent] Show Next Word');
 
 export const translationChoosed = createAction('[AudiochallengeGameComponent] Translation Choosed');
+
+export const checkGameOver = createAction('[AudiochallengeGameComponent] Check Game Over');
+
+export const gameOver = createAction('[AudiochallengeGameComponent] Game Over');
 
 export interface IWord {
   id: string;
@@ -42,6 +43,7 @@ export interface IWord {
   wordTranslate: string;
   textMeaningTranslate: string;
   textExampleTranslate: string;
+  translationsArray?: string[];
 }
 
 export const initialWord: IWord = {

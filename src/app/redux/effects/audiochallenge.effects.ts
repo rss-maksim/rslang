@@ -5,36 +5,45 @@ import { EMPTY } from 'rxjs';
 import { map, mergeMap, catchError, exhaustMap, switchMap, tap } from 'rxjs/operators';
 import { MiniGamesHttpService } from '../../services/mini-games-http.service';
 import { AppState } from '../models/state.model';
-import { selectAudio } from 'src/app/redux/selectors/audiochallenge.selectors';
+import { selectAudio, selectWords, selectCurrentWord } from 'src/app/redux/selectors/audiochallenge.selectors';
 import {
-  getCurrentWord,
   loadWords,
-  nextWord,
+  showNextWord,
   playWordSound,
-  wordByIdLoadedSuccess,
+  wordsLoadedSuccess,
+  checkGameOver,
+  IWord,
+  checkAnswer,
+  rightAnswer,
+  wrongAnswer,
 } from '../actions/audiochallenge.actions';
-import { IWord } from 'src/app/redux/actions/audiochallenge.actions';
 
 @Injectable()
 export class AudiochallengeEffects {
   loadWords$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadWords),
-      mergeMap(() => {
+      switchMap(() => {
         return this.wordsService.getWords().pipe(
-          map((words) => ({ type: '[AudiochallengeGameComponent] Words Loaded Success', payload: words })),
+          map((words) => ({
+            type: '[AudiochallengeGameComponent] Words Loaded Success',
+            payload: this.wordsService.shuffleArray(Object.values(words)),
+          })),
           catchError(() => EMPTY),
         );
       }),
     );
   });
 
-  loadWordById$ = createEffect(() => {
+  loadRandomTranslations$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(getCurrentWord),
-      mergeMap(({ payload }) => {
-        return this.wordsService.getWordById(payload).pipe(
-          map((word) => ({ type: '[AudiochallengeGameComponent] Word By Id Loaded Success', payload: word })),
+      ofType(loadWords),
+      switchMap(() => {
+        return this.wordsService.getRandomTranslations().pipe(
+          map((words) => ({
+            type: '[AudiochallengeGameComponent] Translation Loaded Success',
+            payload: this.wordsService.getValuesArray(Object.values(words)),
+          })),
           catchError(() => EMPTY),
         );
       }),
@@ -44,7 +53,7 @@ export class AudiochallengeEffects {
   playSound$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(playWordSound, wordByIdLoadedSuccess),
+        ofType(playWordSound, wordsLoadedSuccess, showNextWord, rightAnswer, wrongAnswer),
         concatLatestFrom((action) => this.store.select(selectAudio)),
         tap(([action, audio]) => audio.play()),
       );
@@ -52,14 +61,26 @@ export class AudiochallengeEffects {
     { dispatch: false },
   );
 
-  getNextWord$ = createEffect(() => {
+  checkAnswer$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(nextWord),
-      mergeMap(({ payload }) => {
-        return this.wordsService.getWordById(payload).pipe(
-          map((word) => ({ type: '[AudiochallengeGameComponent] Word By Id Loaded Success', payload: word })),
-          catchError(() => EMPTY),
-        );
+      ofType(checkAnswer),
+      concatLatestFrom(() => this.store.select(selectCurrentWord)),
+      map(([action, word]) => {
+        return action.payload === word.wordTranslate
+          ? { type: '[AudiochallengeGameComponent] Right Answer' }
+          : { type: '[AudiochallengeGameComponent] Wrong Answer' };
+      }),
+    );
+  });
+
+  checkGameOver$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(checkGameOver),
+      concatLatestFrom(() => this.store.select(selectWords)),
+      map(([action, words]) => {
+        return words.length < 1
+          ? { type: '[AudiochallengeGameComponent] Game Over' }
+          : { type: '[AudiochallengeGameComponent] Show Next Word' };
       }),
     );
   });

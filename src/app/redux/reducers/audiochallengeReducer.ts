@@ -1,30 +1,53 @@
-import { createReducer, on, createSelector, Action, State } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 import {
-  loadWords,
   wordsLoadedSuccess,
   IWord,
   audiochallengeStarted,
   audiochallengeEnded,
-  wordByIdLoadedSuccess,
   initialWord,
   translationChoosed,
-  nextWord,
+  showNextWord,
+  translationsLoadedSuccess,
+  rightAnswer,
+  wrongAnswer,
 } from '../actions/audiochallenge.actions';
 import { AudiochallengeState } from '../models/audiochallenge.state.model';
 
 export const initialState: AudiochallengeState = {
   list: [],
+  statsList: [],
   isGameStarted: false,
   currentWord: initialWord,
   audio: new Audio(),
-  image: new Image(),
   isTranslationChoosed: false,
+  translations: [],
 };
+
+export const assetsApiUrl = 'https://github.com/rss-maksim/LearnWords/blob/master';
 
 const audiochallengeReducer = createReducer(
   initialState,
   on(wordsLoadedSuccess, (state, { payload }) => {
-    return { ...state, list: payload };
+    const tempWord = payload[0];
+    const tempList: IWord[] = payload.filter((elem: IWord, index: number) => index !== 0);
+    return {
+      ...state,
+      list: tempList,
+      currentWord: tempWord,
+      audio: new Audio(`${assetsApiUrl}/${tempWord.audio}?raw=true`),
+    };
+  }),
+  on(translationsLoadedSuccess, (state, { payload }) => {
+    const translationsSlice = payload.slice(0, 4);
+    const tempArray = payload.filter((elem: string, index: number) => index > 3);
+    return {
+      ...state,
+      translations: tempArray,
+      currentWord: {
+        ...state.currentWord,
+        translationsArray: [...translationsSlice, state.currentWord.wordTranslate],
+      },
+    };
   }),
   on(audiochallengeStarted, (state) => {
     return { ...state, isGameStarted: true };
@@ -32,21 +55,39 @@ const audiochallengeReducer = createReducer(
   on(audiochallengeEnded, (state) => {
     return { ...state, isGameStarted: false };
   }),
-  on(wordByIdLoadedSuccess, (state, { payload }) => {
-    const newList: IWord[] = state.list.filter((elem: IWord) => elem.id !== payload.id);
-    return {
-      ...state,
-      list: [...newList],
-      currentWord: payload,
-      audio: new Audio(`data:audio/mp3;base64,${payload.audio}`),
-      image: { ...state.image, src: `data:image/jpeg;base64,${payload.image}` },
-    };
-  }),
   on(translationChoosed, (state) => {
     return { ...state, isTranslationChoosed: true };
   }),
-  on(nextWord, (state) => {
-    return { ...state, isTranslationChoosed: false };
+  on(rightAnswer, (state) => {
+    return {
+      ...state,
+      statsList: [...state.statsList, { word: state.currentWord, result: true }],
+      audio: new Audio('../../../assets/sounds/mini-games/success.mp3'),
+    };
+  }),
+  on(wrongAnswer, (state) => {
+    return {
+      ...state,
+      statsList: [...state.statsList, { word: state.currentWord, result: false }],
+      audio: new Audio('../../../assets/sounds/mini-games/fail.mp3'),
+    };
+  }),
+  on(showNextWord, (state) => {
+    const tempWord = state.list[0];
+    const tempList: IWord[] = state.list.filter((elem: IWord, index: number) => index !== 0);
+    const translationsSlice = state.translations.slice(0, 4);
+    const tempArray = state.translations.filter((elem: string, index: number) => index > 3);
+    return {
+      ...state,
+      list: tempList,
+      currentWord: {
+        ...tempWord,
+        translationsArray: [...translationsSlice, tempWord.wordTranslate],
+      },
+      translations: [...tempArray],
+      audio: new Audio(`${assetsApiUrl}/${tempWord.audio}?raw=true`),
+      isTranslationChoosed: false,
+    };
   }),
 );
 

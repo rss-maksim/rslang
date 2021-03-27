@@ -1,8 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { getCurrentWord, IWord, loadWords, playWordSound } from 'src/app/redux/actions/audiochallenge.actions';
-import { selectAudio, selectCurrentWord, selectWords } from 'src/app/redux/selectors/audiochallenge.selectors';
+import {
+  IWord,
+  loadWords,
+  showNextWord,
+  playWordSound,
+  translationChoosed,
+  checkAnswer,
+  checkGameOver,
+  wrongAnswer,
+} from 'src/app/redux/actions/audiochallenge.actions';
+import {
+  selectAudio,
+  selectCurrentWord,
+  selectIsChoosed,
+  selectWords,
+} from 'src/app/redux/selectors/audiochallenge.selectors';
 import { AppState } from 'src/app/redux/models/state.model';
 
 @Component({
@@ -15,24 +29,33 @@ export class AudiochallengeGameComponent implements OnInit {
   audio$!: Observable<HTMLAudioElement>;
   word$!: Observable<IWord[]>;
   words$!: Observable<IWord[]>;
-  id!: string;
+  guessed$!: Observable<boolean>;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(loadWords());
-    this.store.dispatch(getCurrentWord('5e9f5ee35eb9e72bc21af4a1'));
     this.currentWord$ = this.store.select(selectCurrentWord);
     this.audio$ = this.store.select(selectAudio);
     this.words$ = this.store.select(selectWords);
-    this.words$.subscribe((value) => {
-      if (value.length > 0) {
-        this.id = value[value.length - 1].id;
-      }
-    });
+    this.guessed$ = this.store.select(selectIsChoosed);
   }
 
-  play() {
+  playSound() {
     this.store.dispatch(playWordSound());
+  }
+
+  skipWord() {
+    this.store.dispatch(translationChoosed());
+    this.store.dispatch(wrongAnswer());
+  }
+
+  nextWord() {
+    this.store.dispatch(checkGameOver());
+  }
+
+  checkAnswer(translation: string) {
+    this.store.dispatch(translationChoosed());
+    this.store.dispatch(checkAnswer({ payload: translation }));
   }
 }

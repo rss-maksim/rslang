@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import { selectIsAuthorized } from '../../../redux/selectors/user.selector';
+import { AppState } from '../../../redux/models/state.model';
 
 @Component({
   selector: 'app-home-page',
@@ -6,5 +11,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent {
-  constructor() {}
+  isAuthorized$: Observable<boolean> = this.store.select(selectIsAuthorized);
+
+  constructor(private store: Store<AppState>) {}
 }

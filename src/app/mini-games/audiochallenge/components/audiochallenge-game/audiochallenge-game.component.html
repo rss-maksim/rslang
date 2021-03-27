@@ -1,7 +1,16 @@
 <ng-template [ngIf]="currentWord$ | async" let-currentWord>
   <div class="audiochallenge__container">
-    <app-audiochallenge-word-card [word]="currentWord" [img]="currentWord.image"></app-audiochallenge-word-card>
-    <app-translation-options></app-translation-options>
-    <app-decision-buttons [id]="id"></app-decision-buttons>
+    <app-audiochallenge-word-card [word]="currentWord" [guessed]="guessed$ | async" (playEvent)="playSound()">
+    </app-audiochallenge-word-card>
+    <app-translation-options
+      [guessed]="guessed$ | async"
+      [options]="currentWord.translationsArray"
+      (translationEvent)="checkAnswer($event)"
+    ></app-translation-options>
+    <app-decision-buttons
+      [guessed]="guessed$ | async"
+      (guessEvent)="skipWord()"
+      (nextWordEvent)="nextWord()"
+    ></app-decision-buttons>
   </div>
 </ng-template>

@@ -11,7 +11,6 @@ import { MaterialModule } from '../material/material.module';
 import { FullScreenButtonComponent } from './shared/components/full-screen-button/full-screen-button.component';
 import { AudiochallengeMainComponent } from './audiochallenge/components/audiochallenge-main/audiochallenge-main.component';
 import { AudiochallengeGameComponent } from './audiochallenge/components/audiochallenge-game/audiochallenge-game.component';
-import { AudiochallengeWordComponent } from './audiochallenge/components/audiochallenge-word/audiochallenge-word.component';
 import { DecisionButtonsComponent } from './audiochallenge/components/decision-buttons/decision-buttons.component';
 import { AudiochallengeWordCardComponent } from './audiochallenge/components/word-card/word-card.component';
 import { TranslationOptionsComponent } from './audiochallenge/components/translation-options/translation-options.component';
@@ -24,7 +23,6 @@ import { TranslationOptionsComponent } from './audiochallenge/components/transla
     FullScreenButtonComponent,
     AudiochallengeMainComponent,
     AudiochallengeGameComponent,
-    AudiochallengeWordComponent,
     DecisionButtonsComponent,
     AudiochallengeWordCardComponent,
     TranslationOptionsComponent,

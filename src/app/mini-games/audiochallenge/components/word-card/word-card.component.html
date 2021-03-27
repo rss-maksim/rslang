@@ -1,8 +1,8 @@
 <mat-card class="card">
-  <div *ngIf="guessed$ | async; else audioBtnBlock">
+  <div *ngIf="guessed; else audioBtnBlock">
     <div class="card__image" [ngStyle]="{ background: 'url(' + (path ? path : '') + ') no-repeat 0 0 / cover' }"></div>
     <mat-card-title>
-      <button mat-mini-fab class="audio__btn" aria-label="Example icon button with a home icon" (click)="play()">
+      <button mat-mini-fab class="audio__btn" aria-label="Example icon button with a home icon" (click)="onPlay()">
         <i class="material-icons">volume_up</i>
       </button>
       {{ word.word }}
@@ -11,7 +11,7 @@
 </mat-card>
 
 <ng-template #audioBtnBlock>
-  <button mat-fab class="audio__btn audio__btn_big" (click)="play()">
+  <button mat-fab class="audio__btn audio__btn_big" (click)="onPlay()">
     <i class="material-icons md-48">volume_up</i>
   </button>
 </ng-template>
