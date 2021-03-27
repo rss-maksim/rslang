@@ -1,18 +1,4 @@
 <div class="savannah">
-  <div class="savannah-container">
-    <div class="savannah-container_flex">
-      <div
-        class="savannah-container_word"
-        [@word-slide]="wordState"
-        (@word-slide.start)="onAnimationEvent($event)"
-        (@word-slide.done)="onAnimationEvent($event)"
-      >
-        WORD
-      </div>
-    </div>
-    <mat-progress-spinner class="savannah-container_progress" diameter="70" value="70"></mat-progress-spinner>
-  </div>
-  <app-options-input [words]="words" (clicked)="wordClicked($event)"></app-options-input>
-
+  <app-main-actions [words]="words"></app-main-actions>
   <app-full-screen-button color="warn" class="fullscreen-btn"></app-full-screen-button>
 </div>

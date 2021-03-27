@@ -1,6 +1,6 @@
 :host {
   position: fixed;
-  background: url("../../../../../assets/images/mini-games/savannah-background.jpg") no-repeat center center fixed;
+  background: url("./../../../../../assets/images/mini-games/savannah-background.jpg") no-repeat center center fixed;
   background-size: cover;
   min-height: 100vh;
   top: 0;
@@ -28,36 +28,6 @@
 
 .savannah {
   color: white;
-
-  &-container {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    left: 0;
-    right: 0;
-    top: 0;
-    width: fit-content;
-    margin: auto;
-
-    &_flex {
-      margin: 3px 0;
-      flex: 1;
-      position: relative;
-    }
-
-    &_word {
-      transform: translateX(-50%);
-      position: absolute;
-      font-size: 2rem;
-      user-select: none;
-    }
-
-    &_progress {
-      margin-bottom: 10px;
-    }
-  }
 }
 
 .fullscreen-btn {

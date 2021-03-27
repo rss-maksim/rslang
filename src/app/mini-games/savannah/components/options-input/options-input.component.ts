@@ -1,4 +1,4 @@
-import { Word } from './../../models/word.model';
+import { WordModel } from './../../../../core/models/word.model';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
@@ -8,8 +8,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OptionsInputComponent implements OnInit {
-  @Input() words!: Word[];
-  @Output() clicked = new EventEmitter<Word>();
+  @Input() words!: WordModel[];
+  @Output() clicked = new EventEmitter<WordModel>();
 
   constructor() {}
 
@@ -21,7 +21,7 @@ export class OptionsInputComponent implements OnInit {
     return index;
   }
 
-  wordClicked(word: Word): void {
+  wordClicked(word: WordModel): void {
     this.clicked.emit(word);
   }
 }

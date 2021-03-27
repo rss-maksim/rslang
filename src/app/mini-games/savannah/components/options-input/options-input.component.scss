@@ -9,5 +9,9 @@
 @media screen and (max-width: 500px) {
   .savannah-options {
     flex-direction: column;
+
+    &_word {
+      margin-bottom: 3vh;
+    }
   }
 }

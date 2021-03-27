@@ -1,0 +1,8 @@
+<div
+  class="word-container"
+  [@word-slide]="answerState"
+  (@word-slide.start)="onAnimationEvent($event)"
+  (@word-slide.done)="onAnimationEvent($event)"
+>
+  WORD
+</div>
