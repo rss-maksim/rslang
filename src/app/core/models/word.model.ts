@@ -17,3 +17,22 @@ export interface UserWordModel {
   difficulty: string;
   optional: object;
 }
+
+export interface WordsRequestParams {
+  group?: string;
+  page?: string;
+  wordsPerExampleSentenceLTE?: string;
+  wordsPerPage?: string;
+}
+
+export interface AggregatedWordsRequestParams extends WordsRequestParams {
+  filter?: string;
+}
+
+export interface WordRequestParams {
+  noAssets?: string;
+}
+
+export interface CountResponsePayload {
+  count: number;
+}
