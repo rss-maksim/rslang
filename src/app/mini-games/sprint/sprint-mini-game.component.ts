@@ -5,7 +5,7 @@ import { Answers, GameState, Sound, SprintGame, StreakLevel } from 'src/app/core
 import { getPointsMultiplier, getRandomNumber, getRandomPages, isTranslationCorrect, playSound } from './utils/utils';
 import { MatRipple } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Color, MAX_TRAINED_WORDS } from 'src/app/core/constants/sprint-game';
+import { Color, DEFAULT_WORDS_DIFFICULTY, MAX_TRAINED_WORDS } from 'src/app/core/constants/sprint-game';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SprintGamePauseExitComponent } from './components/sprint-game-pause-exit/sprint-game-pause-exit.component';
 import { Subscription } from 'rxjs';
@@ -36,6 +36,9 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   loadingWordsMessage = '';
   isStarterCounterShown = true;
   closeDialogSubsription?: Subscription;
+  wordsBatch1Subscription?: Subscription;
+  wordsBatch2Subscription?: Subscription;
+  wordsBatch3Subscription?: Subscription;
 
   constructor(
     private http: MiniGamesHttpService,
@@ -54,17 +57,26 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     if (this.closeDialogSubsription) {
       this.closeDialogSubsription.unsubscribe();
     }
+    if (this.wordsBatch1Subscription) {
+      this.wordsBatch1Subscription.unsubscribe();
+    }
+    if (this.wordsBatch2Subscription) {
+      this.wordsBatch2Subscription.unsubscribe();
+    }
+    if (this.wordsBatch3Subscription) {
+      this.wordsBatch3Subscription.unsubscribe();
+    }
   }
 
-  getWords(difficulty: number) {
+  getWords(difficulty: number = DEFAULT_WORDS_DIFFICULTY) {
     const [page1, page2, page3] = getRandomPages();
-    this.http.getWords(difficulty, page1).subscribe((words) => {
+    this.wordsBatch1Subscription = this.http.getWords(difficulty, page1).subscribe((words) => {
       this.game.words.push(...words);
     });
-    this.http.getWords(difficulty, page2).subscribe((words) => {
+    this.wordsBatch2Subscription = this.http.getWords(difficulty, page2).subscribe((words) => {
       this.game.words.push(...words);
     });
-    this.http.getWords(difficulty, page3).subscribe((words) => {
+    this.wordsBatch3Subscription = this.http.getWords(difficulty, page3).subscribe((words) => {
       this.game.words.push(...words);
     });
     this.game.gameState = GameState.READY;
@@ -124,6 +136,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
       this.game.trainedWords.push({
         ...trainedWord,
         result: Answers.WRONG,
+        translation: this.game.words[this.game.wordIndex].wordTranslate,
       });
 
       this.launchRipple(Answers.WRONG);
@@ -135,7 +148,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
 
   nextTurn() {
     if (this.game.trainedWords.length === MAX_TRAINED_WORDS) {
-      this.game.gameState = GameState.OVER;
+      this.gameOver();
       return;
     }
 
@@ -159,8 +172,9 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     }
   }
 
-  pronounceWord() {
-    this.http.getWordById(this.game.words[this.game.wordIndex].id).subscribe((word) => playSound(word.audio));
+  pronounceWord(id?: string) {
+    const wordId = id ? id : this.game.words[this.game.wordIndex].id;
+    this.http.getWordById(wordId).subscribe((word) => playSound(word.audio));
   }
 
   gameOver() {
@@ -188,5 +202,20 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     this.closeDialogSubsription = this.closeDialog.afterAllClosed.subscribe(() => {
       this.game.isPaused = false;
     });
+  }
+
+  resetGame() {
+    this.isStarterCounterShown = true;
+    this.game = {
+      ...this.game,
+      gameState: GameState.SETUP,
+      words: [],
+      trainedWords: [],
+      trainedWordsByIndexes: [],
+      streak: 0,
+      points: 0,
+      basePoints: 10,
+      multiplier: 1,
+    };
   }
 }

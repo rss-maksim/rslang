@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
 import { Sprinter } from 'src/app/core/constants/sprint-game';
 import { Answers, KeyboardKeys, StreakLevel } from '../../../../core/models/ISprintGame';
@@ -7,6 +7,7 @@ import { Answers, KeyboardKeys, StreakLevel } from '../../../../core/models/ISpr
   selector: 'app-sprint-game-card',
   templateUrl: './sprint-game-card.component.html',
   styleUrls: ['./sprint-game-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SprintGameCardComponent {
   @Input() word = '';

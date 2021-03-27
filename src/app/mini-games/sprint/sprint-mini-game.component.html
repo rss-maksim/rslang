@@ -65,9 +65,14 @@
       </app-sprint-game-card>
     </ng-container>
 
-    <ng-container *ngIf="game.gameState === 'PAUSE'"> Game is Paused </ng-container>
-
-    <ng-container *ngIf="game.gameState === 'OVER'"> Game Over </ng-container>
+    <ng-container *ngIf="game.gameState === 'OVER'">
+      <app-sprint-game-end
+        [trainedWords]="game.trainedWords"
+        [gamePoints]="game.points"
+        (resetGame)="resetGame()"
+        (pronounceWord)="pronounceWord($event)"
+      ></app-sprint-game-end>
+    </ng-container>
   </div>
 
   <app-full-screen-button color="warn" class="game__fullscreen"></app-full-screen-button>

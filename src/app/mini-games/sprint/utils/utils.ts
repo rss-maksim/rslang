@@ -12,8 +12,8 @@ export function isTranslationCorrect(): boolean {
 export function getPointsMultiplier(streak: number) {
   if (streak < StreakLevel.FIRST) return 1;
   if (streak < StreakLevel.SECOND) return 2;
-  if (streak < StreakLevel.THIRD) return 3;
-  else return 4;
+  if (streak < StreakLevel.THIRD) return 4;
+  else return 8;
 }
 
 export function playSound(src: string) {
