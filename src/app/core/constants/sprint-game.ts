@@ -15,3 +15,5 @@ export enum Color {
   CORRECT = '#00ff00cc',
   WRONG = '#ff0000cc',
 }
+
+export const MAX_TRAINED_WORDS = 60;

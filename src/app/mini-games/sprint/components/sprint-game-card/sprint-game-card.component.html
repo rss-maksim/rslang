@@ -8,7 +8,7 @@
       <mat-icon class="game-card__star" *ngIf="onStreakChange(streak).thirdStar">star</mat-icon>
     </div>
 
-    <button class="game-card__points" mat-fab color="warn" disableRipple>+{{ 10 * multiplier }}</button>
+    <button class="game-card__points" mat-fab color="warn">+{{ 10 * multiplier }}</button>
 
     <p class="game-card__text">
       {{ word }}
@@ -27,9 +27,9 @@
   </mat-card-content>
 
   <mat-card-actions class="game-card__actions">
-    <button class="game-card__button" mat-flat-button color="warn" (click)="onWrongBtnClick()">Неверно</button>
+    <button class="game-card__button" mat-raised-button color="warn" (click)="onWrongBtnClick()">Неверно</button>
 
-    <button class="game-card__button" mat-flat-button color="primary" (click)="onCorrectBtnClick()">Верно</button>
+    <button class="game-card__button" mat-raised-button color="primary" (click)="onCorrectBtnClick()">Верно</button>
   </mat-card-actions>
 
   <mat-card-actions class="game-card__actions">

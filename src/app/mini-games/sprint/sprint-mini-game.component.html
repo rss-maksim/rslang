@@ -1,13 +1,27 @@
 <div class="background-container">
   <div *ngIf="game.gameState === 'PLAY'" class="game__counter">
-    <app-counter [count]="59" [spinnerColor]="'warn'" (countIsOver)="gameOver()"></app-counter>
+    <app-counter
+      [count]="59"
+      [isPaused]="game.isPaused"
+      [spinnerColor]="'warn'"
+      (countIsOver)="gameOver()"
+    ></app-counter>
   </div>
 
   <div class="game-container">
-    <ng-container *ngIf="game.gameState === 'SETUP'"> Game SETUP </ng-container>
+    <mat-icon class="game__close" (click)="openCloseDialog()">close</mat-icon>
+
+    <ng-container *ngIf="game.gameState === 'SETUP'">
+      <app-sprint-game-start (difficultySelected)="getWords($event)"></app-sprint-game-start>
+    </ng-container>
 
     <ng-container *ngIf="game.gameState === 'READY'">
-      <app-counter [count]="0" *ngIf="isStarterCounterShown" (countIsOver)="readyToPlay()"></app-counter>
+      <app-counter
+        [count]="4"
+        [isPaused]="game.isPaused"
+        *ngIf="isStarterCounterShown"
+        (countIsOver)="getReadyToPlay()"
+      ></app-counter>
       <p class="game__start-text">{{ loadingWordsMessage || "Приготовьтесь" }}</p>
     </ng-container>
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sprint-game-start',
@@ -6,5 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./sprint-game-start.component.scss'],
 })
 export class SprintGameStartComponent {
-  constructor() {}
+  @Output() difficultySelected = new EventEmitter();
+  difficulty = 2;
+
+  onDifficultyChange(value: number | null) {
+    if (value) {
+      this.difficulty = value;
+    }
+  }
+
+  onStart() {
+    this.difficultySelected.emit(this.difficulty);
+  }
 }

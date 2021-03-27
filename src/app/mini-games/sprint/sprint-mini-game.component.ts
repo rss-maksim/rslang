@@ -1,20 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
-import { Answers, GameState, Sound, SprintGame } from 'src/app/core/models/ISprintGame';
-import { getPointsMultiplier, getRandomNumber, isTranslationCorrect, playSound } from './utils/utils';
+import { Answers, GameState, Sound, SprintGame, StreakLevel } from 'src/app/core/models/ISprintGame';
+import { getPointsMultiplier, getRandomNumber, getRandomPages, isTranslationCorrect, playSound } from './utils/utils';
 import { MatRipple } from '@angular/material/core';
-import { Color } from 'src/app/core/constants/sprint-game';
+import { MatDialog } from '@angular/material/dialog';
+import { Color, MAX_TRAINED_WORDS } from 'src/app/core/constants/sprint-game';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SprintGamePauseExitComponent } from './components/sprint-game-pause-exit/sprint-game-pause-exit.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sprint-mini-game',
   templateUrl: './sprint-mini-game.component.html',
   styleUrls: ['./sprint-mini-game.component.scss'],
 })
-export class SprintMiniGameComponent implements OnInit {
+export class SprintMiniGameComponent implements OnInit, OnDestroy {
   @ViewChild('answerRipple', { read: MatRipple }) answerRipple!: MatRipple;
   game: SprintGame = {
-    gameState: GameState.READY,
+    gameState: GameState.SETUP,
     words: [],
     trainedWords: [],
     trainedWordsByIndexes: [],
@@ -27,26 +31,46 @@ export class SprintMiniGameComponent implements OnInit {
     basePoints: 10,
     multiplier: 1,
     isMuted: false,
+    isPaused: false,
   };
   loadingWordsMessage = '';
   isStarterCounterShown = true;
+  closeDialogSubsription?: Subscription;
 
-  constructor(private http: MiniGamesHttpService) {}
+  constructor(
+    private http: MiniGamesHttpService,
+    public closeDialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
-    // Temporarily hardcoded 60 words for testing purposes
-    this.http.getWords(1, 20).subscribe((words) => {
-      this.game.words.push(...words);
-    });
-    this.http.getWords(1, 21).subscribe((words) => {
-      this.game.words.push(...words);
-    });
-    this.http.getWords(1, 22).subscribe((words) => {
-      this.game.words.push(...words);
-    });
+    if (this.route.snapshot.data.words) {
+      this.game.gameState = GameState.READY;
+    }
   }
 
-  readyToPlay() {
+  ngOnDestroy() {
+    if (this.closeDialogSubsription) {
+      this.closeDialogSubsription.unsubscribe();
+    }
+  }
+
+  getWords(difficulty: number) {
+    const [page1, page2, page3] = getRandomPages();
+    this.http.getWords(difficulty, page1).subscribe((words) => {
+      this.game.words.push(...words);
+    });
+    this.http.getWords(difficulty, page2).subscribe((words) => {
+      this.game.words.push(...words);
+    });
+    this.http.getWords(difficulty, page3).subscribe((words) => {
+      this.game.words.push(...words);
+    });
+    this.game.gameState = GameState.READY;
+  }
+
+  getReadyToPlay() {
     this.isStarterCounterShown = false;
 
     const playGame = () => {
@@ -88,7 +112,7 @@ export class SprintMiniGameComponent implements OnInit {
       this.launchRipple(Answers.CORRECT);
 
       if (!this.game.isMuted) {
-        if (this.game.streak % 4 === 0 && this.game.streak <= 12) {
+        if (this.game.streak % 4 === 0 && this.game.streak <= StreakLevel.THIRD) {
           playSound(Sound.LEVELUP);
         } else {
           playSound(Sound.CORRECT);
@@ -110,6 +134,11 @@ export class SprintMiniGameComponent implements OnInit {
   }
 
   nextTurn() {
+    if (this.game.trainedWords.length === MAX_TRAINED_WORDS) {
+      this.game.gameState = GameState.OVER;
+      return;
+    }
+
     do {
       this.game.wordIndex = getRandomNumber(this.game.words.length);
     } while (this.game.trainedWordsByIndexes.includes(this.game.wordIndex));
@@ -151,5 +180,13 @@ export class SprintMiniGameComponent implements OnInit {
 
   onMuteClick() {
     this.game.isMuted = !this.game.isMuted;
+  }
+
+  openCloseDialog() {
+    this.game.isPaused = true;
+    this.closeDialog.open(SprintGamePauseExitComponent);
+    this.closeDialogSubsription = this.closeDialog.afterAllClosed.subscribe(() => {
+      this.game.isPaused = false;
+    });
   }
 }

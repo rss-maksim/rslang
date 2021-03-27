@@ -24,3 +24,14 @@ export function playSound(src: string) {
   else audio.src = `data:audio/mpeg;base64,${src}`;
   audio.play();
 }
+
+export function getRandomPages() {
+  const pages: number[] = [];
+  const NUMBER_OF_PAGES = 30;
+
+  while (pages.length < 3) {
+    const page = getRandomNumber(NUMBER_OF_PAGES);
+    if (!pages.includes(page)) pages.push(page);
+  }
+  return pages;
+}
