@@ -1,0 +1,53 @@
+.textbook-content__navigation {
+  margin-top: 3rem;
+}
+
+.textbook-content__link {
+  background-color: royalblue;
+  color: #fff;
+  margin-bottom: 1rem;
+  position: absolute;
+}
+
+.textbook-content__cardItems {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.tab-link-0,
+.tab-content-0 {
+  background-color: rgba($color: #ffcccc, $alpha: 0.5);
+}
+.tab-link-1,
+.tab-content-1 {
+  background-color: rgba($color: #ccffff, $alpha: 0.5);
+}
+.tab-link-2,
+.tab-content-2 {
+  background-color: rgba($color: #ffff99, $alpha: 0.8);
+}
+.tab-link-3,
+.tab-content-3 {
+  background-color: rgba($color: #00bfff, $alpha: 0.5);
+}
+.tab-link-4,
+.tab-content-4 {
+  background-color: rgba($color: #cc99cc, $alpha: 0.5);
+}
+.tab-link-5,
+.tab-content-5 {
+  background-color: rgba($color: #99ff99, $alpha: 0.5);
+}
+
+::ng-deep .mat-tab-links {
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .textbook-content__cardItems {
+    justify-content: center;
+  }
+}

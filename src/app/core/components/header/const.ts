@@ -7,8 +7,8 @@ export const headerMenu = [
     srcImg: HeaderLinks.iconHome,
   },
   {
-    name: 'Словарь',
-    router: ['/dictionary'],
+    name: 'Учебник',
+    router: ['/textbook'],
     srcImg: HeaderLinks.iconTextbook,
   },
   {

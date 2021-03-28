@@ -1,0 +1,22 @@
+<div class="textbook__menu">
+  <button mat-mini-fab class="textbook__menu-btn" [matMenuTriggerFor]="menu">
+    <mat-icon class="textbook__menu-icon" svgIcon="cog" aria-hidden="false"></mat-icon>
+  </button>
+  <mat-menu class="textbook__menu-wrapper" #menu="matMenu">
+    <section class="textbook-menu__checkbox" (click)="$event.stopPropagation()">
+      <mat-checkbox color="primary" [(ngModel)]="isCheckedTranslation" (change)="setWordSettingsTranslation()">
+        Показать перевод изучаемого слова<br />
+        и перевод предложений с ним.
+      </mat-checkbox>
+      <mat-checkbox
+        *ngIf="isAuthorized$ | async"
+        color="primary"
+        [(ngModel)]="isCheckedAddButtons"
+        (change)="setWordSettingsAddButtons()"
+      >
+        Отображать дополнительные кнопки<br />
+        для управления словами.
+      </mat-checkbox>
+    </section>
+  </mat-menu>
+</div>

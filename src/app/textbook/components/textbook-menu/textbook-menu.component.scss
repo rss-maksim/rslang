@@ -1,0 +1,45 @@
+:host {
+  display: block;
+}
+
+br {
+  display: none;
+}
+
+.textbook__menu {
+  width: 100%;
+  max-width: 600px;
+  position: absolute;
+  top: 1rem;
+  right: 2.5rem;
+  text-align: right;
+}
+
+.textbook-menu__checkbox {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.textbook__menu-icon {
+  width: 2.5rem;
+}
+
+.settingsIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+::ng-deep .cdk-overlay-pane .textbook__menu-wrapper {
+  max-width: 90vh;
+}
+
+@media (max-width: 624px) {
+  br {
+    display: block;
+  }
+}
+
+.textbook__menu-btn {
+  background-color: royalblue;
+}
