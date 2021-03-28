@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, OnDestroy, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { interval, Subscription } from 'rxjs';
@@ -30,7 +30,7 @@ export class CounterComponent implements OnInit, OnDestroy {
           } else {
             this.spinnerMode = 'determinate';
             this.spinnerValue += this.increment;
-            this.count--;
+            this.count -= 1;
           }
         },
         (error) => {

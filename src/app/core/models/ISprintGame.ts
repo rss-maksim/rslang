@@ -1,3 +1,4 @@
+import { Sprinter } from '../constants/sprint-game';
 import { ITrainedWord } from './ITrainedWord';
 import { IWord } from './IWord';
 
@@ -22,12 +23,19 @@ export enum StreakLevel {
   THIRD = 12,
 }
 
-export enum KeyboardKeys {
+export type StreakStatus = {
+  firstStar: boolean;
+  secondStar: boolean;
+  thirdStar: boolean;
+  imageSrc: Sprinter;
+};
+
+export enum KeyboardKey {
   RIGHT = 'ArrowRight',
   LEFT = 'ArrowLeft',
 }
 
-export enum Answers {
+export enum Answer {
   CORRECT = 'CORRECT',
   WRONG = 'WRONG',
 }

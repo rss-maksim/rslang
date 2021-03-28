@@ -9,7 +9,7 @@ import { GameCard, GAME_CARDS } from 'src/app/core/constants/mini-games';
 export class MiniGamesPageComponent {
   gameCards: GameCard[] = GAME_CARDS;
 
-  trackByCardName(index: number, card: GameCard) {
+  trackByCardName(index: number, card: GameCard): string {
     return card.name;
   }
 }

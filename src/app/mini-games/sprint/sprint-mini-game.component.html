@@ -1,5 +1,5 @@
 <div class="background-container">
-  <div *ngIf="game.gameState === 'PLAY'" class="game__counter">
+  <div *ngIf="game.gameState === GAME_STATE.PLAY" class="game__counter">
     <app-counter
       [count]="59"
       [isPaused]="game.isPaused"
@@ -11,11 +11,11 @@
   <div class="game-container">
     <mat-icon class="game__close" (click)="openCloseDialog()">close</mat-icon>
 
-    <ng-container *ngIf="game.gameState === 'SETUP'">
+    <ng-container *ngIf="game.gameState === GAME_STATE.SETUP">
       <app-sprint-game-start (difficultySelected)="getWords($event)"></app-sprint-game-start>
     </ng-container>
 
-    <ng-container *ngIf="game.gameState === 'READY'">
+    <ng-container *ngIf="game.gameState === GAME_STATE.READY">
       <app-counter
         [count]="4"
         [isPaused]="game.isPaused"
@@ -25,7 +25,7 @@
       <p class="game__start-text">{{ loadingWordsMessage || "Приготовьтесь" }}</p>
     </ng-container>
 
-    <ng-container *ngIf="game.gameState === 'PLAY'">
+    <ng-container *ngIf="game.gameState === GAME_STATE.PLAY">
       <div class="game__score">
         <p class="game__text">Стрик: {{ game.streak }}</p>
         <mat-icon
@@ -65,7 +65,7 @@
       </app-sprint-game-card>
     </ng-container>
 
-    <ng-container *ngIf="game.gameState === 'OVER'">
+    <ng-container *ngIf="game.gameState === GAME_STATE.OVER">
       <app-sprint-game-end
         [trainedWords]="game.trainedWords"
         [gamePoints]="game.points"

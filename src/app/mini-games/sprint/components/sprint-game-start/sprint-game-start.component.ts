@@ -11,13 +11,13 @@ export class SprintGameStartComponent {
   @Output() difficultySelected = new EventEmitter();
   difficulty = DEFAULT_WORDS_DIFFICULTY;
 
-  onDifficultyChange(value: number | null) {
+  onDifficultyChange(value: number | null): void {
     if (value !== null) {
       this.difficulty = value;
     }
   }
 
-  onStart() {
+  onStart(): void {
     this.difficultySelected.emit(this.difficulty);
   }
 }

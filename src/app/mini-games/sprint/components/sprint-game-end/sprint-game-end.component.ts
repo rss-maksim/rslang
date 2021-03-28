@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Answers } from 'src/app/core/models/ISprintGame';
+import { Answer } from 'src/app/core/models/ISprintGame';
 import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 
 @Component({
@@ -13,24 +13,25 @@ export class SprintGameEndComponent {
   @Input() gamePoints = 0;
   @Output() resetGame = new EventEmitter();
   @Output() pronounceWord = new EventEmitter();
+  public ANSWER = Answer;
 
-  continuePlay() {
+  continuePlay(): void {
     this.resetGame.emit();
   }
 
-  countWrongWords() {
-    return this.trainedWords.filter((word) => word.result === Answers.WRONG).length;
+  countWrongWords(): number {
+    return this.trainedWords.filter((word) => word.result === Answer.WRONG).length;
   }
 
-  countCorrectWords() {
-    return this.trainedWords.filter((word) => word.result === Answers.CORRECT).length;
+  countCorrectWords(): number {
+    return this.trainedWords.filter((word) => word.result === Answer.CORRECT).length;
   }
 
-  onVolumeBtnClick(id: string) {
+  onVolumeBtnClick(id: string): void {
     this.pronounceWord.emit(id);
   }
 
-  trackById(index: number, word: ITrainedWord) {
+  trackById(index: number, word: ITrainedWord): string {
     return word.id;
   }
 }

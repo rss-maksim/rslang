@@ -10,10 +10,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.storage.getItem(tokenKey);
     const { url, method } = req;
-    if (
-      (method === 'POST' && url.includes('/signin')) ||
-      (method === 'GET' && (url.includes('/words') || url.includes('/team')))
-    ) {
+    if (!token || (method === 'POST' && url.includes('/signin')) || (method === 'GET' && url.includes('/team'))) {
       return next.handle(req);
     }
     const clone = req.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
