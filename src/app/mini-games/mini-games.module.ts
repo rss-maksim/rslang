@@ -23,6 +23,7 @@ import audiochallengeReducer from '../redux/reducers/audiochallengeReducer';
 import { LevelChoiseComponent } from './audiochallenge/components/level-choise/level-choise.component';
 import { CloseGameDialogComponent } from './shared/components/close-game-dialog/close-game-dialog.component';
 import { EndGameComponent } from './shared/components/end-game/end-game.component';
+import { CustomMiniGameComponent } from './custom-mini-game/custom-mini-game.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { EndGameComponent } from './shared/components/end-game/end-game.componen
     LevelChoiseComponent,
     CloseGameDialogComponent,
     EndGameComponent,
+    CustomMiniGameComponent,
   ],
   imports: [
     CommonModule,
