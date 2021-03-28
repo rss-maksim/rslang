@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
 import { Sprinter } from 'src/app/core/constants/sprint-game';
-import { Answers, KeyboardKeys, StreakLevel } from '../../../../core/models/ISprintGame';
+import { Answer, KeyboardKey, StreakLevel, StreakStatus } from '../../../../core/models/ISprintGame';
 
 @Component({
   selector: 'app-sprint-game-card',
@@ -17,37 +17,50 @@ export class SprintGameCardComponent {
   @Output() pronounceWord = new EventEmitter();
   @Output() handleTurn = new EventEmitter<string>();
   @HostListener('window:keyup', ['$event']) keyEvent(event: KeyboardEvent) {
-    if (event.key == KeyboardKeys.LEFT) this.onWrongBtnClick();
-    else if (event.key == KeyboardKeys.RIGHT) this.onCorrectBtnClick();
+    if (event.key === KeyboardKey.LEFT) {
+      this.onWrongBtnClick();
+    } else if (event.key === KeyboardKey.RIGHT) {
+      this.onCorrectBtnClick();
+    }
   }
 
-  onVolumeBtnClick() {
+  onVolumeBtnClick(): void {
     this.pronounceWord.emit();
   }
 
-  onWrongBtnClick() {
-    this.handleTurn.emit(Answers.WRONG);
+  onWrongBtnClick(): void {
+    this.handleTurn.emit(Answer.WRONG);
   }
 
-  onCorrectBtnClick() {
-    this.handleTurn.emit(Answers.CORRECT);
+  onCorrectBtnClick(): void {
+    this.handleTurn.emit(Answer.CORRECT);
   }
 
-  onStreakChange(streak: number) {
-    const streakStatus = {
+  onStreakChange(streak: number): StreakStatus {
+    const streakStatus: StreakStatus = {
       firstStar: false,
       secondStar: false,
       thirdStar: false,
       imageSrc: Sprinter.startImageSrc,
     };
 
-    if (streak % 4 >= 1 && streak < StreakLevel.THIRD) streakStatus.firstStar = true;
-    if (streak % 4 >= 2 && streak < StreakLevel.THIRD) streakStatus.secondStar = true;
-    if (streak % 4 >= 3 && streak < StreakLevel.THIRD) streakStatus.thirdStar = true;
+    if (streak % 4 >= 1 && streak < StreakLevel.THIRD) {
+      streakStatus.firstStar = true;
+    }
+    if (streak % 4 >= 2 && streak < StreakLevel.THIRD) {
+      streakStatus.secondStar = true;
+    }
+    if (streak % 4 >= 3 && streak < StreakLevel.THIRD) {
+      streakStatus.thirdStar = true;
+    }
 
-    if (streak >= StreakLevel.THIRD) streakStatus.imageSrc = Sprinter.finishImageSrc;
-    else if (streak >= StreakLevel.SECOND) streakStatus.imageSrc = Sprinter.sprintImageSrc;
-    else if (streak >= StreakLevel.FIRST) streakStatus.imageSrc = Sprinter.runImageSrc;
+    if (streak >= StreakLevel.THIRD) {
+      streakStatus.imageSrc = Sprinter.finishImageSrc;
+    } else if (streak >= StreakLevel.SECOND) {
+      streakStatus.imageSrc = Sprinter.sprintImageSrc;
+    } else if (streak >= StreakLevel.FIRST) {
+      streakStatus.imageSrc = Sprinter.runImageSrc;
+    }
 
     return streakStatus;
   }

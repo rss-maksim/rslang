@@ -1,14 +1,15 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
-import { Answers, GameState, Sound, SprintGame, StreakLevel } from 'src/app/core/models/ISprintGame';
-import { getPointsMultiplier, getRandomNumber, getRandomPages, isTranslationCorrect, playSound } from './utils/utils';
+import { Answer, GameState, Sound, SprintGame, StreakLevel } from 'src/app/core/models/ISprintGame';
+import { getPointsMultiplier, getRandomNumber, getRandomPages, playSound } from './utils/utils';
 import { MatRipple } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Color, DEFAULT_WORDS_DIFFICULTY, MAX_TRAINED_WORDS } from 'src/app/core/constants/sprint-game';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SprintGamePauseExitComponent } from './components/sprint-game-pause-exit/sprint-game-pause-exit.component';
 import { Subscription } from 'rxjs';
+import { IWord } from 'src/app/core/models/IWord';
 
 @Component({
   selector: 'app-sprint-mini-game',
@@ -39,9 +40,16 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   wordsBatch1Subscription?: Subscription;
   wordsBatch2Subscription?: Subscription;
   wordsBatch3Subscription?: Subscription;
+  GAME_STATE = {
+    SETUP: GameState.SETUP,
+    READY: GameState.READY,
+    PLAY: GameState.PLAY,
+    PAUSE: GameState.PAUSE,
+    OVER: GameState.OVER,
+  };
 
   constructor(
-    private http: MiniGamesHttpService,
+    private gameService: MiniGamesHttpService,
     public closeDialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
@@ -68,21 +76,21 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     }
   }
 
-  getWords(difficulty: number = DEFAULT_WORDS_DIFFICULTY) {
+  getWords(difficulty: number = DEFAULT_WORDS_DIFFICULTY): void {
     const [page1, page2, page3] = getRandomPages();
-    this.wordsBatch1Subscription = this.http.getWords(difficulty, page1).subscribe((words) => {
+    this.wordsBatch1Subscription = this.gameService.getWords(difficulty, page1).subscribe((words) => {
       this.game.words.push(...words);
     });
-    this.wordsBatch2Subscription = this.http.getWords(difficulty, page2).subscribe((words) => {
+    this.wordsBatch2Subscription = this.gameService.getWords(difficulty, page2).subscribe((words) => {
       this.game.words.push(...words);
     });
-    this.wordsBatch3Subscription = this.http.getWords(difficulty, page3).subscribe((words) => {
+    this.wordsBatch3Subscription = this.gameService.getWords(difficulty, page3).subscribe((words) => {
       this.game.words.push(...words);
     });
     this.game.gameState = GameState.READY;
   }
 
-  getReadyToPlay() {
+  getReadyToPlay(): void {
     this.isStarterCounterShown = false;
 
     const playGame = () => {
@@ -91,7 +99,9 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
         this.nextTurn();
       } else {
         this.loadingWordsMessage = 'Слова загружаются...';
-        setTimeout(() => (this.loadingWordsMessage = ''), 1000);
+        setTimeout(() => {
+          this.loadingWordsMessage = '';
+        }, 1000);
         setTimeout(playGame, 2000);
       }
     };
@@ -99,7 +109,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     playGame();
   }
 
-  handleTurn(answer: string) {
+  handleTurn(answer: string): void {
     this.game.trainedWordsByIndexes.push(this.game.wordIndex);
 
     const trainedWord = {
@@ -110,43 +120,44 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     };
 
     if (
-      (answer === Answers.CORRECT && this.game.isTranslationCorrect) ||
-      (answer === Answers.WRONG && !this.game.isTranslationCorrect)
+      (answer === Answer.CORRECT && this.game.isTranslationCorrect) ||
+      (answer === Answer.WRONG && !this.game.isTranslationCorrect)
     ) {
-      this.game.streak++;
+      this.game.streak += 1;
       this.game.multiplier = getPointsMultiplier(this.game.streak);
       this.game.points += this.game.basePoints * this.game.multiplier;
       this.game.trainedWords.push({
         ...trainedWord,
-        result: Answers.CORRECT,
+        result: Answer.CORRECT,
       });
 
-      this.launchRipple(Answers.CORRECT);
+      this.launchRipple(Answer.CORRECT);
 
       if (!this.game.isMuted) {
-        if (this.game.streak % 4 === 0 && this.game.streak <= StreakLevel.THIRD) {
-          playSound(Sound.LEVELUP);
-        } else {
-          playSound(Sound.CORRECT);
-        }
+        const soundToPlay =
+          this.game.streak % 4 === 0 && this.game.streak <= StreakLevel.THIRD ? Sound.LEVELUP : Sound.CORRECT;
+        playSound(soundToPlay);
+        playSound(soundToPlay);
       }
     } else {
       this.game.streak = 0;
       this.game.multiplier = 1;
       this.game.trainedWords.push({
         ...trainedWord,
-        result: Answers.WRONG,
+        result: Answer.WRONG,
         translation: this.game.words[this.game.wordIndex].wordTranslate,
       });
 
-      this.launchRipple(Answers.WRONG);
+      this.launchRipple(Answer.WRONG);
 
-      if (!this.game.isMuted) playSound(Sound.WRONG);
+      if (!this.game.isMuted) {
+        playSound(Sound.WRONG);
+      }
     }
     this.nextTurn();
   }
 
-  nextTurn() {
+  nextTurn(): void {
     if (this.game.trainedWords.length === MAX_TRAINED_WORDS) {
       this.gameOver();
       return;
@@ -158,7 +169,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
 
     this.game.word = this.game.words[this.game.wordIndex].word;
 
-    if (isTranslationCorrect()) {
+    if (Math.random() >= 0.5) {
       this.game.isTranslationCorrect = true;
       this.game.wordTranslation = this.game.words[this.game.wordIndex].wordTranslate;
     } else {
@@ -172,18 +183,21 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     }
   }
 
-  pronounceWord(id?: string) {
-    const wordId = id ? id : this.game.words[this.game.wordIndex].id;
-    this.http.getWordById(wordId).subscribe((word) => playSound(word.audio));
+  pronounceWord(id?: string): void {
+    const wordId = id ?? this.game.words[this.game.wordIndex].id;
+    this.gameService.getWordById(wordId).subscribe((word) => playSound(word.audio));
   }
 
-  gameOver() {
+  gameOver(): void {
     this.game.gameState = GameState.OVER;
   }
 
-  launchRipple(answer: string) {
-    const color = answer === Answers.CORRECT ? Color.CORRECT : Color.WRONG;
-    if (!this.answerRipple) return;
+  launchRipple(answer: string): void {
+    const color = answer === Answer.CORRECT ? Color.CORRECT : Color.WRONG;
+    if (!this.answerRipple) {
+      return;
+    }
+
     const rippleRef = this.answerRipple.launch({
       color,
       persistent: true,
@@ -192,11 +206,11 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     rippleRef.fadeOut();
   }
 
-  onMuteClick() {
+  onMuteClick(): void {
     this.game.isMuted = !this.game.isMuted;
   }
 
-  openCloseDialog() {
+  openCloseDialog(): void {
     this.game.isPaused = true;
     this.closeDialog.open(SprintGamePauseExitComponent);
     this.closeDialogSubsription = this.closeDialog.afterAllClosed.subscribe(() => {
@@ -204,7 +218,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     });
   }
 
-  resetGame() {
+  resetGame(): void {
     this.isStarterCounterShown = true;
     this.game = {
       ...this.game,
