@@ -13,10 +13,7 @@ export class SprintGameEndComponent {
   @Input() gamePoints = 0;
   @Output() resetGame = new EventEmitter();
   @Output() pronounceWord = new EventEmitter();
-  ANSWER = {
-    CORRECT: Answer.CORRECT,
-    WRONG: Answer.WRONG,
-  };
+  public ANSWER = Answer;
 
   continuePlay(): void {
     this.resetGame.emit();

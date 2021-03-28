@@ -9,7 +9,6 @@ import { Color, DEFAULT_WORDS_DIFFICULTY, MAX_TRAINED_WORDS } from 'src/app/core
 import { ActivatedRoute, Router } from '@angular/router';
 import { SprintGamePauseExitComponent } from './components/sprint-game-pause-exit/sprint-game-pause-exit.component';
 import { Subscription } from 'rxjs';
-import { IWord } from 'src/app/core/models/IWord';
 
 @Component({
   selector: 'app-sprint-mini-game',
@@ -40,13 +39,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   wordsBatch1Subscription?: Subscription;
   wordsBatch2Subscription?: Subscription;
   wordsBatch3Subscription?: Subscription;
-  GAME_STATE = {
-    SETUP: GameState.SETUP,
-    READY: GameState.READY,
-    PLAY: GameState.PLAY,
-    PAUSE: GameState.PAUSE,
-    OVER: GameState.OVER,
-  };
+  public GAME_STATE = GameState;
 
   constructor(
     private gameService: MiniGamesHttpService,
