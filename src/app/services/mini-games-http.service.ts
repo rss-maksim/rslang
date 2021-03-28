@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
+import { IWord } from '../core/models/IWord';
 import { ApiService } from '../core/services/api.service';
 
 @Injectable({
@@ -9,12 +11,11 @@ import { ApiService } from '../core/services/api.service';
 export class MiniGamesHttpService {
   constructor(private http: HttpClient, private api: ApiService) {}
 
-  getWords() {
-    return this.http.get(`${this.api.baseApiUrl}/words`);
+  getWords(group: number = 0, page: number = 0): Observable<IWord[]> {
+    return this.http.get<IWord[]>(`${this.api.baseApiUrl}/words?group=${group}&page=${page}`);
   }
 
-  getWordById(id: string) {
-    console.log(id);
-    return this.http.get(`${this.api.baseApiUrl}/words/${id}`);
+  getWordById(id: string): Observable<IWord> {
+    return this.http.get<IWord>(`${this.api.baseApiUrl}/words/${id}`);
   }
 }

@@ -1,0 +1,13 @@
+:host {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 500px) {
+  :host {
+    flex-direction: column;
+  }
+}

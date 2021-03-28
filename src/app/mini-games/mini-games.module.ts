@@ -10,6 +10,13 @@ import { MainActionsComponent } from './savannah/components/main-actions/main-ac
 import { OptionsInputComponent } from './savannah/components/options-input/options-input.component';
 import { SlidingWordComponent } from './savannah/components/sliding-word/sliding-word.component';
 import { SavannahMiniGameComponent } from './savannah/pages/savannah-mini-game/savannah-mini-game.component';
+import { CounterComponent } from './shared/components/counter/counter.component';
+import { SprintGameCardComponent } from './sprint/components/sprint-game-card/sprint-game-card.component';
+import { SprintGameStartComponent } from './sprint/components/sprint-game-start/sprint-game-start.component';
+import { SprintGameEndComponent } from './sprint/components/sprint-game-end/sprint-game-end.component';
+import { SprintGamePauseExitComponent } from './sprint/components/sprint-game-pause-exit/sprint-game-pause-exit.component';
+import { LifesComponent } from './savannah/components/lifes/lifes.component';
+import { RepeatsDirective } from './shared/directives/repeats.directive';
 
 @NgModule({
   declarations: [
@@ -20,6 +27,14 @@ import { SavannahMiniGameComponent } from './savannah/pages/savannah-mini-game/s
     SlidingWordComponent,
     MainActionsComponent,
     FullScreenButtonComponent,
+    FullScreenButtonComponent,
+    CounterComponent,
+    SprintGameCardComponent,
+    SprintGameStartComponent,
+    SprintGameEndComponent,
+    SprintGamePauseExitComponent,
+    LifesComponent,
+    RepeatsDirective,
   ],
   imports: [CommonModule, MiniGamesRoutingModule, MaterialModule],
 })

@@ -1,4 +1,4 @@
-export interface Word {
+export interface IWord {
   audio: string;
   audioExample: string;
   audioMeaning: string;

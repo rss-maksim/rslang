@@ -8,7 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class MainActionsComponent implements OnInit {
   answerState = '';
   word = 'word';
-  @Input() words!: [];
+  @Input() translations!: [];
+  @Input() lifes!: number;
   constructor() {}
 
   ngOnInit(): void {

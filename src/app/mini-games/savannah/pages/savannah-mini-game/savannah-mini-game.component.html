@@ -1,4 +1,10 @@
 <div class="savannah">
-  <app-main-actions [words]="words"></app-main-actions>
+  <ng-container *ngIf="game.gameState === 'PREP'">
+    <app-counter [count]="0" [isPaused]="game.isPaused" spinnerColor="warn" (countIsOver)="startToPlay()"></app-counter>
+  </ng-container>
+  <ng-container *ngIf="game.gameState === 'PLAY'">
+    <app-main-actions [translations]="words" [lifes]="game.lifes"></app-main-actions>
+  </ng-container>
+
   <app-full-screen-button color="warn" class="fullscreen-btn"></app-full-screen-button>
 </div>
