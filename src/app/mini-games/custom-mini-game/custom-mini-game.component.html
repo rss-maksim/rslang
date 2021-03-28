@@ -1,1 +1,18 @@
-<p>custom-mini-game works!</p>
+<div class="background-container">
+  <div class="game-container">
+    <div class="one-row center margins-top-bottom">
+      <div class="margins-left-right counter">Осталось ходов: {{ movesCountdownCounter }}</div>
+      <div class="margins-left-right counter">Осталось времени: {{ countdownTimer }} c</div>
+    </div>
+
+    <div class="full-height center">
+      <div cdkDropList cdkDropListOrientation="horizontal" class="word-list" (cdkDropListDropped)="dropLetter($event)">
+        <div class="word-box" *ngFor="let letter of scrambledWordAsArray" cdkDrag>
+          {{ letter }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-full-screen-button color="warn" class="game-fullscreen"></app-full-screen-button>
+</div>
