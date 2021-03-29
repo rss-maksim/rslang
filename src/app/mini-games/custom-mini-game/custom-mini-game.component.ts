@@ -1,7 +1,8 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription, timer } from 'rxjs';
+import { CloseDialogComponent } from './close-dialog/close-dialog.component';
 
 @Component({
   selector: 'app-custom-mini-game',
@@ -27,8 +28,9 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   tick = 1_000;
   countDown?: Subscription;
   roundsLeft = this.sourceArray.length + 1;
+  isGamePaused = false;
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
     this.startGame();
@@ -62,7 +64,9 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     this.countDown = timer(0, this.tick) // start timer countdown
       .subscribe(() => {
         if (this.countdownTimer > 0 && !this.isGameOver()) {
-          this.countdownTimer -= 1;
+          if (!this.isGamePaused) {
+            this.countdownTimer -= 1;
+          }
         } else {
           this.countDown?.unsubscribe();
           if (!this.isGameOver()) {
@@ -113,8 +117,15 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     }
   }
 
-  onCloseGame() {
-    this.router.navigate(['../'], { relativeTo: this.route });
+  onCloseDialog(): void {
+    this.isGamePaused = true;
+    const dialogRef = this.dialog.open(CloseDialogComponent, {
+      width: '350px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.isGamePaused = false;
+    });
   }
 
   ngOnDestroy() {
