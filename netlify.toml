@@ -1,0 +1,9 @@
+[build]
+  command = "ng build --prod"
+  publish = "/dist/rslang"
+  base = "/"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
