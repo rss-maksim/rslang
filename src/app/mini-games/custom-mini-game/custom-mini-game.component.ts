@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 
 @Component({
@@ -7,55 +8,34 @@ import { Subscription, timer } from 'rxjs';
   templateUrl: './custom-mini-game.component.html',
   styleUrls: ['./custom-mini-game.component.scss'],
 })
-export class CustomMiniGameComponent implements OnInit, OnDestroy, OnChanges {
+export class CustomMiniGameComponent implements OnInit, OnDestroy {
   sourceArray = [
     ['humor', 'юмор'],
     ['height', 'высота'],
-    ['school', 'школа'],
+    /*['school', 'школа'],
     ['season', 'время года'],
-    ['calendar', 'календарь'],
+    ['calendar', 'календарь'],*/
   ];
   currentWord?: string;
   currentWordTranslation?: string;
   scrambledWordAsArray?: string[];
   previousScrambledWord?: string;
-  // scrambledWord?: string;
+  scrambledWord?: string;
   movesCountdownCounter = 0;
   wordIndex = -1;
   countdownTimer = 0;
   tick = 1_000;
   countDown?: Subscription;
-  isLost = false;
+  roundsLeft = this.sourceArray.length + 1;
 
-  constructor() {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.startGame();
   }
 
-  ngOnChanges() {
-    if (this.isRoundLost() || this.isRoundWon()) {
-      this.nextRoundReset();
-    }
-  }
-
   startGame() {
     this.nextRoundReset();
-    /*while (!this.isRoundLost()) {
-        setTimeout(() => {
-          console.log('Delay for 500ms');
-        }, 500);
-        console.log('Still playing');
-      }
-        while (!this.isGameOver()) {
-        setTimeout(() => {
-          console.log('Delay for 500ms');
-        }, 500);
-        if (this.isLost) {
-          console.log('Next round');
-          this.nextRound();
-        }
-      }*/
   }
 
   getRandomInt(max: number): number {
@@ -67,19 +47,27 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   nextRoundReset() {
+    this.countDown?.unsubscribe();
     this.countdownTimer = 15; // reset timer
-    this.wordIndex += 1;
+    if (!this.isGameOver()) {
+      this.wordIndex += 1;
+      this.roundsLeft -= 1;
+    }
     this.currentWord = this.sourceArray[this.wordIndex][0];
     this.currentWordTranslation = this.sourceArray[this.wordIndex][1];
     this.scrambledWordAsArray = this.shuffleLettersInWord(this.currentWord);
-    // this.scrambledWord = this.scrambledWordAsArray.join('');
+    this.scrambledWord = this.scrambledWordAsArray.join('');
     this.movesCountdownCounter = this.currentWord.length; // reset moves counter
+
     this.countDown = timer(0, this.tick) // start timer countdown
       .subscribe(() => {
-        if (this.countdownTimer > 0) {
+        if (this.countdownTimer > 0 && !this.isGameOver()) {
           this.countdownTimer -= 1;
         } else {
           this.countDown?.unsubscribe();
+          if (!this.isGameOver()) {
+            this.nextRoundReset();
+          }
         }
       });
   }
@@ -107,7 +95,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   isGameOver(): boolean {
-    if (this.wordIndex === this.sourceArray.length - 1) return true;
+    if (this.wordIndex === this.sourceArray.length) return true;
     return false;
   }
 
@@ -116,10 +104,17 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy, OnChanges {
       this.previousScrambledWord = this.scrambledWordAsArray.join('');
       moveItemInArray(this.scrambledWordAsArray, event.previousIndex, event.currentIndex);
       if (this.previousScrambledWord !== this.scrambledWordAsArray.join('')) {
-        if (this.movesCountdownCounter > 0) this.movesCountdownCounter -= 1;
+        if (this.movesCountdownCounter > 0 && !this.isGameOver()) this.movesCountdownCounter -= 1;
         this.previousScrambledWord = this.scrambledWordAsArray.join('');
       }
+      if (this.currentWord === this.scrambledWordAsArray.join('') && !this.isGameOver()) {
+        this.nextRoundReset();
+      }
     }
+  }
+
+  onCloseGame() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnDestroy() {

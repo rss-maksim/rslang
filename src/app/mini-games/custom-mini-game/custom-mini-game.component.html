@@ -1,8 +1,17 @@
 <div class="background-container">
+  <div>
+    <mat-icon class="close-icon" (click)="onCloseGame()">close</mat-icon>
+  </div>
   <div class="game-container">
     <div class="one-row center margins-top-bottom">
-      <div class="margins-left-right counter">Осталось ходов: {{ movesCountdownCounter }}</div>
-      <div class="margins-left-right counter">Осталось времени: {{ countdownTimer }} c</div>
+      <div class="margins-left-right counter">Раунд: {{ wordIndex }}</div>
+      <div class="margins-left-right counter">Осталось раундов: {{ roundsLeft }}</div>
+    </div>
+    <div *ngIf="!isGameOver()" class="one-row center margins-top-bottom">
+      <div class="margins-left-right counter">Осталось времени на текущий раунд: {{ countdownTimer }} cек</div>
+    </div>
+    <div *ngIf="!isGameOver()" class="one-row center margins-top-bottom">
+      <div class="margins-left-right counter">Осталось перестановок в текущем раунде: {{ movesCountdownCounter }}</div>
     </div>
 
     <div class="full-height center">
