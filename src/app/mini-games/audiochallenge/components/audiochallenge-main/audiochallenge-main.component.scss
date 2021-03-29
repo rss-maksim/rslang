@@ -1,5 +1,5 @@
 :host {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -10,6 +10,7 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  z-index: 1;
 }
 
 .intro {
@@ -47,7 +48,7 @@
 
 .text {
   max-width: 565px;
-  margin: 0 auto 58px;
+  margin: 0 auto 20px;
   font-size: 18px;
   line-height: 24px;
   font-weight: 300;
@@ -75,4 +76,11 @@
   cursor: pointer;
   transition: all 0.15s ease;
   outline: none;
+}
+
+.mat-fab {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
 }

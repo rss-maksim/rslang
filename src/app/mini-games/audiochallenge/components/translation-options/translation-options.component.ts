@@ -8,8 +8,6 @@ import {
   SimpleChanges,
   HostListener,
 } from '@angular/core';
-import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
-
 @Component({
   selector: 'app-translation-options',
   templateUrl: './translation-options.component.html',
@@ -18,32 +16,69 @@ import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
 })
 export class TranslationOptionsComponent implements OnChanges {
   @Input() options!: string[] | undefined;
+  @Input() guessed!: boolean | null;
+  @Input() rightAnswer!: string | undefined;
+
   @Output() translationEvent = new EventEmitter();
-  @Input() guessed!: boolean;
-  showOptions!: string[];
 
-  constructor(private service: MiniGamesHttpService) {}
+  choosedItem!: {
+    option: string;
+    isRight: boolean;
+    isSelected: boolean;
+  };
+  selectedIndex!: number;
+  optionsObjects!: {
+    option: string;
+    isRight: boolean;
+    isSelected: boolean;
+  }[];
 
-  ngOnChanges(): void {
-    if (this.options) {
-      this.options = this.service.shuffleArray([...this.options]);
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.options && this.options) {
+      this.optionsObjects = this.options.map((option) => ({
+        option,
+        isRight: option === this.rightAnswer,
+        isSelected: false,
+      }));
     }
   }
 
-  trackByIdentity = (index: number, item: any) => item;
+  trackByIdentity = (index: number) => index;
 
-  chooseTranslation(item: string) {
+  chooseTranslation(item: any) {
     if (!this.guessed) {
-      console.log(item);
-      this.translationEvent.emit(item);
+      this.translationEvent.emit(item.option);
     }
+    this.chooseElement(item);
   }
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (+event.key > 0 && +event.key < 6 && this.options && !this.guessed) {
-      console.log(event);
       this.translationEvent.emit(this.options[+event.key - 1]);
+      this.chooseElement(this.optionsObjects[+event.key - 1]);
+    }
+  }
+
+  chooseElement(item: any) {
+    this.optionsObjects.forEach((option) => {
+      if (item.option === option.option) {
+        option.isSelected = true;
+      }
+    });
+  }
+
+  getStyles(item: { option: string; isRight: boolean; isSelected: boolean }): string {
+    if (!this.guessed) {
+      return 'option__text';
+    } else {
+      if (item.isRight) {
+        return 'option__text_right';
+      } else if (item.isSelected && !item.isRight) {
+        return 'option__text_wrong';
+      } else {
+        return 'option__text_not-choosen';
+      }
     }
   }
 }

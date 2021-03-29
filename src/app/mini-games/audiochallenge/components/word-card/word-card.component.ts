@@ -1,8 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy, OnChanges, Output, EventEmitter } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { IWord } from 'src/app/redux/actions/audiochallenge.actions';
-import { AppState } from 'src/app/redux/models/state.model';
-import { assetsApiUrl } from 'src/app/redux/reducers/audiochallengeReducer';
+import { IAudiochallengeWord } from 'src/app/redux/models/IAudiochallengeWord';
+import { ASSETS_API_URL } from 'src/app/core/constants/mini-games';
 
 @Component({
   selector: 'app-audiochallenge-word-card',
@@ -11,15 +9,13 @@ import { assetsApiUrl } from 'src/app/redux/reducers/audiochallengeReducer';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AudiochallengeWordCardComponent implements OnChanges {
-  @Input() word!: IWord;
+  @Input() word!: IAudiochallengeWord;
   @Input() guessed!: boolean | null;
   @Output() playEvent = new EventEmitter();
   path!: string;
 
-  constructor(private store: Store<AppState>) {}
-
   ngOnChanges() {
-    this.path = `${assetsApiUrl}/${this.word.image}?raw=true`;
+    this.path = `${ASSETS_API_URL}/${this.word.image}?raw=true`;
   }
 
   onPlay() {

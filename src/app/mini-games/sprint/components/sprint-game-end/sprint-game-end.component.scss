@@ -1,0 +1,49 @@
+.game-card {
+  width: 50vw;
+
+  &__points {
+    text-align: center;
+  }
+
+  &__words-list {
+    height: 60vh;
+    padding: 1rem;
+    overflow-y: scroll;
+  }
+
+  &__word {
+    color: #3f51b5;
+    font-size: 1.2rem;
+  }
+
+  &__translation {
+    font-size: 1.2rem;
+  }
+
+  &__reset {
+    width: 100%;
+  }
+
+  &__exit {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  &__delete {
+    float: right;
+  }
+
+  &__wrong {
+    color: #ff4500;
+    font-size: 1.2rem;
+  }
+
+  &__correct {
+    color: #28c38a;
+    font-size: 1.2rem;
+  }
+}
+
+mat-icon {
+  cursor: pointer;
+}

@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/redux/models/state.model';
 
 @Component({
   selector: 'app-decision-buttons',
@@ -12,8 +10,6 @@ export class DecisionButtonsComponent {
   @Output() guessEvent = new EventEmitter();
   @Output() nextWordEvent = new EventEmitter();
   @Input() guessed!: boolean | null;
-
-  constructor(private store: Store<AppState>) {}
 
   guess() {
     this.guessEvent.emit();

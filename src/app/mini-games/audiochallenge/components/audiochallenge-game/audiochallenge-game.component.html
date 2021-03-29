@@ -1,3 +1,5 @@
+<app-game-sounds-button></app-game-sounds-button>
+
 <ng-template [ngIf]="currentWord$ | async" let-currentWord>
   <div class="audiochallenge__container">
     <app-audiochallenge-word-card [word]="currentWord" [guessed]="guessed$ | async" (playEvent)="playSound()">
@@ -5,6 +7,7 @@
     <app-translation-options
       [guessed]="guessed$ | async"
       [options]="currentWord.translationsArray"
+      [rightAnswer]="currentWord.wordTranslate"
       (translationEvent)="checkAnswer($event)"
     ></app-translation-options>
     <app-decision-buttons

@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
-  IWord,
   loadWords,
-  showNextWord,
   playWordSound,
   translationChoosed,
   checkAnswer,
@@ -18,6 +16,8 @@ import {
   selectWords,
 } from 'src/app/redux/selectors/audiochallenge.selectors';
 import { AppState } from 'src/app/redux/models/state.model';
+import { IWord } from '../../../../core/models/IWord';
+import { IAudiochallengeWord } from 'src/app/redux/models/IAudiochallengeWord';
 
 @Component({
   selector: 'app-audiochallenge-game',
@@ -25,16 +25,18 @@ import { AppState } from 'src/app/redux/models/state.model';
   styleUrls: ['./audiochallenge-game.component.scss'],
 })
 export class AudiochallengeGameComponent implements OnInit {
-  currentWord$!: Observable<IWord>;
+  @Input() difficulty!: number;
+  currentWord$!: Observable<IAudiochallengeWord>;
   audio$!: Observable<HTMLAudioElement>;
   word$!: Observable<IWord[]>;
   words$!: Observable<IWord[]>;
   guessed$!: Observable<boolean>;
+  statsList!: Observable<IAudiochallengeWord[]>;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(loadWords());
+    this.store.dispatch(loadWords({ payload: this.difficulty }));
     this.currentWord$ = this.store.select(selectCurrentWord);
     this.audio$ = this.store.select(selectAudio);
     this.words$ = this.store.select(selectWords);

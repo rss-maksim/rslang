@@ -1,0 +1,23 @@
+<mat-card class="card">
+  <mat-card-title class="card__title">Спринт</mat-card-title>
+
+  <mat-card-content class="card__content">
+    <p class="card__text">Пожалуйста, выберите сложность игры:</p>
+    <span>Легко</span>
+    <mat-slider
+      min="0"
+      max="5"
+      step="1"
+      value="1"
+      color="warn"
+      thumbLabel
+      #difficultySlider
+      (input)="onDifficultyChange(difficultySlider.value)"
+    ></mat-slider>
+    <span>Сложно</span>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="warn" class="card__start-button" (click)="onStart()">Начать</button>
+  </mat-card-actions>
+</mat-card>

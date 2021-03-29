@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
+import { IWord } from '../core/models/IWord';
 import { ApiService } from '../core/services/api.service';
-import { IWord } from '../redux/actions/audiochallenge.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -12,15 +13,14 @@ export class MiniGamesHttpService {
   group = 0;
   constructor(private http: HttpClient, private api: ApiService) {}
 
-  getWords(page = this.getRandomNumber(30), group = 0) {
+  getWords(group: number = 0, page: number = this.getRandomNumber(30)): Observable<IWord[]> {
     this.page = page;
     this.group = group;
-    return this.http.get(`${this.api.baseApiUrl}/words?page=${page}&group=${group}`);
+    return this.http.get<IWord[]>(`${this.api.baseApiUrl}/words?page=${page}&group=${group}`);
   }
 
-  getWordById(id: string) {
-    console.log(id);
-    return this.http.get(`${this.api.baseApiUrl}/words/${id}`);
+  getWordById(id: string): Observable<IWord> {
+    return this.http.get<IWord>(`${this.api.baseApiUrl}/words/${id}`);
   }
 
   getRandomTranslations() {

@@ -1,11 +1,11 @@
 <ul class="translations" *ngIf="options">
   <li
-    *ngFor="let item of options; trackBy: trackByIdentity"
+    *ngFor="let item of optionsObjects; index as index; trackBy: trackByIdentity"
     class="translations__option"
     (click)="chooseTranslation(item)"
   >
-    <div class="option__number">{{ options.indexOf(item) + 1 }}</div>
+    <div class="option__number">{{ optionsObjects.indexOf(item) + 1 }}</div>
     <div class="answer-indication"></div>
-    <span class="option__text">{{ item }}</span>
+    <span [ngClass]="getStyles(item)">{{ item.option }}</span>
   </li>
 </ul>

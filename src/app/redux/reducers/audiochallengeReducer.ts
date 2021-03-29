@@ -1,29 +1,54 @@
 import { createReducer, on, Action } from '@ngrx/store';
+import { IAudiochallengeWord } from 'src/app/redux/models/IAudiochallengeWord';
+import { IWord } from 'src/app/core/models/IWord';
 import {
   wordsLoadedSuccess,
-  IWord,
   audiochallengeStarted,
   audiochallengeEnded,
-  initialWord,
   translationChoosed,
   showNextWord,
   translationsLoadedSuccess,
   rightAnswer,
   wrongAnswer,
+  gameOver,
+  soundOf,
+  soundOn,
+  translationsShuffled,
+  closeGame,
 } from '../actions/audiochallenge.actions';
 import { AudiochallengeState } from '../models/audiochallenge.state.model';
+import { ASSETS_API_URL } from 'src/app/core/constants/mini-games';
+import { FAIL_AUDIO_URL, SUCCESS_AUDIO_URL } from 'src/app/core/constants/audiochallenge-game';
+
+const initialWord: IAudiochallengeWord = {
+  id: '',
+  word: '',
+  image: '',
+  audio: '',
+  audioMeaning: '',
+  audioExample: '',
+  textMeaning: '',
+  textExample: '',
+  transcription: '',
+  wordTranslate: '',
+  textMeaningTranslate: '',
+  textExampleTranslate: '',
+  translationsArray: [],
+};
 
 export const initialState: AudiochallengeState = {
   list: [],
   statsList: [],
   isGameStarted: false,
+  isGameEnded: false,
   currentWord: initialWord,
   audio: new Audio(),
   isTranslationChoosed: false,
   translations: [],
+  maxRightAnswers: 0,
+  previousMaxAnswers: 0,
+  isSoundOn: true,
 };
-
-export const assetsApiUrl = 'https://github.com/rss-maksim/LearnWords/blob/master';
 
 const audiochallengeReducer = createReducer(
   initialState,
@@ -33,8 +58,8 @@ const audiochallengeReducer = createReducer(
     return {
       ...state,
       list: tempList,
-      currentWord: tempWord,
-      audio: new Audio(`${assetsApiUrl}/${tempWord.audio}?raw=true`),
+      currentWord: { ...tempWord, translationsArray: [] },
+      audio: new Audio(`${ASSETS_API_URL}/${tempWord.audio}?raw=true`),
     };
   }),
   on(translationsLoadedSuccess, (state, { payload }) => {
@@ -62,14 +87,21 @@ const audiochallengeReducer = createReducer(
     return {
       ...state,
       statsList: [...state.statsList, { word: state.currentWord, result: true }],
-      audio: new Audio('../../../assets/sounds/mini-games/success.mp3'),
+      audio: new Audio(SUCCESS_AUDIO_URL),
+      maxRightAnswers: state.maxRightAnswers + 1,
     };
   }),
   on(wrongAnswer, (state) => {
+    let counter = 0;
+    state.maxRightAnswers > state.previousMaxAnswers
+      ? (counter = state.maxRightAnswers)
+      : (counter = state.previousMaxAnswers);
     return {
       ...state,
       statsList: [...state.statsList, { word: state.currentWord, result: false }],
-      audio: new Audio('../../../assets/sounds/mini-games/fail.mp3'),
+      audio: new Audio(FAIL_AUDIO_URL),
+      maxRightAnswers: 0,
+      previousMaxAnswers: counter,
     };
   }),
   on(showNextWord, (state) => {
@@ -85,10 +117,19 @@ const audiochallengeReducer = createReducer(
         translationsArray: [...translationsSlice, tempWord.wordTranslate],
       },
       translations: [...tempArray],
-      audio: new Audio(`${assetsApiUrl}/${tempWord.audio}?raw=true`),
+      audio: new Audio(`${ASSETS_API_URL}/${tempWord.audio}?raw=true`),
       isTranslationChoosed: false,
     };
   }),
+  on(translationsShuffled, (state, { payload }) => {
+    return { ...state, currentWord: { ...state.currentWord, translationsArray: payload } };
+  }),
+  on(gameOver, (state) => {
+    return { ...state, isGameEnded: true };
+  }),
+  on(soundOn, (state) => ({ ...state, isSoundOn: true })),
+  on(soundOf, (state) => ({ ...state, isSoundOn: false })),
+  on(closeGame, (state) => ({ ...initialState })),
 );
 
 export default function reducer(state: AudiochallengeState | undefined, action: Action) {

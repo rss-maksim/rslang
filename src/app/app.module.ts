@@ -15,8 +15,6 @@ import homeReducer from './redux/reducers/homeReducer';
 import userReducer from './redux/reducers/userReducer';
 import { MainModule } from './main/main.module';
 import { TeamEffects } from './redux/effects/team.effect';
-import audiochallengeReducer from './redux/reducers/audiochallengeReducer';
-import { AudiochallengeEffects } from './redux/effects/audiochallenge.effects';
 import { UserEffects } from './redux/effects/user.effect';
 import { httpInterceptorsProviders } from './shared/interceptors';
 @NgModule({
@@ -29,8 +27,8 @@ import { httpInterceptorsProviders } from './shared/interceptors';
     MainModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot({ home: homeReducer, user: userReducer, audiochallenge: audiochallengeReducer }),
-    EffectsModule.forRoot([TeamEffects, UserEffects, AudiochallengeEffects]),
+    StoreModule.forRoot({ home: homeReducer, user: userReducer }),
+    EffectsModule.forRoot([TeamEffects, UserEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

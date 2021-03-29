@@ -10,6 +10,8 @@ export const selectUserState = createFeatureSelector<AppState, UserState>(featur
 
 export const selectUser = createSelector(selectUserState, (state: UserState): UserModel | null => state.user);
 
+export const selectUserId = createSelector(selectUserState, (state: UserState): string | undefined => state.user?.id);
+
 export const selectIsAuthorized = createSelector(selectUserState, (state: UserState): boolean => state.isAuthorized);
 
 export const selectIsAnonymous = createSelector(selectUserState, (state: UserState): boolean => !state.isAuthorized);

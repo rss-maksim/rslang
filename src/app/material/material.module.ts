@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -26,6 +27,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressSpinnerModule,
     MatListModule,
     MatTooltipModule,
+    MatDialogModule,
+    MatTooltipModule,
   ],
   exports: [
     MatCardModule,
@@ -38,6 +41,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatInputModule,
     MatProgressSpinnerModule,
     MatListModule,
+    MatTooltipModule,
+    MatDialogModule,
     MatTooltipModule,
   ],
 })
