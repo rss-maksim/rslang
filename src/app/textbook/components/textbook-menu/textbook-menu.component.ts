@@ -8,6 +8,8 @@ import { AppState } from 'src/app/redux/models/state.model';
 import { setWordSettingsAddButtons, setWordSettingsTranslation } from 'src/app/redux/actions/textbooks.actions';
 import { selectIsAuthorized } from 'src/app/redux/selectors/user.selector';
 
+type Position = 'before' | 'after';
+
 @Component({
   selector: 'app-textbook-menu',
   templateUrl: './textbook-menu.component.html',
@@ -16,7 +18,7 @@ import { selectIsAuthorized } from 'src/app/redux/selectors/user.selector';
 export class TextbookMenuComponent {
   isCheckedTranslation = false;
   isCheckedAddButtons = false;
-  labelPosition: 'before' | 'after' = 'after';
+  labelPosition: Position = 'after';
   disabled = false;
   isAuthorized$ = this.store.select(selectIsAuthorized);
 

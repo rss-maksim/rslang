@@ -10,8 +10,6 @@ import {
 
 export const initialState: TextbookState = {
   words: [],
-  // wordsGroup: '0',
-  // wordsPage: '0',
   wordSettingsTranslation: false,
   wordSettingsAddButtons: false,
 };

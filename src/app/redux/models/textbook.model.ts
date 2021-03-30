@@ -15,13 +15,6 @@ export interface IWord {
 
 export interface TextbookState {
   words: IWord[];
-  // wordsGroup: string;
-  // wordsPage: string;
-  // @todo: might consider to create property settings
-  // settings: {
-  //   wordSettingsTranslation: boolean;
-  //   wordSettingsAddButtons: boolean;
-  // }
   wordSettingsTranslation: boolean;
   wordSettingsAddButtons: boolean;
 }
