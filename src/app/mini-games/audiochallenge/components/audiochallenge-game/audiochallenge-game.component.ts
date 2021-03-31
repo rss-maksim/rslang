@@ -9,12 +9,7 @@ import {
   checkGameOver,
   wrongAnswer,
 } from 'src/app/redux/actions/audiochallenge.actions';
-import {
-  selectAudio,
-  selectCurrentWord,
-  selectIsChoosed,
-  selectWords,
-} from 'src/app/redux/selectors/audiochallenge.selectors';
+import { selectCurrentWord, selectIsChoosed, selectWords } from 'src/app/redux/selectors/audiochallenge.selectors';
 import { AppState } from 'src/app/redux/models/state.model';
 import { IWord } from '../../../../core/models/IWord';
 import { IAudiochallengeWord } from 'src/app/redux/models/IAudiochallengeWord';
@@ -27,7 +22,6 @@ import { IAudiochallengeWord } from 'src/app/redux/models/IAudiochallengeWord';
 export class AudiochallengeGameComponent implements OnInit {
   @Input() difficulty!: number;
   currentWord$!: Observable<IAudiochallengeWord>;
-  audio$!: Observable<HTMLAudioElement>;
   word$!: Observable<IWord[]>;
   words$!: Observable<IWord[]>;
   guessed$!: Observable<boolean>;
@@ -38,7 +32,6 @@ export class AudiochallengeGameComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(loadWords({ payload: this.difficulty }));
     this.currentWord$ = this.store.select(selectCurrentWord);
-    this.audio$ = this.store.select(selectAudio);
     this.words$ = this.store.select(selectWords);
     this.guessed$ = this.store.select(selectIsChoosed);
   }

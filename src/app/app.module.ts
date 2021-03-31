@@ -17,6 +17,9 @@ import { MainModule } from './main/main.module';
 import { TeamEffects } from './redux/effects/team.effect';
 import { UserEffects } from './redux/effects/user.effect';
 import { httpInterceptorsProviders } from './shared/interceptors';
+import textbookReducer from './redux/reducers/textbookReducer';
+import { TextbookEffects } from './redux/effects/textbook.effect';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -27,8 +30,8 @@ import { httpInterceptorsProviders } from './shared/interceptors';
     MainModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot({ home: homeReducer, user: userReducer }),
-    EffectsModule.forRoot([TeamEffects, UserEffects]),
+    StoreModule.forRoot({ home: homeReducer, user: userReducer, textbook: textbookReducer }),
+    EffectsModule.forRoot([TeamEffects, UserEffects, TextbookEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

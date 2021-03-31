@@ -17,7 +17,6 @@ export const selectIsGameStarted = createSelector(
   selectAudiochallenge,
   (state: AudiochallengeState) => state.isGameStarted,
 );
-export const selectAudio = createSelector(selectAudiochallenge, (state: AudiochallengeState) => state.audio);
 export const selectIsChoosed = createSelector(
   selectAudiochallenge,
   (state: AudiochallengeState) => state.isTranslationChoosed,
@@ -34,8 +33,8 @@ export const selectMaxRightAnswers = createSelector(selectAudiochallenge, (state
 export const selectTrainedWords = createSelector(selectAudiochallenge, (state: AudiochallengeState) => state.statsList);
 
 export const selectIsSoundOn = createSelector(selectAudiochallenge, (state: AudiochallengeState) => ({
-  isSOundON: state.isSoundOn,
-  audio: state.audio,
+  isSoundOn: state.isSoundOn,
+  audio: state.audioSrc,
 }));
 
 export const selectIsSoundOnBool = createSelector(

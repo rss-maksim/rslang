@@ -1,31 +1,13 @@
 .translations {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  list-style: none;
-  width: 100%;
 }
 
-.translations__option {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  font-size: 1.5rem;
-  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.2), 1px 1px 1px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  cursor: pointer;
-  margin-bottom: 20px;
-
-  &:not(:last-child) {
-    margin-right: 20px;
-  }
-  :hover {
-    transform: scale(1.02);
-  }
+.mat-list-item.mat-focus-indicator {
+  display: contents;
+  color: white;
+  font-size: 1.3rem;
 }
 
 .option__number {
@@ -40,26 +22,6 @@
   border-radius: 3px;
 }
 
-.option__text {
-  line-height: 2rem;
-  overflow-wrap: anywhere;
-  max-width: 12rem;
-  vertical-align: middle;
-}
-
-@media screen and (max-width: 650px) {
-  .translations {
-    flex-direction: column;
-  }
-
-  .translations__option {
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    font-size: 1.2rem;
-  }
-  .option__number {
-    border: 0;
-  }
-}
 .option__text_wrong {
   text-decoration: line-through;
   transform: scale(0.8);
@@ -74,4 +36,18 @@
 .option__text_not-choosen {
   transform: scale(0.8);
   color: rgba(255, 255, 255, 0.5);
+}
+
+@media screen and (max-width: 650px) {
+  .translations {
+    flex-direction: column;
+  }
+
+  .translations__option {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    font-size: 1.2rem;
+  }
+  .option__number {
+    border: 0;
+  }
 }

@@ -8,7 +8,6 @@ import { MiniGamesHttpService } from '../../services/mini-games-http.service';
 import { MiniGamesHelperService } from 'src/app/services/mini-games-helper.servise';
 import { AppState } from '../models/state.model';
 import {
-  selectAudio,
   selectWords,
   selectCurrentWord,
   selectIsSoundOn,
@@ -28,6 +27,7 @@ import {
   shuffleTranslations,
   translationsShuffled,
 } from '../actions/audiochallenge.actions';
+import { ASSETS_API_URL } from 'src/app/core/constants/mini-games';
 
 @Injectable()
 export class AudiochallengeEffects {
@@ -59,8 +59,11 @@ export class AudiochallengeEffects {
     () => {
       return this.actions$.pipe(
         ofType(playWordSound, wordsLoadedSuccess, showNextWord),
-        concatLatestFrom(() => this.store.select(selectAudio)),
-        tap(([, audio]) => audio.play()),
+        concatLatestFrom(() => this.store.select(selectCurrentWord)),
+        tap(([, currentWord$]) => {
+          const audio = new Audio(`${ASSETS_API_URL}/${currentWord$.audio}?raw=true`);
+          audio.play();
+        }),
       );
     },
     { dispatch: false },
@@ -72,8 +75,9 @@ export class AudiochallengeEffects {
         ofType(rightAnswer, wrongAnswer),
         concatLatestFrom(() => this.store.select(selectIsSoundOn)),
         tap(([, options]) => {
-          if (options.isSOundON) {
-            options.audio.play();
+          if (options.isSoundOn) {
+            const audio = new Audio(`${options.audio}`);
+            audio.play();
           }
         }),
       );

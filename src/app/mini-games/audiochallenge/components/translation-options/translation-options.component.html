@@ -1,11 +1,11 @@
-<ul class="translations" *ngIf="options">
-  <li
+<mat-action-list class="translations" *ngIf="options">
+  <button
+    mat-list-item
     *ngFor="let item of optionsObjects; index as index; trackBy: trackByIdentity"
-    class="translations__option"
     (click)="chooseTranslation(item)"
   >
     <div class="option__number">{{ optionsObjects.indexOf(item) + 1 }}</div>
     <div class="answer-indication"></div>
     <span [ngClass]="getStyles(item)">{{ item.option }}</span>
-  </li>
-</ul>
+  </button>
+</mat-action-list>

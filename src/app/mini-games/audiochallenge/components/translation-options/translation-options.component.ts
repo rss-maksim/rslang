@@ -45,11 +45,11 @@ export class TranslationOptionsComponent implements OnChanges {
 
   trackByIdentity = (index: number) => index;
 
-  chooseTranslation(item: any) {
+  chooseTranslation(item: { option: string; isRight: boolean; isSelected: boolean }) {
     if (!this.guessed) {
       this.translationEvent.emit(item.option);
+      this.chooseElement(item);
     }
-    this.chooseElement(item);
   }
 
   @HostListener('window:keyup', ['$event'])

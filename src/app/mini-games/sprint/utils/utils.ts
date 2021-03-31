@@ -34,6 +34,12 @@ export function playSound(src: string) {
   audio.play();
 }
 
+export function playRawSound(src: string) {
+  const audio = new Audio();
+  audio.src = src;
+  audio.play();
+}
+
 export function getRandomPages() {
   const pages: number[] = [];
 

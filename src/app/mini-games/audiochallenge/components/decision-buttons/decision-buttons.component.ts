@@ -21,11 +21,12 @@ export class DecisionButtonsComponent {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    if (event.key === 'Enter' && this.guessed) {
-      this.nextWordEvent.emit();
-    }
-    if (event.key === ' ' && !this.guessed) {
-      this.guessEvent.emit();
+    if (event.key === 'Enter') {
+      if (!this.guessed) {
+        this.guessEvent.emit();
+      } else {
+        this.nextWordEvent.emit();
+      }
     }
   }
 }

@@ -7,12 +7,12 @@ export interface AudiochallengeState {
   translations: string[];
   isGameStarted: boolean;
   currentWord: IAudiochallengeWord;
-  audio: HTMLAudioElement;
   isTranslationChoosed: boolean;
   maxRightAnswers: number;
   previousMaxAnswers: number;
   isGameEnded: boolean;
   isSoundOn: boolean;
+  audioSrc: string;
 }
 
 export interface IStatsWord {

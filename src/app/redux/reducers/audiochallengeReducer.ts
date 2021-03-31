@@ -18,7 +18,7 @@ import {
 } from '../actions/audiochallenge.actions';
 import { AudiochallengeState } from '../models/audiochallenge.state.model';
 import { ASSETS_API_URL } from 'src/app/core/constants/mini-games';
-import { FAIL_AUDIO_URL, SUCCESS_AUDIO_URL } from 'src/app/core/constants/audiochallenge-game';
+import { FAIL_AUDIO_URL, SUCCESS_AUDIO_URL } from 'src/app/mini-games/constants/audiochallenge-game';
 
 const initialWord: IAudiochallengeWord = {
   id: '',
@@ -42,12 +42,12 @@ export const initialState: AudiochallengeState = {
   isGameStarted: false,
   isGameEnded: false,
   currentWord: initialWord,
-  audio: new Audio(),
   isTranslationChoosed: false,
   translations: [],
   maxRightAnswers: 0,
   previousMaxAnswers: 0,
   isSoundOn: true,
+  audioSrc: '',
 };
 
 const audiochallengeReducer = createReducer(
@@ -59,7 +59,7 @@ const audiochallengeReducer = createReducer(
       ...state,
       list: tempList,
       currentWord: { ...tempWord, translationsArray: [] },
-      audio: new Audio(`${ASSETS_API_URL}/${tempWord.audio}?raw=true`),
+      audioSrc: `${ASSETS_API_URL}/${tempWord.audio}?raw=true`,
     };
   }),
   on(translationsLoadedSuccess, (state, { payload }) => {
@@ -87,7 +87,7 @@ const audiochallengeReducer = createReducer(
     return {
       ...state,
       statsList: [...state.statsList, { word: state.currentWord, result: true }],
-      audio: new Audio(SUCCESS_AUDIO_URL),
+      audioSrc: SUCCESS_AUDIO_URL,
       maxRightAnswers: state.maxRightAnswers + 1,
     };
   }),
@@ -99,7 +99,7 @@ const audiochallengeReducer = createReducer(
     return {
       ...state,
       statsList: [...state.statsList, { word: state.currentWord, result: false }],
-      audio: new Audio(FAIL_AUDIO_URL),
+      audioSrc: FAIL_AUDIO_URL,
       maxRightAnswers: 0,
       previousMaxAnswers: counter,
     };
@@ -124,9 +124,7 @@ const audiochallengeReducer = createReducer(
   on(translationsShuffled, (state, { payload }) => {
     return { ...state, currentWord: { ...state.currentWord, translationsArray: payload } };
   }),
-  on(gameOver, (state) => {
-    return { ...state, isGameEnded: true };
-  }),
+  on(gameOver, (state) => ({ ...state, isGameEnded: true })),
   on(soundOn, (state) => ({ ...state, isSoundOn: true })),
   on(soundOf, (state) => ({ ...state, isSoundOn: false })),
   on(closeGame, (state) => ({ ...initialState })),
