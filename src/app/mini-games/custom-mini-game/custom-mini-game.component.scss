@@ -147,6 +147,9 @@ $font-size-lg: 2.5rem;
 }
 
 .sound-button {
+  position: absolute;
+  top: 2.5rem;
+  left: 3.5rem;
   cursor: pointer;
 }
 
@@ -156,4 +159,13 @@ $font-size-lg: 2.5rem;
 
 .gallows-img {
   transition: opacity 3s ease-in-out;
+}
+
+.results {
+  background-color: $color-gray-light;
+}
+
+.display-block {
+  display: flex;
+  flex-direction: column;
 }

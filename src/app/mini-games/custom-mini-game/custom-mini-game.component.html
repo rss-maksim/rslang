@@ -6,19 +6,19 @@
   </div>
   <div class="game-container">
     <div>
-      <div class="one-row center margins-top-bottom">
-        <div class="margins-left-right counter">Раунд: {{ currentWordIndex + 1 }}</div>
+      <div *ngIf="!isGameOver" class="one-row center margins-top-bottom">
+        <div class="margins-left-right counter">Раунд: {{ currentRound }}</div>
         <div class="margins-left-right counter">Осталось раундов: {{ roundsLeft }}</div>
       </div>
-      <div *ngIf="!isGameOver()" class="one-row center margins-top-bottom">
+      <div *ngIf="!isRoundOver" class="one-row center margins-top-bottom">
         <div class="margins-left-right counter">Осталось времени на текущий раунд: {{ countdownTimer }} cек</div>
       </div>
-      <div *ngIf="!isGameOver()" class="one-row center margins-top-bottom">
+      <div *ngIf="!isRoundOver" class="one-row center margins-top-bottom">
         <div class="margins-left-right counter">
           Осталось перестановок в текущем раунде: {{ movesCountdownCounter }}
         </div>
       </div>
-      <div *ngIf="!isGameOver()" class="center margins-top-bottom">
+      <div *ngIf="!isRoundOver" class="center margins-top-bottom">
         <p class="margins-left-right counter">Перевод слова: {{ currentWordTranslation | uppercase }}</p>
       </div>
       <div class="center margins-top-bottom">
@@ -27,7 +27,7 @@
         </button>
       </div>
 
-      <div *ngIf="!isGameOver()" class="full-height center">
+      <div *ngIf="!isRoundOver" class="full-height center">
         <div
           cdkDropList
           cdkDropListOrientation="horizontal"
@@ -39,8 +39,20 @@
           </div>
         </div>
       </div>
-      <div class="center margins-top-bottom">
+      <div *ngIf="!isResultsShown" class="center margins-top-bottom">
         <img class="gallows-img" [src]="imageSrc" />
+      </div>
+      <div *ngIf="isRoundOver && !isGameOver" class="center margins-top-bottom">
+        <button mat-raised-button color="primary" (click)="startNextRound()">Начать следующий раунд</button>
+      </div>
+      <div *ngIf="isResultsShown" class="center margins-top-bottom margins-left-right display-block">
+        <p class="results counter">Результаты игры</p>
+        <p *ngFor="let word of sourceArray" class="results counter">
+          Слово: {{ word[0] }}, перевод: {{ word[1] }}, {{ word[2] }}
+        </p>
+      </div>
+      <div *ngIf="isGameOver && !isResultsShown" class="center margins-top-bottom margins-left-right counter">
+        {{ isGameLost() ? "В следующий раз обязательно получится!" : "Так держать!" }}
       </div>
     </div>
   </div>
