@@ -1,24 +1,46 @@
 <div class="background-container">
   <div>
-    <mat-icon class="close-icon" (click)="onCloseDialog()">close</mat-icon>
+    <button mat-icon-button class="close-game-button" color="warn" (click)="onCloseDialog()">
+      <mat-icon class="close-icon">close</mat-icon>
+    </button>
   </div>
   <div class="game-container">
-    <div class="one-row center margins-top-bottom">
-      <div class="margins-left-right counter">Раунд: {{ wordIndex }}</div>
-      <div class="margins-left-right counter">Осталось раундов: {{ roundsLeft }}</div>
-    </div>
-    <div *ngIf="!isGameOver()" class="one-row center margins-top-bottom">
-      <div class="margins-left-right counter">Осталось времени на текущий раунд: {{ countdownTimer }} cек</div>
-    </div>
-    <div *ngIf="!isGameOver()" class="one-row center margins-top-bottom">
-      <div class="margins-left-right counter">Осталось перестановок в текущем раунде: {{ movesCountdownCounter }}</div>
-    </div>
-
-    <div class="full-height center">
-      <div cdkDropList cdkDropListOrientation="horizontal" class="word-list" (cdkDropListDropped)="dropLetter($event)">
-        <div class="word-box" *ngFor="let letter of scrambledWordAsArray" cdkDrag>
-          {{ letter }}
+    <div>
+      <div class="one-row center margins-top-bottom">
+        <div class="margins-left-right counter">Раунд: {{ currentWordIndex + 1 }}</div>
+        <div class="margins-left-right counter">Осталось раундов: {{ roundsLeft }}</div>
+      </div>
+      <div *ngIf="!isGameOver()" class="one-row center margins-top-bottom">
+        <div class="margins-left-right counter">Осталось времени на текущий раунд: {{ countdownTimer }} cек</div>
+      </div>
+      <div *ngIf="!isGameOver()" class="one-row center margins-top-bottom">
+        <div class="margins-left-right counter">
+          Осталось перестановок в текущем раунде: {{ movesCountdownCounter }}
         </div>
+      </div>
+      <div *ngIf="!isGameOver()" class="center margins-top-bottom">
+        <p class="margins-left-right counter">Перевод слова: {{ currentWordTranslation | uppercase }}</p>
+      </div>
+      <div class="center margins-top-bottom">
+        <button mat-icon-button class="sound-button center" color="primary" (click)="onToggleSound()">
+          <mat-icon class="sound-icon">{{ isSoundOn ? "volume_up" : "volume_off" }} </mat-icon>
+        </button>
+      </div>
+
+      <div *ngIf="!isGameOver()" class="full-height center">
+        <div
+          cdkDropList
+          cdkDropListOrientation="horizontal"
+          class="word-list"
+          (cdkDropListDropped)="dropLetter($event)"
+        >
+          <div class="word-box" *ngFor="let letter of scrambledWordAsArray" cdkDrag>
+            {{ letter }}
+          </div>
+        </div>
+      </div>
+      <div class="center margins-top-bottom">
+        <img class="gallows-img" [src]="imageSrc" />
       </div>
     </div>
   </div>

@@ -3,6 +3,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, timer } from 'rxjs';
 import { CloseDialogComponent } from './close-dialog/close-dialog.component';
+import { ShuffleService } from './services/shuffle.service';
+import { SoundService } from './services/sound.service';
 
 @Component({
   selector: 'app-custom-mini-game',
@@ -13,9 +15,9 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   sourceArray = [
     ['humor', 'юмор'],
     ['height', 'высота'],
-    /*['school', 'школа'],
+    ['school', 'школа'],
     ['season', 'время года'],
-    ['calendar', 'календарь'],*/
+    ['calendar', 'календарь'],
   ];
   currentWord?: string;
   currentWordTranslation?: string;
@@ -23,69 +25,78 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   previousScrambledWord?: string;
   scrambledWord?: string;
   movesCountdownCounter = 0;
-  wordIndex = -1;
+  currentWordIndex = 0;
   countdownTimer = 0;
   tick = 1_000;
+  roundLength = 2; // длина раунда в тиках
+  timeoutBetweenRounds = 2_000;
   countDown?: Subscription;
-  roundsLeft = this.sourceArray.length + 1;
+  roundsLeft = this.sourceArray.length - 1;
   isGamePaused = false;
+  isSoundOn = false;
+  isGameLost = false;
+  errorsCounter = 0;
+  imageSrc = '../../../assets/images/mini-games/custom-mini-game/hangman_stage' + this.errorsCounter + '.png';
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private soundService: SoundService, private shuffleService: ShuffleService) {}
 
   ngOnInit() {
     this.startGame();
   }
 
-  startGame() {
+  startGame(): void {
     this.nextRoundReset();
-  }
-
-  getRandomInt(max: number): number {
-    return Math.floor(Math.random() * Math.floor(max));
   }
 
   compareWords(wordOne: string, wordTwo: string): boolean {
     return wordOne === wordTwo;
   }
 
-  nextRoundReset() {
-    this.countDown?.unsubscribe();
-    this.countdownTimer = 15; // reset timer
+  nextRoundReset(): void {
+    this.isGamePaused = false;
+    // this.countDown?.unsubscribe();
+    this.countdownTimer = this.roundLength; // reset timer
+
     if (!this.isGameOver()) {
-      this.wordIndex += 1;
-      this.roundsLeft -= 1;
-    }
-    this.currentWord = this.sourceArray[this.wordIndex][0];
-    this.currentWordTranslation = this.sourceArray[this.wordIndex][1];
-    this.scrambledWordAsArray = this.shuffleLettersInWord(this.currentWord);
-    this.scrambledWord = this.scrambledWordAsArray.join('');
-    this.movesCountdownCounter = this.currentWord.length; // reset moves counter
+      this.currentWord = this.sourceArray[this.currentWordIndex][0];
+      this.currentWordTranslation = this.sourceArray[this.currentWordIndex][1];
+      this.scrambledWordAsArray = this.shuffleService.shuffleLettersInWord(this.currentWord);
+      this.scrambledWord = this.scrambledWordAsArray.join('');
+      this.movesCountdownCounter = this.currentWord.length; // reset moves counter
 
-    this.countDown = timer(0, this.tick) // start timer countdown
-      .subscribe(() => {
-        if (this.countdownTimer > 0 && !this.isGameOver()) {
-          if (!this.isGamePaused) {
-            this.countdownTimer -= 1;
+      this.countDown = timer(0, this.tick) // start timer countdown
+        .subscribe(() => {
+          if (this.countdownTimer > 0 && !this.isGameOver()) {
+            if (!this.isGamePaused) {
+              this.countdownTimer -= 1;
+            }
           }
-        } else {
-          this.countDown?.unsubscribe();
-          if (!this.isGameOver()) {
-            this.nextRoundReset();
+          if (this.countdownTimer === 0 || this.isGameOver()) {
+            this.countDown?.unsubscribe();
+            if (!this.isGameOver()) {
+              this.errorsCounter += 1;
+              this.imageSrc =
+                '../../../assets/images/mini-games/custom-mini-game/hangman_stage' + this.errorsCounter + '.png';
+              this.soundService.playAudio('round lost');
+              setTimeout(() => {
+                // задерживаем начало следующего раунда
+                this.nextRoundReset();
+              }, this.timeoutBetweenRounds);
+            }
           }
-        }
-      });
-  }
-
-  shuffleLettersInWord(word: string): string[] {
-    // Fisher–Yates shuffle Algorithm
-    let wordAsArray = word.split('');
-    for (let i = wordAsArray.length - 1; i > 0; i -= 1) {
-      let j = this.getRandomInt(i + 1);
-      let temp = wordAsArray[i];
-      wordAsArray[i] = wordAsArray[j];
-      wordAsArray[j] = temp;
+        });
     }
-    return wordAsArray;
+
+    this.currentWordIndex += 1;
+    this.roundsLeft -= 1;
+
+    /*     if (this.isGameOver()) {
+      if (this.errorsCounter < 5) {
+        this.soundService.playAudio('round won');
+      } else {
+        this.soundService.playAudio('round lost');
+      }
+    } */
   }
 
   isRoundLost(): boolean {
@@ -99,21 +110,49 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   }
 
   isGameOver(): boolean {
-    if (this.wordIndex === this.sourceArray.length) return true;
+    if (this.currentWordIndex > this.sourceArray.length) return true;
     return false;
   }
 
   dropLetter(event: CdkDragDrop<string[]>) {
     if (this.scrambledWordAsArray) {
       this.previousScrambledWord = this.scrambledWordAsArray.join('');
-      moveItemInArray(this.scrambledWordAsArray, event.previousIndex, event.currentIndex);
+      if (this.movesCountdownCounter > 0 && !this.isGameOver()) {
+        moveItemInArray(this.scrambledWordAsArray, event.previousIndex, event.currentIndex);
+      }
       if (this.previousScrambledWord !== this.scrambledWordAsArray.join('')) {
+        // если буква сдвинулась, то ход засчитываем
         if (this.movesCountdownCounter > 0 && !this.isGameOver()) this.movesCountdownCounter -= 1;
+        this.soundService.playAudio('move');
         this.previousScrambledWord = this.scrambledWordAsArray.join('');
       }
-      if (this.currentWord === this.scrambledWordAsArray.join('') && !this.isGameOver()) {
-        this.nextRoundReset();
+      if (this.isRoundLost() && !this.isGameOver()) {
+        this.isGamePaused = true;
+        this.soundService.playAudio('round lost');
+        this.errorsCounter += 1;
+        this.imageSrc =
+          '../../../assets/images/mini-games/custom-mini-game/hangman_stage' + this.errorsCounter + '.png';
+        setTimeout(() => {
+          // задерживаем начало следующего раунда
+          this.nextRoundReset();
+        }, this.timeoutBetweenRounds);
       }
+      if (this.isRoundWon() && !this.isGameOver()) {
+        this.isGamePaused = true;
+        this.soundService.playAudio('round won');
+        setTimeout(() => {
+          // задерживаем начало следующего раунда
+          this.nextRoundReset();
+        }, this.timeoutBetweenRounds);
+      }
+
+      /*       if (this.isGameOver()) {
+        if (this.errorsCounter < 5) {
+          this.soundService.playAudio('round won');
+        } else {
+          this.soundService.playAudio('round lost');
+        }
+      } */
     }
   }
 
@@ -126,6 +165,11 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(() => {
       this.isGamePaused = false;
     });
+  }
+
+  onToggleSound(): void {
+    this.soundService.toggleSound();
+    this.isSoundOn = this.soundService.isSoundOn;
   }
 
   ngOnDestroy() {
