@@ -1,0 +1,8 @@
+<h2 class="textbook-mini-games__title">Начать тренировку</h2>
+<div class="textbook-mini-games__list">
+  <a [routerLink]="game.link" *ngFor="let game of miniGamesList; let i = index; trackBy: trackByFn">
+    <mat-card class="textbook-mini-games__card">
+      {{ game.name }}
+    </mat-card>
+  </a>
+</div>
