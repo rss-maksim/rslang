@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, Inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-full-screen-button',
@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component, HostListener, Inject, Input, OnInit
   styleUrls: ['./full-screen-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FullScreenButtonComponent implements OnInit {
+export class FullScreenButtonComponent implements OnInit, OnDestroy {
   @Input() color = 'primary'; // primary || accent || warn || disabled
   elem!: Element;
   isFullScreen = false;
@@ -34,6 +34,11 @@ export class FullScreenButtonComponent implements OnInit {
     if (!this.isFullScreen) {
       this.elem.requestFullscreen();
     } else {
+      this.document.exitFullscreen();
+    }
+  }
+  ngOnDestroy(): void {
+    if (this.isFullScreen) {
       this.document.exitFullscreen();
     }
   }

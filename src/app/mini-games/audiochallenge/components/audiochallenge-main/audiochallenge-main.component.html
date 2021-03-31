@@ -1,0 +1,27 @@
+<ng-template #introBlock>
+  <div class="intro">
+    <h2 class="title">Аудиовызов</h2>
+    <p class="text">Тренировка улучшает восприятие речи на слух</p>
+    <app-audiochallenge-level-choise (difficultySelected)="setDifficulty($event)"></app-audiochallenge-level-choise>
+
+    <button class="start_btn" (click)="startGame()">Начать</button>
+  </div>
+</ng-template>
+
+<div *ngIf="isGameStarted$ | async; else introBlock">
+  <app-audiochallenge-end-game
+    *ngIf="isGameEnded | async; else endGameBlock"
+    [statsList]="statsList$ | async"
+    (closeGameEvent)="clearGame()"
+  ></app-audiochallenge-end-game>
+  <ng-template #endGameBlock>
+    <app-audiochallenge-game [difficulty]="difficulty"></app-audiochallenge-game>
+  </ng-template>
+</div>
+
+<ng-template #gameBlock> </ng-template>
+<button mat-fab (click)="openDialog()">
+  <span class="material-icons">close</span>
+</button>
+
+<app-full-screen-button class="full-screen__btn"></app-full-screen-button>

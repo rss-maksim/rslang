@@ -1,0 +1,54 @@
+.audio__btn {
+  box-shadow: none;
+  background-color: rgba(255, 255, 255, 0.07);
+  width: 3.5rem;
+  height: 3.5rem;
+  transition: all ease-in 0.3s;
+  &:hover {
+    box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
+    .material-icons {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.audio__btn_big {
+  width: 11rem;
+  height: 11rem;
+}
+
+.material-icons {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 2.5rem;
+  transition: all ease-in 0.3s;
+}
+
+.material-icons.md-48 {
+  font-size: 6rem;
+}
+
+.card {
+  min-height: 260px;
+  background-color: transparent;
+  box-shadow: none;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.card__image {
+  display: inline-block;
+  height: 11rem;
+  width: 11rem;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  box-shadow: 5px 5px 5px rgb(255 255 255 / 9%), -5px -5px 5px rgb(255 255 255 / 9%);
+}
+
+.mat-card-title {
+  line-height: 4rem;
+  font-size: 2.8rem;
+  button {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
