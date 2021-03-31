@@ -28,7 +28,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   currentWordIndex = 0;
   countdownTimer = 0;
   tick = 1_000;
-  roundLength = 2; // длина раунда в тиках
+  roundLength = 8; // длина раунда в тиках
   timeoutBetweenRounds = 2_000;
   countDown?: Subscription;
   roundsLeft = this.sourceArray.length - 1;
@@ -53,8 +53,18 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   }
 
   nextRoundReset(): void {
+    console.log('Entering nextRoundReset()');
+    console.log('movesCountdownCounter', this.movesCountdownCounter);
+    console.log('currentWordIndex', this.currentWordIndex);
+    console.log('roundsLeft', this.roundsLeft);
+    console.log();
+    console.log('___________');
+    console.log();
+
+    // debugger;
+
     this.isGamePaused = false;
-    // this.countDown?.unsubscribe();
+    this.countDown?.unsubscribe();
     this.countdownTimer = this.roundLength; // reset timer
 
     if (!this.isGameOver()) {
@@ -75,13 +85,51 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
             this.countDown?.unsubscribe();
             if (!this.isGameOver()) {
               this.errorsCounter += 1;
+
+              console.log('errorsCounter', this.errorsCounter);
+
               this.imageSrc =
                 '../../../assets/images/mini-games/custom-mini-game/hangman_stage' + this.errorsCounter + '.png';
               this.soundService.playAudio('round lost');
+
+              // debugger;
+              console.log('Before changing currentWordIndex and roundsLeft');
+              console.log('movesCountdownCounter', this.movesCountdownCounter);
+              console.log('currentWordIndex', this.currentWordIndex);
+              console.log('roundsLeft', this.roundsLeft);
+              console.log('this.isGameOver(): ', this.isGameOver());
+              console.log();
+              console.log('___________');
+              console.log();
+
+              //this.currentWordIndex += 1;
+              //this.roundsLeft -= 1;
+
+              console.log('After changing currentWordIndex and roundsLeft');
+              console.log('movesCountdownCounter', this.movesCountdownCounter);
+              console.log('currentWordIndex', this.currentWordIndex);
+              console.log('roundsLeft', this.roundsLeft);
+              console.log('this.isGameOver(): ', this.isGameOver());
+              console.log();
+              console.log('___________');
+              console.log();
+
               setTimeout(() => {
                 // задерживаем начало следующего раунда
-                this.nextRoundReset();
+                console.log('-----');
+                console.log('this.isGameOver(): ', this.isGameOver());
+                console.log('-----');
+                if (!this.isGameOver()) {
+                  this.nextRoundReset();
+                }
               }, this.timeoutBetweenRounds);
+            }
+          }
+          if (this.isGameOver()) {
+            if (this.errorsCounter < 5) {
+              this.soundService.playAudio('round won');
+            } else {
+              this.soundService.playAudio('round lost');
             }
           }
         });
@@ -110,7 +158,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   }
 
   isGameOver(): boolean {
-    if (this.currentWordIndex > this.sourceArray.length) return true;
+    if (this.currentWordIndex >= this.sourceArray.length || this.errorsCounter >= 5) return true;
     return false;
   }
 
