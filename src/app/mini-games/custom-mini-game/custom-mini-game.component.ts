@@ -174,6 +174,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   finalize() {
     console.log('In finalize');
     if (this.isGameLost()) {
+      console.log('this.isGameLost()', this.isGameLost());
       this.soundService.playAudio('game lost');
     } else {
       this.soundService.playAudio('game won');
