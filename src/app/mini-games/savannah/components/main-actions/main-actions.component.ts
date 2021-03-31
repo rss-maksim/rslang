@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { SlidingWordComponent } from './../sliding-word/sliding-word.component';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-main-actions',
@@ -7,21 +8,22 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainActionsComponent {
-  answerAnimation?: string;
-  answer = false;
-  @Input() word?: string;
-  @Input() translation?: string;
-  @Input() answers?: string[];
-  @Input() lifes?: number;
-  @Output() answered = new EventEmitter<boolean>();
+  @Input() word!: string;
+  @Input() translation!: string;
+  @Input() answers!: string[];
+  @Input() lifes!: number;
+  @Input() progress!: number;
+  @Output()
+  answered = new EventEmitter<boolean>();
+  @ViewChild(SlidingWordComponent) private wordComponent!: SlidingWordComponent;
   constructor() {}
 
   wordClicked(clickedWord: string): void {
-    this.answer = clickedWord === this.translation;
-    this.answerAnimation = this.answer ? 'right' : 'wrong';
+    const isAnswerCorrect = clickedWord === this.translation;
+    this.wordComponent.animate(isAnswerCorrect);
   }
 
-  wordGone(): void {
-    this.answered.emit(this.answer);
+  wordGone(answer: boolean): void {
+    this.answered.emit(answer);
   }
 }

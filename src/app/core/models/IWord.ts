@@ -2,10 +2,10 @@ export interface IWord {
   audio: string;
   audioExample: string;
   audioMeaning: string;
-  group: number;
+  group?: number;
   id: string;
   image: string;
-  page: number;
+  page?: number;
   textExample: string;
   textExampleTranslate: string;
   textMeaning: string;
@@ -13,5 +13,5 @@ export interface IWord {
   transcription: string;
   word: string;
   wordTranslate: string;
-  wordsPerExampleSentence: number;
+  wordsPerExampleSentence?: number;
 }

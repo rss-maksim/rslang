@@ -5,6 +5,8 @@ export type GameCard = {
   description: string;
 };
 
+export const ASSETS_API_URL = 'https://raw.githubusercontent.com/rss-maksim/LearnWords/master';
+
 export const GAME_CARDS: GameCard[] = [
   {
     name: 'Спринт',

@@ -1,4 +1,5 @@
-import { animate, AnimationBuilder, AnimationPlayer, sequence, style } from '@angular/animations';
+import { animate, AnimationBuilder, AnimationPlayer, sequence, style, useAnimation } from '@angular/animations';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,25 +11,43 @@ import {
   AfterViewInit,
   OnChanges,
 } from '@angular/core';
-import { Animations } from '../../utils/animations';
 
 @Component({
   selector: 'app-sliding-word',
   templateUrl: './sliding-word.component.html',
   styleUrls: ['./sliding-word.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [Animations.wordSlide],
 })
-export class SlidingWordComponent implements AfterViewInit {
+export class SlidingWordComponent implements OnChanges, AfterViewInit {
   @ViewChild('wordElement') wordElement!: ElementRef;
-  @Input()
-  word?: string;
-  @Input() answerState?: string;
-  @Output() wordGone = new EventEmitter();
+  @Input() word!: string;
+  @Output() wordGone = new EventEmitter<boolean>();
   private slidePlayer!: AnimationPlayer;
+  private rightPlayer!: AnimationPlayer;
+  private wrongPlayer!: AnimationPlayer;
   constructor(private builder: AnimationBuilder) {}
+  unClicked = 'slide';
+
+  ngOnChanges(changes: any) {
+    if (changes.word.previousValue) {
+      this.destroy(this.unClicked);
+      this.unClicked = 'slide';
+      this.wordElement.nativeElement.style = { bottom: '*', width: 'fit-content', opacity: 1 };
+      this.slideAnimation();
+    }
+  }
 
   ngAfterViewInit() {
+    this.slideAnimation();
+  }
+
+  animate(bool: boolean) {
+    this.unClicked = bool ? 'right' : 'wrong';
+    this.destroy('slide');
+    bool ? this.rightAnimation() : this.wrongAnimation();
+  }
+
+  slideAnimation() {
     this.slidePlayer = this.builder
       .build([
         style({ opacity: 0 }),
@@ -40,14 +59,41 @@ export class SlidingWordComponent implements AfterViewInit {
       ])
       .create(this.wordElement.nativeElement);
     this.slidePlayer.play();
-    this.slidePlayer.onDone(this.wordGone.emit);
+    this.slidePlayer.onDone(() => {
+      if (this.unClicked === 'slide') {
+        this.emit(false);
+      }
+    });
   }
 
-  onAnimationEvent(event: any): void {
-    console.log(event);
-    if (event.fromState === null) {
+  rightAnimation() {
+    this.rightPlayer = this.builder
+      .build([animate(300, style({ width: '1px', overflow: 'hidden', bottom: 0 }))])
+      .create(this.wordElement.nativeElement);
+    this.rightPlayer.play();
+    this.rightPlayer.onDone(() => {
+      this.emit(true);
+    });
+  }
+
+  wrongAnimation() {
+    this.wrongPlayer = this.builder.build([animate(200, style({ top: 0 }))]).create(this.wordElement.nativeElement);
+    this.wrongPlayer.play();
+    this.wrongPlayer.onDone(() => {
+      this.emit(false);
+    });
+  }
+
+  destroy(player: string) {
+    if (player == 'slide') {
       this.slidePlayer.destroy();
-      this.wordGone.emit();
+    } else if (player == 'right') {
+      this.rightPlayer.destroy();
+    } else if (player == 'wrong') {
+      this.wrongPlayer.destroy();
     }
+  }
+  emit(answer: boolean) {
+    this.wordGone.emit(answer);
   }
 }

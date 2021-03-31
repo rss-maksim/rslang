@@ -17,13 +17,16 @@ export enum Answer {
 export interface ISavannahGame {
   gameState: GameState;
   learningWords: IWord[];
+  totalWordsAmount: number;
   randomTranslations: string[];
   trainedWords: ITrainedWord[];
+  id: string;
   word: string;
   wordTranslation: string;
   answers: string[];
   isAnswerCorrect: boolean;
   lifes: number;
+  progress: number;
   points: number;
   isMuted: boolean;
   isPaused: boolean;

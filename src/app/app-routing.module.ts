@@ -6,8 +6,8 @@ import { HomePageComponent } from './main/pages/home-page/home-page.component';
 const routes: Routes = [
   { path: '', component: HomePageComponent, pathMatch: 'full' },
   {
-    path: 'dictionary',
-    loadChildren: () => import('./dictionary/dictionary.module').then((m) => m.DictionaryModule),
+    path: 'textbook',
+    loadChildren: () => import('./textbook/textbook.module').then((m) => m.TextbookModule),
   },
   { path: 'mini-games', loadChildren: () => import('./mini-games/mini-games.module').then((m) => m.MiniGamesModule) },
   {

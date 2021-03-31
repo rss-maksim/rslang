@@ -6,11 +6,11 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
   styleUrls: ['./lifes.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LifesComponent implements OnInit {
-  @Input() lifes?: number;
+export class LifesComponent {
+  @Input() lifes!: number;
   constructor() {}
 
-  ngOnInit(): void {
-    return;
+  numSequence(n: number): Array<number> {
+    return Array(n);
   }
 }

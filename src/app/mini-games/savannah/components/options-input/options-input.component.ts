@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OptionsInputComponent implements OnInit {
-  @Input() options?: string[];
+  @Input() options!: string[];
   @Output() clicked = new EventEmitter<string>();
 
   constructor() {}

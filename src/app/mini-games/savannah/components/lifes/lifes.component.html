@@ -1,2 +1,2 @@
-<mat-icon *repeats="5 - lifes" aria-hidden="false" aria-label="Life">favorite_border</mat-icon>
-<mat-icon *repeats="lifes" aria-hidden="false" aria-label="Life">favorite</mat-icon>
+<mat-icon *ngFor="let n of numSequence(5 - lifes)" aria-hidden="false" aria-label="Life">favorite_border</mat-icon>
+<mat-icon *ngFor="let n of numSequence(lifes)" aria-hidden="false" aria-label="Life">favorite</mat-icon>
