@@ -2,9 +2,9 @@
   <button
     mat-button
     class="savannah-options_word"
-    (click)="wordClicked(word)"
-    *ngFor="let word of words; let i = index; trackBy: trackByFn"
+    (click)="wordClicked(option)"
+    *ngFor="let option of options; let i = index; trackBy: trackByFn"
   >
-    {{ i + 1 }}.{{ word.word | uppercase }}
+    {{ i + 1 }}.{{ option | uppercase }}
   </button>
 </div>

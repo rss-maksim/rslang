@@ -1,10 +1,21 @@
 <div class="savannah">
-  <ng-container *ngIf="game.gameState === 'PREP'">
+  <ng-container *ngIf="game.gameState === gameState.SETTING">
+    <app-difficultyy-input (startWithDifficulty)="getWords($event)"></app-difficultyy-input>
+  </ng-container>
+
+  <ng-container *ngIf="game.gameState === gameState.PREP">
     <app-counter [count]="0" [isPaused]="game.isPaused" spinnerColor="warn" (countIsOver)="startToPlay()"></app-counter>
   </ng-container>
-  <ng-container *ngIf="game.gameState === 'PLAY'">
-    <app-main-actions [translations]="words" [lifes]="game.lifes"></app-main-actions>
+  <ng-container *ngIf="game.gameState === gameState.PLAY">
+    <app-main-actions
+      [word]="game.word"
+      [translation]="game.wordTranslation"
+      [answers]="game.answers"
+      [lifes]="game.lifes"
+      (answered)="answered($event)"
+    ></app-main-actions>
   </ng-container>
+  <ng-container *ngIf="game.gameState === gameState.FINISH"> </ng-container>
 
   <app-full-screen-button color="warn" class="fullscreen-btn"></app-full-screen-button>
 </div>

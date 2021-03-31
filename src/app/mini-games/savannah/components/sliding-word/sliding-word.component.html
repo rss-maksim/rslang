@@ -1,1 +1,3 @@
-<div class="word-container" [@word-slide]="answerState" (@word-slide.done)="onAnimationEvent($event)">WORD</div>
+<div class="word-container" #wordElement [@word-slide]="answerState" (@word-slide.done)="onAnimationEvent($event)">
+  {{ word }}
+</div>

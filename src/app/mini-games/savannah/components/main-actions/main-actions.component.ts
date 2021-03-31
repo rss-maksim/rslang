@@ -1,22 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-main-actions',
   templateUrl: './main-actions.component.html',
   styleUrls: ['./main-actions.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainActionsComponent implements OnInit {
-  answerState = '';
-  word = 'word';
-  @Input() translations!: [];
-  @Input() lifes!: number;
+export class MainActionsComponent {
+  answerAnimation?: string;
+  answer = false;
+  @Input() word?: string;
+  @Input() translation?: string;
+  @Input() answers?: string[];
+  @Input() lifes?: number;
+  @Output() answered = new EventEmitter<boolean>();
   constructor() {}
 
-  ngOnInit(): void {
-    return;
+  wordClicked(clickedWord: string): void {
+    this.answer = clickedWord === this.translation;
+    this.answerAnimation = this.answer ? 'right' : 'wrong';
   }
 
-  wordClicked(word: any) {
-    this.answerState = this.answerState === 'right' ? 'right' : 'right';
+  wordGone(): void {
+    this.answered.emit(this.answer);
   }
 }

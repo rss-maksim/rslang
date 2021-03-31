@@ -6,6 +6,7 @@ export enum GameState {
   PREP = 'PREP',
   PLAY = 'PLAY',
   PAUSE = 'PAUSE',
+  FINISH = 'FINISH',
 }
 
 export enum Answer {
@@ -15,13 +16,13 @@ export enum Answer {
 
 export interface ISavannahGame {
   gameState: GameState;
-  words: IWord[];
+  learningWords: IWord[];
+  randomTranslations: string[];
   trainedWords: ITrainedWord[];
-  trainedWordsByIndexes: number[];
   word: string;
-  wordIndex: number;
   wordTranslation: string;
-  isTranslationCorrect: boolean;
+  answers: string[];
+  isAnswerCorrect: boolean;
   lifes: number;
   points: number;
   isMuted: boolean;

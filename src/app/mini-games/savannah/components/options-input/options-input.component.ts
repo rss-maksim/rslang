@@ -8,8 +8,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OptionsInputComponent implements OnInit {
-  @Input() words!: IWord[];
-  @Output() clicked = new EventEmitter<IWord>();
+  @Input() options?: string[];
+  @Output() clicked = new EventEmitter<string>();
 
   constructor() {}
 
@@ -21,7 +21,7 @@ export class OptionsInputComponent implements OnInit {
     return index;
   }
 
-  wordClicked(word: IWord): void {
+  wordClicked(word: string): void {
     this.clicked.emit(word);
   }
 }

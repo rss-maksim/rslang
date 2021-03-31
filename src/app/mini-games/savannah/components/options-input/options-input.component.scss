@@ -12,6 +12,28 @@
 
     &_word {
       margin-bottom: 3vh;
+      padding: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .savannah-options {
+    flex-wrap: wrap;
+
+    &_word {
+      flex: 50%;
+      height: 60px;
+    }
+
+    &_word:nth-child(1),
+    &_word:nth-child(3) {
+      padding-right: 0;
+    }
+
+    &_word:nth-child(2),
+    &_word:nth-child(4) {
+      padding-left: 0;
     }
   }
 }

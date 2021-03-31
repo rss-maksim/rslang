@@ -17,6 +17,7 @@ import { SprintGameEndComponent } from './sprint/components/sprint-game-end/spri
 import { SprintGamePauseExitComponent } from './sprint/components/sprint-game-pause-exit/sprint-game-pause-exit.component';
 import { LifesComponent } from './savannah/components/lifes/lifes.component';
 import { RepeatsDirective } from './shared/directives/repeats.directive';
+import { DifficultyyInputComponent } from './savannah/components/difficultyy-input/difficultyy-input.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { RepeatsDirective } from './shared/directives/repeats.directive';
     SprintGamePauseExitComponent,
     LifesComponent,
     RepeatsDirective,
+    DifficultyyInputComponent,
   ],
   imports: [CommonModule, MiniGamesRoutingModule, MaterialModule],
 })
