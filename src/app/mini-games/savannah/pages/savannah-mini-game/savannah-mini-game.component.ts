@@ -1,12 +1,19 @@
 import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 import { IWord } from './../../../../core/models/IWord';
 import { Subscription } from 'rxjs';
-import { NUMBER_OF_PAGES } from './../../../../core/constants/common';
 import { GameState, ISavannahGame } from './../../../../core/models/ISavannahGame';
 import { MiniGamesHttpService } from './../../../../services/mini-games-http.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { getRandomFrom, getRandomNumbers, getRandomsFromArray, getTranslations, shuffleArray } from '../../utils/utils';
+import {
+  getRandomFrom,
+  getRandomNumbers,
+  getRandomsFromArray,
+  getTranslations,
+  shuffleArray,
+  sound,
+} from '../../utils/utils';
 import { Answer } from 'src/app/core/models/ISprintGame';
+import { Sound } from 'src/app/mini-games/constants/savannah.game';
 
 @Component({
   selector: 'app-savannah-mini-game',
@@ -75,6 +82,7 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
 
   nextWord(): void {
     if (!this.game.learningWords.length || this.game.lifes === 0) {
+      this.game.isMuted ? null : sound(this.game.lifes ? Sound.WIN : Sound.LOSE);
       this.finishGame();
       return;
     }

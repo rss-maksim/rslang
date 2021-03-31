@@ -1,3 +1,4 @@
+import { SUCCESS_AUDIO_URL, FAIL_AUDIO_URL } from './../../constants/audiochallenge-game';
 import { NUMBER_OF_PAGES } from './../../../core/constants/common';
 import { IWord } from './../../../core/models/IWord';
 
@@ -33,4 +34,10 @@ export function getRandomsFromArray(array: any[], amount: number, avoid?: string
     array.splice(index, 1);
   }
   return result;
+}
+
+export function sound(src: string) {
+  const audio = new Audio();
+  audio.src = src;
+  audio.play();
 }

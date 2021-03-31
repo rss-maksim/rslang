@@ -1,3 +1,4 @@
+import { SavannahMiniGameComponent } from './../../pages/savannah-mini-game/savannah-mini-game.component';
 import { animate, AnimationBuilder, AnimationPlayer, sequence, style, useAnimation } from '@angular/animations';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import {
@@ -11,6 +12,8 @@ import {
   AfterViewInit,
   OnChanges,
 } from '@angular/core';
+import { Sound } from 'src/app/mini-games/constants/savannah.game';
+import { sound } from '../../utils/utils';
 
 @Component({
   selector: 'app-sliding-word',
@@ -25,7 +28,7 @@ export class SlidingWordComponent implements OnChanges, AfterViewInit {
   private slidePlayer!: AnimationPlayer;
   private rightPlayer!: AnimationPlayer;
   private wrongPlayer!: AnimationPlayer;
-  constructor(private builder: AnimationBuilder) {}
+  constructor(private builder: AnimationBuilder, private savannah: SavannahMiniGameComponent) {}
   unClicked = 'slide';
 
   ngOnChanges(changes: any) {
@@ -53,7 +56,7 @@ export class SlidingWordComponent implements OnChanges, AfterViewInit {
         style({ opacity: 0 }),
         sequence([
           animate(200, style({ opacity: 1 })),
-          animate(2800, style({ bottom: 0 })),
+          animate(3600, style({ bottom: 0 })),
           animate(200, style({ opacity: 0 })),
         ]),
       ])
@@ -61,6 +64,7 @@ export class SlidingWordComponent implements OnChanges, AfterViewInit {
     this.slidePlayer.play();
     this.slidePlayer.onDone(() => {
       if (this.unClicked === 'slide') {
+        this.savannah.game.isMuted ? null : sound(Sound.WRONG);
         this.emit(false);
       }
     });
