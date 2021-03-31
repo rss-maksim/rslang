@@ -14,13 +14,15 @@
 
   <div *ngIf="!isLoginPage" class="page-header__authorization">
     <div class="page-header__userBlock" *ngIf="user$ | async as user; else login">
-      <img [src]="user?.pictureUrl || userDefaultPhoto" [matTooltip]="user.username" alt="User Photo" />
+      <a [routerLink]="['profile', user.id]" matTooltip="Профайл">
+        <img [src]="user?.image || userDefaultPhoto" alt="User Photo" />
+      </a>
       <button mat-icon-button aria-label="Logout icon button" (click)="logout()" matTooltip="Выйти">
         <mat-icon>logout</mat-icon>
       </button>
     </div>
     <ng-template #login>
-      <a [routerLink]="['/auth/login']">Войти</a>
+      <a [routerLink]="['auth', 'login']">Войти</a>
     </ng-template>
   </div>
 </header>

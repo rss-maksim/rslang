@@ -2,7 +2,7 @@ export interface User {
   id?: string;
   username: string;
   email: string;
-  pictureUrl: string;
+  image: string;
 }
 
 export interface TokenPayload {

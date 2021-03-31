@@ -24,12 +24,14 @@ export class SignupComponent {
   signupForm: FormGroup;
   usernameFormControl: FormControl;
   emailFormControl: FormControl;
+  imageFormControl: FormControl;
   passwordFormControl: FormControl;
   confirmPasswordFormControl: FormControl;
   visibility = {
     passwordIsVisible: false,
     confirmPasswordIsVisible: false,
   };
+  imagePreview!: string | undefined;
   serverError: string | null = null;
   loading = false;
 
@@ -49,6 +51,7 @@ export class SignupComponent {
     this.emailFormControl = fb.control('', [Validators.required, Validators.email]);
     this.passwordFormControl = fb.control('', [Validators.required, Validators.pattern(regExpEmailPattern)]);
     this.confirmPasswordFormControl = fb.control('', [Validators.required]);
+    this.imageFormControl = fb.control(null);
 
     this.signupForm = fb.group(
       {
@@ -56,6 +59,7 @@ export class SignupComponent {
         email: this.emailFormControl,
         password: this.passwordFormControl,
         confirm: this.confirmPasswordFormControl,
+        image: this.imageFormControl,
       },
       { validators: SignupComponent.passwordMatch },
     );
@@ -68,8 +72,11 @@ export class SignupComponent {
   }
 
   onPasswordInput() {
-    if (this.signupForm.hasError('matchingError')) this.confirmPasswordFormControl.setErrors([{ matchingError: true }]);
-    else this.confirmPasswordFormControl.setErrors(null);
+    if (this.signupForm.hasError('matchingError')) {
+      this.confirmPasswordFormControl.setErrors([{ matchingError: true }]);
+    } else {
+      this.confirmPasswordFormControl.setErrors(null);
+    }
   }
 
   changeVisibility(key: keyof Visibility): void {
@@ -79,9 +86,9 @@ export class SignupComponent {
   register(event: Event): void {
     event.preventDefault();
     this.loading = true;
-    const { email, password, username } = this.signupForm.value;
+    const { email, password, username, image } = this.signupForm.value;
     if (this.signupForm.valid) {
-      this.authService.register({ email, password, username }).subscribe(
+      this.authService.register({ email, password, username, image }).subscribe(
         (payload) => {
           if (payload) {
             this.router.navigate(['/auth/login'], { state: { email } });
@@ -96,5 +103,11 @@ export class SignupComponent {
         },
       );
     }
+  }
+
+  onLoadImage(image?: string): void {
+    this.imagePreview = image;
+    this.signupForm.patchValue({ image });
+    this.signupForm.get('image')?.updateValueAndValidity();
   }
 }

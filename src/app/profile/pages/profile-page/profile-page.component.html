@@ -1,0 +1,41 @@
+<div class="profile">
+  <h1>Профайл пользователя</h1>
+  <form class="profile__form" (submit)="updateProfile($event)" [formGroup]="profileForm" novalidate>
+    <div class="profile__form-field-container">
+      <mat-form-field class="profile__form-field" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput [formControl]="emailFormControl" placeholder="Email" />
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Введите валидный email
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')"> Email <strong>обязателен</strong> </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="profile__form-field-container">
+      <mat-form-field class="profile__form-field" appearance="outline">
+        <mat-label>Имя пользователя</mat-label>
+        <input type="text" matInput [formControl]="usernameFormControl" placeholder="Имя пользователя" />
+        <mat-error *ngIf="usernameFormControl.hasError('required')"> Username is required </mat-error>
+        <mat-error *ngIf="usernameFormControl.hasError('minlength')"> Username should be 3 characters min </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="profile__form-field-container">
+      <app-file-input [image]="imagePreview" (loadFileEvent)="onLoadImage($event)"></app-file-input>
+    </div>
+
+    <button
+      class="profile__submit-btn"
+      type="submit"
+      mat-stroked-button
+      color="primary"
+      [disabled]="profileForm.invalid"
+    >
+      Сохранить
+    </button>
+
+    <div *ngIf="serverError" class="mat-error profile__server-error">{{ serverError }}</div>
+  </form>
+  <app-progress *ngIf="loading"></app-progress>
+</div>

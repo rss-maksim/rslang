@@ -1,0 +1,62 @@
+$btn-size: 1.75rem;
+
+:host {
+  width: 100%;
+}
+
+.file-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__preview-image {
+    width: 4rem;
+    height: 4rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #b0b0b0;
+    cursor: pointer;
+    position: relative;
+
+    &--filled {
+      border-color: #00e676;
+    }
+  }
+
+  &__preview-image--filled {
+    &:hover .file-input__remove-photo-btn {
+      display: flex;
+    }
+  }
+
+  &__image {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+  }
+
+  &__remove-photo-btn {
+    height: $btn-size;
+    width: $btn-size;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 50%);
+    top: -$btn-size / 2;
+    right: -$btn-size / 2;
+    position: absolute;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  &__input {
+    visibility: hidden;
+    max-width: 0;
+    max-height: 0;
+  }
+
+  .mat-icon {
+    color: #ffffff;
+  }
+}

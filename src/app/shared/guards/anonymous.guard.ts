@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { selectIsAuthorized } from '../../redux/selectors/user.selector';
 import { AppState } from '../../redux/models/state.model';
+import { selectIsAnonymous } from '../../redux/selectors/user.selector';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class AnonymousGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.store.select(selectIsAuthorized);
+    return this.store.select(selectIsAnonymous);
   }
 
   constructor(private store: Store<AppState>) {}

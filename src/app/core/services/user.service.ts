@@ -19,6 +19,10 @@ export class UserService {
     return this.http.get<UserModel>(`${this.api.baseApiUrl}/users/${id}`);
   }
 
+  updateUser(id: string, body: Pick<UserModel, 'email' | 'username' | 'image'>): Observable<UserModel> {
+    return this.http.put<UserModel>(`${this.api.baseApiUrl}/users/${id}`, body);
+  }
+
   getUserId(): string | null {
     const token = this.getToken();
     if (token) {
