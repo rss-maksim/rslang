@@ -1,0 +1,48 @@
+<mat-card class="game-card">
+  <mat-card-title *ngIf="gamePoints; else trainEndedBlock" class="game-card__points">
+    Твой результат: {{ gamePoints }} очков
+  </mat-card-title>
+  <ng-template #trainEndedBlock>
+    <mat-card-title>Тренировка окончена!</mat-card-title>
+  </ng-template>
+  <mat-card-content class="game-card__words-list">
+    <p class="game-card__wrong">Ошибок:</p>
+    <mat-list>
+      <ng-container *ngFor="let word of trainedWords; trackBy: trackByIdentity">
+        <mat-list-item *ngIf="word.result === answer.WRONG">
+          <div>
+            <button mat-mini-fab class="actions__btn" aria-label="Pronounce word" (click)="playSound(word.audio)">
+              <i class="material-icons">volume_up</i>
+            </button>
+            <span class="game-card__word">{{ word.word }}</span>
+            <span class="game-card__translation"> — {{ word.translation }}</span>
+          </div>
+          <button mat-mini-fab class="actions__btn delete__btn" aria-label="Delete word">
+            <i class="material-icons">delete</i>
+          </button>
+        </mat-list-item>
+      </ng-container>
+    </mat-list>
+    <hr />
+    <p class="game-card__correct">Знаю:</p>
+    <mat-list>
+      <ng-container *ngFor="let word of trainedWords; trackBy: trackByIdentity">
+        <mat-list-item *ngIf="word.result === answer.CORRECT">
+          <div>
+            <button mat-mini-fab class="actions__btn" aria-label="Pronounce word" (click)="playSound(word.audio)">
+              <i class="material-icons">volume_up</i>
+            </button>
+            <span class="game-card__word">{{ word.word }}</span>
+            <span class="game-card__translation"> — {{ word.translation }}</span>
+          </div>
+          <button mat-mini-fab class="actions__btn delete__btn" aria-label="Delete word">
+            <i class="material-icons">delete</i>
+          </button>
+        </mat-list-item>
+      </ng-container>
+    </mat-list>
+  </mat-card-content>
+
+  <button mat-stroked-button color="primary" class="game-card__exit" [routerLink]="'../'">К списку тренировок</button>
+  <button mat-stroked-button class="game-card__reset" (click)="closeGame()">Продолжить тренировку</button>
+</mat-card>

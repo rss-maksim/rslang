@@ -9,11 +9,11 @@
 </ng-template>
 
 <div *ngIf="isGameStarted$ | async; else introBlock">
-  <app-audiochallenge-end-game
+  <app-end-game
     *ngIf="isGameEnded | async; else endGameBlock"
-    [statsList]="statsList$ | async"
+    [trainedWords]="trainedWords$ | async"
     (closeGameEvent)="clearGame()"
-  ></app-audiochallenge-end-game>
+  ></app-end-game>
   <ng-template #endGameBlock>
     <app-audiochallenge-game [difficulty]="difficulty"></app-audiochallenge-game>
   </ng-template>

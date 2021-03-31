@@ -1,6 +1,8 @@
 .game-card {
   width: 50vw;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  vertical-align: middle;
 
   &__points {
     text-align: center;
@@ -30,10 +32,6 @@
     margin-bottom: 0.5rem;
   }
 
-  &__delete {
-    float: right;
-  }
-
   &__wrong {
     color: #ff4500;
     font-size: 1.2rem;
@@ -45,6 +43,16 @@
   }
 }
 
-mat-icon {
-  cursor: pointer;
+.actions__btn {
+  background-color: transparent;
+  box-shadow: none;
+  margin-right: 10px;
+  color: rgba(255, 255, 255, 0.07);
+  .material-icons {
+    color: black;
+  }
+}
+
+.delete__btn {
+  margin-right: 0;
 }

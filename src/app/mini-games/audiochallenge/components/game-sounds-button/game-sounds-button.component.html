@@ -1,10 +1,10 @@
 <ng-template [ngIf]="isSoundOn$ | async" [ngIfElse]="soundOffBtn">
-  <button mat-fab class="audio__btn" aria-label="Example icon button with a home icon" (click)="soundOFF()">
+  <button mat-fab class="audio__btn" aria-label="Turn sound off" (click)="soundOFF()">
     <i class="material-icons">music_note</i>
   </button>
 </ng-template>
 <ng-template #soundOffBtn>
-  <button mat-fab class="audio__btn" aria-label="Example icon button with a home icon" (click)="soundON()">
+  <button mat-fab class="audio__btn" aria-label="Turn sound on" (click)="soundON()">
     <i class="material-icons">music_off</i>
   </button>
 </ng-template>

@@ -7,8 +7,8 @@ import { MatRipple } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Color, DEFAULT_WORDS_DIFFICULTY, MAX_TRAINED_WORDS } from 'src/app/core/constants/sprint-game';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SprintGamePauseExitComponent } from './components/sprint-game-pause-exit/sprint-game-pause-exit.component';
 import { Subscription } from 'rxjs';
+import { CloseGameDialogComponent } from '../shared/components/close-game-dialog/close-game-dialog.component';
 
 @Component({
   selector: 'app-sprint-mini-game',
@@ -110,6 +110,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
       word: this.game.word,
       translation: this.game.wordTranslation,
       timeStamp: Date.now(),
+      audio: this.game.words[this.game.wordIndex].audio,
     };
 
     if (
@@ -205,7 +206,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
 
   openCloseDialog(): void {
     this.game.isPaused = true;
-    this.closeDialog.open(SprintGamePauseExitComponent);
+    this.closeDialog.open(CloseGameDialogComponent);
     this.closeDialogSubsription = this.closeDialog.afterAllClosed.subscribe(() => {
       this.game.isPaused = false;
     });
