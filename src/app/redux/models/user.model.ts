@@ -3,5 +3,5 @@ export interface UserModel {
   username: string;
   email: string;
   password: string;
-  pictureUrl: string;
+  image: string;
 }
