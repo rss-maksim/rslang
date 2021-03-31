@@ -57,6 +57,14 @@ export class LoginComponent {
     }
   }
 
+  onPasswordInput() {
+    if (this.passwordFormControl.hasError('pattern')) {
+      this.loginForm.setErrors([{ pattern: true }]);
+    } else {
+      this.loginForm.setErrors(null);
+    }
+  }
+
   changeVisibility(): void {
     this.passwordIsVisible = !this.passwordIsVisible;
   }

@@ -7,11 +7,11 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
-import { AuthGuard } from '../shared/guards/auth.guard';
+import { AnonymousGuard } from '../shared/guards/anonymous.guard';
 
 const routes: Routes = [
-  { path: 'signup', component: SignupComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
+  { path: 'signup', component: SignupComponent, canActivate: [AnonymousGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [AnonymousGuard] },
 ];
 
 @NgModule({

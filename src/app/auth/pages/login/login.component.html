@@ -20,6 +20,7 @@
           matInput
           [formControl]="passwordFormControl"
           placeholder="Пароль"
+          (input)="onPasswordInput()"
         />
         <mat-icon class="login__visibility-icon" matSuffix (click)="changeVisibility()">{{
           passwordIsVisible ? "visibility" : "visibility_off"
