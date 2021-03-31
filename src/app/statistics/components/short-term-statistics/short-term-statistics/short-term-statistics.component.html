@@ -1,0 +1,19 @@
+<mat-tab-group class="stats" animationDuration="1500ms" mat-align-tabs="center">
+  <mat-tab *ngFor="let stat of stats" label="{{ stat.gameName }}">
+    <p class="stats__row">
+      <span class="stats__title">Изученные слова:</span>
+      <span class="stats__result">{{ stat.learnedWords }}</span>
+    </p>
+    <mat-divider></mat-divider>
+    <p class="stats__row">
+      <span class="stats__title">Правильные ответы:</span>
+      <span class="stats__result">{{ stat.correctAnswers / stat.learnedWords | percent: '2.0-2' }}</span>
+    </p>
+    <mat-divider></mat-divider>
+    <p class="stats__row">
+      <span class="stats__title">Самая длинная серия правильных ответов:</span>
+      <span class="stats__result">{{ stat.streak }}</span>
+    </p>
+    <mat-divider></mat-divider>
+  </mat-tab>
+</mat-tab-group>

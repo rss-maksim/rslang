@@ -18,6 +18,12 @@ export class FullScreenButtonComponent implements OnInit, OnDestroy {
     this.elem = document.documentElement;
   }
 
+  ngOnDestroy(): void {
+    if (this.isFullScreen) {
+      this.document.exitFullscreen();
+    }
+  }
+
   @HostListener('document:fullscreenchange', ['$event'])
   @HostListener('document:webkitfullscreenchange', ['$event'])
   @HostListener('document:mozfullscreenchange', ['$event'])
@@ -34,11 +40,6 @@ export class FullScreenButtonComponent implements OnInit, OnDestroy {
     if (!this.isFullScreen) {
       this.elem.requestFullscreen();
     } else {
-      this.document.exitFullscreen();
-    }
-  }
-  ngOnDestroy(): void {
-    if (this.isFullScreen) {
       this.document.exitFullscreen();
     }
   }

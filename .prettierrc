@@ -10,6 +10,12 @@
       "options": { "parser": "angular" }
     },
     {
+      "files": "*.scss",
+      "options": {
+        "singleQuote": false
+      }
+    },
+    {
       "files": "*.ts",
       "options": {
         "singleQuote": true,
