@@ -1,5 +1,5 @@
 import { IWord } from './../../../../core/models/IWord';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-options-input',
@@ -13,6 +13,12 @@ export class OptionsInputComponent implements OnInit {
 
   constructor() {}
 
+  @HostListener('window:keydown', ['$event']) keyEvent(event: KeyboardEvent) {
+    if ([1, 2, 3, 4].includes(+event.key)) {
+      this.wordClicked(+event.key - 1);
+    }
+  }
+
   ngOnInit(): void {
     return;
   }
@@ -21,7 +27,7 @@ export class OptionsInputComponent implements OnInit {
     return index;
   }
 
-  wordClicked(word: string): void {
-    this.clicked.emit(word);
+  wordClicked(indx: number): void {
+    this.clicked.emit(this.options[indx]);
   }
 }
