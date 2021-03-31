@@ -1,13 +1,16 @@
 .dialog {
   text-align: center;
+  font-size: 1.1rem;
 
   &__exit {
     margin: 0.5rem auto;
     width: 100%;
+    font-size: 1.2rem;
   }
 
   &__close {
     margin: 0 auto;
     width: 100%;
+    font-size: 1.2rem;
   }
 }

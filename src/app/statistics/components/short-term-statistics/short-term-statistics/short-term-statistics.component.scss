@@ -1,0 +1,22 @@
+.stats {
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    width: 50vw;
+    line-height: 3rem;
+    margin: 0;
+  }
+
+  &__result {
+    width: 6rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 750px) {
+  .stats {
+    &__row {
+      width: 90vw;
+    }
+  }
+}

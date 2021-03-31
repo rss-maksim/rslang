@@ -1,10 +1,8 @@
 <div class="dialog">
   <h1 mat-dialog-title>Тренировка не закончена!</h1>
-  <div mat-dialog-content>Если вы закроете тренировку, ваши результаты обнулятся</div>
-  <div mat-dialog-actions>
-    <button mat-flat-button mat-dialog-close color="warn" class="dialog__exit" [routerLink]="['mini-games']">
-      Закрыть тренировку
-    </button>
-    <button mat-button mat-dialog-close class="dialog__close">Отмена</button>
-  </div>
+  <p mat-dialog-content>Если вы закроете тренировку, ваши результаты обнулятся</p>
+  <button mat-flat-button mat-dialog-close color="warn" class="dialog__exit" [routerLink]="['mini-games']">
+    Закрыть тренировку
+  </button>
+  <button mat-button mat-dialog-close class="dialog__close">Отмена</button>
 </div>
