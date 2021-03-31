@@ -74,7 +74,6 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
   }
 
   nextWord(): void {
-    console.log(this.game.learningWords.length);
     if (!this.game.learningWords.length || this.game.lifes === 0) {
       this.finishGame();
       return;

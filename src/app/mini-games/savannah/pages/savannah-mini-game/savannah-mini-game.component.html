@@ -4,7 +4,7 @@
   </ng-container>
 
   <ng-container *ngIf="game.gameState === gameState.PREP">
-    <app-counter [count]="0" [isPaused]="game.isPaused" spinnerColor="warn" (countIsOver)="startToPlay()"></app-counter>
+    <app-counter [count]="3" [isPaused]="game.isPaused" spinnerColor="warn" (countIsOver)="startToPlay()"></app-counter>
   </ng-container>
   <ng-container *ngIf="game.gameState === gameState.PLAY">
     <app-main-actions
