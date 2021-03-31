@@ -7,6 +7,13 @@ export type GameCard = {
 
 export const ASSETS_API_URL = 'https://raw.githubusercontent.com/rss-maksim/LearnWords/master';
 
+export enum Games {
+  SPRINT = 'Спринт',
+  AUDIOCHALLENGE = 'Аудиовызов',
+  SAVANNAH = 'Саванна',
+  CUSTOM_GAME = 'Своя игра',
+}
+
 export const GAME_CARDS: GameCard[] = [
   {
     name: 'Спринт',

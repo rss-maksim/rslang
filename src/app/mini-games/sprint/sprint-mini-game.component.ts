@@ -9,6 +9,8 @@ import { Color, DEFAULT_WORDS_DIFFICULTY, MAX_TRAINED_WORDS } from 'src/app/core
 import { ActivatedRoute, Router } from '@angular/router';
 import { SprintGamePauseExitComponent } from './components/sprint-game-pause-exit/sprint-game-pause-exit.component';
 import { Subscription } from 'rxjs';
+import { ShortTermStatisticsService } from 'src/app/statistics/services/short-term-statistics/short-term-statistics.service';
+import { Games } from 'src/app/core/constants/mini-games';
 
 @Component({
   selector: 'app-sprint-mini-game',
@@ -46,6 +48,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     public closeDialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
+    private shortTermStatisticsService: ShortTermStatisticsService,
   ) {}
 
   ngOnInit() {
@@ -183,6 +186,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
 
   gameOver(): void {
     this.game.gameState = GameState.OVER;
+    this.shortTermStatisticsService.setStatistics(this.game.trainedWords, Games.SPRINT);
   }
 
   launchRipple(answer: string): void {
