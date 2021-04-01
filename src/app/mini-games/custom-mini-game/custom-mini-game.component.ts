@@ -113,6 +113,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       translation: this.sourceArray[this.currentWordIndex].wordTranslate,
       timeStamp: Date.now(),
       result: res,
+      audio: this.sourceArray[this.currentWordIndex].audio,
     });
   }
 
