@@ -1,28 +1,18 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { TextbookState } from '../models/textbook.model';
-import {
-  loadWordsSuccess,
-  setGroupWords,
-  setPageWords,
-  setWordSettingsAddButtons,
-  setWordSettingsTranslation,
-} from '../actions/textbooks.actions';
+import { loadWordsSuccess, setWordSettingsAddButtons, setWordSettingsTranslation } from '../actions/textbooks.actions';
 
 export const initialState: TextbookState = {
   words: [],
   wordSettingsTranslation: false,
   wordSettingsAddButtons: false,
+  wordsHards: [],
+  wordsDeleted: [],
 };
 
 const _textbookReducer = createReducer(
   initialState,
   on(loadWordsSuccess, (state, { payload }) => ({ ...state, words: payload })),
-  on(setGroupWords, (state, { payload }) => {
-    return { ...state, wordsGroup: payload };
-  }),
-  on(setPageWords, (state, { payload }) => {
-    return { ...state, wordsPage: payload };
-  }),
   on(setWordSettingsTranslation, (state, { payload }) => {
     return { ...state, wordSettingsTranslation: payload };
   }),

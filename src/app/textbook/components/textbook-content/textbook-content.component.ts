@@ -2,14 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/redux/models/state.model';
 import { selectWords } from 'src/app/redux/selectors/textbook.selector';
-import {
-  getGroupWords,
-  getPageWords,
-  loadWords,
-  loadWordsSuccess,
-  setGroupWords,
-  setPageWords,
-} from '../../../redux/actions/textbooks.actions';
+import { deleteUserWords, loadWords, loadWordsSuccess } from '../../../redux/actions/textbooks.actions';
 import { links } from './const';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { selectIsAuthorized } from 'src/app/redux/selectors/user.selector';
@@ -37,7 +30,7 @@ export class TextbookContentComponent implements OnInit {
     this.route.params.subscribe(({ group, page }: any) => {
       this.currentGroup = group || '0';
       this.currentPage = page || '0';
-      this.store.dispatch(loadWords({ payload: { group, page } }));
+      this.store.dispatch(loadWords({ payload: { group, page, wordsPerPage: '20' } }));
     });
     this.activeLink = this.tabs[+this.currentGroup];
   }

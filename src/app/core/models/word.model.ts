@@ -14,8 +14,8 @@ export interface WordModel {
 }
 
 export interface UserWordModel {
-  difficulty: string;
-  optional: object;
+  difficulty?: string;
+  optional?: object;
 }
 
 export interface WordsRequestParams {

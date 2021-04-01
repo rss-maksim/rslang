@@ -11,12 +11,17 @@ export interface IWord {
   wordTranslate: string;
   textMeaningTranslate: string;
   textExampleTranslate: string;
+  difficulty?: string;
+  group: string;
+  page: string;
 }
 
 export interface TextbookState {
   words: IWord[];
   wordSettingsTranslation: boolean;
   wordSettingsAddButtons: boolean;
+  wordsHards: IWord[];
+  wordsDeleted: IWord[];
 }
 
 export interface TextbookUrlParams {
