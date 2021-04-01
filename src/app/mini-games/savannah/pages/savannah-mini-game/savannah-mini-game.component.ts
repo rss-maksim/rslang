@@ -14,6 +14,9 @@ import {
 } from '../../utils/utils';
 import { Answer } from 'src/app/core/models/ISprintGame';
 import { Sound } from 'src/app/mini-games/constants/savannah.game';
+import { Games } from 'src/app/core/constants/mini-games';
+import { MatDialog } from '@angular/material/dialog';
+import { CloseGameDialogComponent } from 'src/app/mini-games/shared/components/close-game-dialog/close-game-dialog.component';
 
 @Component({
   selector: 'app-savannah-mini-game',
@@ -22,6 +25,7 @@ import { Sound } from 'src/app/mini-games/constants/savannah.game';
 })
 export class SavannahMiniGameComponent implements OnInit, OnDestroy {
   gameState = GameState;
+  games = Games;
   game: ISavannahGame = {
     gameState: GameState.SETTING,
     learningWords: [],
@@ -30,6 +34,7 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
     trainedWords: [],
     id: '',
     word: '',
+    audio: '',
     wordTranslation: '',
     answers: [],
     isAnswerCorrect: true,
@@ -39,7 +44,8 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
     isMuted: false,
     isPaused: false,
   };
-  constructor(private gamesService: MiniGamesHttpService) {}
+  constructor(private gamesService: MiniGamesHttpService, public closeDialog: MatDialog) {}
+  closeDialogSubsription?: Subscription;
   wordsBatch$?: Subscription;
   translationsBatch$?: Subscription;
   translationsBatch$2?: Subscription;
@@ -87,7 +93,9 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
       return;
     }
     const wordIndex = getRandomFrom(this.game.learningWords.length - 1);
+    this.game.id = this.game.learningWords[wordIndex].id;
     this.game.word = this.game.learningWords[wordIndex].word;
+    this.game.audio = this.game.learningWords[wordIndex].audio;
     this.game.wordTranslation = this.game.learningWords.splice(wordIndex, 1)[0].wordTranslate;
     this.game.answers = shuffleArray([
       ...getRandomsFromArray(this.game.randomTranslations, 3),
@@ -99,16 +107,19 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
     this.game.isAnswerCorrect = isAnswerCorrect;
     const progressStep = 100 / this.game.totalWordsAmount;
     this.game.progress += progressStep;
+
+    const trained: ITrainedWord = {
+      id: this.game.id,
+      word: this.game.word,
+      translation: this.game.wordTranslation,
+      timeStamp: Date.now(),
+      result: isAnswerCorrect ? Answer.CORRECT : Answer.WRONG,
+      audio: this.game.audio,
+    };
+    this.game.trainedWords = [...this.game.trainedWords, trained];
+
     if (!isAnswerCorrect) {
       this.game.lifes -= 1;
-      const trained: ITrainedWord = {
-        id: this.game.id,
-        word: this.game.word,
-        translation: this.game.wordTranslation,
-        timeStamp: Date.now(),
-        result: isAnswerCorrect ? Answer.CORRECT : Answer.WRONG,
-      };
-      this.game.trainedWords = [...this.game.trainedWords, trained];
     } else {
       this.game.points += 1;
     }
@@ -119,5 +130,31 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
 
   finishGame() {
     this.game.gameState = this.gameState.FINISH;
+  }
+
+  openCloseDialog() {
+    this.game.isPaused = true;
+    this.closeDialog.open(CloseGameDialogComponent);
+    this.closeDialogSubsription = this.closeDialog.afterAllClosed.subscribe(() => {
+      this.game.isPaused = false;
+    });
+  }
+
+  resetGame() {
+    this.game = {
+      ...this.game,
+      gameState: GameState.SETTING,
+      learningWords: [],
+      randomTranslations: [],
+      trainedWords: [],
+      id: '',
+      word: '',
+      audio: '',
+      wordTranslation: '',
+      answers: [],
+      lifes: 5,
+      progress: 0,
+      points: 0,
+    };
   }
 }

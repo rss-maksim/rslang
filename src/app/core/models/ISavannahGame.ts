@@ -22,6 +22,7 @@ export interface ISavannahGame {
   trainedWords: ITrainedWord[];
   id: string;
   word: string;
+  audio: string;
   wordTranslation: string;
   answers: string[];
   isAnswerCorrect: boolean;

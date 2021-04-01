@@ -18,6 +18,7 @@ export class ShortTermStatisticsService {
   }
 
   setStatistics(trainedWords: ITrainedWord[], gamePlayed: Games) {
+    console.log(trainedWords, gamePlayed);
     let stats = this.getStatistics();
     if (!stats) {
       stats = [];

@@ -1,5 +1,7 @@
 .game-card {
   width: 50vw;
+  background-color: #ffffffcc;
+  vertical-align: middle;
 
   &__points {
     text-align: center;
@@ -22,18 +24,11 @@
 
   &__reset {
     width: 100%;
-    font-size: 1.2rem;
   }
 
   &__exit {
     width: 100%;
     margin-bottom: 0.5rem;
-    font-size: 1.2rem;
-  }
-
-  &__delete {
-    opacity: 0;
-    margin-left: auto;
   }
 
   &__wrong {
@@ -47,27 +42,17 @@
   }
 }
 
-.game-card__word-container {
-  display: flex;
-  gap: 0.5rem;
+.actions__btn {
+  background-color: transparent;
+  box-shadow: none;
+  margin-right: 10px;
+  color: rgba(255, 255, 255, 0.07);
 
-  &:hover {
-    .game-card__delete {
-      opacity: 1;
-    }
+  .material-icons {
+    color: black;
   }
 }
 
-mat-icon {
-  cursor: pointer;
-}
-
-@media (max-width: 700px) {
-  .game-card {
-    width: 80vw;
-
-    &__words-list {
-      height: 45vh;
-    }
-  }
+.delete__btn {
+  margin-right: 0;
 }

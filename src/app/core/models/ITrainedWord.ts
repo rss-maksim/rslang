@@ -6,4 +6,5 @@ export interface ITrainedWord {
   translation: string;
   timeStamp: number;
   result: Answer;
+  audio: string;
 }

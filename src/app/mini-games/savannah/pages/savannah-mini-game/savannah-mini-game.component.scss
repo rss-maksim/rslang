@@ -27,10 +27,38 @@
 
 .savannah {
   color: white;
+
+  &-fullscreen_btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  &-controls {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+    $background: rgba($color: #000000, $alpha: 0.5);
+
+    &_volume {
+      background-color: $background;
+      margin: 0 5px;
+    }
+
+    &_close {
+      background-color: $background;
+    }
+  }
 }
 
-.fullscreen-btn {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
+@media screen and (max-width: 500px) {
+  .savannah-controls {
+    flex-direction: column;
+
+    &_volume {
+      margin: 5px 0;
+    }
+  }
 }

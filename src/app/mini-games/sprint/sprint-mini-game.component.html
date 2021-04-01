@@ -66,12 +66,12 @@
     </ng-container>
 
     <ng-container *ngIf="game.gameState === GAME_STATE.OVER">
-      <app-sprint-game-end
+      <app-end-game
         [trainedWords]="game.trainedWords"
         [gamePoints]="game.points"
-        (resetGame)="resetGame()"
-        (pronounceWord)="pronounceWord($event)"
-      ></app-sprint-game-end>
+        (closeGameEvent)="resetGame()"
+        [game]="games.SPRINT"
+      ></app-end-game>
     </ng-container>
   </div>
 

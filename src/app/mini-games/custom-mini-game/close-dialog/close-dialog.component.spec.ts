@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SprintGameEndComponent } from './sprint-game-end.component';
+import { CloseDialogComponent } from './close-dialog.component';
 
-describe('SprintGameEndComponent', () => {
-  let component: SprintGameEndComponent;
-  let fixture: ComponentFixture<SprintGameEndComponent>;
+describe('CloseDialogComponent', () => {
+  let component: CloseDialogComponent;
+  let fixture: ComponentFixture<CloseDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SprintGameEndComponent],
+      declarations: [CloseDialogComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SprintGameEndComponent);
+    fixture = TestBed.createComponent(CloseDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

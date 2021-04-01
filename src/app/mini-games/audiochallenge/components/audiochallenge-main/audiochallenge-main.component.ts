@@ -2,15 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { SprintGamePauseExitComponent } from 'src/app/mini-games/sprint/components/sprint-game-pause-exit/sprint-game-pause-exit.component';
+import { CloseGameDialogComponent } from 'src/app/mini-games/shared/components/close-game-dialog/close-game-dialog.component';
 import { audiochallengeStarted, closeGame } from 'src/app/redux/actions/audiochallenge.actions';
-import { IStatsWord } from 'src/app/redux/models/audiochallenge.state.model';
 import { AppState } from 'src/app/redux/models/state.model';
+import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
+
 import {
   selectIsGameEnded,
   selectIsGameStarted,
-  selectStatsList,
+  selectTrainedWords,
 } from 'src/app/redux/selectors/audiochallenge.selectors';
+import { Games } from 'src/app/core/constants/mini-games';
 
 @Component({
   selector: 'app-audiochallenge-main',
@@ -22,7 +24,8 @@ export class AudiochallengeMainComponent implements OnInit {
   isStarted!: boolean;
   isGameEnded!: Observable<boolean>;
   difficulty!: number;
-  statsList$!: Observable<IStatsWord[]>;
+  games = Games;
+  trainedWords$!: Observable<ITrainedWord[]>;
 
   constructor(private store: Store<AppState>, public dialog: MatDialog) {}
 
@@ -30,7 +33,7 @@ export class AudiochallengeMainComponent implements OnInit {
     this.clearGame();
     this.isGameStarted$ = this.store.select(selectIsGameStarted);
     this.isGameEnded = this.store.select(selectIsGameEnded);
-    this.statsList$ = this.store.select(selectStatsList);
+    this.trainedWords$ = this.store.select(selectTrainedWords);
   }
 
   startGame() {
@@ -43,7 +46,7 @@ export class AudiochallengeMainComponent implements OnInit {
     }
   }
   openDialog() {
-    this.dialog.open(SprintGamePauseExitComponent);
+    this.dialog.open(CloseGameDialogComponent);
   }
   clearGame() {
     this.store.dispatch(closeGame());

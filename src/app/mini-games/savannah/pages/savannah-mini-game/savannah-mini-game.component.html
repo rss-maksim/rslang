@@ -1,4 +1,19 @@
 <div class="savannah">
+  <div class="savannah-controls">
+    <button mat-fab class="savannah-controls_close" (click)="openCloseDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <button mat-fab class="savannah-controls_volume" (click)="game.isMuted = !game.isMuted">
+      <ng-container *ngIf="game.isMuted; else up">
+        <mat-icon>volume_off</mat-icon>
+      </ng-container>
+      <ng-template #up>
+        <mat-icon>volume_up</mat-icon>
+      </ng-template>
+    </button>
+  </div>
+
   <ng-container *ngIf="game.gameState === gameState.SETTING">
     <app-difficultyy-input (startWithDifficulty)="getWords($event)"></app-difficultyy-input>
   </ng-container>
@@ -16,7 +31,14 @@
       (answered)="answered($event)"
     ></app-main-actions>
   </ng-container>
-  <ng-container *ngIf="game.gameState === gameState.FINISH"> </ng-container>
+  <ng-container *ngIf="game.gameState === gameState.FINISH">
+    <app-end-game
+      [trainedWords]="game.trainedWords"
+      [gamePoints]="game.points"
+      [game]="games.SAVANNAH"
+      (closeGameEvent)="resetGame()"
+    ></app-end-game>
+  </ng-container>
 
-  <app-full-screen-button color="warn" class="fullscreen-btn"></app-full-screen-button>
+  <app-full-screen-button color="warn" class="savannah-fullscreen_btn"></app-full-screen-button>
 </div>
