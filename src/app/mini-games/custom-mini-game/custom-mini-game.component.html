@@ -47,8 +47,8 @@
       </div>
       <div *ngIf="isResultsShown" class="center margins-top-bottom margins-left-right display-block">
         <p class="results counter">Результаты игры</p>
-        <p *ngFor="let word of sourceArray" class="results counter">
-          Слово: {{ word[0] }}, перевод: {{ word[1] }}, {{ word[2] }}
+        <p *ngFor="let word of trainedWords" class="results counter">
+          Слово: {{ word.word }}, перевод: {{ word.translation }}, {{ word.result }}
         </p>
       </div>
       <div *ngIf="isGameOver && !isResultsShown" class="center margins-top-bottom margins-left-right counter">

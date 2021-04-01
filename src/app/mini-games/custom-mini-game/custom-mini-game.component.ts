@@ -2,6 +2,10 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, timer } from 'rxjs';
+import { IWord } from 'src/app/core/models/IWord';
+import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
+import { Answer } from 'src/app/core/models/ISprintGame';
+import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
 import { CloseDialogComponent } from './close-dialog/close-dialog.component';
 import { ShuffleService } from './services/shuffle.service';
 import { SoundService } from './services/sound.service';
@@ -12,13 +16,15 @@ import { SoundService } from './services/sound.service';
   styleUrls: ['./custom-mini-game.component.scss'],
 })
 export class CustomMiniGameComponent implements OnInit, OnDestroy {
-  sourceArray = [
+  sourceArray: IWord[] = [];
+  /*sourceArray = [
     ['humor', 'юмор', 'не выучено'],
     ['height', 'высота', 'не выучено'],
     ['school', 'школа', 'не выучено'],
     ['season', 'время года', 'не выучено'],
     ['calendar', 'календарь', 'не выучено'],
-  ];
+  ];*/
+  trainedWords: ITrainedWord[] = [];
   currentWord?: string;
   currentWordTranslation?: string;
   scrambledWordAsArray?: string[];
@@ -31,7 +37,8 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   roundLength = 2; // длина раунда в тиках
   countDown?: Subscription;
   currentRound = this.currentWordIndex + 1;
-  roundsLeft = this.sourceArray.length - 1;
+  numberOfGameRounds = 10; // настраиваемое количество раундов в игре
+  roundsLeft = 0;
   isGamePaused = false;
   isSoundOn = false;
   isRoundOver = false;
@@ -41,11 +48,21 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   imageSrc = this.srcCommPart + this.errorsCounter + '.png';
   gameOverSoundDelay = 2_000;
   isResultsShown = false;
+  getWords?: Subscription;
 
-  constructor(public dialog: MatDialog, private soundService: SoundService, private shuffleService: ShuffleService) {}
+  constructor(
+    public dialog: MatDialog,
+    private soundService: SoundService,
+    private shuffleService: ShuffleService,
+    private httpService: MiniGamesHttpService,
+  ) {}
 
   ngOnInit() {
-    this.nextRoundReset();
+    this.getWords = this.httpService.getWords().subscribe((words) => {
+      this.sourceArray.push(...words);
+      this.nextRoundReset();
+      this.roundsLeft = this.numberOfGameRounds - 1;
+    });
   }
 
   nextRoundReset(): void {
@@ -54,8 +71,8 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     this.isRoundOver = false;
     this.countdownTimer = this.roundLength; // reset timer
 
-    this.currentWord = this.sourceArray[this.currentWordIndex][0]; //TODO переделать на запрос из сервиса
-    this.currentWordTranslation = this.sourceArray[this.currentWordIndex][1]; //TODO переделать на запрос из сервиса
+    this.currentWord = this.sourceArray[this.currentWordIndex].word;
+    this.currentWordTranslation = this.sourceArray[this.currentWordIndex].wordTranslate;
 
     this.scrambledWordAsArray = this.shuffleService.shuffleLettersInWord(this.currentWord);
     this.scrambledWord = this.scrambledWordAsArray.join('');
@@ -72,7 +89,8 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
           this.isRoundOver = true;
           this.soundService.playAudio('round lost');
           this.errorsCounter += 1;
-          this.sourceArray[this.currentWordIndex][2] = 'неправильно';
+          this.toTrainedWords(Answer.WRONG);
+          //this.sourceArray[this.currentWordIndex][2] = 'неправильно';
           this.imageSrc = this.srcCommPart + this.errorsCounter + '.png';
 
           if (this.errorsCounter === 5 || this.isLastRound()) {
@@ -88,6 +106,16 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       });
   }
 
+  toTrainedWords(res: Answer) {
+    this.trainedWords.push({
+      id: this.sourceArray[this.currentWordIndex].id,
+      word: this.sourceArray[this.currentWordIndex].word,
+      translation: this.sourceArray[this.currentWordIndex].wordTranslate,
+      timeStamp: Date.now(),
+      result: res,
+    });
+  }
+
   isLastRound() {
     if (this.currentWordIndex === this.sourceArray.length - 1) {
       return true;
@@ -97,17 +125,16 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
 
   startNextRound() {
     // Начинаем следующий раунд
-    console.log('In startNextRound()');
 
     this.currentWordIndex += 1;
-    if (this.currentRound < this.sourceArray.length) {
+    if (this.currentRound < this.numberOfGameRounds) {
       this.currentRound += 1;
     }
     if (this.roundsLeft > 0) {
       this.roundsLeft -= 1;
     }
 
-    if (this.currentWordIndex === this.sourceArray.length) {
+    if (this.currentWordIndex === this.numberOfGameRounds) {
       this.isGameOver = true;
       setTimeout(() => {
         this.finalize();
@@ -139,7 +166,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
         this.errorsCounter += 1;
         this.imageSrc = this.srcCommPart + this.errorsCounter + '.png';
         this.isRoundOver = true;
-        this.sourceArray[this.currentWordIndex][2] = 'неправильно';
+        this.toTrainedWords(Answer.WRONG);
         if (this.isLastRound()) {
           this.isGameOver = true;
           setTimeout(() => {
@@ -152,7 +179,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
         this.isGamePaused = true;
         this.soundService.playAudio('round won');
         this.isRoundOver = true;
-        this.sourceArray[this.currentWordIndex][2] = 'правильно';
+        this.toTrainedWords(Answer.CORRECT);
         if (this.isLastRound()) {
           this.isGameOver = true;
           setTimeout(() => {
@@ -172,7 +199,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   }
 
   finalize() {
-    console.log('In finalize');
     if (this.isGameLost()) {
       console.log('this.isGameLost()', this.isGameLost());
       this.soundService.playAudio('game lost');
@@ -202,5 +228,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.countDown?.unsubscribe();
+    this.getWords?.unsubscribe();
   }
 }
