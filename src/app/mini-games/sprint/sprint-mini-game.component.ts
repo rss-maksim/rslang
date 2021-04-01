@@ -49,6 +49,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     public closeDialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
+    private shortTermStatisticsService: ShortTermStatisticsService,
   ) {}
 
   ngOnInit() {
@@ -187,6 +188,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
 
   gameOver(): void {
     this.game.gameState = GameState.OVER;
+    this.shortTermStatisticsService.setStatistics(this.game.trainedWords, Games.SPRINT);
   }
 
   launchRipple(answer: string): void {

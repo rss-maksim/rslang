@@ -57,7 +57,7 @@ export class LongTermStatisticsComponent implements OnInit {
   constructor(private fakeStats: FakeStatisticsService) {}
 
   ngOnInit(): void {
-    const NUMBER_OF_FAKE_TRAININGS = 100;
+    const NUMBER_OF_FAKE_TRAININGS = 20;
     [this.labels, this.learnedWords, this.learnedWordsCumulative] = this.fakeStats.generateLongTermStats(
       NUMBER_OF_FAKE_TRAININGS,
     );
