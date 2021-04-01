@@ -7,9 +7,9 @@ import { ChangeDetectionStrategy, Component, OnInit, Output, EventEmitter } from
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DifficultyyInputComponent {
+  difficulty!: number;
   @Output() startWithDifficulty = new EventEmitter<number>();
   constructor() {}
-  difficulty!: number;
 
   onDifficultyChange(value: number | null): void {
     if (value !== null) {

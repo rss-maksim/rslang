@@ -4,14 +4,12 @@
   left: 10px;
   display: flex;
   flex-direction: row-reverse;
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+  }
 }
 
 .icon {
   user-select: none;
-}
-
-@media screen and (max-width: 500px) {
-  :host {
-    flex-direction: column;
-  }
 }

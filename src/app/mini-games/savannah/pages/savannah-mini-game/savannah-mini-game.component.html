@@ -1,4 +1,4 @@
-<div class="savannah">
+<div class="savannah" [ngSwitch]="game.gameState">
   <div class="savannah-controls">
     <button mat-fab class="savannah-controls_close" (click)="openCloseDialog()">
       <mat-icon>close</mat-icon>
@@ -14,14 +14,15 @@
     </button>
   </div>
 
-  <ng-container *ngIf="game.gameState === gameState.SETTING">
+  <ng-container *ngSwitchCase="gameState.SETTING">
     <app-difficultyy-input (startWithDifficulty)="getWords($event)"></app-difficultyy-input>
   </ng-container>
 
-  <ng-container *ngIf="game.gameState === gameState.PREP">
+  <ng-container *ngSwitchCase="gameState.PREP">
     <app-counter [count]="3" [isPaused]="game.isPaused" spinnerColor="warn" (countIsOver)="startToPlay()"></app-counter>
   </ng-container>
-  <ng-container *ngIf="game.gameState === gameState.PLAY">
+
+  <ng-container *ngSwitchCase="gameState.PLAY">
     <app-main-actions
       [word]="game.word"
       [translation]="game.wordTranslation"
@@ -31,7 +32,8 @@
       (answered)="answered($event)"
     ></app-main-actions>
   </ng-container>
-  <ng-container *ngIf="game.gameState === gameState.FINISH">
+
+  <ng-container *ngSwitchCase="gameState.FINISH">
     <app-end-game
       [trainedWords]="game.trainedWords"
       [gamePoints]="game.points"

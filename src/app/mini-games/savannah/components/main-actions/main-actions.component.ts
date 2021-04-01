@@ -16,8 +16,7 @@ export class MainActionsComponent {
   @Input() answers!: string[];
   @Input() lifes!: number;
   @Input() progress!: number;
-  @Output()
-  answered = new EventEmitter<boolean>();
+  @Output() answered = new EventEmitter<boolean>();
   @ViewChild(SlidingWordComponent) private wordComponent!: SlidingWordComponent;
   constructor(private savannah: SavannahMiniGameComponent) {}
 

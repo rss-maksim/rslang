@@ -2,11 +2,11 @@ import { ITrainedWord } from './ITrainedWord';
 import { IWord } from './IWord';
 
 export enum GameState {
-  SETTING = 'SETTING',
-  PREP = 'PREP',
-  PLAY = 'PLAY',
-  PAUSE = 'PAUSE',
-  FINISH = 'FINISH',
+  SETTING,
+  PREP,
+  PLAY,
+  PAUSE,
+  FINISH,
 }
 
 export enum Answer {

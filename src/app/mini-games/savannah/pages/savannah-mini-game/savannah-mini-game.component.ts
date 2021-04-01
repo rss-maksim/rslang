@@ -23,7 +23,7 @@ import { CloseGameDialogComponent } from 'src/app/mini-games/shared/components/c
   templateUrl: './savannah-mini-game.component.html',
   styleUrls: ['./savannah-mini-game.component.scss'],
 })
-export class SavannahMiniGameComponent implements OnInit, OnDestroy {
+export class SavannahMiniGameComponent implements OnDestroy {
   gameState = GameState;
   games = Games;
   game: ISavannahGame = {
@@ -50,10 +50,6 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
   translationsBatch$?: Subscription;
   translationsBatch$2?: Subscription;
   translationsBatch$3?: Subscription;
-
-  ngOnInit(): void {
-    return;
-  }
 
   ngOnDestroy(): void {
     this.wordsBatch$?.unsubscribe();

@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component, HostListener, EventEmitter, Input, 
   styleUrls: ['./options-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OptionsInputComponent implements OnInit {
+export class OptionsInputComponent {
   @Input() options!: string[];
   @Output() clicked = new EventEmitter<string>();
 
@@ -17,10 +17,6 @@ export class OptionsInputComponent implements OnInit {
     if ([1, 2, 3, 4].includes(+event.key)) {
       this.wordClicked(+event.key - 1);
     }
-  }
-
-  ngOnInit(): void {
-    return;
   }
 
   trackByFn(index: number) {
