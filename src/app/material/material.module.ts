@@ -16,6 +16,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [],
@@ -37,6 +39,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatCheckboxModule,
     MatTabsModule,
     MatPaginatorModule,
+    MatDividerModule,
+    MatSnackBarModule,
   ],
   exports: [
     MatCardModule,
@@ -56,6 +60,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatCheckboxModule,
     MatTabsModule,
     MatPaginatorModule,
+    MatDividerModule,
+    MatSnackBarModule,
   ],
 })
 export class MaterialModule {}

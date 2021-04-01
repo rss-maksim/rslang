@@ -9,6 +9,8 @@ import { Color, DEFAULT_WORDS_DIFFICULTY, MAX_TRAINED_WORDS } from 'src/app/core
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CloseGameDialogComponent } from '../shared/components/close-game-dialog/close-game-dialog.component';
+import { ShortTermStatisticsService } from 'src/app/statistics/services/short-term-statistics/short-term-statistics.service';
+import { Games } from 'src/app/core/constants/mini-games';
 
 @Component({
   selector: 'app-sprint-mini-game',
@@ -39,6 +41,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   wordsBatch1Subscription?: Subscription;
   wordsBatch2Subscription?: Subscription;
   wordsBatch3Subscription?: Subscription;
+  games = Games;
   public GAME_STATE = GameState;
 
   constructor(

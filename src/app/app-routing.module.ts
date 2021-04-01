@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
 import { HomePageComponent } from './main/pages/home-page/home-page.component';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./statistics/statistics.module').then((m) => m.StatisticsModule),
   },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule) },
+  { path: 'profile/:id', loadChildren: () => import('./profile/profile.module').then((m) => m.ProfileModule) },
   { path: '**', component: NotFoundComponent },
 ];
 

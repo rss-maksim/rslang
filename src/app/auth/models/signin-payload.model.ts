@@ -10,4 +10,5 @@ export interface SignupRequestPayloadModel {
   email: string;
   password: string;
   username: string;
+  image: string;
 }

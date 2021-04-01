@@ -17,7 +17,6 @@ import { TranslationOptionsComponent } from './audiochallenge/components/transla
 import { CounterComponent } from './shared/components/counter/counter.component';
 import { SprintGameCardComponent } from './sprint/components/sprint-game-card/sprint-game-card.component';
 import { SprintGameStartComponent } from './sprint/components/sprint-game-start/sprint-game-start.component';
-import { SprintGameEndComponent } from './sprint/components/sprint-game-end/sprint-game-end.component';
 import { GameSoundsButtonComponent } from './audiochallenge/components/game-sounds-button/game-sounds-button.component';
 import { AudiochallengeEffects } from '../redux/effects/audiochallenge.effects';
 import audiochallengeReducer from '../redux/reducers/audiochallengeReducer';
@@ -39,7 +38,6 @@ import { EndGameComponent } from './shared/components/end-game/end-game.componen
     CounterComponent,
     SprintGameCardComponent,
     SprintGameStartComponent,
-    SprintGameEndComponent,
     GameSoundsButtonComponent,
     LevelChoiseComponent,
     CloseGameDialogComponent,

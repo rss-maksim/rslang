@@ -22,6 +22,10 @@
     </div>
 
     <div class="signup__form-field-container">
+      <app-file-input [image]="imagePreview" (loadFileEvent)="onLoadImage($event)"></app-file-input>
+    </div>
+
+    <div class="signup__form-field-container">
       <mat-form-field class="signup__form-field" appearance="outline">
         <mat-label>Пароль</mat-label>
         <input

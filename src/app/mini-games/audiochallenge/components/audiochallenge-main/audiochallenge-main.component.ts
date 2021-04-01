@@ -12,6 +12,7 @@ import {
   selectIsGameStarted,
   selectTrainedWords,
 } from 'src/app/redux/selectors/audiochallenge.selectors';
+import { Games } from 'src/app/core/constants/mini-games';
 
 @Component({
   selector: 'app-audiochallenge-main',
@@ -23,6 +24,7 @@ export class AudiochallengeMainComponent implements OnInit {
   isStarted!: boolean;
   isGameEnded!: Observable<boolean>;
   difficulty!: number;
+  games = Games;
   trainedWords$!: Observable<ITrainedWord[]>;
 
   constructor(private store: Store<AppState>, public dialog: MatDialog) {}
