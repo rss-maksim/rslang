@@ -1,0 +1,46 @@
+<div class="savannah" [ngSwitch]="game.gameState">
+  <div class="savannah-controls">
+    <button mat-fab class="savannah-controls_close" (click)="openCloseDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <button mat-fab class="savannah-controls_volume" (click)="game.isMuted = !game.isMuted">
+      <ng-container *ngIf="game.isMuted; else up">
+        <mat-icon>volume_off</mat-icon>
+      </ng-container>
+      <ng-template #up>
+        <mat-icon>volume_up</mat-icon>
+      </ng-template>
+    </button>
+  </div>
+
+  <ng-container *ngSwitchCase="gameState.SETTING">
+    <app-difficultyy-input (startWithDifficulty)="getWords($event)"></app-difficultyy-input>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="gameState.PREP">
+    <app-counter [count]="3" [isPaused]="game.isPaused" spinnerColor="warn" (countIsOver)="startToPlay()"></app-counter>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="gameState.PLAY">
+    <app-main-actions
+      [word]="game.word"
+      [translation]="game.wordTranslation"
+      [answers]="game.answers"
+      [lifes]="game.lifes"
+      [progress]="game.progress"
+      (answered)="answered($event)"
+    ></app-main-actions>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="gameState.FINISH">
+    <app-end-game
+      [trainedWords]="game.trainedWords"
+      [gamePoints]="game.points"
+      [game]="games.SAVANNAH"
+      (closeGameEvent)="resetGame()"
+    ></app-end-game>
+  </ng-container>
+
+  <app-full-screen-button color="warn" class="savannah-fullscreen_btn"></app-full-screen-button>
+</div>

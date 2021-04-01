@@ -1,0 +1,10 @@
+<div class="savannah-options">
+  <button
+    mat-button
+    class="savannah-options_word"
+    (click)="wordClicked(i)"
+    *ngFor="let option of options; let i = index; trackBy: trackByFn"
+  >
+    {{ i + 1 }}.{{ option | uppercase }}
+  </button>
+</div>
