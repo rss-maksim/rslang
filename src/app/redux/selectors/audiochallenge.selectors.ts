@@ -30,7 +30,10 @@ export const selectMaxRightAnswers = createSelector(selectAudiochallenge, (state
   Math.max(state.maxRightAnswers, state.previousMaxAnswers),
 );
 
-export const selectTrainedWords = createSelector(selectAudiochallenge, (state: AudiochallengeState) => state.statsList);
+export const selectTrainedWords = createSelector(
+  selectAudiochallenge,
+  (state: AudiochallengeState) => state.trainedWords,
+);
 
 export const selectIsSoundOn = createSelector(selectAudiochallenge, (state: AudiochallengeState) => ({
   isSoundOn: state.isSoundOn,
@@ -46,5 +49,3 @@ export const selectWordsTranslations = createSelector(
   selectAudiochallenge,
   (state: AudiochallengeState) => state.currentWord.translationsArray,
 );
-
-export const selectStatsList = createSelector(selectAudiochallenge, (state: AudiochallengeState) => state.statsList);

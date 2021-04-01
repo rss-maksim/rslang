@@ -7,8 +7,8 @@ import {
   EventEmitter,
   HostListener,
 } from '@angular/core';
-import { IAudiochallengeWord } from 'src/app/redux/models/IAudiochallengeWord';
 import { ASSETS_API_URL } from 'src/app/core/constants/mini-games';
+import { IAudiochallengeWord } from 'src/app/redux/models/audiochallenge.state.model';
 
 @Component({
   selector: 'app-audiochallenge-word-card',

@@ -12,7 +12,7 @@ import {
 import { selectCurrentWord, selectIsChoosed, selectWords } from 'src/app/redux/selectors/audiochallenge.selectors';
 import { AppState } from 'src/app/redux/models/state.model';
 import { IWord } from '../../../../core/models/IWord';
-import { IAudiochallengeWord } from 'src/app/redux/models/IAudiochallengeWord';
+import { IAudiochallengeWord } from 'src/app/redux/models/audiochallenge.state.model';
 
 @Component({
   selector: 'app-audiochallenge-game',
@@ -25,7 +25,6 @@ export class AudiochallengeGameComponent implements OnInit {
   word$!: Observable<IWord[]>;
   words$!: Observable<IWord[]>;
   guessed$!: Observable<boolean>;
-  statsList!: Observable<IAudiochallengeWord[]>;
 
   constructor(private store: Store<AppState>) {}
 

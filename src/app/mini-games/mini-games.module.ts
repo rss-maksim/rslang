@@ -17,13 +17,12 @@ import { TranslationOptionsComponent } from './audiochallenge/components/transla
 import { CounterComponent } from './shared/components/counter/counter.component';
 import { SprintGameCardComponent } from './sprint/components/sprint-game-card/sprint-game-card.component';
 import { SprintGameStartComponent } from './sprint/components/sprint-game-start/sprint-game-start.component';
-import { SprintGameEndComponent } from './sprint/components/sprint-game-end/sprint-game-end.component';
-import { SprintGamePauseExitComponent } from './sprint/components/sprint-game-pause-exit/sprint-game-pause-exit.component';
-import { EndGameComponent } from './audiochallenge/components/end-game/end-game.component';
 import { GameSoundsButtonComponent } from './audiochallenge/components/game-sounds-button/game-sounds-button.component';
 import { AudiochallengeEffects } from '../redux/effects/audiochallenge.effects';
 import audiochallengeReducer from '../redux/reducers/audiochallengeReducer';
 import { LevelChoiseComponent } from './audiochallenge/components/level-choise/level-choise.component';
+import { CloseGameDialogComponent } from './shared/components/close-game-dialog/close-game-dialog.component';
+import { EndGameComponent } from './shared/components/end-game/end-game.component';
 
 @NgModule({
   declarations: [
@@ -39,11 +38,10 @@ import { LevelChoiseComponent } from './audiochallenge/components/level-choise/l
     CounterComponent,
     SprintGameCardComponent,
     SprintGameStartComponent,
-    SprintGameEndComponent,
-    SprintGamePauseExitComponent,
-    EndGameComponent,
     GameSoundsButtonComponent,
     LevelChoiseComponent,
+    CloseGameDialogComponent,
+    EndGameComponent,
   ],
   imports: [
     CommonModule,

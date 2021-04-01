@@ -1,5 +1,4 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { IAudiochallengeWord } from 'src/app/redux/models/IAudiochallengeWord';
 import { IWord } from 'src/app/core/models/IWord';
 import {
   wordsLoadedSuccess,
@@ -16,9 +15,10 @@ import {
   translationsShuffled,
   closeGame,
 } from '../actions/audiochallenge.actions';
-import { AudiochallengeState } from '../models/audiochallenge.state.model';
+import { AudiochallengeState, IAudiochallengeWord } from '../models/audiochallenge.state.model';
 import { ASSETS_API_URL } from 'src/app/core/constants/mini-games';
 import { FAIL_AUDIO_URL, SUCCESS_AUDIO_URL } from 'src/app/mini-games/constants/audiochallenge-game';
+import { Answer } from 'src/app/core/models/ISprintGame';
 
 const initialWord: IAudiochallengeWord = {
   id: '',
@@ -38,7 +38,7 @@ const initialWord: IAudiochallengeWord = {
 
 export const initialState: AudiochallengeState = {
   list: [],
-  statsList: [],
+  trainedWords: [],
   isGameStarted: false,
   isGameEnded: false,
   currentWord: initialWord,
@@ -86,7 +86,17 @@ const audiochallengeReducer = createReducer(
   on(rightAnswer, (state) => {
     return {
       ...state,
-      statsList: [...state.statsList, { word: state.currentWord, result: true }],
+      trainedWords: [
+        ...state.trainedWords,
+        {
+          id: state.currentWord.id,
+          word: state.currentWord.word,
+          translation: state.currentWord.wordTranslate,
+          timeStamp: Date.now(),
+          result: Answer.CORRECT,
+          audio: state.currentWord.audio,
+        },
+      ],
       audioSrc: SUCCESS_AUDIO_URL,
       maxRightAnswers: state.maxRightAnswers + 1,
     };
@@ -98,7 +108,17 @@ const audiochallengeReducer = createReducer(
       : (counter = state.previousMaxAnswers);
     return {
       ...state,
-      statsList: [...state.statsList, { word: state.currentWord, result: false }],
+      trainedWords: [
+        ...state.trainedWords,
+        {
+          id: state.currentWord.id,
+          word: state.currentWord.word,
+          translation: state.currentWord.wordTranslate,
+          timeStamp: Date.now(),
+          result: Answer.WRONG,
+          audio: state.currentWord.audio,
+        },
+      ],
       audioSrc: FAIL_AUDIO_URL,
       maxRightAnswers: 0,
       previousMaxAnswers: counter,

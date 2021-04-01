@@ -1,9 +1,9 @@
-import { IAudiochallengeWord } from 'src/app/redux/models/IAudiochallengeWord';
 import { IWord } from 'src/app/core/models/IWord';
+import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 
 export interface AudiochallengeState {
   list: IWord[];
-  statsList: IStatsWord[];
+  trainedWords: ITrainedWord[];
   translations: string[];
   isGameStarted: boolean;
   currentWord: IAudiochallengeWord;
@@ -15,7 +15,6 @@ export interface AudiochallengeState {
   audioSrc: string;
 }
 
-export interface IStatsWord {
-  word: IWord;
-  result: boolean;
+export interface IAudiochallengeWord extends IWord {
+  translationsArray: string[];
 }
