@@ -12,8 +12,7 @@ import { AggregatedWordsRequestParams, UserWordModel } from '../core/models/word
   providedIn: 'root',
 })
 export class MiniGamesHttpService {
-  page = 0;
-  group = 0;
+  group = '0';
 
   constructor(
     private http: HttpClient,
@@ -21,11 +20,10 @@ export class MiniGamesHttpService {
     private wordsService: WordsService,
     private userService: UserService,
   ) {}
-  // this.getRandomNumber(30);
   getWords({ userId, page, group, filter }: AggregatedWordsRequestParams): Observable<IWord[]> {
     page ? page : (page = this.getRandomNumber(30).toString());
-    group ? group : '0';
-    console.log(group, page);
+    group ? group : (group = '0');
+    this.group = group;
     if (userId) {
       return this.wordsService.getUserAggregatedWords(userId, { page, group, filter });
     }
@@ -39,7 +37,7 @@ export class MiniGamesHttpService {
   getRandomTranslations() {
     return this.http.get(
       `${this.api.baseApiUrl}/words?page=${this.getRandomNumber(7)}&group=${
-        this.group > 4 ? this.group - 1 : this.group + 1
+        +this.group > 4 ? (+this.group - 1).toString() : (+this.group + 1).toString()
       }&wordsPerExampleSentenceLTE=100&wordsPerPage=80`,
     );
   }
