@@ -19,6 +19,7 @@ export const setWordSettingsAddButtons = createAction(
 );
 
 export const deleteUserWords = createAction('[Textbook]  delete_User_Words', props<{ payload: IWord }>());
+
 export const deleteUserWordsSuccess = createAction(
   '[Textbook]  delete_User_Words_Success',
   props<{ payload: WordsRequestParams }>(),

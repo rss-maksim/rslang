@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 
 import { IWord } from '../core/models/IWord';
 import { ApiService } from '../core/services/api.service';
+import { WordsService } from 'src/app/core/services/words.service';
+import { UserService } from '../core/services/user.service';
+import { AggregatedWordsRequestParams, UserWordModel } from '../core/models/word.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +14,22 @@ import { ApiService } from '../core/services/api.service';
 export class MiniGamesHttpService {
   page = 0;
   group = 0;
-  constructor(private http: HttpClient, private api: ApiService) {}
 
-  getWords(group: number = 0, page: number = this.getRandomNumber(30)): Observable<IWord[]> {
-    this.page = page;
-    this.group = group;
-    return this.http.get<IWord[]>(`${this.api.baseApiUrl}/words?page=${page}&group=${group}`);
+  constructor(
+    private http: HttpClient,
+    private api: ApiService,
+    private wordsService: WordsService,
+    private userService: UserService,
+  ) {}
+  // this.getRandomNumber(30);
+  getWords({ userId, page, group, filter }: AggregatedWordsRequestParams): Observable<IWord[]> {
+    page ? page : (page = this.getRandomNumber(30).toString());
+    group ? group : '0';
+    console.log(group, page);
+    if (userId) {
+      return this.wordsService.getUserAggregatedWords(userId, { page, group, filter });
+    }
+    return this.wordsService.getAll({ group, page });
   }
 
   getWordById(id: string): Observable<IWord> {

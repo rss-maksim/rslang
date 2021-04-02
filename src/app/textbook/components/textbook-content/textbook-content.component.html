@@ -8,7 +8,7 @@
 <nav class="textbook-content__navigation" mat-tab-nav-bar>
   <a
     mat-tab-link
-    *ngFor="let tab of tabs; let i = index; trackBy: trackByFnTabs"
+    *ngFor="let tab of tabs; let i = index; tackBy: trackByFnTabs"
     [ngClass]="'tab-link-' + i"
     (click)="setCurrentGroup(tab.group, tab)"
     [active]="activeLink == tab"
@@ -17,7 +17,7 @@
   </a>
 </nav>
 <div [ngClass]="'tab-content-' + currentGroup" class="textbook-content__cardItems">
-  <app-word-card *ngFor="let item of wordItems$ | async; trackBy: trackByFnWordCard" [item]="item"></app-word-card>
+  <app-word-card *ngFor="let item of wordItems$ | async; tackBy: trackByFnWordCard" [item]="item"></app-word-card>
 </div>
 <mat-paginator
   [length]="600"
@@ -25,4 +25,4 @@
   [pageIndex]="+currentPage"
   (page)="onPaginateChange($event)"
 ></mat-paginator>
-<app-textbook-mini-games></app-textbook-mini-games>
+<app-textbook-mini-games [group]="currentGroup" [page]="currentPage"></app-textbook-mini-games>

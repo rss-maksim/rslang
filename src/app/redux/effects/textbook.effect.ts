@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { mergeMap, map } from 'rxjs/operators';
+import { mergeMap, map, switchMap } from 'rxjs/operators';
 import { UserService } from 'src/app/core/services/user.service';
 
 import { WordsService } from 'src/app/core/services/words.service';
@@ -18,30 +18,39 @@ export class TextbookEffects {
       ofType(loadWords, deleteUserWordsSuccess),
       mergeMap(({ payload }) => {
         const { group, page, wordsPerPage } = payload;
-        return this.wordsService.getUserAggregatedWords(this.userId, { group, page, wordsPerPage }).pipe(
+        if (this.userId) {
+          return this.wordsService.getUserAggregatedWords(this.userId, { group, page, wordsPerPage }).pipe(
+            map((item: any) => {
+              return { type: '[Textbook]  Load_Words_Success', payload: item[0].paginatedResults };
+            }),
+          );
+        }
+        return this.wordsService.getAll({ group, page }).pipe(
           map((item: any) => {
-            return { type: '[Textbook]  Load_Words_Success', payload: item[0].paginatedResults };
+            return { type: '[Textbook]  Load_Words_Success', payload: item };
           }),
         );
       }),
     );
   });
 
-  deleteWords$() {
+  deleteWords$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(deleteUserWords),
       mergeMap(({ payload }) => {
-        const { id, difficulty, group, page } = payload;
+        console.log(payload);
+        const { _id, difficulty, group, page } = payload;
         if (difficulty) {
           return this.wordsService
-            .updateUserWord(this.userId, id, { difficulty: 'deleted' })
+            .updateUserWord(this.userId, _id, { difficulty: 'deleted' })
             .pipe(map(() => deleteUserWordsSuccess({ payload: { group, page, wordsPerPage: '20' } })));
         } else {
+          console.log(_id);
           return this.wordsService
-            .createUserWord(this.userId, id, { difficulty: 'deleted' })
+            .createUserWord(this.userId, _id, { difficulty: 'deleted' })
             .pipe(map(() => deleteUserWordsSuccess({ payload: { group, page, wordsPerPage: '20' } })));
         }
       }),
     );
-  }
+  });
 }

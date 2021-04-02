@@ -26,6 +26,7 @@ export interface WordsRequestParams {
 }
 
 export interface AggregatedWordsRequestParams extends WordsRequestParams {
+  userId?: string;
   filter?: string;
 }
 

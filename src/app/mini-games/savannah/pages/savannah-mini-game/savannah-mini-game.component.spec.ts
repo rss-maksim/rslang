@@ -8,9 +8,8 @@ describe('SavannahMiniGameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SavannahMiniGameComponent ]
-    })
-    .compileComponents();
+      declarations: [SavannahMiniGameComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

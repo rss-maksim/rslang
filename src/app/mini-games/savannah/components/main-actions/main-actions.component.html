@@ -1,0 +1,13 @@
+<app-lifes [lifes]="lifes" class="savannah-lifes"></app-lifes>
+<div class="savannah-container">
+  <div class="savannah-container_flex">
+    <app-sliding-word [word]="word" (wordGone)="wordGone($event)"></app-sliding-word>
+  </div>
+  <mat-progress-spinner
+    class="savannah-container_progress"
+    color="warn"
+    diameter="70"
+    [value]="progress"
+  ></mat-progress-spinner>
+</div>
+<app-options-input [options]="answers" (clicked)="wordClicked($event)"></app-options-input>

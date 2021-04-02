@@ -1,9 +1,13 @@
 import { createAction, props } from '@ngrx/store';
+import { AggregatedWordsRequestParams } from 'src/app/core/models/word.model';
 import { IWord } from '../../core/models/IWord';
 
 export const audiochallengeStarted = createAction('[AudiochallengeGameComponent] Audiochallenge Started');
 
-export const loadWords = createAction('[AudiochallengeGameComponent] Load Words', props<{ payload: number }>());
+export const loadWords = createAction(
+  '[AudiochallengeGameComponent] Load Words',
+  props<{ payload: AggregatedWordsRequestParams }>(),
+);
 
 export const wordsLoadedSuccess = createAction(
   '[AudiochallengeGameComponent] Words Loaded Success',

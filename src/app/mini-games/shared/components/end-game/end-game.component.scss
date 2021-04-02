@@ -1,7 +1,6 @@
 .game-card {
   width: 50vw;
-  background-color: rgba(255, 255, 255, 0.8);
-  text-align: center;
+  background-color: #ffffffcc;
   vertical-align: middle;
 
   &__points {
@@ -48,6 +47,7 @@
   box-shadow: none;
   margin-right: 10px;
   color: rgba(255, 255, 255, 0.07);
+
   .material-icons {
     color: black;
   }

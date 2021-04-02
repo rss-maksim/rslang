@@ -9,6 +9,7 @@ import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
 import { CloseDialogComponent } from './close-dialog/close-dialog.component';
 import { ShuffleService } from './services/shuffle.service';
 import { SoundService } from './services/sound.service';
+import { WordsService } from 'src/app/core/services/words.service';
 
 @Component({
   selector: 'app-custom-mini-game',
@@ -54,11 +55,11 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private soundService: SoundService,
     private shuffleService: ShuffleService,
-    private httpService: MiniGamesHttpService,
+    private httpService: WordsService,
   ) {}
 
   ngOnInit() {
-    this.getWords = this.httpService.getWords().subscribe((words) => {
+    this.getWords = this.httpService.getAll().subscribe((words) => {
       this.sourceArray.push(...words);
       this.nextRoundReset();
       this.roundsLeft = this.numberOfGameRounds - 1;

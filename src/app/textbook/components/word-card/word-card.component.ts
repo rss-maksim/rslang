@@ -26,6 +26,7 @@ export class WordCardComponent {
   }
 
   deleteWord(words: IWord) {
+    console.log('delete from component', words);
     this.store.dispatch(deleteUserWords({ payload: words }));
   }
 }

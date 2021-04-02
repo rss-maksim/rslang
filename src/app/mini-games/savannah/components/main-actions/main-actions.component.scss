@@ -1,0 +1,24 @@
+.savannah {
+  &-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: fit-content;
+    margin: auto;
+
+    &_flex {
+      margin: 3px 0;
+      flex: 1;
+      position: relative;
+    }
+
+    &_progress {
+      margin-bottom: 10px;
+    }
+  }
+}
