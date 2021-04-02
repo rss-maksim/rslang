@@ -10,6 +10,7 @@ import { CloseDialogComponent } from './close-dialog/close-dialog.component';
 import { ShuffleService } from './services/shuffle.service';
 import { SoundService } from './services/sound.service';
 import { WordsService } from 'src/app/core/services/words.service';
+import { Games } from 'src/app/core/constants/mini-games';
 
 @Component({
   selector: 'app-custom-mini-game',
@@ -18,13 +19,6 @@ import { WordsService } from 'src/app/core/services/words.service';
 })
 export class CustomMiniGameComponent implements OnInit, OnDestroy {
   sourceArray: IWord[] = [];
-  /*sourceArray = [
-    ['humor', 'юмор', 'не выучено'],
-    ['height', 'высота', 'не выучено'],
-    ['school', 'школа', 'не выучено'],
-    ['season', 'время года', 'не выучено'],
-    ['calendar', 'календарь', 'не выучено'],
-  ];*/
   trainedWords: ITrainedWord[] = [];
   currentWord?: string;
   currentWordTranslation?: string;
@@ -35,11 +29,13 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   currentWordIndex = 0;
   countdownTimer = 0;
   tick = 1_000;
-  roundLength = 2; // длина раунда в тиках
+  roundLength = 15; // настраиваемая длина раунда в игре в тиках
   countDown?: Subscription;
   currentRound = this.currentWordIndex + 1;
   numberOfGameRounds = 10; // настраиваемое количество раундов в игре
+  difficultyLevel = 1; // настраиваемая сложность игры
   roundsLeft = 0;
+  isGameStarted = false;
   isGamePaused = false;
   isSoundOn = false;
   isRoundOver = false;
@@ -50,6 +46,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   gameOverSoundDelay = 2_000;
   isResultsShown = false;
   getWords?: Subscription;
+  games = Games;
 
   constructor(
     public dialog: MatDialog,
@@ -61,8 +58,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getWords = this.httpService.getAll().subscribe((words) => {
       this.sourceArray.push(...words);
-      this.nextRoundReset();
-      this.roundsLeft = this.numberOfGameRounds - 1;
     });
   }
 
@@ -174,7 +169,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.finalize();
           }, 2_000);
-          // TODO вывод статистики за игру (функция)
         }
       }
       if (this.currentWord === this.scrambledWordAsArray?.join('')) {
@@ -187,7 +181,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.finalize();
           }, this.gameOverSoundDelay);
-          // TODO вывод статистики за игру (функция)
         }
       }
     }
@@ -202,7 +195,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
 
   finalize() {
     if (this.isGameLost()) {
-      console.log('this.isGameLost()', this.isGameLost());
       this.soundService.playAudio('game lost');
     } else {
       this.soundService.playAudio('game won');
@@ -215,7 +207,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   onCloseDialog(): void {
     this.isGamePaused = true;
     const dialogRef = this.dialog.open(CloseDialogComponent, {
-      width: '350px', // TODO установить ширину настройками
+      width: '22rem', // TODO установить ширину настройками
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -226,6 +218,42 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   onToggleSound(): void {
     this.soundService.toggleSound();
     this.isSoundOn = this.soundService.isSoundOn;
+  }
+
+  onSetDifficultyLevel(value: number) {
+    this.difficultyLevel = value;
+  }
+
+  onSetNumberOfRounds(value: number) {
+    this.numberOfGameRounds = value;
+  }
+
+  onSetRoundLength(value: number) {
+    this.roundLength = value;
+  }
+
+  onStartGame() {
+    this.isGameStarted = true;
+    this.resetGame();
+    this.nextRoundReset();
+    this.roundsLeft = this.numberOfGameRounds - 1;
+  }
+
+  resetGame() {
+    this.isResultsShown = false;
+    this.movesCountdownCounter = 0;
+    this.currentWordIndex = 0;
+    this.countdownTimer = 0;
+    this.isGamePaused = false;
+    this.isSoundOn = false;
+    this.isRoundOver = false;
+    this.isGameOver = false;
+    this.errorsCounter = 0;
+    this.trainedWords = [];
+    this.getWords = this.httpService.getWords().subscribe((words) => {
+      this.sourceArray = [];
+      this.sourceArray.push(...words);
+    });
   }
 
   ngOnDestroy() {

@@ -30,6 +30,7 @@ import { EndGameComponent } from './shared/components/end-game/end-game.componen
 import { CustomMiniGameComponent } from './custom-mini-game/custom-mini-game.component';
 import { CloseDialogComponent } from './custom-mini-game/close-dialog/close-dialog.component';
 import { DifficultyyInputComponent } from './savannah/components/difficultyy-input/difficultyy-input.component';
+import { StartDialogComponent } from './custom-mini-game/start-dialog/start-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { DifficultyyInputComponent } from './savannah/components/difficultyy-inp
     EndGameComponent,
     CustomMiniGameComponent,
     CloseDialogComponent,
+    StartDialogComponent,
   ],
   imports: [
     CommonModule,
