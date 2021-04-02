@@ -1,0 +1,66 @@
+<div>
+  <mat-card class="center margins-top-bottom">
+    <mat-card-title class="indigo-dark-primary-color margins-top-bottom"> Своя игра </mat-card-title>
+
+    <mat-card-content class="center">
+      <div>
+        <p class="indigo-primary-color">Сложность</p>
+        <span class="secondary-text">Легче</span>
+        <mat-slider
+          class="margins-left-right"
+          thumbLabel
+          min="1"
+          max="6"
+          step="1"
+          value="1"
+          tickInterval="1"
+          color="warn"
+          #difficultyLevel
+          (input)="onSetDifficultyLevel(difficultyLevel.value)"
+        >
+        </mat-slider>
+        <span class="secondary-text">Сложнее</span>
+      </div>
+      <div>
+        <p class="indigo-primary-color">Количество раундов</p>
+        <span class="secondary-text">5</span>
+        <mat-slider
+          class="margins-left-right"
+          thumbLabel
+          min="5"
+          max="20"
+          step="1"
+          value="15"
+          tickInterval="1"
+          color="warn"
+          #numOfRounds
+          (input)="onSetNumOfRounds(numOfRounds.value)"
+        >
+        </mat-slider>
+        <span class="secondary-text">20</span>
+      </div>
+      <div>
+        <p class="indigo-primary-color">Время на раунд, сек.</p>
+        <span class="secondary-text">2</span>
+        <mat-slider
+          class="margins-left-right"
+          thumbLabel
+          min="2"
+          max="20"
+          step="1"
+          value="15"
+          tickInterval="1"
+          color="warn"
+          #roundLength
+          (input)="onSetRoundLength(roundLength.value)"
+        >
+        </mat-slider>
+        <span class="secondary-text">20</span>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="margins-top-bottom">
+      <button mat-stroked-button color="warn" (click)="onStartGame()">Начать игру</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

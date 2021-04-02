@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class SoundService {
+  soundPath = '../../../../assets/sounds/mini-games/custom-mini-game/';
   isSoundOn = false;
 
   constructor() {}
@@ -14,17 +15,29 @@ export class SoundService {
 
   playAudio(sound: string): void {
     let audio = new Audio();
-    if (sound === 'move') {
-      audio.src = '../../../../assets/sounds/mini-games/custom-mini-game/letter_move.mp3';
-    } else if (sound === 'round lost') {
-      audio.src = '../../../../assets/sounds/mini-games/custom-mini-game/round_lost.mp3';
-    } else if (sound === 'round won') {
-      audio.src = '../../../../assets/sounds/mini-games/custom-mini-game/round_won.mp3';
-    } else if (sound === 'game lost') {
-      audio.src = '../../../../assets/sounds/mini-games/custom-mini-game/game_lost.mp3';
-    } else if (sound === 'game won') {
-      audio.src = '../../../../assets/sounds/mini-games/custom-mini-game/game_won.mp3';
+    switch (sound) {
+      case 'move': {
+        audio.src = this.soundPath + 'letter_move.mp3';
+        break;
+      }
+      case 'round lost': {
+        audio.src = this.soundPath + 'round_lost.mp3';
+        break;
+      }
+      case 'round won': {
+        audio.src = this.soundPath + 'round_won.mp3';
+        break;
+      }
+      case 'game lost': {
+        audio.src = this.soundPath + 'game_lost.mp3';
+        break;
+      }
+      case 'game won': {
+        audio.src = this.soundPath + 'game_won.mp3';
+        break;
+      }
     }
+
     audio.load();
     if (this.isSoundOn) {
       audio.play();
