@@ -1,4 +1,9 @@
+.chart-container {
+  position: relative;
+  width: 85vw;
+  height: 60vh;
+}
+
 canvas {
-  min-width: 70vw;
   background-color: #fdfdfd;
 }

@@ -6,17 +6,13 @@
 >
   <mat-tab *ngFor="let stat of stats" label="{{ stat.gameName }}">
     <p class="stats__row">
-      <span class="stats__title">Изученные слова</span>
-      <span class="stats__result">{{ stat.learnedWords }}</span>
+      <span class="stats__title">Новые изученные слова</span>
+      <span class="stats__result">{{ stat.learnedWordsByIds.size }}</span>
     </p>
     <mat-divider></mat-divider>
     <p class="stats__row">
-<<<<<<< HEAD
-      <span class="stats__title">Правильные ответы:</span>
-=======
-      <span class="stats__title">Правильные ответы</span>
->>>>>>> fix: short-term stats fixes
-      <span class="stats__result">{{ stat.correctAnswers / stat.learnedWords | percent: "2.0-2" }}</span>
+      <span class="stats__title">Процент правильных ответов</span>
+      <span class="stats__result">{{ stat.correctAnswers / stat.trainedWords | percent: "2.0-2" }}</span>
     </p>
     <mat-divider></mat-divider>
     <p class="stats__row">

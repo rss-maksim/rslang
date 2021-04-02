@@ -25,7 +25,8 @@ export class ShortTermStatisticsComponent implements OnInit {
 
     this.shortTermStats.forEach((stats) => {
       const game = stats.gamePlayed;
-      const learnedWords = stats.trainedWords.length;
+      const trainedWords = stats.trainedWords.length;
+      const learnedWordsByIds = new Set(stats.trainedWords.map((word) => word.id));
       const correctAnswers = this.countCorrectAnswers(stats);
       const streak = this.countStreak(stats);
       const gameIndex = statsResults.findIndex((statResults) => {
@@ -33,14 +34,19 @@ export class ShortTermStatisticsComponent implements OnInit {
       });
 
       if (gameIndex !== -1) {
-        statsResults[gameIndex].learnedWords += learnedWords;
+        statsResults[gameIndex].trainedWords += trainedWords;
+        statsResults[gameIndex].learnedWordsByIds = new Set([
+          ...learnedWordsByIds,
+          ...statsResults[gameIndex].learnedWordsByIds,
+        ]);
         statsResults[gameIndex].correctAnswers += correctAnswers;
         statsResults[gameIndex].streak =
           statsResults[gameIndex].streak < streak ? streak : statsResults[gameIndex].streak;
       } else {
         statsResults.push({
           gameName: game,
-          learnedWords,
+          trainedWords,
+          learnedWordsByIds,
           correctAnswers,
           streak,
         });
@@ -77,9 +83,12 @@ export class ShortTermStatisticsComponent implements OnInit {
   private calculateTotalStats(gameStats: IShortTermStatsResults[]): IShortTermStatsResults {
     const totalResults: IShortTermStatsResults = {
       gameName: 'Общая Статистика',
-      learnedWords: gameStats.reduce((acc, gameStat) => {
-        return acc + gameStat.learnedWords;
+      trainedWords: gameStats.reduce((acc, gameStat) => {
+        return acc + gameStat.trainedWords;
       }, 0),
+      learnedWordsByIds: gameStats.reduce((acc, gameStat) => {
+        return new Set([...acc, ...gameStat.learnedWordsByIds]);
+      }, new Set<string>()),
       correctAnswers: gameStats.reduce((acc, gameStat) => {
         return acc + gameStat.correctAnswers;
       }, 0),

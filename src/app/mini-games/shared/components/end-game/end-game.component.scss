@@ -1,5 +1,5 @@
 .game-card {
-  width: 50vw;
+  width: 60vw;
   background-color: #ffffffcc;
   vertical-align: middle;
 
@@ -24,16 +24,19 @@
 
   &__reset {
     width: 100%;
+    font-size: 1.2rem;
   }
 
   &__exit {
     width: 100%;
     margin-bottom: 0.5rem;
+    font-size: 1.2rem;
   }
 
   &__wrong {
     color: #ff4500;
     font-size: 1.2rem;
+    margin-bottom: 0;
   }
 
   &__correct {
@@ -45,7 +48,8 @@
 .actions__btn {
   background-color: transparent;
   box-shadow: none;
-  margin-right: 10px;
+  margin-right: 0.5rem;
+  margin-bottom: -0.5rem;
   color: rgba(255, 255, 255, 0.07);
 
   .material-icons {
@@ -55,4 +59,14 @@
 
 .delete__btn {
   margin-right: 0;
+}
+
+@media (max-width: 850px) {
+  .game-card {
+    width: 85vw;
+
+    &__words-list {
+      height: 50vh;
+    }
+  }
 }

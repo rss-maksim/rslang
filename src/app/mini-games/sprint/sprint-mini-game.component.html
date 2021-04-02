@@ -9,7 +9,17 @@
   </div>
 
   <div class="game-container">
-    <mat-icon class="game__close" (click)="openCloseDialog()">close</mat-icon>
+    <button mat-fab (click)="openCloseDialog()" class="game__close">
+      <span class="material-icons material-icons_black">close</span>
+    </button>
+
+    <button mat-fab *ngIf="!game.isMuted" class="game__mute" (click)="onMuteClick()">
+      <i class="material-icons material-icons_black">music_note</i>
+    </button>
+
+    <button mat-fab *ngIf="game.isMuted" class="game__mute" (click)="onMuteClick()">
+      <i class="material-icons material-icons_black">music_off</i>
+    </button>
 
     <ng-container *ngIf="game.gameState === GAME_STATE.SETUP">
       <app-sprint-game-start (difficultySelected)="getWords($event)"></app-sprint-game-start>
@@ -28,26 +38,6 @@
     <ng-container *ngIf="game.gameState === GAME_STATE.PLAY">
       <div class="game__score">
         <p class="game__text">Стрик: {{ game.streak }}</p>
-        <mat-icon
-          *ngIf="!game.isMuted"
-          class="game__mute"
-          matRipple
-          [matRippleUnbounded]="true"
-          [matRippleCentered]="true"
-          (click)="onMuteClick()"
-        >
-          music_note
-        </mat-icon>
-        <mat-icon
-          *ngIf="game.isMuted"
-          class="game__mute"
-          matRipple
-          [matRippleUnbounded]="true"
-          [matRippleCentered]="true"
-          (click)="onMuteClick()"
-        >
-          music_off
-        </mat-icon>
         <p class="game__text">Баллы: {{ game.points }}</p>
       </div>
 
@@ -70,7 +60,7 @@
         [trainedWords]="game.trainedWords"
         [gamePoints]="game.points"
         (closeGameEvent)="resetGame()"
-        [game]="games.SPRINT"
+        [game]="GAMES.SPRINT"
       ></app-end-game>
     </ng-container>
   </div>
