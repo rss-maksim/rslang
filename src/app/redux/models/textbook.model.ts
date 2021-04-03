@@ -1,5 +1,5 @@
 export interface IWord {
-  _id: string;
+  id: string;
   word: string;
   image: string;
   audio: string;
@@ -14,6 +14,10 @@ export interface IWord {
   difficulty?: string;
   group: string;
   page: string;
+  userWord: {
+    difficulty: string;
+    optional: {};
+  };
 }
 
 export interface TextbookState {

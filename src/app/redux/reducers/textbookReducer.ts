@@ -12,7 +12,9 @@ export const initialState: TextbookState = {
 
 const _textbookReducer = createReducer(
   initialState,
-  on(loadWordsSuccess, (state, { payload }) => ({ ...state, words: payload })),
+  on(loadWordsSuccess, (state, { payload }) => {
+    return { ...state, words: payload };
+  }),
   on(setWordSettingsTranslation, (state, { payload }) => {
     return { ...state, wordSettingsTranslation: payload };
   }),
