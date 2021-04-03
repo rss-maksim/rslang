@@ -8,6 +8,7 @@ import { playRawSound } from '../../../mini-games/sprint/utils/utils';
 import { ApiService } from '../../../core/services/api.service';
 import { deleteUserWords } from 'src/app/redux/actions/textbooks.actions';
 import { IWord } from 'src/app/redux/models/textbook.model';
+import { markWordAsHard } from '../../../redux/actions/textbooks.actions';
 
 @Component({
   selector: 'app-word-card',
@@ -26,7 +27,10 @@ export class WordCardComponent {
   }
 
   deleteWord(words: IWord) {
-    console.log('delete from component', words);
     this.store.dispatch(deleteUserWords({ payload: words }));
+  }
+
+  hardWord(word: IWord) {
+    this.store.dispatch(markWordAsHard({ payload: word }));
   }
 }

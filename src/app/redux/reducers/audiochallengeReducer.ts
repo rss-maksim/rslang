@@ -53,6 +53,7 @@ export const initialState: AudiochallengeState = {
 const audiochallengeReducer = createReducer(
   initialState,
   on(wordsLoadedSuccess, (state, { payload }) => {
+    console.log(payload);
     const tempWord = payload[0];
     const tempList: IWord[] = payload.filter((elem: IWord, index: number) => index !== 0);
     return {

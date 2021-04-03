@@ -5,8 +5,7 @@ import { Observable } from 'rxjs';
 import { IWord } from '../core/models/IWord';
 import { ApiService } from '../core/services/api.service';
 import { WordsService } from 'src/app/core/services/words.service';
-import { UserService } from '../core/services/user.service';
-import { AggregatedWordsRequestParams, UserWordModel } from '../core/models/word.model';
+import { AggregatedWordsRequestParams } from '../core/models/word.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +13,7 @@ import { AggregatedWordsRequestParams, UserWordModel } from '../core/models/word
 export class MiniGamesHttpService {
   group = '0';
 
-  constructor(
-    private http: HttpClient,
-    private api: ApiService,
-    private wordsService: WordsService,
-    private userService: UserService,
-  ) {}
+  constructor(private http: HttpClient, private api: ApiService, private wordsService: WordsService) {}
   getWords({ userId, page, group, filter }: AggregatedWordsRequestParams): Observable<IWord[]> {
     page ? page : (page = this.getRandomNumber(30).toString());
     group ? group : (group = '0');
@@ -37,7 +31,7 @@ export class MiniGamesHttpService {
   getRandomTranslations() {
     return this.http.get(
       `${this.api.baseApiUrl}/words?page=${this.getRandomNumber(7)}&group=${
-        +this.group > 4 ? (+this.group - 1).toString() : (+this.group + 1).toString()
+        +this.group > 4 ? +this.group - 1 : +this.group + 1
       }&wordsPerExampleSentenceLTE=100&wordsPerPage=80`,
     );
   }

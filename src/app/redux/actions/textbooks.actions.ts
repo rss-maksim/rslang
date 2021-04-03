@@ -24,3 +24,10 @@ export const deleteUserWordsSuccess = createAction(
   '[Textbook]  delete_User_Words_Success',
   props<{ payload: WordsRequestParams }>(),
 );
+
+export const markWordAsHard = createAction('[Textbook]  mark_Word_As_Hard', props<{ payload: IWord }>());
+
+export const markWordAsHardSuccess = createAction(
+  '[Textbook]  mark_Word_As_Hard_Success',
+  props<{ payload: WordsRequestParams }>(),
+);

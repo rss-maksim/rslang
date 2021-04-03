@@ -47,7 +47,7 @@ export class TextbookContentComponent implements OnInit {
   }
 
   trackByFnWordCard(index: number, item: IWord) {
-    return item._id;
+    return item.id;
   }
   trackByFnTabs(index: number, item: ITextbookContentTabs) {
     return item.title;
