@@ -49,10 +49,11 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   isResultsShown = false;
   getWords?: Subscription;
   games = Games;
-  page?: string;
-  group?: string;
-  filter?: string;
-  userId: string | null = this.userService.getUserId();
+  userId?: string | undefined;
+  // = this.userService.getUserId();
+  page?: string | undefined;
+  group?: string | undefined;
+  filter?: string | undefined;
 
   private querySubscription?: Subscription;
 
@@ -72,13 +73,15 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       this.filter = queryParam['filter'];
     });
 
+    this.onGetWords();
+  }
+
+  onGetWords() {
     this.getWords = this.httpService
-      .getWords({ page: this.page, group: this.difficultyLevel.toString() })
+      .getWords({ userId: this.userId, page: this.page, group: this.difficultyLevel.toString(), filter: this.filter })
       .subscribe((words) => {
         this.sourceArray.push(...words);
       });
-
-    console.log('queryParams', this.route.snapshot.queryParams);
   }
 
   nextRoundReset(): void {
@@ -114,7 +117,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
             setTimeout(() => {
               this.finalize();
             }, this.gameOverSoundDelay);
-            // TODO вывод статистики за игру (функция)
           }
 
           this.countDown?.unsubscribe();
@@ -156,7 +158,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         this.finalize();
       }, this.gameOverSoundDelay);
-      // TODO вывод статистики за игру (функция)
     }
 
     if (!this.isGameOver) {
@@ -270,11 +271,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     this.isGameOver = false;
     this.errorsCounter = 0;
     this.trainedWords = [];
-    this.getWords = this.httpService
-      .getWords({ page: this.page, group: this.difficultyLevel.toString() })
-      .subscribe((words) => {
-        this.sourceArray.push(...words);
-      });
+    this.onGetWords();
   }
 
   ngOnDestroy() {
