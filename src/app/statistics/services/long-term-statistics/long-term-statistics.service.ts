@@ -15,12 +15,7 @@ export class LongTermStatisticsService {
 
   getStatistics(): Observable<ILongTermStats> | null {
     const userId = this.userService.getUserId();
-    if (userId) {
-      const userStatistics$ = this.statisticsService.getUserStatistics(userId);
-      return userStatistics$;
-    } else {
-      return null;
-    }
+    return userId ? this.statisticsService.getUserStatistics(userId) : null;
   }
 
   setStatistics(trainedWords: ITrainedWord[], gamePlayed: Games): void {

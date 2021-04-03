@@ -39,12 +39,8 @@ export class EndGameComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.trainedWords) {
-      this.rightWords = this.trainedWords.filter((word) => {
-        return word.result === Answer.CORRECT;
-      });
-      this.wrongWords = this.trainedWords.filter((word) => {
-        return word.result === Answer.WRONG;
-      });
+      this.rightWords = this.trainedWords.filter((word) => word.result === Answer.CORRECT);
+      this.wrongWords = this.trainedWords.filter((word) => word.result === Answer.WRONG);
     }
   }
 
