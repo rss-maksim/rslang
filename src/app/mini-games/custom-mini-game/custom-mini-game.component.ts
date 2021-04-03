@@ -11,6 +11,8 @@ import { ShuffleService } from './services/shuffle.service';
 import { SoundService } from './services/sound.service';
 import { WordsService } from 'src/app/core/services/words.service';
 import { Games } from 'src/app/core/constants/mini-games';
+import { UserService } from 'src/app/core/services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-custom-mini-game',
@@ -47,18 +49,36 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   isResultsShown = false;
   getWords?: Subscription;
   games = Games;
+  page?: string;
+  group?: string;
+  filter?: string;
+  userId: string | null = this.userService.getUserId();
+
+  private querySubscription?: Subscription;
 
   constructor(
     public dialog: MatDialog,
     private soundService: SoundService,
     private shuffleService: ShuffleService,
-    private httpService: WordsService,
+    private httpService: MiniGamesHttpService,
+    private userService: UserService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-    this.getWords = this.httpService.getAll().subscribe((words) => {
-      this.sourceArray.push(...words);
+    this.querySubscription = this.route.queryParams.subscribe((queryParam: any) => {
+      this.page = queryParam['page'];
+      this.group = queryParam['group'];
+      this.filter = queryParam['filter'];
     });
+
+    this.getWords = this.httpService
+      .getWords({ page: this.page, group: this.difficultyLevel.toString() })
+      .subscribe((words) => {
+        this.sourceArray.push(...words);
+      });
+
+    console.log('queryParams', this.route.snapshot.queryParams);
   }
 
   nextRoundReset(): void {
@@ -250,14 +270,16 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     this.isGameOver = false;
     this.errorsCounter = 0;
     this.trainedWords = [];
-    this.getWords = this.httpService.getWords().subscribe((words) => {
-      this.sourceArray = [];
-      this.sourceArray.push(...words);
-    });
+    this.getWords = this.httpService
+      .getWords({ page: this.page, group: this.difficultyLevel.toString() })
+      .subscribe((words) => {
+        this.sourceArray.push(...words);
+      });
   }
 
   ngOnDestroy() {
     this.countDown?.unsubscribe();
     this.getWords?.unsubscribe();
+    this.querySubscription?.unsubscribe();
   }
 }
