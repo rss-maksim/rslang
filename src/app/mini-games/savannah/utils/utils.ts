@@ -2,15 +2,16 @@ import { SUCCESS_AUDIO_URL, FAIL_AUDIO_URL } from './../../constants/audiochalle
 import { NUMBER_OF_PAGES } from './../../../core/constants/common';
 import { IWord } from './../../../core/models/IWord';
 
-export function getRandomFrom(number: number): number {
-  return Math.floor(Math.random() * number);
+export function getRandomFrom(number: number, avoid?: number): number {
+  const rand = Math.floor(Math.random() * number);
+  return rand !== avoid ? rand : Math.floor(Math.random() * number);
 }
 
-export function getRandomNumbers(amount: number) {
+export function getRandomNumbers(amount: number, avoid?: string) {
   const pages: number[] = [];
-
+  const avoidNum = avoid !== undefined ? +avoid : undefined;
   while (pages.length < amount) {
-    const page = getRandomFrom(NUMBER_OF_PAGES);
+    const page = getRandomFrom(NUMBER_OF_PAGES, avoidNum);
     if (!pages.includes(page)) {
       pages.push(page);
     }
