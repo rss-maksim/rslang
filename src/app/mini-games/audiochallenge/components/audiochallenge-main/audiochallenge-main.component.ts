@@ -14,7 +14,8 @@ import {
 } from 'src/app/redux/selectors/audiochallenge.selectors';
 import { Games } from 'src/app/core/constants/mini-games';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../../../core/services/user.service';
+import { UserService } from 'src/app/core/services/user.service';
+i;
 
 @Component({
   selector: 'app-audiochallenge-main',
