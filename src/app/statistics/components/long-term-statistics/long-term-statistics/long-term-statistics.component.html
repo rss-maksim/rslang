@@ -1,5 +1,6 @@
-<div style="display: block">
+<div class="chart-container" *ngIf="!isLoading && hasStatistics">
   <canvas
+    id="chart"
     baseChart
     [datasets]="lineChartData"
     [labels]="lineChartLabels"
@@ -10,3 +11,10 @@
   >
   </canvas>
 </div>
+
+<ng-container *ngIf="!isLoading && !hasStatistics">
+  <p>Для получения долгосрочной статистики, пожалуйста, потренируйтесь.</p>
+  <button class="stats__login" mat-raised-button color="accent" routerLink="../mini-games">Тренироваться</button>
+</ng-container>
+
+<mat-spinner color="accent" diameter="50" *ngIf="isLoading"></mat-spinner>

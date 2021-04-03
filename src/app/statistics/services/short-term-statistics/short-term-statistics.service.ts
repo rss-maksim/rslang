@@ -13,27 +13,35 @@ export class ShortTermStatisticsService {
   constructor(private storageService: StorageService) {}
 
   getStatistics(): IShortTermStats[] | null {
-    const stats: IShortTermStats[] | null = this.storageService.getItem(LOCAL_STORAGE_STATS_KEY);
+    let stats: IShortTermStats[] | null = this.storageService.getItem(LOCAL_STORAGE_STATS_KEY);
+
+    if (stats) {
+      // store statistics only for one day
+      const today = new Date();
+      stats = stats.filter((stat) => {
+        const date = new Date(stat.timeStamp);
+        return (
+          date.getDate() === today.getDate() &&
+          date.getMonth() === today.getMonth() &&
+          date.getFullYear() === today.getFullYear()
+        );
+      });
+
+      if (stats.length > 0) {
+        this.storageService.setItem(LOCAL_STORAGE_STATS_KEY, stats);
+      } else {
+        this.storageService.removeItem(LOCAL_STORAGE_STATS_KEY);
+      }
+    }
+
     return stats;
   }
 
-  setStatistics(trainedWords: ITrainedWord[], gamePlayed: Games) {
-    console.log(trainedWords, gamePlayed);
+  setStatistics(trainedWords: ITrainedWord[], gamePlayed: Games): void {
     let stats = this.getStatistics();
     if (!stats) {
       stats = [];
     }
-
-    // Store only statistics for one day
-    const today = new Date();
-    stats = stats.filter((stat) => {
-      const date = new Date(stat.timeStamp);
-      return (
-        date.getDate() === today.getDate() &&
-        date.getMonth() === today.getMonth() &&
-        date.getFullYear() === today.getFullYear()
-      );
-    });
 
     stats.push({
       trainedWords,

@@ -20,5 +20,5 @@ export const LINE_CHART_COLORS_2 = {
 
 export const Y_AXES_1_GRID_LINES_COLOR = 'rgba(255,64,129,0.3)';
 export const Y_AXES_1_TICKS_COLOR = '#ff4081';
-export const CHART_LABEL_1 = 'Количество Изученных Слов';
-export const CHART_LABEL_2 = 'Общее Количество Изученных Слов';
+export const CHART_LABEL_1 = 'Количество Новых Изученных Слов';
+export const CHART_LABEL_2 = 'Совокупная Сумма Изученных Слов';
