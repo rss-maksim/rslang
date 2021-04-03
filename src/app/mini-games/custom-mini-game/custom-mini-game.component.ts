@@ -11,6 +11,8 @@ import { ShuffleService } from './services/shuffle.service';
 import { SoundService } from './services/sound.service';
 import { WordsService } from 'src/app/core/services/words.service';
 import { Games } from 'src/app/core/constants/mini-games';
+import { UserService } from 'src/app/core/services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-custom-mini-game',
@@ -47,18 +49,39 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   isResultsShown = false;
   getWords?: Subscription;
   games = Games;
+  userId?: string | undefined;
+  // = this.userService.getUserId();
+  page?: string | undefined;
+  group?: string | undefined;
+  filter?: string | undefined;
+
+  private querySubscription?: Subscription;
 
   constructor(
     public dialog: MatDialog,
     private soundService: SoundService,
     private shuffleService: ShuffleService,
-    private httpService: WordsService,
+    private httpService: MiniGamesHttpService,
+    private userService: UserService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-    this.getWords = this.httpService.getAll().subscribe((words) => {
-      this.sourceArray.push(...words);
+    this.querySubscription = this.route.queryParams.subscribe((queryParam: any) => {
+      this.page = queryParam['page'];
+      this.group = queryParam['group'];
+      this.filter = queryParam['filter'];
     });
+
+    this.onGetWords();
+  }
+
+  onGetWords() {
+    this.getWords = this.httpService
+      .getWords({ userId: this.userId, page: this.page, group: this.difficultyLevel.toString(), filter: this.filter })
+      .subscribe((words) => {
+        this.sourceArray.push(...words);
+      });
   }
 
   nextRoundReset(): void {
@@ -94,7 +117,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
             setTimeout(() => {
               this.finalize();
             }, this.gameOverSoundDelay);
-            // TODO вывод статистики за игру (функция)
           }
 
           this.countDown?.unsubscribe();
@@ -136,7 +158,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         this.finalize();
       }, this.gameOverSoundDelay);
-      // TODO вывод статистики за игру (функция)
     }
 
     if (!this.isGameOver) {
@@ -250,14 +271,12 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     this.isGameOver = false;
     this.errorsCounter = 0;
     this.trainedWords = [];
-    this.getWords = this.httpService.getWords().subscribe((words) => {
-      this.sourceArray = [];
-      this.sourceArray.push(...words);
-    });
+    this.onGetWords();
   }
 
   ngOnDestroy() {
     this.countDown?.unsubscribe();
     this.getWords?.unsubscribe();
+    this.querySubscription?.unsubscribe();
   }
 }

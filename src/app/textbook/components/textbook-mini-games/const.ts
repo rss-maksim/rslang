@@ -15,6 +15,6 @@ export const mini_games_list: ITextbookMiniGames[] = [
   },
   {
     name: 'Своя игра',
-    link: '/mini-games/custom-game',
+    link: '/mini-games/custom-mini-game',
   },
 ];

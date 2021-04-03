@@ -55,6 +55,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    console.log(this.route.snapshot.queryParams);
     if (this.route.snapshot.data.words) {
       this.game.gameState = GameState.READY;
     }
