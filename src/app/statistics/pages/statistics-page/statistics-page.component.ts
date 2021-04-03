@@ -23,7 +23,6 @@ export class StatisticsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAuthorized = this.authService.isAuthorized;
-    this.isAuthorized = true; // for testing purposes - fake long term statistics
 
     this.shortTermStats = this.shortTermStatisticsService.getStatistics();
     if (this.shortTermStats) {

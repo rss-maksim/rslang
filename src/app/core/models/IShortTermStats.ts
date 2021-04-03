@@ -9,7 +9,8 @@ export interface IShortTermStats {
 
 export interface IShortTermStatsResults {
   gameName: Games | 'Общая Статистика';
-  learnedWords: number;
+  learnedWordsByIds: Set<string>;
+  trainedWords: number;
   correctAnswers: number;
   streak: number;
 }

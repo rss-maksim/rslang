@@ -6,7 +6,7 @@
     <mat-card-title>Тренировка окончена!</mat-card-title>
   </ng-template>
   <mat-card-content class="game-card__words-list">
-    <p class="game-card__wrong">Ошибок:</p>
+    <p class="game-card__wrong">Ошибок: {{ wrongWords.length }}</p>
     <mat-list>
       <ng-container *ngFor="let word of trainedWords; trackBy: trackByIdentity">
         <mat-list-item *ngIf="word.result === answer.WRONG">
@@ -24,7 +24,7 @@
       </ng-container>
     </mat-list>
     <hr />
-    <p class="game-card__correct">Знаю:</p>
+    <p class="game-card__correct">Знаю: {{ rightWords.length }}</p>
     <mat-list>
       <ng-container *ngFor="let word of trainedWords; trackBy: trackByIdentity">
         <mat-list-item *ngIf="word.result === answer.CORRECT">
