@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ITextbookMiniGames } from 'src/app/core/models/ITextbookMiniGames';
 import { mini_games_list } from './const';
 
@@ -9,6 +9,8 @@ import { mini_games_list } from './const';
 })
 export class TextbookMiniGamesComponent {
   miniGamesList = mini_games_list;
+  @Input() group!: string;
+  @Input() page!: string;
 
   constructor() {}
 

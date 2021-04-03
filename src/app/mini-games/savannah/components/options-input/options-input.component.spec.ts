@@ -8,9 +8,8 @@ describe('OptionsInputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OptionsInputComponent ]
-    })
-    .compileComponents();
+      declarations: [OptionsInputComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

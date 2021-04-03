@@ -2,10 +2,10 @@ export interface IWord {
   audio: string;
   audioExample: string;
   audioMeaning: string;
-  group?: number;
+  group?: string;
   id: string;
   image: string;
-  page?: number;
+  page?: string;
   textExample: string;
   textExampleTranslate: string;
   textMeaning: string;

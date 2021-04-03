@@ -14,8 +14,8 @@ export interface WordModel {
 }
 
 export interface UserWordModel {
-  difficulty: string;
-  optional: object;
+  difficulty?: string;
+  optional?: object;
 }
 
 export interface WordsRequestParams {
@@ -26,6 +26,7 @@ export interface WordsRequestParams {
 }
 
 export interface AggregatedWordsRequestParams extends WordsRequestParams {
+  userId?: string;
   filter?: string;
 }
 

@@ -60,19 +60,27 @@ export class SavannahMiniGameComponent implements OnDestroy {
 
   getWords(difficulty: number) {
     const [page1, page2, page3, page4] = getRandomNumbers(4);
-    this.wordsBatch$ = this.gamesService.getWords(difficulty, page1).subscribe((words: IWord[]) => {
-      this.game.learningWords.push(...words);
-      this.game.totalWordsAmount = words.length;
-    });
-    this.translationsBatch$ = this.gamesService.getWords(difficulty, page2).subscribe((words: IWord[]) => {
-      this.game.randomTranslations.push(...getTranslations(words));
-    });
-    this.translationsBatch$2 = this.gamesService.getWords(difficulty, page3).subscribe((words: IWord[]) => {
-      this.game.randomTranslations.push(...getTranslations(words));
-    });
-    this.translationsBatch$3 = this.gamesService.getWords(difficulty, page4).subscribe((words: IWord[]) => {
-      this.game.randomTranslations.push(...getTranslations(words));
-    });
+    this.wordsBatch$ = this.gamesService
+      .getWords({ group: difficulty.toString(), page: page1.toString() })
+      .subscribe((words: IWord[]) => {
+        this.game.learningWords.push(...words);
+        this.game.totalWordsAmount = words.length;
+      });
+    this.translationsBatch$ = this.gamesService
+      .getWords({ group: difficulty.toString(), page: page2.toString() })
+      .subscribe((words: IWord[]) => {
+        this.game.randomTranslations.push(...getTranslations(words));
+      });
+    this.translationsBatch$2 = this.gamesService
+      .getWords({ group: difficulty.toString(), page: page3.toString() })
+      .subscribe((words: IWord[]) => {
+        this.game.randomTranslations.push(...getTranslations(words));
+      });
+    this.translationsBatch$3 = this.gamesService
+      .getWords({ group: difficulty.toString(), page: page4.toString() })
+      .subscribe((words: IWord[]) => {
+        this.game.randomTranslations.push(...getTranslations(words));
+      });
 
     this.game.gameState = GameState.PREP;
   }

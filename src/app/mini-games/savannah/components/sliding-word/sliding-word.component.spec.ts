@@ -8,9 +8,8 @@ describe('SlidingWordComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SlidingWordComponent ]
-    })
-    .compileComponents();
+      declarations: [SlidingWordComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

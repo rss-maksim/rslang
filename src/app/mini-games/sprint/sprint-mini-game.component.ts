@@ -12,6 +12,7 @@ import { Color, DEFAULT_WORDS_DIFFICULTY, MAX_TRAINED_WORDS } from 'src/app/core
 import { CloseGameDialogComponent } from '../shared/components/close-game-dialog/close-game-dialog.component';
 import { ShortTermStatisticsService } from 'src/app/statistics/services/short-term-statistics/short-term-statistics.service';
 import { Games } from 'src/app/core/constants/mini-games';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sprint-mini-game',
@@ -76,15 +77,21 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
 
   getWords(difficulty: number = DEFAULT_WORDS_DIFFICULTY): void {
     const [page1, page2, page3] = getRandomPages();
-    this.wordsBatch1Subscription = this.gameService.getWords(difficulty, page1).subscribe((words) => {
-      this.game.words.push(...words);
-    });
-    this.wordsBatch2Subscription = this.gameService.getWords(difficulty, page2).subscribe((words) => {
-      this.game.words.push(...words);
-    });
-    this.wordsBatch3Subscription = this.gameService.getWords(difficulty, page3).subscribe((words) => {
-      this.game.words.push(...words);
-    });
+    this.wordsBatch1Subscription = this.gameService
+      .getWords({ group: difficulty.toString(), page: page1.toString() })
+      .subscribe((words: any) => {
+        this.game.words.push(...words);
+      });
+    this.wordsBatch2Subscription = this.gameService
+      .getWords({ group: difficulty.toString(), page: page2.toString() })
+      .subscribe((words: any) => {
+        this.game.words.push(...words);
+      });
+    this.wordsBatch3Subscription = this.gameService
+      .getWords({ group: difficulty.toString(), page: page3.toString() })
+      .subscribe((words: any) => {
+        this.game.words.push(...words);
+      });
     this.game.gameState = GameState.READY;
   }
 

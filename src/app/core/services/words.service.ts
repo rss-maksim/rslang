@@ -11,6 +11,7 @@ import {
   WordRequestParams,
   WordsRequestParams,
 } from '../models/word.model';
+import { IWord } from '../models/IWord';
 
 interface HttpParams {
   [param: string]: string | string[];
@@ -46,11 +47,11 @@ export class WordsService {
     return this.http.get<UserWordModel>(`${this.apiUrl}/users/${userId}/words/${wordId}`);
   }
 
-  createUserWord(userId: string, wordId: string, body: UserWordModel): Observable<UserWordModel> {
+  createUserWord(userId: string | null, wordId: string, body: UserWordModel): Observable<UserWordModel> {
     return this.http.post<UserWordModel>(`${this.apiUrl}/users/${userId}/words/${wordId}`, body);
   }
 
-  updateUserWord(userId: string, wordId: string, body: UserWordModel): Observable<UserWordModel> {
+  updateUserWord(userId: string | null, wordId: string, body: UserWordModel): Observable<UserWordModel> {
     return this.http.put<UserWordModel>(`${this.apiUrl}/users/${userId}/words/${wordId}`, body);
   }
 
@@ -58,8 +59,8 @@ export class WordsService {
     return this.http.delete<void>(`${this.apiUrl}/users/${userId}/words/${wordId}`);
   }
 
-  getUserAggregatedWords(userId: string, params: AggregatedWordsRequestParams): Observable<UserWordModel[]> {
-    return this.http.get<UserWordModel[]>(`${this.apiUrl}/users/${userId}/aggregatedWords`, {
+  getUserAggregatedWords(userId: string | null, params: AggregatedWordsRequestParams): Observable<IWord[]> {
+    return this.http.get<IWord[]>(`${this.apiUrl}/users/${userId}/aggregatedWords`, {
       params: params as HttpParams,
     });
   }

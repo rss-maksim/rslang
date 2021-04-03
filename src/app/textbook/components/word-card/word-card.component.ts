@@ -6,6 +6,8 @@ import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
 
 import { playRawSound } from '../../../mini-games/sprint/utils/utils';
 import { ApiService } from '../../../core/services/api.service';
+import { deleteUserWords } from 'src/app/redux/actions/textbooks.actions';
+import { IWord } from 'src/app/redux/models/textbook.model';
 
 @Component({
   selector: 'app-word-card',
@@ -21,5 +23,10 @@ export class WordCardComponent {
 
   wordSound(audio: string) {
     playRawSound(`${this.api.githubAssetUrl}/${audio}`);
+  }
+
+  deleteWord(words: IWord) {
+    console.log('delete from component', words);
+    this.store.dispatch(deleteUserWords({ payload: words }));
   }
 }

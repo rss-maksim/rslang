@@ -20,7 +20,11 @@ import { IAudiochallengeWord } from 'src/app/redux/models/audiochallenge.state.m
   styleUrls: ['./audiochallenge-game.component.scss'],
 })
 export class AudiochallengeGameComponent implements OnInit {
-  @Input() difficulty!: number;
+  @Input() difficulty!: string;
+  @Input() page!: string;
+  @Input() group!: string;
+  @Input() userId!: string | null;
+  @Input() filter!: string;
   currentWord$!: Observable<IAudiochallengeWord>;
   word$!: Observable<IWord[]>;
   words$!: Observable<IWord[]>;
@@ -29,7 +33,16 @@ export class AudiochallengeGameComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(loadWords({ payload: this.difficulty }));
+    this.store.dispatch(
+      loadWords({
+        payload: {
+          group: this.difficulty || this.group,
+          page: this.page,
+          userId: this.userId || undefined,
+          filter: this.filter,
+        },
+      }),
+    );
     this.currentWord$ = this.store.select(selectCurrentWord);
     this.words$ = this.store.select(selectWords);
     this.guessed$ = this.store.select(selectIsChoosed);
@@ -42,6 +55,7 @@ export class AudiochallengeGameComponent implements OnInit {
   skipWord() {
     this.store.dispatch(translationChoosed());
     this.store.dispatch(wrongAnswer());
+    console.log(this.page, this.group);
   }
 
   nextWord() {

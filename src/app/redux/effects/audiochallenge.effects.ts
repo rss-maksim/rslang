@@ -24,7 +24,6 @@ import {
   wrongAnswer,
   translationsLoadedSuccess,
   gameOver,
-  shuffleTranslations,
   translationsShuffled,
 } from '../actions/audiochallenge.actions';
 import { ASSETS_API_URL } from 'src/app/core/constants/mini-games';

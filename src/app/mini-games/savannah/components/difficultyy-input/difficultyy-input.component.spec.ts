@@ -8,9 +8,8 @@ describe('DifficultyyInputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DifficultyyInputComponent ]
-    })
-    .compileComponents();
+      declarations: [DifficultyyInputComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
