@@ -23,6 +23,6 @@ describe('LifesComponent', () => {
   });
 
   it('should create array of length', () => {
-    expect(component.numSequence(10)).toBe(Array(10));
+    expect(component.numSequence(10).length).toEqual(10);
   });
 });

@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs/internal/observable/of';
 
 import { SprintMiniGameComponent } from './sprint-mini-game.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 export class MatDialogMock {
   // When the component calls this.dialog.open(...) we'll return an object
@@ -25,6 +26,7 @@ describe('SprintMiniGameComponent', () => {
       declarations: [SprintMiniGameComponent],
       imports: [HttpClientTestingModule, RouterTestingModule],
       providers: [{ provide: MatDialog, useClass: MatDialogMock }],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });
 
