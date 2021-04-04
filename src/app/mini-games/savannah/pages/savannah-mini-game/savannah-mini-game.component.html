@@ -15,7 +15,7 @@
   </div>
 
   <ng-container *ngSwitchCase="gameState.SETTING">
-    <app-difficultyy-input (startWithDifficulty)="getWords($event)"></app-difficultyy-input>
+    <app-difficultyy-input (startWithDifficulty)="startGameWithDifficulty($event)"></app-difficultyy-input>
   </ng-container>
 
   <ng-container *ngSwitchCase="gameState.PREP">

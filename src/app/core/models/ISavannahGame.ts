@@ -11,8 +11,8 @@ export enum GameState {
 }
 
 export enum Answer {
-  RIGHT = 'RIGHT',
-  WRONG = 'WRONG',
+  CORRECT,
+  WRONG,
 }
 
 export interface ISavannahGame {

@@ -1,4 +1,3 @@
-import { SUCCESS_AUDIO_URL, FAIL_AUDIO_URL } from './../../constants/audiochallenge-game';
 import { NUMBER_OF_PAGES } from './../../../core/constants/common';
 import { IWord } from './../../../core/models/IWord';
 
