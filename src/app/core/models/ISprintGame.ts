@@ -45,6 +45,7 @@ export interface SprintGame {
   words: IWord[];
   trainedWords: ITrainedWord[];
   trainedWordsByIndexes: number[];
+  maxTrainedWords: number;
   word: string;
   wordIndex: number;
   wordTranslation: string;

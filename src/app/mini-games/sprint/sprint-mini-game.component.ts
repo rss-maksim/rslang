@@ -8,11 +8,10 @@ import { Subscription } from 'rxjs';
 import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
 import { Answer, GameState, Sound, SprintGame, StreakLevel } from 'src/app/core/models/ISprintGame';
 import { getPointsMultiplier, getRandomNumber, getRandomPages, playSound } from './utils/utils';
-import { Color, DEFAULT_WORDS_DIFFICULTY, MAX_TRAINED_WORDS } from 'src/app/core/constants/sprint-game';
+import { Color } from 'src/app/core/constants/sprint-game';
 import { CloseGameDialogComponent } from '../shared/components/close-game-dialog/close-game-dialog.component';
 import { ShortTermStatisticsService } from 'src/app/statistics/services/short-term-statistics/short-term-statistics.service';
 import { Games } from 'src/app/core/constants/mini-games';
-import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sprint-mini-game',
@@ -26,6 +25,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     words: [],
     trainedWords: [],
     trainedWordsByIndexes: [],
+    maxTrainedWords: 0,
     word: '',
     wordIndex: 0,
     wordTranslation: '',
@@ -45,19 +45,24 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   wordsBatch3Subscription?: Subscription;
   GAMES = Games;
   GAME_STATE = GameState;
+  hasDifficultySlider = true;
+  group?: string;
+  page?: string;
 
   constructor(
     private gameService: MiniGamesHttpService,
     public closeDialog: MatDialog,
     private route: ActivatedRoute,
-    private router: Router,
     private shortTermStatisticsService: ShortTermStatisticsService,
   ) {}
 
   ngOnInit() {
-    console.log(this.route.snapshot.queryParams);
-    if (this.route.snapshot.data.words) {
-      this.game.gameState = GameState.READY;
+    const { group, page, filter } = this.route.snapshot.queryParams;
+
+    if (group !== undefined && page !== undefined) {
+      this.hasDifficultySlider = false;
+      this.group = group;
+      this.page = page;
     }
   }
 
@@ -76,23 +81,56 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     }
   }
 
-  getWords(difficulty: number = DEFAULT_WORDS_DIFFICULTY): void {
-    const [page1, page2, page3] = getRandomPages();
+  getWords(difficulty: number | undefined): void {
+    let groupToGet = '';
+    let page1ToGet = '';
+    let page2ToGet = '';
+    let page3ToGet = '';
+
+    if (difficulty !== undefined) {
+      groupToGet = difficulty.toString();
+    }
+
+    if (this.group !== undefined) {
+      groupToGet = this.group;
+    }
+
+    if (this.page !== undefined) {
+      page1ToGet = this.page;
+      page2ToGet = +this.page - 1 >= 0 ? (+this.page - 1).toString() : '';
+      page3ToGet = +this.page - 2 >= 0 ? (+this.page - 2).toString() : '';
+    } else {
+      const [page1, page2, page3] = getRandomPages();
+      page1ToGet = page1.toString();
+      page2ToGet = page2.toString();
+      page3ToGet = page3.toString();
+    }
+
     this.wordsBatch1Subscription = this.gameService
-      .getWords({ group: difficulty.toString(), page: page1.toString() })
+      .getWords({ group: groupToGet, page: page1ToGet })
       .subscribe((words: any) => {
+        this.game.maxTrainedWords += words.length;
         this.game.words.push(...words);
       });
-    this.wordsBatch2Subscription = this.gameService
-      .getWords({ group: difficulty.toString(), page: page2.toString() })
-      .subscribe((words: any) => {
-        this.game.words.push(...words);
-      });
-    this.wordsBatch3Subscription = this.gameService
-      .getWords({ group: difficulty.toString(), page: page3.toString() })
-      .subscribe((words: any) => {
-        this.game.words.push(...words);
-      });
+
+    if (page2ToGet) {
+      this.wordsBatch2Subscription = this.gameService
+        .getWords({ group: groupToGet, page: page2ToGet })
+        .subscribe((words: any) => {
+          this.game.maxTrainedWords += words.length;
+          this.game.words.push(...words);
+        });
+    }
+
+    if (page3ToGet) {
+      this.wordsBatch3Subscription = this.gameService
+        .getWords({ group: groupToGet, page: page3ToGet })
+        .subscribe((words: any) => {
+          this.game.maxTrainedWords += words.length;
+          this.game.words.push(...words);
+        });
+    }
+
     this.game.gameState = GameState.READY;
   }
 
@@ -165,7 +203,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   }
 
   nextTurn(): void {
-    if (this.game.trainedWords.length === MAX_TRAINED_WORDS) {
+    if (this.game.trainedWords.length === this.game.maxTrainedWords) {
       this.gameOver();
       return;
     }
@@ -234,6 +272,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
       words: [],
       trainedWords: [],
       trainedWordsByIndexes: [],
+      maxTrainedWords: 0,
       streak: 0,
       points: 0,
       basePoints: 10,

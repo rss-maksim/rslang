@@ -1,6 +1,6 @@
 .game-card {
   width: 60vw;
-  background-color: #ffffffcc;
+  background-color: var(--color-light);
   vertical-align: middle;
 
   &__points {
@@ -14,7 +14,7 @@
   }
 
   &__word {
-    color: #3f51b5;
+    color: var(--color-primary);
     font-size: 1.2rem;
   }
 
@@ -34,13 +34,13 @@
   }
 
   &__wrong {
-    color: #ff4500;
+    color: var(--color-warn);
     font-size: 1.2rem;
     margin-bottom: 0;
   }
 
   &__correct {
-    color: #28c38a;
+    color: var(--color-accent);
     font-size: 1.2rem;
   }
 }
@@ -50,10 +50,10 @@
   box-shadow: none;
   margin-right: 0.5rem;
   margin-bottom: -0.5rem;
-  color: rgba(255, 255, 255, 0.07);
+  color: var(--color-button);
 
   .material-icons {
-    color: black;
+    color: var(--color-dark-background);
   }
 }
 
