@@ -25,8 +25,6 @@ export class TextbookContentComponent implements OnInit {
   constructor(private store: Store<AppState>, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-    console.log('ngOnInit!!!!!');
-    this.wordItems$.subscribe((item) => console.log(item));
     this.route.params.subscribe(({ group, page }: any) => {
       this.currentGroup = group || '0';
       this.currentPage = page || '0';
