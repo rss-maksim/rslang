@@ -19,6 +19,10 @@
       margin-right: 0;
     }
 
+    &:hover {
+      box-shadow: var(--box-shadow);
+    }
+
     &__avatar-wrapper {
       height: 100px;
     }
@@ -42,8 +46,8 @@
     }
 
     &__contribution-title {
-      font-size: .85rem;
-      opacity: .75;
+      font-size: 0.85rem;
+      opacity: 0.75;
     }
 
     &__contribution-item {

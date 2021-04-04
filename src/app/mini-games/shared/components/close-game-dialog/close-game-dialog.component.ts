@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-close-game-dialog',
   templateUrl: './close-game-dialog.component.html',
   styleUrls: ['./close-game-dialog.component.scss'],
 })
-export class CloseGameDialogComponent {}
+export class CloseGameDialogComponent {
+  @Input() color = 'warn';
+}
