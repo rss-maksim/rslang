@@ -1,3 +1,4 @@
+import { SavannahService } from './../../services/savannah.service';
 import { SavannahMiniGameComponent } from './../../pages/savannah-mini-game/savannah-mini-game.component';
 import { SlidingWordComponent } from './../sliding-word/sliding-word.component';
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild } from '@angular/core';
@@ -18,11 +19,11 @@ export class MainActionsComponent {
   @Input() progress!: number;
   @Output() answered = new EventEmitter<boolean>();
   @ViewChild(SlidingWordComponent) private wordComponent!: SlidingWordComponent;
-  constructor(private savannah: SavannahMiniGameComponent) {}
+  constructor(private savannahService: SavannahService) {}
 
   wordClicked(clickedWord: string): void {
     const isAnswerCorrect = clickedWord === this.translation;
-    this.savannah.game.isMuted ? null : sound(isAnswerCorrect ? Sound.RIGHT : Sound.WRONG);
+    this.savannahService.playSound(isAnswerCorrect);
     this.wordComponent.animate(isAnswerCorrect);
   }
 
