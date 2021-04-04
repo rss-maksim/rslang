@@ -29,7 +29,6 @@ import { CloseGameDialogComponent } from './shared/components/close-game-dialog/
 import { EndGameComponent } from './shared/components/end-game/end-game.component';
 import { CustomMiniGameComponent } from './custom-mini-game/custom-mini-game.component';
 import { CloseDialogComponent } from './custom-mini-game/close-dialog/close-dialog.component';
-import { DifficultyyInputComponent } from './savannah/components/difficultyy-input/difficultyy-input.component';
 import { StartDialogComponent } from './custom-mini-game/start-dialog/start-dialog.component';
 
 @NgModule({
@@ -39,7 +38,6 @@ import { StartDialogComponent } from './custom-mini-game/start-dialog/start-dial
     MiniGamesPageComponent,
     OptionsInputComponent,
     SlidingWordComponent,
-    DifficultyyInputComponent,
     MainActionsComponent,
     FullScreenButtonComponent,
     LifesComponent,

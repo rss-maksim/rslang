@@ -1,3 +1,4 @@
+import { AggregatedWordsRequestParams } from './word.model';
 import { ITrainedWord } from './ITrainedWord';
 import { IWord } from './IWord';
 
@@ -10,12 +11,13 @@ export enum GameState {
 }
 
 export enum Answer {
-  RIGHT = 'RIGHT',
-  WRONG = 'WRONG',
+  CORRECT,
+  WRONG,
 }
 
 export interface ISavannahGame {
   gameState: GameState;
+  userId: string | null;
   learningWords: IWord[];
   totalWordsAmount: number;
   randomTranslations: string[];
@@ -31,4 +33,5 @@ export interface ISavannahGame {
   points: number;
   isMuted: boolean;
   isPaused: boolean;
+  queryParams: AggregatedWordsRequestParams;
 }

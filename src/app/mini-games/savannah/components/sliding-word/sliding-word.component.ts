@@ -1,3 +1,4 @@
+import { SavannahService } from './../../services/savannah.service';
 import { SavannahMiniGameComponent } from './../../pages/savannah-mini-game/savannah-mini-game.component';
 import { animate, AnimationBuilder, AnimationPlayer, sequence, style, useAnimation } from '@angular/animations';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
@@ -28,7 +29,7 @@ export class SlidingWordComponent implements OnChanges, AfterViewInit {
   private slidePlayer!: AnimationPlayer;
   private rightPlayer!: AnimationPlayer;
   private wrongPlayer!: AnimationPlayer;
-  constructor(private builder: AnimationBuilder, private savannah: SavannahMiniGameComponent) {}
+  constructor(private builder: AnimationBuilder, private savannahService: SavannahService) {}
   unClicked = 'slide';
 
   ngOnChanges(changes: any) {
@@ -64,7 +65,7 @@ export class SlidingWordComponent implements OnChanges, AfterViewInit {
     this.slidePlayer.play();
     this.slidePlayer.onDone(() => {
       if (this.unClicked === 'slide') {
-        this.savannah.game.isMuted ? null : sound(Sound.WRONG);
+        this.savannahService.playSound(false);
         this.emit(false);
       }
     });

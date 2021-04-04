@@ -15,7 +15,10 @@
   </div>
 
   <ng-container *ngSwitchCase="gameState.SETTING">
-    <app-difficultyy-input (startWithDifficulty)="getWords($event)"></app-difficultyy-input>
+    <app-start-game
+      [hasDifficultySlider]="true"
+      (difficultySelected)="startGameWithDifficulty($event)"
+    ></app-start-game>
   </ng-container>
 
   <ng-container *ngSwitchCase="gameState.PREP">
