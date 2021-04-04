@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SprintGameStartComponent } from './sprint-game-start.component';
@@ -9,6 +10,7 @@ describe('SprintGameStartComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SprintGameStartComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });
 

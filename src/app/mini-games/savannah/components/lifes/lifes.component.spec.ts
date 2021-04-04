@@ -21,4 +21,8 @@ describe('LifesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should create array of length', () => {
+    expect(component.numSequence(10)).toBe(Array(10));
+  });
 });

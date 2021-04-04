@@ -1,3 +1,5 @@
+import { HttpClient } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProfilePageComponent } from './profile-page.component';
@@ -9,6 +11,7 @@ describe('ProfilePageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProfilePageComponent],
+      imports: [ReactiveFormsModule, HttpClient],
     }).compileComponents();
   });
 
