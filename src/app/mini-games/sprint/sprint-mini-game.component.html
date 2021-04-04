@@ -22,16 +22,22 @@
     </button>
 
     <ng-container *ngIf="game.gameState === GAME_STATE.SETUP">
-      <app-sprint-game-start (difficultySelected)="getWords($event)"></app-sprint-game-start>
+      <app-start-game
+        (difficultySelected)="getWords($event)"
+        [hasDifficultySlider]="hasDifficultySlider"
+      ></app-start-game>
     </ng-container>
 
     <ng-container *ngIf="game.gameState === GAME_STATE.READY">
-      <app-counter
-        [count]="4"
-        [isPaused]="game.isPaused"
-        *ngIf="isStarterCounterShown"
-        (countIsOver)="getReadyToPlay()"
-      ></app-counter>
+      <div class="game__counter-start">
+        <app-counter
+          [count]="4"
+          [isPaused]="game.isPaused"
+          [spinnerColor]="'warn'"
+          *ngIf="isStarterCounterShown"
+          (countIsOver)="getReadyToPlay()"
+        ></app-counter>
+      </div>
       <p class="game__start-text">{{ loadingWordsMessage || "Приготовьтесь" }}</p>
     </ng-container>
 

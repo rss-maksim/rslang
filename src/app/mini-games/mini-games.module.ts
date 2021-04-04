@@ -20,7 +20,7 @@ import { AudiochallengeWordCardComponent } from './audiochallenge/components/wor
 import { TranslationOptionsComponent } from './audiochallenge/components/translation-options/translation-options.component';
 import { CounterComponent } from './shared/components/counter/counter.component';
 import { SprintGameCardComponent } from './sprint/components/sprint-game-card/sprint-game-card.component';
-import { SprintGameStartComponent } from './sprint/components/sprint-game-start/sprint-game-start.component';
+import { StartGameComponent } from './shared/components/start-game/start-game.component';
 import { GameSoundsButtonComponent } from './audiochallenge/components/game-sounds-button/game-sounds-button.component';
 import { AudiochallengeEffects } from '../redux/effects/audiochallenge.effects';
 import audiochallengeReducer from '../redux/reducers/audiochallengeReducer';
@@ -50,7 +50,7 @@ import { StartDialogComponent } from './custom-mini-game/start-dialog/start-dial
     TranslationOptionsComponent,
     CounterComponent,
     SprintGameCardComponent,
-    SprintGameStartComponent,
+    StartGameComponent,
     GameSoundsButtonComponent,
     LevelChoiseComponent,
     CloseGameDialogComponent,

@@ -7,7 +7,7 @@
 
 .mat-list-item.mat-focus-indicator {
   display: contents;
-  color: white;
+  color: var(--color-light);
   font-size: 1.3rem;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .option__text_right {
-  color: #fff;
+  color: var(--color-light);
   transform: scale(1.08);
 }
 

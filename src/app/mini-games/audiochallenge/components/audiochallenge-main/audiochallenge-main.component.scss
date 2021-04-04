@@ -15,7 +15,7 @@
 
 .intro {
   text-align: center;
-  color: white;
+  color: var(--color-light);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,7 +39,7 @@
   font-weight: 300;
   line-height: 1;
   margin-bottom: 60px;
-  color: #fff;
+  color: var(--color-light);
   opacity: 0.8;
   text-transform: uppercase;
   -webkit-font-smoothing: antialiased;
@@ -52,7 +52,7 @@
   font-size: 18px;
   line-height: 24px;
   font-weight: 300;
-  color: #fff;
+  color: var(--color-light);
   opacity: 0.8;
 }
 
@@ -82,7 +82,7 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--color-button);
 }
 
 .full-screen__btn {
