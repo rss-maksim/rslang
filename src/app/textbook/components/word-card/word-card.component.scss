@@ -1,7 +1,9 @@
 :host {
   width: 100%;
-  max-width: 90%;
-  margin: 1rem auto;
+  min-width: 250px;
+  max-width: 300px;
+  margin: 10px;
+  cursor: pointer;
 
   &:hover {
     box-shadow: var(--box-shadow);
@@ -10,29 +12,40 @@
 
 .word-card {
   position: relative;
-  padding: 0;
-  min-height: 16.5rem;
+  box-sizing: border-box;
+  height: 100%;
 }
 
-.mat-card-content {
+.word-card__wrapper {
   display: flex;
-  flex-wrap: wrap;
-  padding: 0;
+  flex-direction: column;
+}
+
+.word-card__infoWrapper {
+  div {
+    margin-bottom: 0.625rem;
+  }
+}
+
+.word-card__text {
+  padding-top: 0.625rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.word-card__info {
+  display: flex;
+  justify-content: space-between;
 }
 
 .word-card__image {
   position: relative;
-  display: flex;
   width: 100%;
-  min-width: 12.5rem;
-  max-width: 25%;
-
+  padding-bottom: 80%;
+  margin-bottom: 0.625rem;
   overflow: hidden;
 
   img {
-    display: block;
-    font-size: 0;
-    line-height: 0;
+    position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -40,29 +53,19 @@
   }
 }
 
-.word-card__audio {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-
-  border-radius: 50%;
-  padding: 0.3125rem;
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: -2px 0px 17px 2px rgba(34, 60, 80, 0.16);
-  }
+.word-card__textExample,
+.word-card__textMeaning,
+.word-card__textExampleTranslate {
+  margin-bottom: 0.5rem;
 }
 
-.word-card__wrapper {
-  padding: 1rem;
+.word-card__infoButtons {
+  display: flex;
+  flex-direction: column;
 }
 
-.word-card__infoWrapper,
-.word-card__text {
-  div {
-    margin-bottom: 0.5rem;
-  }
+.word-card__infoButtons button {
+  margin-bottom: 0.5rem;
 }
 
 .word-card__audio {
