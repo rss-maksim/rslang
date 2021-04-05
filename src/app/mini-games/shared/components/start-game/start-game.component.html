@@ -1,23 +1,68 @@
 <mat-card class="card">
-  <mat-card-title class="card__title">Спринт</mat-card-title>
+  <mat-card-title class="card__title" [ngStyle]="{ color: textColor }">{{ gameName }}</mat-card-title>
 
   <mat-card-content class="card__content" *ngIf="hasDifficultySlider">
-    <p class="card__text">Пожалуйста, выберите сложность игры:</p>
-    <span class="card__text">Легко</span>
+    <p class="card__text" [ngStyle]="{ color: textColor }">Пожалуйста, выберите сложность игры:</p>
+    <span class="card__text" [ngStyle]="{ color: textColor }">Легко</span>
     <mat-slider
       min="0"
       max="5"
       step="1"
       value="1"
-      color="warn"
       thumbLabel
+      color="warn"
       #difficultySlider
       (input)="onDifficultyChange(difficultySlider.value)"
     ></mat-slider>
-    <span class="card__text">Сложно</span>
+    <span class="card__text" [ngStyle]="{ color: textColor }">Сложно</span>
   </mat-card-content>
 
+  <ng-container *ngIf="gameName === GAMES.CUSTOM_GAME">
+    <div>
+      <p class="card__text" [ngStyle]="{ color: textColor }">Количество раундов:</p>
+      <span class="card__text" [ngStyle]="{ color: textColor }">5</span>
+      <mat-slider
+        class="margins-left-right"
+        thumbLabel
+        min="5"
+        max="20"
+        step="1"
+        value="15"
+        color="warn"
+        #numOfRounds
+        (input)="onSetNumOfRounds(numOfRounds.value)"
+      >
+      </mat-slider>
+      <span class="card__text" [ngStyle]="{ color: textColor }">20</span>
+    </div>
+    <div>
+      <p class="card__text" [ngStyle]="{ color: textColor }">Время на раунд (сек.):</p>
+      <span class="card__text" [ngStyle]="{ color: textColor }">2</span>
+      <mat-slider
+        class="margins-left-right"
+        thumbLabel
+        min="2"
+        max="20"
+        step="1"
+        value="15"
+        color="warn"
+        #roundLength
+        (input)="onSetRoundLength(roundLength.value)"
+      >
+      </mat-slider>
+      <span class="card__text" [ngStyle]="{ color: textColor }">20</span>
+    </div>
+  </ng-container>
+
   <mat-card-actions>
-    <button mat-raised-button color="warn" class="card__start-button" (click)="onStart()">Начать</button>
+    <button
+      mat-raised-button
+      color="warn"
+      class="card__start-button"
+      (click)="onStart()"
+      [ngStyle]="{ color: textColor }"
+    >
+      Начать
+    </button>
   </mat-card-actions>
 </mat-card>

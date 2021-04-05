@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../../services/auth.service';
-import { regExpEmailPattern } from '../../const/patterns';
+import { regExpPasswordPattern } from '../../const/patterns';
 import { ErrorsParserService } from '../../services/errors-parser.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class LoginComponent {
   ) {
     const { email } = window.history.state;
     this.emailFormControl = fb.control(email ?? '', [Validators.required, Validators.email]);
-    this.passwordFormControl = fb.control('', [Validators.required, Validators.pattern(regExpEmailPattern)]);
+    this.passwordFormControl = fb.control('', [Validators.required, Validators.pattern(regExpPasswordPattern)]);
 
     this.loginForm = fb.group({
       email: this.emailFormControl,

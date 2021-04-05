@@ -4,14 +4,17 @@
   display: flex;
   align-items: center;
   background-color: var(--color-primary);
+  position: sticky;
+  top: 0;
+  z-index: 3;
 }
 
 a {
   text-decoration: none;
   background: linear-gradient(var(--color-light), var(--color-light));
-  background-position: 0% 100%;
+  background-position: 0 100%;
   background-repeat: no-repeat;
-  background-size: 0% 2px;
+  background-size: 0 2px;
   transition: background-size 0.3s;
   color: inherit;
   text-transform: uppercase;
