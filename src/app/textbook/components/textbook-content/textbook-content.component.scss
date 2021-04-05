@@ -1,5 +1,10 @@
-.textbook-content__navigation {
+.textbook-content__info {
   margin-top: 3rem;
+  margin-bottom: 1rem;
+
+  span {
+    color: red;
+  }
 }
 
 .textbook-content__link {
@@ -11,10 +16,7 @@
 
 .textbook-content__cardItems {
   display: flex;
-  align-items: stretch;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  margin-top: 1rem;
+  flex-direction: column;
 }
 
 .tab-link-0,
@@ -44,6 +46,11 @@
 
 ::ng-deep .mat-tab-links {
   justify-content: space-between;
+}
+
+.tab-link {
+  color: royalblue;
+  font-size: 1.125rem;
 }
 
 @media (max-width: 768px) {

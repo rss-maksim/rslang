@@ -1,19 +1,18 @@
 <mat-card class="word-card">
   <mat-card-content>
+    <mat-icon
+      class="word-card__audio"
+      matRipple
+      [matRippleUnbounded]="true"
+      [matRippleCentered]="true"
+      (click)="wordSound(item.audio)"
+    >
+      volume_up
+    </mat-icon>
+    <div class="word-card__image">
+      <img [src]="this.api.githubAssetUrl + '/' + item.image" [alt]="item.word" />
+    </div>
     <div class="word-card__wrapper">
-      <mat-icon
-        class="word-card__audio"
-        matRipple
-        [matRippleUnbounded]="true"
-        [matRippleCentered]="true"
-        (click)="wordSound(item.audio)"
-      >
-        volume_up
-      </mat-icon>
-
-      <div class="word-card__image">
-        <img [src]="this.api.githubAssetUrl + '/' + item.image" [alt]="item.word" />
-      </div>
       <div class="word-card__info">
         <div class="word-card__infoWrapper">
           <div class="word-card__word" [ngClass]="{ word_hard: item.userWord }">
@@ -26,20 +25,24 @@
             {{ item.wordTranslate }}
           </div>
         </div>
-        <div class="word-card__infoButtons" *ngIf="isSettingButtons$ | async">
-          <button class="word-card__infoButtons-hard" mat-raised-button color="primary" (click)="hardWord(item)">
-            Сложное
-          </button>
-          <button class="word-card__infoButtons-delete" mat-raised-button color="warn" (click)="deleteWord(item)">
-            Удалить
-          </button>
+        <div class="word-card__text">
+          <div class="word-card__textExample" [innerHTML]="item.textExample"></div>
+          <div class="word-card__textExampleTranslate" *ngIf="isTranslation$ | async">
+            {{ item.textExampleTranslate }}
+          </div>
+          <div class="word-card__textMeaning" [innerHTML]="item.textMeaning"></div>
+          <div class="word-card__textMeaningTranslate" *ngIf="isTranslation$ | async">
+            {{ item.textMeaningTranslate }}
+          </div>
         </div>
       </div>
-    </div>
-    <div class="word-card__text">
-      <div class="word-card__textExample" [innerHTML]="item.textExample"></div>
-      <div class="word-card__textExampleTranslate" *ngIf="isTranslation$ | async">
-        {{ item.textExampleTranslate }}
+      <div class="word-card__infoButtons" *ngIf="isSettingButtons$ | async">
+        <button class="word-card__infoButtons-hard" mat-raised-button color="primary" (click)="hardWord(item)">
+          Сложное
+        </button>
+        <button class="word-card__infoButtons-delete" mat-raised-button color="warn" (click)="deleteWord(item)">
+          Удалить
+        </button>
       </div>
     </div>
   </mat-card-content>

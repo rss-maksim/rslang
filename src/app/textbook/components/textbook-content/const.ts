@@ -2,27 +2,27 @@ import { ITextbookContentTabs } from 'src/app/core/models/ITextbookContentTabs';
 
 export const links: ITextbookContentTabs[] = [
   {
-    title: 'Раздел 1',
+    title: '&#10029;',
     group: '0',
   },
   {
-    title: 'Раздел 2',
+    title: '&#10029; &#10029;',
     group: '1',
   },
   {
-    title: 'Раздел 3',
+    title: '&#10029; &#10029; &#10029;',
     group: '2',
   },
   {
-    title: 'Раздел 4',
+    title: '&#10029; &#10029; &#10029; &#10029;',
     group: '3',
   },
   {
-    title: 'Раздел 5',
+    title: '&#10029; &#10029; &#10029; &#10029; &#10029;',
     group: '4',
   },
   {
-    title: 'Раздел 6',
+    title: '&#10029; &#10029; &#10029; &#10029; &#10029; &#10029;',
     group: '5',
   },
 ];
