@@ -1,28 +1,32 @@
 import { ITextbookContentTabs } from 'src/app/core/models/ITextbookContentTabs';
 
+function generateStars(length: number): string {
+  return Array.from({ length }, () => '&#10029;').join(' ');
+}
+
 export const links: ITextbookContentTabs[] = [
   {
-    title: '&#10029;',
+    title: generateStars(1),
     group: '0',
   },
   {
-    title: '&#10029; &#10029;',
+    title: generateStars(2),
     group: '1',
   },
   {
-    title: '&#10029; &#10029; &#10029;',
+    title: generateStars(3),
     group: '2',
   },
   {
-    title: '&#10029; &#10029; &#10029; &#10029;',
+    title: generateStars(4),
     group: '3',
   },
   {
-    title: '&#10029; &#10029; &#10029; &#10029; &#10029;',
+    title: generateStars(5),
     group: '4',
   },
   {
-    title: '&#10029; &#10029; &#10029; &#10029; &#10029; &#10029;',
+    title: generateStars(6),
     group: '5',
   },
 ];

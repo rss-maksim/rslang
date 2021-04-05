@@ -23,11 +23,7 @@ export class WordCardComponent {
   constructor(private gameService: MiniGamesHttpService, private store: Store<AppState>, public api: ApiService) {}
 
   wordSound(arr: any) {
-    let audioArr: string[] = [];
-
-    for (let i = 0; i < arr.length; i++) {
-      audioArr.push(`${this.api.githubAssetUrl}/${arr[i]}`);
-    }
+    let audioArr: string[] = arr.map((str: string) => `${this.api.githubAssetUrl}/${str}`);
     playRawSoundArr(audioArr);
   }
 

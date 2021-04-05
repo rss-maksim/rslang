@@ -40,25 +40,25 @@ export function playRawSound(src: string) {
   audio.play();
 }
 export function playRawSoundArr(arr: string[]) {
-  let sequence_position = 0;
+  let sequencePosition = 0;
 
-  function play_next() {
-    if (sequence_position < arr.length) {
+  function playNext() {
+    if (sequencePosition < arr.length) {
       playSequence();
     }
   }
 
   function playSequence() {
     const audio = new Audio();
-    audio.src = arr[sequence_position];
+    audio.src = arr[sequencePosition];
     audio.removeEventListener('ended', prepareNextAudio);
     audio.addEventListener('ended', prepareNextAudio, true);
     audio.play();
   }
 
   function prepareNextAudio() {
-    sequence_position++;
-    play_next();
+    sequencePosition += 1;
+    playNext();
   }
 
   playSequence();
