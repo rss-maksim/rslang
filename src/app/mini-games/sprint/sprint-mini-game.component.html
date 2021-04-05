@@ -24,6 +24,7 @@
     <ng-container *ngIf="game.gameState === GAME_STATE.SETUP">
       <app-start-game
         (difficultySelected)="getWords($event)"
+        [gameName]="GAMES.SPRINT"
         [hasDifficultySlider]="hasDifficultySlider"
       ></app-start-game>
     </ng-container>
