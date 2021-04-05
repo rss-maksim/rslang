@@ -17,6 +17,8 @@
   <ng-container *ngSwitchCase="gameState.SETTING">
     <app-start-game
       [hasDifficultySlider]="true"
+      [gameName]="games.SAVANNAH"
+      [textColor]="'#fff'"
       (difficultySelected)="startGameWithDifficulty($event)"
     ></app-start-game>
   </ng-container>

@@ -1,1 +1,1 @@
-export const regExpEmailPattern = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*(\W)).{8,}/g);
+export const regExpPasswordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[~!@#$%^&*(){}[\];:<>,.?~_+\-=|]).{8,}$/;
