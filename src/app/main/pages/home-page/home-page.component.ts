@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { selectIsAuthorized } from '../../../redux/selectors/user.selector';
 import { AppState } from '../../../redux/models/state.model';
+import { GAME_CARDS } from '../../../core/constants/mini-games';
 
 @Component({
   selector: 'app-home-page',
@@ -12,6 +13,11 @@ import { AppState } from '../../../redux/models/state.model';
 })
 export class HomePageComponent {
   isAuthorized$: Observable<boolean> = this.store.select(selectIsAuthorized);
+  games = GAME_CARDS;
 
   constructor(private store: Store<AppState>) {}
+
+  trackByFn(index: number): number {
+    return index;
+  }
 }

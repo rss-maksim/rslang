@@ -10,7 +10,7 @@
           английский язык легко и с удовольствием.
         </div>
         <div class="home-page__actions" *ngIf="isAuthorized$ | async as isAuthorized; else anonymousLinks">
-          <a class="home-page__action" mat-button [routerLink]="['/dictionary']">К учебнику</a>
+          <a class="home-page__action" mat-button [routerLink]="['/textbook/book']">К учебнику</a>
           <a class="home-page__action" mat-button [routerLink]="['/mini-games']">Играть</a>
         </div>
         <ng-template #anonymousLinks>
@@ -21,6 +21,19 @@
         </ng-template>
       </div>
       <div class="home-page__picture"></div>
+    </div>
+    <div class="home-page__games-block">
+      <h2 class="home-page__games-title">Доступные игры</h2>
+      <div class="home-page__games">
+        <mat-card class="home-page__game-card" *ngFor="let game of games; trackBy: trackByFn">
+          <mat-card-header>
+            <mat-card-title>{{ game.name }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            {{ game.description }}
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
     <app-demo></app-demo>
     <app-about-team></app-about-team>
