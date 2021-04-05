@@ -1,0 +1,11 @@
+<nav class="textbook-content__navigation" mat-tab-nav-bar>
+  <a
+    mat-tab-link
+    *ngFor="let tab of tabs; let i = index; trackBy: trackByFnTabs"
+    [ngClass]="'tab-link-' + i"
+    (click)="setCurrentGroup(tab.group, tab)"
+    [active]="activeLink == tab"
+  >
+    {{ tab.title }}
+  </a>
+</nav>

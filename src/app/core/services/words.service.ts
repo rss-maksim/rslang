@@ -60,7 +60,7 @@ export class WordsService {
     return this.http.delete<void>(`${this.apiUrl}/users/${userId}/words/${wordId}`);
   }
 
-  getUserAggregatedWords(userId: string | null, params: AggregatedWordsRequestParams): Observable<IWord[]> {
+  getUserAggregatedWords(userId: string | undefined, params: AggregatedWordsRequestParams): Observable<IWord[]> {
     return this.http.get<IWord[]>(`${this.apiUrl}/users/${userId}/aggregatedWords`, {
       params: params as HttpParams,
     });

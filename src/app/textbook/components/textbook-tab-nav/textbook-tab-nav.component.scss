@@ -1,14 +1,12 @@
-.textbook-dictionary__link {
-  background-color: var(--color-primary);
-  color: var(--color-light);
+.textbook-content__link {
+  background-color: royalblue;
+  color: #fff;
+  margin-bottom: 1rem;
+  position: absolute;
 }
 
-.textbook-content__cardItems {
-  display: flex;
-  align-items: stretch;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  margin-top: 1rem;
+.textbook-content__navigation {
+  margin-top: 3rem;
 }
 
 .tab-link-0,
@@ -34,14 +32,4 @@
 .tab-link-5,
 .tab-content-5 {
   background-color: rgba($color: #99ff99, $alpha: 0.5);
-}
-
-::ng-deep .mat-tab-links {
-  justify-content: space-between;
-}
-
-@media (max-width: 768px) {
-  .textbook-content__cardItems {
-    justify-content: center;
-  }
 }

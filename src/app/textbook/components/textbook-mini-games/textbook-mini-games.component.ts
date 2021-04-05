@@ -9,8 +9,11 @@ import { mini_games_list } from './const';
 })
 export class TextbookMiniGamesComponent {
   miniGamesList = mini_games_list;
-  @Input() group!: string;
-  @Input() page!: string;
+  @Input() queryParams!: {
+    filter?: string;
+    group?: string;
+    page?: string;
+  };
 
   constructor() {}
 

@@ -2,7 +2,7 @@
 <div class="textbook-mini-games__list">
   <a
     [routerLink]="game.link"
-    [queryParams]="{ group: group, page: page }"
+    [queryParams]="queryParams"
     *ngFor="let game of miniGamesList; let i = index; trackBy: trackByFn"
   >
     <mat-card class="textbook-mini-games__card">

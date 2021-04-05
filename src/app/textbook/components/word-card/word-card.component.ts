@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/redux/models/state.model';
 import { selectWordSettingsAddButtons, selectWordSettingsTranslation } from 'src/app/redux/selectors/textbook.selector';
@@ -17,20 +17,22 @@ import { markWordAsHard } from '../../../redux/actions/textbooks.actions';
 })
 export class WordCardComponent {
   @Input() item: any;
+  @Output() deleteUserWord = new EventEmitter();
+  @Output() hardUserWord = new EventEmitter();
   isTranslation$ = this.store.select(selectWordSettingsTranslation);
   isSettingButtons$ = this.store.select(selectWordSettingsAddButtons);
 
-  constructor(private gameService: MiniGamesHttpService, private store: Store<AppState>, public api: ApiService) {}
+  constructor(private store: Store<AppState>, public api: ApiService) {}
 
   wordSound(audio: string) {
     playRawSound(`${this.api.githubAssetUrl}/${audio}`);
   }
 
-  deleteWord(words: IWord) {
-    this.store.dispatch(deleteUserWords({ payload: words }));
+  deleteWord(word: IWord) {
+    this.deleteUserWord.emit(word);
   }
 
   hardWord(word: IWord) {
-    this.store.dispatch(markWordAsHard({ payload: word }));
+    this.hardUserWord.emit(word);
   }
 }

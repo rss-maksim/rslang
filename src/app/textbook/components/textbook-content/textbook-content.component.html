@@ -2,6 +2,7 @@
   *ngIf="isAuthorized$ | async"
   class="textbook-content__link"
   [routerLink]="['/textbook/dictionary']"
+  [queryParams]="{ filter: 'hard', group: 0, page: 0 }"
   mat-raised-button
   >Словарь</a
 >
@@ -17,7 +18,12 @@
   </a>
 </nav>
 <div [ngClass]="'tab-content-' + currentGroup" class="textbook-content__cardItems">
-  <app-word-card *ngFor="let item of wordItems$ | async; trackBy: trackByFnWordCard" [item]="item"></app-word-card>
+  <app-word-card
+    *ngFor="let item of wordItems$ | async; trackBy: trackByFnWordCard"
+    [item]="item"
+    (deleteUserWord)="deleteUserWord($event)"
+    (hardUserWord)="hardUserWord($event)"
+  ></app-word-card>
 </div>
 <mat-paginator
   [length]="600"
@@ -25,4 +31,4 @@
   [pageIndex]="+currentPage"
   (page)="onPaginateChange($event)"
 ></mat-paginator>
-<app-textbook-mini-games [group]="currentGroup" [page]="currentPage"></app-textbook-mini-games>
+<app-textbook-mini-games [queryParams]="{ group: currentGroup, page: currentPage }"></app-textbook-mini-games>
