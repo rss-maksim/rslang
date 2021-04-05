@@ -38,14 +38,14 @@ export class EndGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.trainedWords) {
+    if (this.trainedWords && this.trainedWords.length > 0) {
       this.rightWords = this.trainedWords.filter((word) => word.result === Answer.CORRECT);
       this.wrongWords = this.trainedWords.filter((word) => word.result === Answer.WRONG);
     }
   }
 
   ngOnDestroy() {
-    if (this.trainedWords) {
+    if (this.trainedWords && this.trainedWords.length > 0) {
       this.shortTermStatisticsService.setStatistics(this.trainedWords, this.game);
       this.longTermStatisticsService.setStatistics(this.trainedWords, this.game);
     }

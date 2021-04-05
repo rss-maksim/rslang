@@ -19,10 +19,15 @@ describe('MainActionsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MainActionsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('wordGone function should emit given boolean', () => {
+    spyOn(component.answered, 'emit');
+    component.wordGone(false);
+    expect(component.answered.emit).toHaveBeenCalledWith(false);
   });
 });

@@ -1,5 +1,5 @@
 <div class="background-container">
-  <mat-tab-group [color]="'accent'" animationDuration="1500ms" mat-align-tabs="center">
+  <mat-tab-group mat-align-tabs="center">
     <mat-tab label="Краткосрочная Статистика">
       <div class="container">
         <ng-container *ngIf="isShortTermStatisticsAvailable; else noShortTermStats">
@@ -9,7 +9,7 @@
         <ng-template #noShortTermStats>
           <p>Сегодня Вы не тренировались.</p>
           <p>Пожалуйста, поиграйте мини-игры для тренировки английских слов и отображения краткосрочной статистики.</p>
-          <button class="stats__play" mat-raised-button color="accent" routerLink="../mini-games">Играть</button>
+          <button class="stats__play" mat-raised-button color="primary" routerLink="../mini-games">Играть</button>
         </ng-template>
       </div>
     </mat-tab>
@@ -20,7 +20,7 @@
         </ng-container>
         <ng-container *ngIf="!isAuthorized">
           <p>Для получения долгосрочной статистики, пожалуйста, залогиньтесь.</p>
-          <button class="stats__login" mat-raised-button color="accent" routerLink="../auth/login">Войти</button>
+          <button class="stats__login" mat-raised-button color="primary" routerLink="../auth/login">Войти</button>
         </ng-container>
       </div>
     </mat-tab>

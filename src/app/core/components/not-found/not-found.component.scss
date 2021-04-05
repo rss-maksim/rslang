@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: #07073d;
+  background: var(--color-dark-background);
 }
 
 .page-not-found {
@@ -23,23 +23,23 @@
   position: absolute;
   left: 65%;
   bottom: 15%;
-  padding: .625rem 3.125rem .625rem .625rem;
+  padding: 0.625rem 3.125rem 0.625rem 0.625rem;
   transform: translateX(-65%);
   text-transform: uppercase;
   text-decoration: none;
   font-size: 1.25rem;
   line-height: 140%;
   font-weight: bold;
-  border-radius: .3125rem;
+  border-radius: 0.3125rem;
 
   &:hover {
     color: white;
-    background-color: royalblue;
+    background-color: var(--color-primary);
   }
 
   &::after {
     position: absolute;
-    right: .625rem;
+    right: 0.625rem;
     content: "\1F680";
   }
 }

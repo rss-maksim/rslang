@@ -3,12 +3,12 @@
   width: 100%;
   display: flex;
   align-items: center;
-  background-color: royalblue;
+  background-color: var(--color-primary);
 }
 
 a {
   text-decoration: none;
-  background: linear-gradient(white, white);
+  background: linear-gradient(var(--color-light), var(--color-light));
   background-position: 0% 100%;
   background-repeat: no-repeat;
   background-size: 0% 2px;
@@ -29,7 +29,7 @@ a:hover {
   box-sizing: border-box;
   justify-content: space-between;
   align-items: center;
-  color: white;
+  color: var(--color-light);
 }
 
 .page-header__navigation ul {
@@ -76,7 +76,7 @@ a:hover {
   }
 
   &:hover {
-    background: rgba($color: #fff, $alpha: 0.2);
+    background: rgba($color: var(--color-light), $alpha: 0.2);
   }
 }
 
@@ -84,7 +84,7 @@ a:hover {
   background-size: 100% 2px;
 
   .page-header__icon {
-    background: rgba($color: #fff, $alpha: 0.2);
+    background: rgba($color: var(--color-light), $alpha: 0.2);
   }
 }
 

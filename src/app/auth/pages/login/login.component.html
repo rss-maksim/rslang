@@ -4,11 +4,22 @@
     <div class="login__form-field-container">
       <mat-form-field class="login__form-field" appearance="outline">
         <mat-label>Email</mat-label>
-        <input type="email" matInput [formControl]="emailFormControl" placeholder="Email" />
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        <input
+          type="email"
+          matInput
+          [formControl]="emailFormControl"
+          placeholder="Email"
+          class="login__form-field-email"
+        />
+        <mat-error
+          class="login__email-error"
+          *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')"
+        >
           Введите валидный email
         </mat-error>
-        <mat-error *ngIf="emailFormControl.hasError('required')"> Email <strong>обязателен</strong> </mat-error>
+        <mat-error class="login__email-error" *ngIf="emailFormControl.hasError('required')">
+          Email <strong>обязателен</strong>
+        </mat-error>
       </mat-form-field>
     </div>
 
@@ -21,12 +32,15 @@
           [formControl]="passwordFormControl"
           placeholder="Пароль"
           (input)="onPasswordInput()"
+          class="login__form-field-password"
         />
         <mat-icon class="login__visibility-icon" matSuffix (click)="changeVisibility()">{{
           passwordIsVisible ? "visibility" : "visibility_off"
         }}</mat-icon>
-        <mat-error *ngIf="passwordFormControl.hasError('required')"> Пароль обязателен </mat-error>
-        <mat-error *ngIf="passwordFormControl.hasError('pattern')">
+        <mat-error class="login__password-error" *ngIf="passwordFormControl.hasError('required')">
+          Пароль обязателен
+        </mat-error>
+        <mat-error class="login__password-error" *ngIf="passwordFormControl.hasError('pattern')">
           Пароль должен содержать не менее 8 символов, одну прописную, одну строчную букву, цифры и специальный символ
         </mat-error>
       </mat-form-field>

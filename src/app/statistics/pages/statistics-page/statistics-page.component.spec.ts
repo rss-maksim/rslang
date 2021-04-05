@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 import { StatisticsPageComponent } from './statistics-page.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('StatisticsPageComponent', () => {
   let component: StatisticsPageComponent;
@@ -18,6 +19,7 @@ describe('StatisticsPageComponent', () => {
       declarations: [StatisticsPageComponent],
       imports: [RouterTestingModule, HttpClientTestingModule, MatTabsModule, BrowserAnimationsModule],
       providers: [provideMockStore({ initialState })],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
     store = TestBed.inject(MockStore);

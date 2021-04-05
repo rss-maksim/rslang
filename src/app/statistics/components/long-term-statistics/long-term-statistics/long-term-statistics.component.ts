@@ -63,6 +63,8 @@ export class LongTermStatisticsComponent implements OnInit {
   lineChartType: ChartType = 'line';
   hasStatistics = false;
   isLoading = true;
+  isError = false;
+  errorMessage = '';
 
   constructor(private longTermStatistics: LongTermStatisticsService) {}
 
@@ -70,24 +72,31 @@ export class LongTermStatisticsComponent implements OnInit {
     const userStatistics$ = this.longTermStatistics.getStatistics();
 
     if (userStatistics$) {
-      const userStatisticsSubscription: Subscription = userStatistics$.subscribe((userStatistics) => {
-        this.isLoading = false;
+      const userStatisticsSubscription: Subscription = userStatistics$.subscribe(
+        (userStatistics) => {
+          this.isLoading = false;
 
-        if (!userStatistics.optional?.statistics) {
-          return;
-        }
+          if (!userStatistics.optional?.statistics) {
+            return;
+          }
 
-        this.hasStatistics = true;
-        [this.labels, this.learnedWords, this.learnedWordsCumulative] = this.generateStatisticsByDays(
-          userStatistics.optional.statistics.trainings,
-        );
-        this.lineChartData = [
-          { data: this.learnedWords, label: CHART_LABEL_1 },
-          { data: this.learnedWordsCumulative, label: CHART_LABEL_2, yAxisID: 'y-axis-1' },
-        ];
-        this.lineChartLabels = this.labels;
-        userStatisticsSubscription.unsubscribe();
-      });
+          this.hasStatistics = true;
+          [this.labels, this.learnedWords, this.learnedWordsCumulative] = this.generateStatisticsByDays(
+            userStatistics.optional.statistics.trainings,
+          );
+          this.lineChartData = [
+            { data: this.learnedWords, label: CHART_LABEL_1 },
+            { data: this.learnedWordsCumulative, label: CHART_LABEL_2, yAxisID: 'y-axis-1' },
+          ];
+          this.lineChartLabels = this.labels;
+          userStatisticsSubscription.unsubscribe();
+        },
+        (error) => {
+          this.isLoading = false;
+          this.isError = true;
+          this.errorMessage = error.message;
+        },
+      );
     }
   }
 

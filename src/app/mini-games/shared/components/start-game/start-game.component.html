@@ -1,9 +1,9 @@
 <mat-card class="card">
   <mat-card-title class="card__title">Спринт</mat-card-title>
 
-  <mat-card-content class="card__content">
+  <mat-card-content class="card__content" *ngIf="hasDifficultySlider">
     <p class="card__text">Пожалуйста, выберите сложность игры:</p>
-    <span>Легко</span>
+    <span class="card__text">Легко</span>
     <mat-slider
       min="0"
       max="5"
@@ -14,7 +14,7 @@
       #difficultySlider
       (input)="onDifficultyChange(difficultySlider.value)"
     ></mat-slider>
-    <span>Сложно</span>
+    <span class="card__text">Сложно</span>
   </mat-card-content>
 
   <mat-card-actions>

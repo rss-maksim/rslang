@@ -20,7 +20,7 @@ import { AudiochallengeWordCardComponent } from './audiochallenge/components/wor
 import { TranslationOptionsComponent } from './audiochallenge/components/translation-options/translation-options.component';
 import { CounterComponent } from './shared/components/counter/counter.component';
 import { SprintGameCardComponent } from './sprint/components/sprint-game-card/sprint-game-card.component';
-import { SprintGameStartComponent } from './sprint/components/sprint-game-start/sprint-game-start.component';
+import { StartGameComponent } from './shared/components/start-game/start-game.component';
 import { GameSoundsButtonComponent } from './audiochallenge/components/game-sounds-button/game-sounds-button.component';
 import { AudiochallengeEffects } from '../redux/effects/audiochallenge.effects';
 import audiochallengeReducer from '../redux/reducers/audiochallengeReducer';
@@ -29,7 +29,6 @@ import { CloseGameDialogComponent } from './shared/components/close-game-dialog/
 import { EndGameComponent } from './shared/components/end-game/end-game.component';
 import { CustomMiniGameComponent } from './custom-mini-game/custom-mini-game.component';
 import { CloseDialogComponent } from './custom-mini-game/close-dialog/close-dialog.component';
-import { DifficultyyInputComponent } from './savannah/components/difficultyy-input/difficultyy-input.component';
 import { StartDialogComponent } from './custom-mini-game/start-dialog/start-dialog.component';
 
 @NgModule({
@@ -39,7 +38,6 @@ import { StartDialogComponent } from './custom-mini-game/start-dialog/start-dial
     MiniGamesPageComponent,
     OptionsInputComponent,
     SlidingWordComponent,
-    DifficultyyInputComponent,
     MainActionsComponent,
     FullScreenButtonComponent,
     LifesComponent,
@@ -50,7 +48,7 @@ import { StartDialogComponent } from './custom-mini-game/start-dialog/start-dial
     TranslationOptionsComponent,
     CounterComponent,
     SprintGameCardComponent,
-    SprintGameStartComponent,
+    StartGameComponent,
     GameSoundsButtonComponent,
     LevelChoiseComponent,
     CloseGameDialogComponent,

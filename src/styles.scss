@@ -1,4 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --color-primary: #512da8;
+  --color-accent: #009688;
+  --color-accent-rgb: 0, 150, 136;
+  --color-warn: #d32f2f;
+
+  --color-light: #ffffff;
+  --color-light-rgb: 255, 255, 255;
+
+  --color-dark: #000000;
+  --color-dark-rgb: 0, 0, 0;
+  --color-dark-background: #07073d;
+
+  --color-button: rgba(255, 255, 255, 0.2);
+
+  --color-border: #000080;
+
+  --color-group-0: 255, 204, 204;
+  --color-group-1: 204, 255, 255;
+  --color-group-2: 255, 255, 153;
+  --color-group-3: 0, 191, 255;
+  --color-group-4: 204, 153, 204;
+  --color-group-5: 153, 255, 153;
+
+  --box-shadow: -2px 0px 17px 2px rgba(34, 60, 80, 0.16);
+}
 
 html,
 body {

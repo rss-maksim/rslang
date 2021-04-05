@@ -1,10 +1,9 @@
 .stats {
   &__row {
-    background-color: #fdfdfd;
+    background-color: var(--color-light);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 50vw;
     height: 3rem;
     margin: 0;
   }
