@@ -10,7 +10,7 @@
           английский язык легко и с удовольствием.
         </div>
         <div class="home-page__actions" *ngIf="isAuthorized$ | async as isAuthorized; else anonymousLinks">
-          <a class="home-page__action" mat-button [routerLink]="['/textbook/book']">К учебнику</a>
+          <a class="home-page__action" mat-button [routerLink]="['/textbook/']">К учебнику</a>
           <a class="home-page__action" mat-button [routerLink]="['/mini-games']">Играть</a>
         </div>
         <ng-template #anonymousLinks>
