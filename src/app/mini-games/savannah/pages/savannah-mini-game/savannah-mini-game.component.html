@@ -6,10 +6,10 @@
 
     <button mat-fab class="savannah-controls_volume" (click)="game.isMuted = !game.isMuted">
       <ng-container *ngIf="game.isMuted; else up">
-        <mat-icon>volume_off</mat-icon>
+        <mat-icon>music_off</mat-icon>
       </ng-container>
       <ng-template #up>
-        <mat-icon>volume_up</mat-icon>
+        <mat-icon>music_note</mat-icon>
       </ng-template>
     </button>
   </div>
