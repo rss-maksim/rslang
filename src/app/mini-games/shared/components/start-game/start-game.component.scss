@@ -50,6 +50,10 @@
     transition: all 0.15s ease;
     outline: none;
   }
+
+  &__margin-top {
+    margin-top: 1rem;
+  }
 }
 
 @media (max-width: 500px) {

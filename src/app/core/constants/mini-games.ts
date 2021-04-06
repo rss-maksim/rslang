@@ -38,6 +38,6 @@ export const GAME_CARDS: GameCard[] = [
     name: 'Своя игра',
     icon: 'contact_support',
     route: 'custom-mini-game',
-    description: 'Помогает не забывать уже выученные слова, тренировка проходит по алгоритму "кривой забывания"',
+    description: 'Тренирует написание слов путем составления правильного слова из перемешанных букв',
   },
 ];
