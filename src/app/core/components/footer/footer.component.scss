@@ -15,7 +15,8 @@
   align-items: center;
   list-style: none;
   margin: 0 auto;
-  padding: 0;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid var(--color-light);
 
   li {
     display: flex;
@@ -23,11 +24,6 @@
     box-sizing: border-box;
     padding: 0 0.5rem;
   }
-}
-
-hr {
-  margin-block-start: 0.05rem;
-  margin-block-end: 0.5rem;
 }
 
 .page-footer__image {
@@ -50,14 +46,18 @@ hr {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 0.5rem;
 
   a {
     display: block;
     width: 4rem;
   }
+}
 
-  span {
+.page-footer {
+  &__date {
     font-weight: bold;
+    color: var(--color-light);
   }
 }
 

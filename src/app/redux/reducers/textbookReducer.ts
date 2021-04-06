@@ -4,8 +4,8 @@ import { loadWordsSuccess, setWordSettingsAddButtons, setWordSettingsTranslation
 
 export const initialState: TextbookState = {
   words: [],
-  wordSettingsTranslation: false,
-  wordSettingsAddButtons: false,
+  wordSettingsTranslation: true,
+  wordSettingsAddButtons: true,
   wordsHards: [],
   wordsDeleted: [],
 };

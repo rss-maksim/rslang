@@ -2,7 +2,7 @@
   <nav class="page-header__navigation">
     <ul>
       <li *ngFor="let item of headerMenu; trackBy: trackByFn">
-        <a [routerLink]="item.router" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a [routerLink]="item.router" routerLinkActive="active">
           <span class="page-header__icon">
             <img [src]="item.srcImg" alt="item.name" />
           </span>

@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDragEnter, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, timer } from 'rxjs';
@@ -13,6 +13,7 @@ import { WordsService } from 'src/app/core/services/words.service';
 import { Games } from 'src/app/core/constants/mini-games';
 import { UserService } from 'src/app/core/services/user.service';
 import { ActivatedRoute } from '@angular/router';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-custom-mini-game',
@@ -50,10 +51,11 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   getWords?: Subscription;
   games = Games;
   userId?: string | undefined;
-  // = this.userService.getUserId();
   page?: string | undefined;
   group?: string | undefined;
   filter?: string | undefined;
+  spinnerMode: ProgressSpinnerMode = 'determinate';
+  spinnerValue = 100;
 
   private querySubscription?: Subscription;
 
@@ -73,6 +75,10 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       this.filter = queryParam['filter'];
     });
 
+    /*if (this.userService.getUserId()) {
+      this.userId = this.userService.getUserId();
+    }*/
+
     this.onGetWords();
   }
 
@@ -89,9 +95,10 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     this.isGamePaused = false;
     this.isRoundOver = false;
     this.countdownTimer = this.roundLength; // reset timer
+    this.spinnerValue = 100;
 
-    this.currentWord = this.sourceArray[this.currentWordIndex].word;
-    this.currentWordTranslation = this.sourceArray[this.currentWordIndex].wordTranslate;
+    this.currentWord = this.sourceArray[this.currentWordIndex].word.toUpperCase();
+    this.currentWordTranslation = this.sourceArray[this.currentWordIndex].wordTranslate.toUpperCase();
 
     this.scrambledWordAsArray = this.shuffleService.shuffleLettersInWord(this.currentWord);
     this.scrambledWord = this.scrambledWordAsArray.join('');
@@ -102,6 +109,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
         if (this.countdownTimer > 0) {
           if (!this.isGamePaused) {
             this.countdownTimer -= 1;
+            this.spinnerValue = (100 / this.roundLength) * this.countdownTimer;
           }
         }
         if (this.countdownTimer === 0) {
@@ -109,7 +117,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
           this.soundService.playAudio('round lost');
           this.errorsCounter += 1;
           this.toTrainedWords(Answer.WRONG);
-          //this.sourceArray[this.currentWordIndex][2] = 'неправильно';
           this.imageSrc = this.srcCommPart + this.errorsCounter + '.png';
 
           if (this.errorsCounter === 5 || this.isLastRound()) {
@@ -166,10 +173,12 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   }
 
   dropLetter(event: CdkDragDrop<string[]>) {
+    // dropLetter(event: CdkDragEnter) {
     if (this.scrambledWordAsArray) {
       this.previousScrambledWord = this.scrambledWordAsArray.join('');
       if (this.movesCountdownCounter > 0) {
         moveItemInArray(this.scrambledWordAsArray, event.previousIndex, event.currentIndex);
+        // moveItemInArray(this.scrambledWordAsArray, event.item.data, event.container.data);
       }
       if (this.previousScrambledWord !== this.scrambledWordAsArray.join('')) {
         // если буква сдвинулась, то ход засчитываем
@@ -264,7 +273,9 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     this.isResultsShown = false;
     this.movesCountdownCounter = 0;
     this.currentWordIndex = 0;
+    this.currentRound = this.currentWordIndex + 1;
     this.countdownTimer = 0;
+    this.spinnerValue = 100;
     this.isGamePaused = false;
     this.isSoundOn = false;
     this.isRoundOver = false;
@@ -272,6 +283,11 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     this.errorsCounter = 0;
     this.trainedWords = [];
     this.onGetWords();
+  }
+
+  addLeadingZero(number: number): string {
+    let res = number < 10 ? '0' + number : number.toString();
+    return res;
   }
 
   ngOnDestroy() {

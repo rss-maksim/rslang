@@ -5,7 +5,8 @@ import { NotFoundComponent } from './core/components/not-found/not-found.compone
 import { HomePageComponent } from './main/pages/home-page/home-page.component';
 
 const routes: Routes = [
-  { path: '', component: HomePageComponent, pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomePageComponent, pathMatch: 'full' },
   {
     path: 'textbook',
     loadChildren: () => import('./textbook/textbook.module').then((m) => m.TextbookModule),

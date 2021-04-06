@@ -37,7 +37,6 @@ export class TextbookContentComponent implements OnInit {
   }
 
   setCurrentGroup(group: string, tab: any) {
-    console.log('setCurrentGroup', group);
     this.activeLink = tab;
     this.router.navigate(['textbook', 'book', 'groups', group, 'pages', this.currentPage]);
   }

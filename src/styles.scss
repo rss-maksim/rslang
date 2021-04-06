@@ -1,9 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
   --color-primary: #512da8;
+  --color-primary-dark: #512da8;
+  --color-primary-normal: #673ab7;
+  --color-primary-light: #d1c4e9;
+  --color-primary-rgb: 81, 45, 168;
   --color-accent: #009688;
   --color-accent-rgb: 0, 150, 136;
   --color-warn: #d32f2f;
+  --color-primary-text: #212121;
+  --color-secondary-text: #757575;
+  --color-divider: #bdbdbd;
 
   --color-light: #ffffff;
   --color-light-rgb: 255, 255, 255;

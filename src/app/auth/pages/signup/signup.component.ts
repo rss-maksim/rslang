@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
-import { regExpEmailPattern } from '../../const/patterns';
+import { regExpPasswordPattern } from '../../const/patterns';
 import { ErrorsParserService } from '../../services/errors-parser.service';
 
 interface MatchingError {
@@ -49,7 +49,7 @@ export class SignupComponent {
   ) {
     this.usernameFormControl = fb.control('', [Validators.required, Validators.minLength(3)]);
     this.emailFormControl = fb.control('', [Validators.required, Validators.email]);
-    this.passwordFormControl = fb.control('', [Validators.required, Validators.pattern(regExpEmailPattern)]);
+    this.passwordFormControl = fb.control('', [Validators.required, Validators.pattern(regExpPasswordPattern)]);
     this.confirmPasswordFormControl = fb.control('', [Validators.required]);
     this.imageFormControl = fb.control(null);
 
