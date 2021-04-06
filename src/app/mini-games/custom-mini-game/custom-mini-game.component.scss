@@ -4,6 +4,7 @@ $color-gray-md: #95aac0;
 $color-gray-dark: #999;
 $font-size-md: 2rem;
 $font-size-lg: 2.5rem;
+$font-size-sm: 1.5rem;
 
 .background-container {
   position: fixed;
@@ -32,7 +33,9 @@ $font-size-lg: 2.5rem;
 }
 
 .game-container {
+  margin-top: 5rem;
   display: flex;
+  align-self: flex-start;
   z-index: 2;
 }
 
@@ -67,8 +70,13 @@ $font-size-lg: 2.5rem;
   justify-content: center;
 }
 
-.counter {
-  color: $color-blue-md;
+.text-primary-normal {
+  color: var(--color-primary-normal);
+  font-size: $font-size-md;
+}
+
+.text-warn {
+  color: var(--color-warn);
   font-size: $font-size-md;
 }
 
@@ -85,12 +93,16 @@ $font-size-lg: 2.5rem;
 }
 
 .word-box {
-  width: 6rem;
-  height: 6rem;
+  max-width: 6rem;
+  max-height: 6rem;
+  min-width: 3rem;
+  min-height: 3rem;
+  resize: both;
   padding: 1rem;
   margin: 0.5rem;
   border-radius: 4px;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--color-primary-dark);
+  // color: rgba(0, 0, 0, 0.87);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -100,7 +112,8 @@ $font-size-lg: 2.5rem;
   background: white;
   font-size: 3rem;
   flex-grow: 1;
-  flex-basis: 0;
+  flex-shrink: 1;
+  flex-basis: min-content;
 }
 
 .cdk-drag-preview {
@@ -138,7 +151,7 @@ $font-size-lg: 2.5rem;
 .close-game-button {
   position: absolute;
   top: 2.5rem;
-  right: 3.5rem;
+  right: 2.5rem;
   cursor: pointer;
 }
 
@@ -149,7 +162,7 @@ $font-size-lg: 2.5rem;
 .sound-button {
   position: absolute;
   top: 2.5rem;
-  left: 3.5rem;
+  left: 2.5rem;
   cursor: pointer;
 }
 
@@ -159,13 +172,107 @@ $font-size-lg: 2.5rem;
 
 .gallows-img {
   transition: opacity 3s ease-in-out;
+  height: 20vh;
 }
 
 .results {
   background-color: $color-gray-light;
 }
 
+.wrap-text {
+  flex-wrap: wrap;
+}
+
 .display-block {
   display: flex;
   flex-direction: column;
+}
+
+.time-counter {
+  position: relative;
+  top: -3.2rem;
+  left: 2rem;
+}
+
+.spinner {
+  position: relative;
+  top: 0.5rem;
+}
+
+.next-button {
+  margin-top: 15rem;
+}
+
+@media (min-width: 415px) and (max-width: 700px) {
+  .word-box {
+    max-width: 4rem;
+    max-height: 4rem;
+    min-width: 2rem;
+    min-height: 2rem;
+    resize: both;
+    padding: 0.5rem;
+    margin: 0.2rem;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 414px) {
+  .word-list {
+    min-height: 4rem;
+  }
+
+  .word-box {
+    max-width: 4rem;
+    max-height: 4rem;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
+    resize: both;
+    padding: 0.5rem;
+    margin: 0.2rem;
+    font-size: 1.5rem;
+  }
+
+  .margins-top-bottom {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .margins-left-right {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .next-button {
+    margin-top: 8rem;
+  }
+
+  .text-primary-normal {
+    font-size: $font-size-sm;
+  }
+
+  .text-warn {
+    font-size: $font-size-sm;
+  }
+}
+
+@media (min-height: 700px) {
+  .game-container {
+    margin-top: 3rem;
+  }
+
+  .margins-top-bottom {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (min-height: 700px) {
+  .game-container {
+    margin-top: 3rem;
+  }
+
+  .margins-top-bottom {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 }

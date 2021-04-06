@@ -15,11 +15,13 @@ export class ShuffleService {
   shuffleLettersInWord(word: string): string[] {
     // Fisher–Yates shuffle Algorithm
     let wordAsArray = word.split('');
-    for (let i = wordAsArray.length - 1; i > 0; i -= 1) {
-      let j = this.getRandomInt(i + 1);
-      let temp = wordAsArray[i];
-      wordAsArray[i] = wordAsArray[j];
-      wordAsArray[j] = temp;
+    while (word === wordAsArray.join('')) {
+      for (let i = wordAsArray.length - 1; i > 0; i -= 1) {
+        let j = this.getRandomInt(i + 1);
+        let temp = wordAsArray[i];
+        wordAsArray[i] = wordAsArray[j];
+        wordAsArray[j] = temp;
+      }
     }
     return wordAsArray;
   }

@@ -1,9 +1,15 @@
 <div class="background-container">
   <div>
-    <button mat-icon-button class="close-game-button" color="warn" (click)="onCloseDialog()">
-      <mat-icon class="close-icon">close</mat-icon>
+    <button mat-fab class="close-game-button" color="warn" (click)="onCloseDialog()">
+      <mat-icon>close</mat-icon>
     </button>
   </div>
+  <div>
+    <button mat-fab class="sound-button center" color="primary" (click)="onToggleSound()">
+      <mat-icon>{{ isSoundOn ? "music_note" : "music_off" }} </mat-icon>
+    </button>
+  </div>
+
   <app-start-dialog
     *ngIf="!isGameStarted"
     (difficultyLevel)="onSetDifficultyLevel($event)"
@@ -14,25 +20,30 @@
   </app-start-dialog>
   <div class="game-container" *ngIf="isGameStarted">
     <div>
+      <div *ngIf="!isResultsShown" class="center margins-top-bottom">
+        <img class="gallows-img" [src]="imageSrc" />
+      </div>
       <div *ngIf="!isGameOver" class="one-row center margins-top-bottom">
-        <div class="margins-left-right counter">Раунд: {{ currentRound }}</div>
-        <div class="margins-left-right counter">Осталось раундов: {{ roundsLeft }}</div>
-      </div>
-      <div *ngIf="!isRoundOver" class="one-row center margins-top-bottom">
-        <div class="margins-left-right counter">Осталось времени на текущий раунд: {{ countdownTimer }} cек</div>
-      </div>
-      <div *ngIf="!isRoundOver" class="one-row center margins-top-bottom">
-        <div class="margins-left-right counter">
-          Осталось перестановок в текущем раунде: {{ movesCountdownCounter }}
+        <div class="margins-left-right text-primary-normal">
+          Раунд <span class="text-warn">{{ addLeadingZero(currentRound) }}</span> из
+          {{ addLeadingZero(numberOfGameRounds) }}
         </div>
       </div>
-      <div *ngIf="!isRoundOver" class="center margins-top-bottom">
-        <p class="margins-left-right counter">Перевод слова: {{ currentWordTranslation | uppercase }}</p>
+      <div *ngIf="!isRoundOver" class="one-row center margins-top-bottom">
+        <div>
+          <mat-spinner [value]="spinnerValue" [mode]="spinnerMode" class="spinner"></mat-spinner>
+          <div class="text-warn time-counter">{{ addLeadingZero(countdownTimer) }}</div>
+        </div>
+        <div class="margins-left-right text-primary-normal">
+          <mat-icon *ngFor="let i of [].constructor(currentWord!.length - movesCountdownCounter)">
+            favorite_border
+          </mat-icon>
+          <mat-icon *ngFor="let i of [].constructor(movesCountdownCounter)"> favorite </mat-icon>
+        </div>
       </div>
-      <div class="center margins-top-bottom">
-        <button mat-icon-button class="sound-button center" color="primary" (click)="onToggleSound()">
-          <mat-icon class="sound-icon">{{ isSoundOn ? "volume_up" : "volume_off" }} </mat-icon>
-        </button>
+
+      <div *ngIf="!isRoundOver" class="center margins-top-bottom">
+        <p class="margins-left-right text-primary-normal">{{ currentWordTranslation | uppercase }}</p>
       </div>
 
       <div *ngIf="!isRoundOver" class="full-height center">
@@ -47,14 +58,20 @@
           </div>
         </div>
       </div>
-      <div *ngIf="!isResultsShown" class="center margins-top-bottom">
-        <img class="gallows-img" [src]="imageSrc" />
+
+      <div *ngIf="isRoundOver && !isResultsShown" class="center margins-top-bottom display-block">
+        <div class="margins-top-bottom text-primary-normal">{{ currentWordTranslation }}</div>
+        <div class="margins-top-bottom text-warn">{{ currentWord }}</div>
       </div>
-      <div *ngIf="isRoundOver && !isGameOver" class="center margins-top-bottom">
+
+      <div *ngIf="isRoundOver && !isGameOver" class="center next-button">
         <button mat-raised-button color="primary" (click)="startNextRound()">Начать следующий раунд</button>
       </div>
 
-      <div *ngIf="isGameOver && !isResultsShown" class="center margins-top-bottom margins-left-right counter">
+      <div
+        *ngIf="isGameOver && !isResultsShown"
+        class="center margins-top-bottom margins-left-right text-primary-normal"
+      >
         {{ isGameLost() ? "В следующий раз обязательно получится!" : "Так держать!" }}
       </div>
       <app-end-game
