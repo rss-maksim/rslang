@@ -1,5 +1,10 @@
-.textbook-content__navigation {
+.textbook-content__info {
   margin-top: 3rem;
+  margin-bottom: 1rem;
+
+  span {
+    color: red;
+  }
 }
 
 .textbook-content__link {
@@ -44,6 +49,11 @@
 
 ::ng-deep .mat-tab-links {
   justify-content: space-between;
+}
+
+.tab-link {
+  color: var(--color-primary);
+  font-size: 1.125rem;
 }
 
 @media (max-width: 768px) {

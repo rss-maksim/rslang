@@ -39,6 +39,30 @@ export function playRawSound(src: string) {
   audio.src = src;
   audio.play();
 }
+export function playRawSoundArr(arr: string[]) {
+  let sequencePosition = 0;
+
+  function playNext() {
+    if (sequencePosition < arr.length) {
+      playSequence();
+    }
+  }
+
+  function playSequence() {
+    const audio = new Audio();
+    audio.src = arr[sequencePosition];
+    audio.removeEventListener('ended', prepareNextAudio);
+    audio.addEventListener('ended', prepareNextAudio, true);
+    audio.play();
+  }
+
+  function prepareNextAudio() {
+    sequencePosition += 1;
+    playNext();
+  }
+
+  playSequence();
+}
 
 export function getRandomPages() {
   const pages: number[] = [];

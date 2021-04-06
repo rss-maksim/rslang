@@ -4,7 +4,7 @@ import { AppState } from 'src/app/redux/models/state.model';
 import { selectWordSettingsAddButtons, selectWordSettingsTranslation } from 'src/app/redux/selectors/textbook.selector';
 import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
 
-import { playRawSound } from '../../../mini-games/sprint/utils/utils';
+import { playRawSound, playRawSoundArr } from '../../../mini-games/sprint/utils/utils';
 import { ApiService } from '../../../core/services/api.service';
 import { deleteUserWords } from 'src/app/redux/actions/textbooks.actions';
 import { IWord } from 'src/app/redux/models/textbook.model';
@@ -22,8 +22,9 @@ export class WordCardComponent {
 
   constructor(private gameService: MiniGamesHttpService, private store: Store<AppState>, public api: ApiService) {}
 
-  wordSound(audio: string) {
-    playRawSound(`${this.api.githubAssetUrl}/${audio}`);
+  wordSound(arr: any) {
+    let audioArr: string[] = arr.map((str: string) => `${this.api.githubAssetUrl}/${str}`);
+    playRawSoundArr(audioArr);
   }
 
   deleteWord(words: IWord) {

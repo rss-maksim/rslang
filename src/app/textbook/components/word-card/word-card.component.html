@@ -6,17 +6,16 @@
         matRipple
         [matRippleUnbounded]="true"
         [matRippleCentered]="true"
-        (click)="wordSound(item.audio)"
+        (click)="wordSound([item.audio, item.audioExample, item.audioMeaning])"
       >
         volume_up
       </mat-icon>
-
       <div class="word-card__image">
         <img [src]="this.api.githubAssetUrl + '/' + item.image" [alt]="item.word" />
       </div>
       <div class="word-card__info">
         <div class="word-card__infoWrapper">
-          <div class="word-card__word" [ngClass]="{ word_hard: item.userWord }">
+          <div class="word-card__word">
             {{ item.word }}
           </div>
           <div class="word-card__transcription">
@@ -27,12 +26,12 @@
           </div>
         </div>
         <div class="word-card__infoButtons" *ngIf="isSettingButtons$ | async">
-          <button class="word-card__infoButtons-hard" mat-raised-button color="primary" (click)="hardWord(item)">
-            Сложное
-          </button>
+          <button class="word-card__infoButtons-hard" mat-raised-button color="primary">Сложное</button>
           <button class="word-card__infoButtons-delete" mat-raised-button color="warn" (click)="deleteWord(item)">
             Удалить
+            <span *ngIf="item.difficulty">Удалено</span>
           </button>
+          <span *ngIf="item.difficulty">Удалено</span>
         </div>
       </div>
     </div>
@@ -40,6 +39,10 @@
       <div class="word-card__textExample" [innerHTML]="item.textExample"></div>
       <div class="word-card__textExampleTranslate" *ngIf="isTranslation$ | async">
         {{ item.textExampleTranslate }}
+      </div>
+      <div class="word-card__textMeaning" [innerHTML]="item.textMeaning"></div>
+      <div class="word-card__textMeaningTranslate" *ngIf="isTranslation$ | async">
+        {{ item.textMeaningTranslate }}
       </div>
     </div>
   </mat-card-content>
