@@ -81,12 +81,15 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     this.onGetWords();
   }
 
-  onGetWords() {
+  async onGetWords() {
+    this.getWords?.unsubscribe();
     this.getWords = this.httpService
       .getWords({ userId: this.userId, page: this.page, group: this.difficultyLevel.toString(), filter: this.filter })
       .subscribe((words) => {
+        this.sourceArray = [];
         this.sourceArray.push(...words);
       });
+    console.log('sourceArray', this.sourceArray);
   }
 
   nextRoundReset(): void {
