@@ -1,30 +1,36 @@
-<a *ngIf="isAuthorized$ | async" class="textbook-content__link" [routerLink]="['/textbook']" mat-raised-button
+<a *ngIf="isAuthorized$ | async" class="textbook-dictionary__link" [routerLink]="['/textbook']" mat-raised-button
   >Назад к учебнику</a
 >
-<a
-  *ngIf="isAuthorized$ | async"
-  class="textbook-content__link"
-  [routerLink]="['/textbook/dictionary']"
-  [queryParams]="{ filter: 'learning', group: 0, page: 0 }"
-  mat-raised-button
-  >Изучаемые слова</a
->
-<a
-  *ngIf="isAuthorized$ | async"
-  class="textbook-content__link"
-  [routerLink]="['/textbook/dictionary']"
-  [queryParams]="{ filter: 'hard', group: 0, page: 0 }"
-  mat-raised-button
-  >Трудные слова</a
->
-<a
-  *ngIf="isAuthorized$ | async"
-  class="textbook-content__link"
-  [routerLink]="['/textbook/dictionary']"
-  [queryParams]="{ filter: 'deleted', group: 0, page: 0 }"
-  mat-raised-button
-  >Удаленные слова</a
->
+<div class="textbook-dictionary__links">
+  <a
+    *ngIf="isAuthorized$ | async"
+    class="textbook-dictionary__linkHeader"
+    [routerLink]="['/textbook/dictionary']"
+    [queryParams]="{ filter: 'learning', group: 0, page: 0 }"
+    mat-raised-button
+    routerLinkActive="active_link"
+    >Изучаемые <span>слова</span></a
+  >
+  <a
+    *ngIf="isAuthorized$ | async"
+    class="textbook-dictionary__linkHeader"
+    [routerLink]="['/textbook/dictionary']"
+    [queryParams]="{ filter: 'hard', group: 0, page: 0 }"
+    mat-raised-button
+    routerLinkActive="active_link"
+    >Трудные <span>слова</span></a
+  >
+  <a
+    *ngIf="isAuthorized$ | async"
+    class="textbook-dictionary__linkHeader"
+    [routerLink]="['/textbook/dictionary']"
+    [queryParams]="{ filter: 'deleted', group: 0, page: 0 }"
+    mat-raised-button
+    routerLinkActive="active_link"
+    >Удаленные <span>слова</span></a
+  >
+</div>
+
 <app-textbook-tab-nav [currentGroup]="currentGroup" (changeGroupEvent)="setCurrentGroup($event)"></app-textbook-tab-nav>
 
 <div [ngClass]="'tab-content-' + currentGroup" class="textbook-content__cardItems">
