@@ -10,14 +10,15 @@
     </button>
   </div>
 
-  <app-start-dialog
+  <app-start-game
+    [gameName]="games.CUSTOM_GAME"
     *ngIf="!isGameStarted"
     (difficultyLevel)="onSetDifficultyLevel($event)"
     (numOfRounds)="onSetNumberOfRounds($event)"
     (roundLength)="onSetRoundLength($event)"
     (startGame)="onStartGame()"
   >
-  </app-start-dialog>
+  </app-start-game>
   <div class="game-container" *ngIf="isGameStarted">
     <div>
       <div *ngIf="!isResultsShown" class="center margins-top-bottom">

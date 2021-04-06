@@ -6,10 +6,9 @@ import { IWord } from 'src/app/core/models/IWord';
 import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 import { Answer } from 'src/app/core/models/ISprintGame';
 import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
-import { CloseDialogComponent } from './close-dialog/close-dialog.component';
+import { CloseGameDialogComponent } from '../shared/components/close-game-dialog/close-game-dialog.component';
 import { ShuffleService } from './services/shuffle.service';
 import { SoundService } from './services/sound.service';
-import { WordsService } from 'src/app/core/services/words.service';
 import { Games } from 'src/app/core/constants/mini-games';
 import { UserService } from 'src/app/core/services/user.service';
 import { ActivatedRoute } from '@angular/router';
@@ -236,7 +235,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
 
   onCloseDialog(): void {
     this.isGamePaused = true;
-    const dialogRef = this.dialog.open(CloseDialogComponent, {
+    const dialogRef = this.dialog.open(CloseGameDialogComponent, {
       width: '22rem', // TODO установить ширину настройками
     });
 

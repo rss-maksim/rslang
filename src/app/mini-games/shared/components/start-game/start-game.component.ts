@@ -16,16 +16,24 @@ export class StartGameComponent {
   @Output() difficultySelected = new EventEmitter();
   @Output() numOfRounds = new EventEmitter<number>();
   @Output() roundLength = new EventEmitter<number>();
+  @Output() difficultyLevel = new EventEmitter<number>();
+  @Output() startGame = new EventEmitter();
   difficulty = DEFAULT_WORDS_DIFFICULTY;
   GAMES = Games;
 
   onDifficultyChange(value: number | null): void {
     if (value !== null) {
       this.difficulty = value;
+      this.difficultyLevel.emit(value);
     }
   }
 
+  onStartGame(): void {
+    this.startGame.emit();
+  }
+
   onStart(): void {
+    this.onStartGame();
     if (this.hasDifficultySlider) {
       this.difficultySelected.emit(this.difficulty);
     } else {
