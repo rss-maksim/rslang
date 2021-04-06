@@ -10,11 +10,6 @@ export enum GameState {
   FINISH,
 }
 
-export enum Answer {
-  CORRECT,
-  WRONG,
-}
-
 export interface ISavannahGame {
   gameState: GameState;
   userId: string | null;

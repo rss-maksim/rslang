@@ -43,6 +43,7 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routeSubscription$?.unsubscribe();
+    this.savannahService.gameReset();
   }
 
   startToPlay() {
@@ -68,5 +69,6 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
 
   resetGame() {
     this.savannahService.gameReset();
+    this.savannahService.setGameState(GameState.SETTING);
   }
 }

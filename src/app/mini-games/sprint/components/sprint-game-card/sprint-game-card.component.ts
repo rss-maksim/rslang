@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
 import { Sprinter } from 'src/app/core/constants/sprint-game';
-import { Answer, KeyboardKey, StreakLevel, StreakStatus } from '../../../../core/models/ISprintGame';
+import { KeyboardKey, StreakLevel, StreakStatus } from '../../../../core/models/ISprintGame';
+import { Answer } from 'src/app/core/models/IAnswer';
 
 @Component({
   selector: 'app-sprint-game-card',
