@@ -1,4 +1,4 @@
-import { Answer } from './ISprintGame';
+import { Answer } from 'src/app/core/models/IAnswer';
 
 export interface ITrainedWord {
   id: string;

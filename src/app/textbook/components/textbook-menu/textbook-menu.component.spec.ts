@@ -9,7 +9,7 @@ describe('TextbookMenuComponent', () => {
   let component: TextbookMenuComponent;
   let fixture: ComponentFixture<TextbookMenuComponent>;
   let store: MockStore;
-  let initialState = { user: { isAuthorized: false } };
+  let initialState = { user: { isAuthorized: false }, textbook: { wordSettingsTranslation: true } };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

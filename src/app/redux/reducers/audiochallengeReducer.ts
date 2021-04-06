@@ -18,7 +18,7 @@ import {
 import { AudiochallengeState, IAudiochallengeWord } from '../models/audiochallenge.state.model';
 import { ASSETS_API_URL } from 'src/app/core/constants/mini-games';
 import { FAIL_AUDIO_URL, SUCCESS_AUDIO_URL } from 'src/app/mini-games/constants/audiochallenge-game';
-import { Answer } from 'src/app/core/models/ISprintGame';
+import { Answer } from 'src/app/core/models/IAnswer';
 
 const initialWord: IAudiochallengeWord = {
   id: '',

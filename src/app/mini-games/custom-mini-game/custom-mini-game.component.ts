@@ -1,10 +1,9 @@
-import { CdkDragDrop, CdkDragEnter, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, timer } from 'rxjs';
 import { IWord } from 'src/app/core/models/IWord';
 import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
-import { Answer } from 'src/app/core/models/ISprintGame';
 import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
 import { CloseGameDialogComponent } from '../shared/components/close-game-dialog/close-game-dialog.component';
 import { ShuffleService } from './services/shuffle.service';
@@ -13,6 +12,7 @@ import { Games } from 'src/app/core/constants/mini-games';
 import { UserService } from 'src/app/core/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { Answer } from 'src/app/core/models/IAnswer';
 
 @Component({
   selector: 'app-custom-mini-game',
