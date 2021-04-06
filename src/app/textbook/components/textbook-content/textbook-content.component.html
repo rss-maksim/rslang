@@ -2,7 +2,7 @@
   *ngIf="isAuthorized$ | async"
   class="textbook-content__link"
   [routerLink]="['/textbook/dictionary']"
-  [queryParams]="{ filter: 'hard', group: 0, page: 0 }"
+  [queryParams]="{ filter: 'learning', group: 0, page: 0 }"
   mat-raised-button
   >Словарь</a
 >
@@ -30,7 +30,7 @@
   ></app-word-card>
 </div>
 <mat-paginator
-  [length]="600"
+  [length]="totalCount$ | async"
   [pageSize]="20"
   [pageIndex]="+currentPage"
   (page)="onPaginateChange($event)"

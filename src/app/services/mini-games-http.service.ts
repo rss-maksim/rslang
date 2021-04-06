@@ -19,6 +19,7 @@ export class MiniGamesHttpService {
     page ? page : (page = this.getRandomNumber(30).toString());
     group ? group : (group = '0');
     filter ? (filter = filters[filter]) : (filter = filters.textBook);
+    console.log(userId);
     this.group = group;
     if (userId) {
       return this.wordsService.getUserAggregatedWords(userId, { page, group, filter, wordsPerPage: '20' });

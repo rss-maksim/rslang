@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { mergeMap, map, switchMap } from 'rxjs/operators';
+import { mergeMap, map, switchMap, tap } from 'rxjs/operators';
 import { UserService } from 'src/app/core/services/user.service';
 import { AppState } from '../models/state.model';
 
 import { WordsService } from 'src/app/core/services/words.service';
-import { wordsLoadedSuccess } from '../actions/audiochallenge.actions';
+import { wordsLoadedSuccess, wrongAnswer } from '../actions/audiochallenge.actions';
 import {
   deleteUserWords,
   deleteUserWordsSuccess,
@@ -14,8 +14,15 @@ import {
   loadWords,
   markWordAsHard,
   markWordAsHardSuccess,
+  wordsUpdatedSuccess,
 } from '../actions/textbooks.actions';
 import { selectUserId } from '../selectors/user.selector';
+import { updateUserWords } from 'src/app/redux/actions/textbooks.actions';
+import { ElementSchemaRegistry, identifierModuleUrl } from '@angular/compiler';
+import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
+import { UserWordModel } from 'src/app/core/models/word.model';
+import { Answer } from 'src/app/core/models/ISprintGame';
+import { filters } from 'src/app/core/constants/textbook';
 
 @Injectable()
 export class TextbookEffects {
@@ -40,23 +47,26 @@ export class TextbookEffects {
               group,
               page,
               wordsPerPage,
-              filter: '{"$or":[{"$and":[{"userWord.optional.deleted":null}]},{"userWord":null}]}',
+              filter: filters.textBook,
             })
             .pipe(
               map((item: any) => {
+                console.log(item);
                 const wordsArray = item[0].paginatedResults.map((word: any) => {
                   return { ...word, id: word._id };
                 });
+                const totalWordsInGroup = item[0].totalCount[0].count;
                 return {
                   type: '[Textbook]  Load_Words_Success',
-                  payload: wordsArray,
+                  payload: { words: wordsArray, totalWordsInGroup: +totalWordsInGroup },
                 };
               }),
             );
         }
         return this.wordsService.getAll({ group, page }).pipe(
           map((item: any) => {
-            return { type: '[Textbook]  Load_Words_Success', payload: item };
+            console.log(item, 'getAll');
+            return { type: '[Textbook]  Load_Words_Success', payload: { words: item, totalWordsInGroup: 600 } };
           }),
         );
       }),
@@ -109,32 +119,72 @@ export class TextbookEffects {
       }),
     );
   });
-  // исправить обратно в getUserAggregatedWords с undefined на null
   loadHardDeletedWords$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadHardWords),
-      concatLatestFrom(() => this.store.select(selectUserId)),
-      mergeMap(([{ payload }, userId]) => {
-        console.log(userId);
+      mergeMap(({ payload }) => {
         return this.wordsService
-          .getUserAggregatedWords(userId, {
+          .getUserAggregatedWords(this.userId, {
             ...payload,
             wordsPerPage: '20',
           })
           .pipe(
             map((item: any) => {
-              console.log(item);
-
               const wordsArray = item[0].paginatedResults.map((word: any) => {
                 return { ...word, id: word._id };
               });
+              const totalWordsInGroup = item[0].totalCount[0]?.count || 0;
               return {
                 type: '[Textbook]  Load_Words_Success',
-                payload: wordsArray,
+                payload: { words: wordsArray, totalWordsInGroup: +totalWordsInGroup },
               };
             }),
           );
       }),
     );
   });
+
+  updateUserWords$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateUserWords),
+      concatLatestFrom(() => this.store.select(selectUserId)),
+      mergeMap(([{ payload }, userId]) => {
+        const wordsArr = this.createUserWordsArr(payload);
+        return this.wordsService.updateUserWords(userId, wordsArr).pipe(
+          map((item: any) => {
+            console.log(item);
+            return wordsUpdatedSuccess({ payload: item });
+          }),
+        );
+      }),
+    );
+  });
+
+  createUserWordsArr(arr: ITrainedWord[]): UserWordModel[] {
+    return arr.map((elem) => {
+      let difficulty = 'learning';
+      let correctAnswersNum = 0;
+      let wrongAnswersNum = 0;
+      if (elem.userWord?.difficulty) {
+        difficulty = elem.userWord.difficulty;
+      }
+      if (elem.userWord?.optional) {
+        correctAnswersNum = +elem.userWord.optional.correctAnswers;
+        wrongAnswersNum = +elem.userWord.optional.wrongAnswers;
+      }
+      if (elem.result === Answer.CORRECT) {
+        correctAnswersNum += 1;
+      } else if (elem.result === Answer.WRONG) {
+        wrongAnswersNum += 1;
+      }
+      return {
+        wordId: elem.id,
+        difficulty: difficulty,
+        optional: {
+          correctAnswers: correctAnswersNum.toString(),
+          wrongAnswers: wrongAnswersNum.toString(),
+        },
+      };
+    });
+  }
 }

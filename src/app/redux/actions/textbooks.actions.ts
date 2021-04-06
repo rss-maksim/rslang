@@ -1,7 +1,13 @@
 import { createAction, props } from '@ngrx/store';
-import { AggregatedWordsRequestParams, WordsRequestParams } from 'src/app/core/models/word.model';
+import {
+  AggregatedWordsRequestParams,
+  UpdateUserWordsRequest,
+  UserWordModel,
+  WordsRequestParams,
+} from 'src/app/core/models/word.model';
 
 import { IWord, TextbookUrlParams } from '../models/textbook.model';
+import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 
 export const loadWords = createAction('[Textbook]  Load_Words', props<{ payload: AggregatedWordsRequestParams }>());
 
@@ -10,7 +16,10 @@ export const loadHardWords = createAction(
   props<{ payload: AggregatedWordsRequestParams }>(),
 );
 
-export const loadWordsSuccess = createAction('[Textbook]  Load_Words_Success', props<{ payload: IWord[] }>());
+export const loadWordsSuccess = createAction(
+  '[Textbook]  Load_Words_Success',
+  props<{ payload: { words: IWord[]; totalWordsInGroup: number } }>(),
+);
 
 export const getWordSettingsTranslation = createAction('[Textbook]  get_word_Settings_Translation');
 export const getWordSettingsAddButtons = createAction('[Textbook]  get_word_Settings_AddButtons');
@@ -41,4 +50,11 @@ export const markWordAsHard = createAction(
 export const markWordAsHardSuccess = createAction(
   '[Textbook]  mark_Word_As_Hard_Success',
   props<{ payload: WordsRequestParams }>(),
+);
+
+export const updateUserWords = createAction('[Textbook]  update_User_Words', props<{ payload: ITrainedWord[] }>());
+
+export const wordsUpdatedSuccess = createAction(
+  '[Textbook]  update_User_Words_Success',
+  props<{ payload: UserWordModel[] }>(),
 );

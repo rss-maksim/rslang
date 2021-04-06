@@ -7,4 +7,11 @@ export interface ITrainedWord {
   timeStamp: number;
   result: Answer;
   audio: string;
+  userWord?: {
+    difficulty?: string;
+    optional?: {
+      correctAnswers: string;
+      wrongAnswers: string;
+    };
+  };
 }

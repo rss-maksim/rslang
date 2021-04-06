@@ -37,7 +37,9 @@ export class AudiochallengeEffects {
         return this.wordsHttpService.getWords(payload).pipe(
           map((words) => {
             if (words[0].paginatedResults) {
-              words = words[0].paginatedResults;
+              words = words[0].paginatedResults.map((word: any) => {
+                return { ...word, id: word._id };
+              });
             }
             return wordsLoadedSuccess({ payload: this.wordsHelper.shuffleArray(Object.values(words)) });
           }),

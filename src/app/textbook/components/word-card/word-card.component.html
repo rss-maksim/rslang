@@ -15,8 +15,9 @@
       </div>
       <div class="word-card__info">
         <div class="word-card__infoWrapper">
-          <div class="word-card__word">
+          <div class="word-card__word" [ngClass]="{ word_hard: item.userWord?.difficulty === 'hard' }">
             {{ item.word }}
+            <span *ngIf="item.userWord?.difficulty === 'hard'" [innerHTML]="'&#10029;'"></span>
           </div>
           <div class="word-card__transcription">
             {{ item.transcription }}
@@ -26,11 +27,19 @@
           </div>
         </div>
         <div class="word-card__infoButtons" *ngIf="isSettingButtons$ | async">
-          <button class="word-card__infoButtons-hard" mat-raised-button color="primary">Сложное</button>
           <button class="word-card__infoButtons-delete" mat-raised-button color="warn" (click)="deleteWord(item)">
             Удалить
             <span *ngIf="item.difficulty">Удалено</span>
           </button>
+          <button
+            class="word-card__infoButtons-hard"
+            mat-raised-button
+            color="primary"
+            *ngIf="item.userWord?.difficulty !== 'hard'"
+          >
+            Сложное
+          </button>
+
           <span *ngIf="item.difficulty">Удалено</span>
         </div>
       </div>

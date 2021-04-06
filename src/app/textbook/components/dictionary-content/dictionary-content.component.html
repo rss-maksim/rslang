@@ -25,11 +25,7 @@
   mat-raised-button
   >Удаленные слова</a
 >
-<app-textbook-tab-nav
-  (currentGroup)="(currentGroup)"
-  [routePath]="'textbook/dictionary'"
-  (changeGroupEvent)="setCurrentGroup($event)"
-></app-textbook-tab-nav>
+<app-textbook-tab-nav [currentGroup]="currentGroup" (changeGroupEvent)="setCurrentGroup($event)"></app-textbook-tab-nav>
 
 <div [ngClass]="'tab-content-' + currentGroup" class="textbook-content__cardItems">
   <app-word-card
