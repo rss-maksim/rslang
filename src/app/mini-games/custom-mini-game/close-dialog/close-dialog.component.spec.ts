@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogRef } from '@angular/material/dialog';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { CloseDialogComponent } from './close-dialog.component';
 
@@ -9,6 +11,8 @@ describe('CloseDialogComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CloseDialogComponent],
+      imports: [RouterTestingModule],
+      providers: [{ provide: MatDialogRef, useValue: {} }],
     }).compileComponents();
   });
 

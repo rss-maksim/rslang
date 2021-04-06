@@ -8,9 +8,8 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 })
 export class LifesComponent {
   @Input() lifes!: number;
-  constructor() {}
 
-  numSequence(n: number): Array<number> {
-    return Array(n);
+  numSequence(n: number): any[] {
+    return Array.from('x'.repeat(n));
   }
 }

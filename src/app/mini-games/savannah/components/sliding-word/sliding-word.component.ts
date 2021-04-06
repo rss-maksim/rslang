@@ -1,7 +1,6 @@
 import { SavannahService } from './../../services/savannah.service';
-import { SavannahMiniGameComponent } from './../../pages/savannah-mini-game/savannah-mini-game.component';
-import { animate, AnimationBuilder, AnimationPlayer, sequence, style, useAnimation } from '@angular/animations';
-import { Content } from '@angular/compiler/src/render3/r3_ast';
+import { animate, AnimationBuilder, AnimationPlayer, sequence, style } from '@angular/animations';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,8 +12,6 @@ import {
   AfterViewInit,
   OnChanges,
 } from '@angular/core';
-import { Sound } from 'src/app/mini-games/constants/savannah.game';
-import { sound } from '../../utils/utils';
 
 @Component({
   selector: 'app-sliding-word',

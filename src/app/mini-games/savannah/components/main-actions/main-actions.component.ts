@@ -19,12 +19,13 @@ export class MainActionsComponent {
   @Input() progress!: number;
   @Output() answered = new EventEmitter<boolean>();
   @ViewChild(SlidingWordComponent) private wordComponent!: SlidingWordComponent;
+  isAnswerCorrect!: boolean;
   constructor(private savannahService: SavannahService) {}
 
   wordClicked(clickedWord: string): void {
-    const isAnswerCorrect = clickedWord === this.translation;
-    this.savannahService.playSound(isAnswerCorrect);
-    this.wordComponent.animate(isAnswerCorrect);
+    this.isAnswerCorrect = clickedWord === this.translation;
+    this.savannahService.playSound(this.isAnswerCorrect);
+    this.wordComponent.animate(this.isAnswerCorrect);
   }
 
   wordGone(answer: boolean): void {
