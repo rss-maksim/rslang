@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Answer } from 'src/app/core/models/IAnswer';
 
 import { IShortTermStats, IShortTermStatsResults } from 'src/app/core/models/IShortTermStats';
-import { Answer } from 'src/app/core/models/ISprintGame';
 
 @Component({
   selector: 'app-short-term-statistics',

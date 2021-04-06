@@ -23,10 +23,10 @@ describe('OptionsInputComponent', () => {
   });
 
   it('should emit event', () => {
-    const num = '3';
+    const num = 3;
     spyOn(component.clicked, 'emit');
-    component.wordClicked(+num);
-    expect(component.clicked.emit).toHaveBeenCalledWith(num);
+    component.wordClicked(num);
+    expect(component.clicked.emit).toHaveBeenCalledWith(`${num + 1}`);
   });
 
   it('clicked word should emit its number', () => {

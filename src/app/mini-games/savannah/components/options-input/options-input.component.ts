@@ -15,7 +15,7 @@ export class OptionsInputComponent {
 
   @HostListener('window:keydown', ['$event']) keyEvent(event: KeyboardEvent) {
     if ([1, 2, 3, 4].includes(+event.key)) {
-      this.wordClicked(+event.key);
+      this.wordClicked(+event.key - 1);
     }
   }
 
@@ -24,6 +24,6 @@ export class OptionsInputComponent {
   }
 
   wordClicked(indx: number): void {
-    this.clicked.emit(this.options[indx - 1]);
+    this.clicked.emit(this.options[indx]);
   }
 }
