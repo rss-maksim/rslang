@@ -1,87 +1,40 @@
 .textbook-mini-games__title {
+  font-size: 1.875rem;
   text-align: center;
   color: var(--color-primary);
   font-weight: bold;
 }
 
 .textbook-mini-games__list {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-evenly;
-  box-sizing: border-box;
-  margin-bottom: 1rem;
+  border: 2px dashed var(--color-primary);
+  border-radius: 44%;
+  padding: 3rem 2rem 2rem 2rem;
 
   a {
-    display: block;
-    width: 45%;
-    min-width: 300px;
-    text-decoration: none;
-
-    font-weight: bold;
-    text-transform: uppercase;
+    min-width: 35%;
+    font-size: 1.25rem;
+    font-weight: lighter;
+    border: 1px var(--color-accent) solid;
+    color: var(--color-light);
+    background-color: var(--color-accent);
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
   }
 }
 
-.textbook-mini-games__card {
-  cursor: pointer;
-  line-height: 1.5;
-  padding: 2em 2em;
-  letter-spacing: 0.05rem;
-  margin: 1em;
-  text-align: center;
-  box-sizing: border-box;
-  color: var(--color-border);
-}
-
-.textbook-mini-games__card:focus {
-  outline: 2px dotted var(--color-primary);
-}
-
-.textbook-mini-games__card {
-  box-shadow: inset 0 0 0 4px var(--color-primary);
-  transition: color 0.25s 0.0833333333s;
-  position: relative;
-}
-
-.textbook-mini-games__card::before,
-.textbook-mini-games__card::after {
-  border: 0 solid transparent;
-  box-sizing: border-box;
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  width: 0rem;
-  height: 0;
-  bottom: 0;
-  right: 0;
-}
-
-.textbook-mini-games__card::before {
-  border-bottom-width: 0.25rem;
-  border-left-width: 0.25rem;
-}
-
-.textbook-mini-games__card::after {
-  border-top-width: 0.25rem;
-  border-right-width: 0.25rem;
-}
-
-.textbook-mini-games__card:hover {
-  color: var(--color-primary);
-}
-
-.textbook-mini-games__card:hover::before,
-.textbook-mini-games__card:hover::after {
-  border-color: var(--color-border);
-  transition: border-color 0s, width 0.25s, height 0.25s;
-  width: 100%;
-  height: 100%;
-}
-
-.textbook-mini-games__card:hover::before {
-  transition-delay: 0s, 0s, 0.25s;
-}
-
-.textbook-mini-games__card:hover::after {
-  transition-delay: 0s, 0.25s, 0s;
+@media screen and (max-width: 640px) {
+  .textbook-mini-games__list {
+    a {
+      min-width: 45%;
+    }
+  }
 }
