@@ -8,8 +8,6 @@ const featureKey = 'textbook';
 export const selectTextbook = createFeatureSelector<AppState, TextbookState>(featureKey);
 
 export const selectWords = createSelector(selectTextbook, (state: TextbookState): IWord[] => state.words);
-// export const selectWordsGroup = createSelector(selectTextbook, (state: TextbookState): string => state.wordsGroup);
-// export const selectWordsPage = createSelector(selectTextbook, (state: TextbookState): string => state.wordsPage);
 export const selectWordSettingsTranslation = createSelector(
   selectTextbook,
   (state: TextbookState): boolean => state.wordSettingsTranslation,

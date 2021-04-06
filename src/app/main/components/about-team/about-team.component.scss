@@ -2,6 +2,19 @@
   width: 100%;
   margin-top: 2rem;
 
+  &__image-container {
+    width: 7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4rem auto 2rem;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+  }
+
   &__title {
     text-align: center;
     font-size: 2rem;
@@ -12,5 +25,14 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+  }
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

@@ -1,4 +1,4 @@
-<footer>
+<footer class="page-footer">
   <ul class="page-footer__list">
     <li *ngFor="let developer of teammates$ | async; trackBy: trackByFn">
       <a [href]="developer.github" target="_blank">
@@ -8,9 +8,8 @@
       </a>
     </li>
   </ul>
-  <hr />
   <div class="page-footer__info">
-    <span> 2021 </span>
+    <span class="page-footer__date">2021</span>
     <a [href]="rssUrl" target="_blank">
       <div class="page-footer__rss">
         <img [src]="rssImage" alt="RSSchool" />

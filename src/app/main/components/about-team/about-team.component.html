@@ -1,5 +1,7 @@
 <div class="about-team">
-  <h2 class="about-team__title">О команде</h2>
+  <div class="about-team__image-container">
+    <img class="about-team__image" src="/assets/images/home/teamwork.svg" alt="" />
+  </div>
   <div class="about-team__cards">
     <app-teammate-card *ngFor="let mate of teammates$ | async; trackBy: trackByFn" [mate]="mate"></app-teammate-card>
   </div>
