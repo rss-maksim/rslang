@@ -85,7 +85,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       .getWords({
         userId: this.userId || undefined,
         page: this.page,
-        group: this.difficultyLevel.toString(),
+        group: this.group || this.difficultyLevel.toString(),
         filter: this.filter,
       })
       .subscribe((words) => {
