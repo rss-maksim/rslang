@@ -61,6 +61,7 @@ export class EndGameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.trainedWords && this.trainedWords.length > 0) {
+      console.log(this.trainedWords);
       this.shortTermStatisticsService.setStatistics(this.trainedWords, this.game);
       this.longTermStatisticsService.setStatistics(this.trainedWords, this.game);
       this.store.dispatch(updateUserWords({ payload: this.trainedWords }));

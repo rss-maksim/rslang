@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/redux/models/state.model';
 import { selectTotalWordsInGroup, selectWords } from 'src/app/redux/selectors/textbook.selector';
-import { loadWords, loadWordsSuccess, markWordAsHard, updateUserWord } from '../../../redux/actions/textbooks.actions';
+import { loadWords, updateUserWord } from '../../../redux/actions/textbooks.actions';
 import { links } from './const';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { selectIsAuthorized } from 'src/app/redux/selectors/user.selector';
@@ -26,7 +26,6 @@ export class TextbookContentComponent implements OnInit {
   constructor(private store: Store<AppState>, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-    this.wordItems$.subscribe((item) => console.log(item));
     this.route.params.subscribe(({ group, page }: any) => {
       this.currentGroup = group || '0';
       this.currentPage = page || '0';

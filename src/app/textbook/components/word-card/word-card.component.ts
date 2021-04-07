@@ -7,7 +7,6 @@ import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
 import { playRawSound, playRawSoundArr } from '../../../mini-games/sprint/utils/utils';
 import { ApiService } from '../../../core/services/api.service';
 import { IWord } from 'src/app/redux/models/textbook.model';
-import { markWordAsHard } from '../../../redux/actions/textbooks.actions';
 
 @Component({
   selector: 'app-word-card',
