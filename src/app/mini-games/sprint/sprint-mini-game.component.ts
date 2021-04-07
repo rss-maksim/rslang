@@ -6,7 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
 import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
-import { Answer, GameState, Sound, SprintGame, StreakLevel } from 'src/app/core/models/ISprintGame';
+import { GameState, Sound, SprintGame, StreakLevel } from 'src/app/core/models/ISprintGame';
+import { Answer } from 'src/app/core/models/IAnswer';
 import { getPointsMultiplier, getRandomNumber, getRandomPages, playSound } from './utils/utils';
 import { Color } from 'src/app/core/constants/sprint-game';
 import { CloseGameDialogComponent } from '../shared/components/close-game-dialog/close-game-dialog.component';

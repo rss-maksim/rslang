@@ -1,6 +1,7 @@
-import { Injectable, OnInit, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { Answer, GameState, ISavannahGame } from 'src/app/core/models/ISavannahGame';
+import { Answer } from 'src/app/core/models/IAnswer';
+import { GameState, ISavannahGame } from 'src/app/core/models/ISavannahGame';
 import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 import { IWord } from 'src/app/core/models/IWord';
 import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
@@ -152,20 +153,17 @@ export class SavannahService implements OnDestroy {
   }
 
   gameReset() {
-    this.game = {
-      ...this.game,
-      gameState: GameState.SETTING,
-      learningWords: [],
-      randomTranslations: [],
-      trainedWords: [],
-      id: '',
-      word: '',
-      audio: '',
-      wordTranslation: '',
-      answers: [],
-      lifes: 5,
-      progress: 0,
-      points: 0,
-    };
+    this.game.gameState = GameState.SETTING;
+    this.game.learningWords = [];
+    this.game.randomTranslations = [];
+    this.game.trainedWords = [];
+    this.game.id = '';
+    this.game.word = '';
+    this.game.audio = '';
+    this.game.wordTranslation = '';
+    this.game.answers = [];
+    this.game.lifes = 5;
+    this.game.progress = 0;
+    this.game.points = 0;
   }
 }

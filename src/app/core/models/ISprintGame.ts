@@ -35,11 +35,6 @@ export enum KeyboardKey {
   LEFT = 'ArrowLeft',
 }
 
-export enum Answer {
-  CORRECT = 'CORRECT',
-  WRONG = 'WRONG',
-}
-
 export interface SprintGame {
   gameState: GameState;
   words: IWord[];

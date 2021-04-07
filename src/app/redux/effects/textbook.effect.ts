@@ -130,6 +130,7 @@ export class TextbookEffects {
           })
           .pipe(
             map((item: any) => {
+              console.log(this.userId);
               const wordsArray = item[0].paginatedResults.map((word: any) => {
                 return { ...word, id: word._id };
               });
@@ -147,10 +148,9 @@ export class TextbookEffects {
   updateUserWords$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(updateUserWords),
-      concatLatestFrom(() => this.store.select(selectUserId)),
-      mergeMap(([{ payload }, userId]) => {
+      mergeMap(({ payload }) => {
         const wordsArr = this.createUserWordsArr(payload);
-        return this.wordsService.updateUserWords(userId, wordsArr).pipe(
+        return this.wordsService.updateUserWords(this.userId, wordsArr).pipe(
           map((item: any) => {
             console.log(item);
             return wordsUpdatedSuccess({ payload: item });

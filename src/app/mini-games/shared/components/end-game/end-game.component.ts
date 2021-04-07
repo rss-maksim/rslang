@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angu
 
 import { ASSETS_API_URL, Games } from 'src/app/core/constants/mini-games';
 import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
-import { Answer } from 'src/app/core/models/ISprintGame';
+import { Answer } from 'src/app/core/models/IAnswer';
 import { ShortTermStatisticsService } from 'src/app/statistics/services/short-term-statistics/short-term-statistics.service';
 import { LongTermStatisticsService } from 'src/app/statistics/services/long-term-statistics/long-term-statistics.service';
 import { Store } from '@ngrx/store';

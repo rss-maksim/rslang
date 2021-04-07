@@ -56,7 +56,7 @@ export class WordsService {
     return this.http.put<UserWordModel>(`${this.apiUrl}/users/${userId}/words/${wordId}`, body);
   }
 
-  updateUserWords(userId: string | undefined, body: UserWordModel[]): Observable<any> {
+  updateUserWords(userId: string | null | undefined, body: UserWordModel[]): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/users/${userId}/words/batch`, body);
   }
 
