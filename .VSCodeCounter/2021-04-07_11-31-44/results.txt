@@ -1,0 +1,45 @@
+Date : 2021-04-07 11:31:44
+Directory : d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game
+Total : 16 files,  948 codes, 12 comments, 157 blanks, all 1117 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| TypeScript |         10 |        494 |         10 |         86 |        590 |
+| SCSS       |          3 |        297 |          2 |         56 |        355 |
+| HTML       |          3 |        157 |          0 |         15 |        172 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                         | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                            |         16 |        948 |         12 |        157 |      1,117 |
+| close-dialog                                                                                                 |          4 |         62 |          0 |         13 |         75 |
+| services                                                                                                     |          4 |         88 |          1 |         21 |        110 |
+| start-dialog                                                                                                 |          4 |        155 |          0 |         26 |        181 |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                     | language   | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\close-dialog\close-dialog.component.html    | HTML       |         10 |          0 |          1 |         11 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\close-dialog\close-dialog.component.scss    | SCSS       |          7 |          0 |          2 |          9 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\close-dialog\close-dialog.component.spec.ts | TypeScript |         23 |          0 |          6 |         29 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\close-dialog\close-dialog.component.ts      | TypeScript |         22 |          0 |          4 |         26 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\custom-mini-game.component.html             | HTML       |         83 |          0 |         11 |         94 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\custom-mini-game.component.scss             | SCSS       |        251 |          2 |         44 |        297 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\custom-mini-game.component.spec.ts          | TypeScript |         26 |          0 |          6 |         32 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\custom-mini-game.component.ts               | TypeScript |        283 |          9 |         36 |        328 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\services\shuffle.service.spec.ts            | TypeScript |         12 |          0 |          5 |         17 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\services\shuffle.service.ts                 | TypeScript |         23 |          1 |          5 |         29 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\services\sound.service.spec.ts              | TypeScript |         12 |          0 |          5 |         17 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\services\sound.service.ts                   | TypeScript |         41 |          0 |          6 |         47 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\start-dialog\start-dialog.component.html    | HTML       |         64 |          0 |          3 |         67 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\start-dialog\start-dialog.component.scss    | SCSS       |         39 |          0 |         10 |         49 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\start-dialog\start-dialog.component.spec.ts | TypeScript |         21 |          0 |          6 |         27 |
+| d:\ИГ\RSSchoolAngular\rslang\src\app\mini-games\custom-mini-game\start-dialog\start-dialog.component.ts      | TypeScript |         31 |          0 |          7 |         38 |
+| Total                                                                                                        |            |        948 |         12 |        157 |      1,117 |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

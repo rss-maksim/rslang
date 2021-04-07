@@ -47,7 +47,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   errorsCounter = 0;
   srcCommPart = '../../../assets/images/mini-games/custom-mini-game/hangman_stage';
   imageSrc = this.srcCommPart + this.errorsCounter + '.png';
-  gameOverSoundDelay = 2_000;
+  gameOverSoundDelay = 1_000;
   isResultsShown = false;
   getWords?: Subscription;
   games = Games;
@@ -85,7 +85,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       .getWords({
         userId: this.userId || undefined,
         page: this.page,
-        group: this.group || this.difficultyLevel.toString(),
+        group: this.difficultyLevel.toString(),
         filter: this.filter,
       })
       .subscribe((words) => {
@@ -115,6 +115,77 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  /* onGetWords() {
+    let words: IWord[] = [
+      {audio: '',
+      audioExample: '',
+      audioMeaning: '',
+      id: '',
+      image: '',
+      textExample: '',
+      textExampleTranslate: '',
+      textMeaning: '',
+      textMeaningTranslate: '',
+      transcription: '',
+      word: 'Acknowledgement',
+      wordTranslate: 'Подтверждение',},
+
+      {audio: '',
+      audioExample: '',
+      audioMeaning: '',
+      id: '',
+      image: '',
+      textExample: '',
+      textExampleTranslate: '',
+      textMeaning: '',
+      textMeaningTranslate: '',
+      transcription: '',
+      word: 'Procrastination',
+      wordTranslate: 'Прокрастинация',},
+
+      {audio: '',
+      audioExample: '',
+      audioMeaning: '',
+      id: '',
+      image: '',
+      textExample: '',
+      textExampleTranslate: '',
+      textMeaning: '',
+      textMeaningTranslate: '',
+      transcription: '',
+      word: 'Methamphetamine',
+      wordTranslate: 'Метамфетамин',},
+
+      {audio: '',
+      audioExample: '',
+      audioMeaning: '',
+      id: '',
+      image: '',
+      textExample: '',
+      textExampleTranslate: '',
+      textMeaning: '',
+      textMeaningTranslate: '',
+      transcription: '',
+      word: 'Accomplishments',
+      wordTranslate: 'Достижения',},
+
+      {audio: '',
+      audioExample: '',
+      audioMeaning: '',
+      id: '',
+      image: '',
+      textExample: '',
+      textExampleTranslate: '',
+      textMeaning: '',
+      textMeaningTranslate: '',
+      transcription: '',
+      word: 'Misapprehension',
+      wordTranslate: 'Недоразумение',}
+    ];
+
+    this.sourceArray.push(...words);
+  } */
 
   nextRoundReset(): void {
     this.countDown?.unsubscribe();
@@ -169,7 +240,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   }
 
   isLastRound() {
-    if (this.currentWordIndex === this.sourceArray.length - 1) {
+    if (this.currentWordIndex === this.numberOfGameRounds - 1) {
       return true;
     }
     return false;
@@ -220,11 +291,11 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
         this.imageSrc = this.srcCommPart + this.errorsCounter + '.png';
         this.isRoundOver = true;
         this.toTrainedWords(Answer.WRONG);
-        if (this.isLastRound()) {
+        if (this.errorsCounter === 5 || this.isLastRound()) {
           this.isGameOver = true;
           setTimeout(() => {
             this.finalize();
-          }, 2_000);
+          }, this.gameOverSoundDelay);
         }
       }
       if (this.currentWord === this.scrambledWordAsArray?.join('')) {
