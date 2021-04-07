@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/redux/models/state.model';
-import { loadHardWords, loadWords, markWordAsHard, updateUserWord } from '../../../redux/actions/textbooks.actions';
+import { loadHardWords, loadWords, updateUserWord } from '../../../redux/actions/textbooks.actions';
 import { selectWords } from 'src/app/redux/selectors/textbook.selector';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IWord } from 'src/app/redux/models/textbook.model';

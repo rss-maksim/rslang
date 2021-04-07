@@ -1,28 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { mergeMap, map, switchMap, tap } from 'rxjs/operators';
+import { mergeMap, map } from 'rxjs/operators';
 import { UserService } from 'src/app/core/services/user.service';
 import { AppState } from '../models/state.model';
 
 import { WordsService } from 'src/app/core/services/words.service';
-import { wordsLoadedSuccess, wrongAnswer } from '../actions/audiochallenge.actions';
 import {
   loadHardWords,
   loadWords,
-  markWordAsHard,
-  markWordAsHardSuccess,
   updateUserWord,
   updateUserWordSuccess,
   wordsUpdatedSuccess,
 } from '../actions/textbooks.actions';
-import { selectUserId } from '../selectors/user.selector';
 import { updateUserWords } from 'src/app/redux/actions/textbooks.actions';
-import { ElementSchemaRegistry, identifierModuleUrl } from '@angular/compiler';
 import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 import { UserWordModel } from 'src/app/core/models/word.model';
 import { filters } from 'src/app/core/constants/textbook';
 import { Answer } from 'src/app/core/models/IAnswer';
+import { selectIdIsAuth } from '../selectors/user.selector';
 
 @Injectable()
 export class TextbookEffects {
@@ -38,12 +34,14 @@ export class TextbookEffects {
 
   loadWords$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(loadWords, updateUserWordSuccess, markWordAsHardSuccess),
-      mergeMap(({ payload }) => {
+      ofType(loadWords, updateUserWordSuccess),
+      concatLatestFrom(() => this.store.select(selectIdIsAuth)),
+      mergeMap(([{ payload }, authObj]) => {
         const { group, page, wordsPerPage } = payload;
-        if (this.userId) {
+        if (authObj.isAuth || this.userId) {
+          console.log('auth');
           return this.wordsService
-            .getUserAggregatedWords(this.userId, {
+            .getUserAggregatedWords(authObj.userId || this.userId, {
               group,
               page,
               wordsPerPage,
@@ -73,6 +71,32 @@ export class TextbookEffects {
     );
   });
 
+  loadHardDeletedWords$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(loadHardWords),
+      concatLatestFrom(() => this.store.select(selectIdIsAuth)),
+      mergeMap(([{ payload }, authObj]) => {
+        return this.wordsService
+          .getUserAggregatedWords(authObj.userId || this.userId, {
+            ...payload,
+            wordsPerPage: '20',
+          })
+          .pipe(
+            map((item: any) => {
+              const wordsArray = item[0].paginatedResults.map((word: any) => {
+                return { ...word, id: word._id };
+              });
+              const totalWordsInGroup = item[0].totalCount[0]?.count || 0;
+              return {
+                type: '[Textbook]  Load_Words_Success',
+                payload: { words: wordsArray, totalWordsInGroup: +totalWordsInGroup },
+              };
+            }),
+          );
+      }),
+    );
+  });
+
   deleteWords$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(updateUserWord),
@@ -92,32 +116,6 @@ export class TextbookEffects {
             })
             .pipe(map(() => updateUserWordSuccess({ payload: { group, page, wordsPerPage: '20' } })));
         }
-      }),
-    );
-  });
-
-  loadHardDeletedWords$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(loadHardWords),
-      mergeMap(({ payload }) => {
-        return this.wordsService
-          .getUserAggregatedWords(this.userId, {
-            ...payload,
-            wordsPerPage: '20',
-          })
-          .pipe(
-            map((item: any) => {
-              console.log(this.userId);
-              const wordsArray = item[0].paginatedResults.map((word: any) => {
-                return { ...word, id: word._id };
-              });
-              const totalWordsInGroup = item[0].totalCount[0]?.count || 0;
-              return {
-                type: '[Textbook]  Load_Words_Success',
-                payload: { words: wordsArray, totalWordsInGroup: +totalWordsInGroup },
-              };
-            }),
-          );
       }),
     );
   });

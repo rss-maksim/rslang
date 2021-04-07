@@ -15,3 +15,7 @@ export const selectUserId = createSelector(selectUserState, (state: UserState): 
 export const selectIsAuthorized = createSelector(selectUserState, (state: UserState): boolean => state.isAuthorized);
 
 export const selectIsAnonymous = createSelector(selectUserState, (state: UserState): boolean => !state.isAuthorized);
+
+export const selectIdIsAuth = createSelector(selectUserState, (state: UserState) => {
+  return { userId: state.user?.id, isAuth: state.isAuthorized };
+});

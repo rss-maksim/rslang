@@ -42,16 +42,6 @@ export const updateUserWordSuccess = createAction(
   props<{ payload: WordsRequestParams }>(),
 );
 
-export const markWordAsHard = createAction(
-  '[Textbook]  mark_Word_As_Hard',
-  props<{ payload: { word: IWord; page: string; group: string } }>(),
-);
-
-export const markWordAsHardSuccess = createAction(
-  '[Textbook]  mark_Word_As_Hard_Success',
-  props<{ payload: WordsRequestParams }>(),
-);
-
 export const updateUserWords = createAction('[Textbook]  update_User_Words', props<{ payload: ITrainedWord[] }>());
 
 export const wordsUpdatedSuccess = createAction(

@@ -51,7 +51,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   isResultsShown = false;
   getWords?: Subscription;
   games = Games;
-  userId?: string | undefined;
+  userId?: string | null;
   page?: string | undefined;
   group?: string | undefined;
   filter?: string | undefined;
@@ -76,19 +76,23 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       this.group = queryParam['group'];
       this.filter = queryParam['filter'];
     });
-
-    /*if (this.userService.getUserId()) {
-      this.userId = this.userService.getUserId();
-    }*/
-
-    // this.onGetWords();
   }
 
   async onGetWords() {
+    this.userId = this.userService.getUserId();
     this.getWords?.unsubscribe();
     this.getWords = this.httpService
-      .getWords({ userId: this.userId, page: this.page, group: this.difficultyLevel.toString(), filter: this.filter })
+      .getWords({
+        userId: this.userId || undefined,
+        page: this.page,
+        group: this.group || this.difficultyLevel.toString(),
+        filter: this.filter,
+      })
       .subscribe((words) => {
+        console.log(words);
+        if (words[0].paginatedResults) {
+          words = words[0].paginatedResults;
+        }
         this.sourceArray.push(...words);
       });
 
@@ -97,12 +101,15 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       if (this.sourceArray.length < 20 && parseInt(this.page) > 0) {
         this.getWords = this.httpService
           .getWords({
-            userId: this.userId,
+            userId: this.userId || undefined,
             page: (parseInt(this.page) - 1).toString(),
-            group: this.difficultyLevel.toString(),
+            group: this.group || this.difficultyLevel.toString(),
             filter: this.filter,
           })
           .subscribe((words) => {
+            if (words[0].paginatedResults) {
+              words = words[0].paginatedResults;
+            }
             this.sourceArray.push(...words);
           });
       }
@@ -152,7 +159,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
 
   toTrainedWords(res: Answer) {
     this.trainedWords.push({
-      id: this.sourceArray[this.currentWordIndex].id,
+      id: this.sourceArray[this.currentWordIndex]._id || this.sourceArray[this.currentWordIndex].id,
       word: this.sourceArray[this.currentWordIndex].word,
       translation: this.sourceArray[this.currentWordIndex].wordTranslate,
       timeStamp: Date.now(),
