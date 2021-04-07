@@ -53,7 +53,7 @@
         [translation]="game.wordTranslation"
         [streak]="game.streak"
         [multiplier]="game.multiplier"
-        (pronounceWord)="pronounceWord()"
+        (pronounceWord)="pronounceWord(game.words[this.game.wordIndex].audio)"
         (handleTurn)="handleTurn($event)"
         #answerRipple
         matRipple

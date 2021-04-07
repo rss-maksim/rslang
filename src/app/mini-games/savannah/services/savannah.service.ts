@@ -73,13 +73,15 @@ export class SavannahService implements OnDestroy {
     this.game.isPaused = pause;
   }
 
-  getWords(difficulty: number, page?: string) {
+  getWords(difficulty: number, page?: string, filter?: string) {
     let [page1, page2, page3, page4] = getRandomNumbers(4, page);
     page1 = page !== undefined ? +page : page1;
-
     this.wordsBatch$ = this.gamesService
-      .getWords({ group: `${difficulty}`, page: `${page1}` })
-      .subscribe((words: IWord[]) => {
+      .getWords({ userId: this.game.userId || undefined, group: `${difficulty}`, page: `${page1}`, filter })
+      .subscribe((words: IWord[] | any[]) => {
+        if (words[0].paginatedResults) {
+          words = words[0].paginatedResults;
+        }
         this.game.learningWords.push(...words);
         this.game.totalWordsAmount = words.length;
       });
@@ -109,7 +111,7 @@ export class SavannahService implements OnDestroy {
       return;
     }
     const wordIndex = getRandomFrom(this.game.learningWords.length - 1);
-    this.game.id = this.game.learningWords[wordIndex].id;
+    this.game.id = this.game.learningWords[wordIndex]._id || this.game.learningWords[wordIndex].id;
     this.game.word = this.game.learningWords[wordIndex].word;
     this.game.audio = this.game.learningWords[wordIndex].audio;
     this.game.wordTranslation = this.game.learningWords.splice(wordIndex, 1)[0].wordTranslate;

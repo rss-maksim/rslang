@@ -36,7 +36,7 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
     this.routeSubscription$ = this.route.queryParams.subscribe((params: any) => {
       this.savannahService.setQueryParams(params);
       if (!!Object.keys(params).length) {
-        this.savannahService.getWords(params['group'], params['page']);
+        this.savannahService.getWords(params['group'], params['page'], params['filter']);
       }
     });
   }

@@ -12,7 +12,8 @@ import { getPointsMultiplier, getRandomNumber, getRandomPages, playSound } from 
 import { Color } from 'src/app/core/constants/sprint-game';
 import { CloseGameDialogComponent } from '../shared/components/close-game-dialog/close-game-dialog.component';
 import { ShortTermStatisticsService } from 'src/app/statistics/services/short-term-statistics/short-term-statistics.service';
-import { Games } from 'src/app/core/constants/mini-games';
+import { Games, ASSETS_API_URL } from 'src/app/core/constants/mini-games';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-sprint-mini-game',
@@ -49,17 +50,19 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   hasDifficultySlider = true;
   group?: string;
   page?: string;
+  filter!: string;
 
   constructor(
     private gameService: MiniGamesHttpService,
     public closeDialog: MatDialog,
     private route: ActivatedRoute,
     private shortTermStatisticsService: ShortTermStatisticsService,
+    private userService: UserService,
   ) {}
 
   ngOnInit() {
     const { group, page, filter } = this.route.snapshot.queryParams;
-
+    this.filter = filter;
     if (group !== undefined && page !== undefined) {
       this.hasDifficultySlider = false;
       this.group = group;
@@ -107,17 +110,25 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
       page3ToGet = page3.toString();
     }
 
+    const userId = this.userService.getUserId();
+
     this.wordsBatch1Subscription = this.gameService
-      .getWords({ group: groupToGet, page: page1ToGet })
+      .getWords({ group: groupToGet, page: page1ToGet, filter: this.filter, userId: userId || undefined })
       .subscribe((words: any) => {
+        if (words[0].paginatedResults) {
+          words = words[0].paginatedResults;
+        }
         this.game.maxTrainedWords += words.length;
         this.game.words.push(...words);
       });
 
     if (page2ToGet) {
       this.wordsBatch2Subscription = this.gameService
-        .getWords({ group: groupToGet, page: page2ToGet })
+        .getWords({ group: groupToGet, page: page2ToGet, filter: this.filter, userId: userId || undefined })
         .subscribe((words: any) => {
+          if (words[0].paginatedResults) {
+            words = words[0].paginatedResults;
+          }
           this.game.maxTrainedWords += words.length;
           this.game.words.push(...words);
         });
@@ -125,8 +136,11 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
 
     if (page3ToGet) {
       this.wordsBatch3Subscription = this.gameService
-        .getWords({ group: groupToGet, page: page3ToGet })
+        .getWords({ group: groupToGet, page: page3ToGet, filter: this.filter, userId: userId || undefined })
         .subscribe((words: any) => {
+          if (words[0].paginatedResults) {
+            words = words[0].paginatedResults;
+          }
           this.game.maxTrainedWords += words.length;
           this.game.words.push(...words);
         });
@@ -158,7 +172,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     this.game.trainedWordsByIndexes.push(this.game.wordIndex);
 
     const trainedWord = {
-      id: this.game.words[this.game.wordIndex].id,
+      id: this.game.words[this.game.wordIndex]._id || this.game.words[this.game.wordIndex].id,
       word: this.game.word,
       translation: this.game.wordTranslation,
       timeStamp: Date.now(),
@@ -229,9 +243,9 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     }
   }
 
-  pronounceWord(id?: string): void {
-    const wordId = id ?? this.game.words[this.game.wordIndex].id;
-    this.gameService.getWordById(wordId).subscribe((word) => playSound(word.audio));
+  pronounceWord(audioSrc: string): void {
+    const audio = new Audio(`${ASSETS_API_URL}/${audioSrc}`);
+    audio.play();
   }
 
   gameOver(): void {
