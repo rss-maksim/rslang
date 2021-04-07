@@ -12,7 +12,10 @@ import { Games } from 'src/app/core/constants/mini-games';
 import { UserService } from 'src/app/core/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { waitForAsync } from '@angular/core/testing';
+import { ThemeService } from 'ng2-charts';
 import { Answer } from 'src/app/core/models/IAnswer';
+
 
 @Component({
   selector: 'app-custom-mini-game',
@@ -55,6 +58,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   filter?: string | undefined;
   spinnerMode: ProgressSpinnerMode = 'determinate';
   spinnerValue = 100;
+  loading = false;
 
   private querySubscription?: Subscription;
 
@@ -78,15 +82,32 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       this.userId = this.userService.getUserId();
     }*/
 
-    this.onGetWords();
+    // this.onGetWords();
   }
 
-  onGetWords() {
+  async onGetWords() {
+    this.getWords?.unsubscribe();
     this.getWords = this.httpService
       .getWords({ userId: this.userId, page: this.page, group: this.difficultyLevel.toString(), filter: this.filter })
       .subscribe((words) => {
         this.sourceArray.push(...words);
       });
+
+    // Если слов < 20 страниц больше 1, то добавляем слова с предыдущей страницы
+    if (this.page) {
+      if (this.sourceArray.length < 20 && parseInt(this.page) > 0) {
+        this.getWords = this.httpService
+          .getWords({
+            userId: this.userId,
+            page: (parseInt(this.page) - 1).toString(),
+            group: this.difficultyLevel.toString(),
+            filter: this.filter,
+          })
+          .subscribe((words) => {
+            this.sourceArray.push(...words);
+          });
+      }
+    }
   }
 
   nextRoundReset(): void {
@@ -235,9 +256,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
 
   onCloseDialog(): void {
     this.isGamePaused = true;
-    const dialogRef = this.dialog.open(CloseGameDialogComponent, {
-      width: '22rem', // TODO установить ширину настройками
-    });
+    const dialogRef = this.dialog.open(CloseGameDialogComponent, {});
 
     dialogRef.afterClosed().subscribe(() => {
       this.isGamePaused = false;
@@ -262,13 +281,23 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   }
 
   onStartGame() {
-    this.isGameStarted = true;
-    this.resetGame();
-    this.nextRoundReset();
+    this.loading = true;
     this.roundsLeft = this.numberOfGameRounds - 1;
+    this.sourceArray = [];
+    this.resetGame();
+    this.isGameStarted = true;
+    const startGame = () => {
+      if (this.sourceArray.length) {
+        this.loading = false;
+        this.nextRoundReset();
+      } else {
+        setTimeout(startGame, 100);
+      }
+    };
+    startGame();
   }
 
-  resetGame() {
+  async resetGame() {
     this.isResultsShown = false;
     this.movesCountdownCounter = 0;
     this.currentWordIndex = 0;
@@ -280,6 +309,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     this.isRoundOver = false;
     this.isGameOver = false;
     this.errorsCounter = 0;
+    this.imageSrc = this.srcCommPart + this.errorsCounter + '.png';
     this.trainedWords = [];
     this.onGetWords();
   }
