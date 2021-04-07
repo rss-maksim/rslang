@@ -40,7 +40,7 @@ export class DictionaryContentComponent implements OnInit, OnDestroy {
       this.currentPage = queryParam['page'];
       this.filter = queryParam['filter'];
       this.store.dispatch(
-        loadHardWords({
+        loadWords({
           payload: {
             page: this.currentPage,
             group: this.currentGroup,
@@ -83,7 +83,13 @@ export class DictionaryContentComponent implements OnInit, OnDestroy {
   updateUserWord(event: any) {
     this.store.dispatch(
       updateUserWord({
-        payload: { word: event.word, page: this.currentPage, group: this.currentGroup, difficulty: event.difficulty },
+        payload: {
+          word: event.word,
+          page: this.currentPage,
+          group: this.currentGroup,
+          difficulty: event.difficulty,
+          filter: this.filter,
+        },
       }),
     );
   }
