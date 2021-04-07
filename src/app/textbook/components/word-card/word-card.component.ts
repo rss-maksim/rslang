@@ -6,7 +6,6 @@ import { MiniGamesHttpService } from 'src/app/services/mini-games-http.service';
 
 import { playRawSound, playRawSoundArr } from '../../../mini-games/sprint/utils/utils';
 import { ApiService } from '../../../core/services/api.service';
-import { deleteUserWords } from 'src/app/redux/actions/textbooks.actions';
 import { IWord } from 'src/app/redux/models/textbook.model';
 import { markWordAsHard } from '../../../redux/actions/textbooks.actions';
 
@@ -17,8 +16,7 @@ import { markWordAsHard } from '../../../redux/actions/textbooks.actions';
 })
 export class WordCardComponent {
   @Input() item: any;
-  @Output() deleteUserWord = new EventEmitter();
-  @Output() hardUserWord = new EventEmitter();
+  @Output() updateUserWord = new EventEmitter();
   isTranslation$ = this.store.select(selectWordSettingsTranslation);
   isSettingButtons$ = this.store.select(selectWordSettingsAddButtons);
 
@@ -29,11 +27,7 @@ export class WordCardComponent {
     playRawSoundArr(audioArr);
   }
 
-  deleteWord(word: IWord) {
-    this.deleteUserWord.emit(word);
-  }
-
-  hardWord(word: IWord) {
-    this.hardUserWord.emit(word);
+  updateWord(word: IWord, difficulty: string) {
+    this.updateUserWord.emit({ word, difficulty });
   }
 }

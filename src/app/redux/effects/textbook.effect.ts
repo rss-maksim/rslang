@@ -8,12 +8,12 @@ import { AppState } from '../models/state.model';
 import { WordsService } from 'src/app/core/services/words.service';
 import { wordsLoadedSuccess, wrongAnswer } from '../actions/audiochallenge.actions';
 import {
-  deleteUserWords,
-  deleteUserWordsSuccess,
   loadHardWords,
   loadWords,
   markWordAsHard,
   markWordAsHardSuccess,
+  updateUserWord,
+  updateUserWordSuccess,
   wordsUpdatedSuccess,
 } from '../actions/textbooks.actions';
 import { selectUserId } from '../selectors/user.selector';
@@ -21,8 +21,8 @@ import { updateUserWords } from 'src/app/redux/actions/textbooks.actions';
 import { ElementSchemaRegistry, identifierModuleUrl } from '@angular/compiler';
 import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 import { UserWordModel } from 'src/app/core/models/word.model';
-import { Answer } from 'src/app/core/models/ISprintGame';
 import { filters } from 'src/app/core/constants/textbook';
+import { Answer } from 'src/app/core/models/IAnswer';
 
 @Injectable()
 export class TextbookEffects {
@@ -38,7 +38,7 @@ export class TextbookEffects {
 
   loadWords$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(loadWords, deleteUserWordsSuccess, markWordAsHardSuccess),
+      ofType(loadWords, updateUserWordSuccess, markWordAsHardSuccess),
       mergeMap(({ payload }) => {
         const { group, page, wordsPerPage } = payload;
         if (this.userId) {
@@ -75,50 +75,27 @@ export class TextbookEffects {
 
   deleteWords$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(deleteUserWords),
+      ofType(updateUserWord),
       mergeMap(({ payload }) => {
         console.log(payload);
-        const { word, group, page } = payload;
+        const { word, group, page, difficulty } = payload;
         if (word.userWord) {
           return this.wordsService
             .updateUserWord(this.userId, word.id, {
-              optional: {
-                deleted: true,
-              },
+              difficulty: difficulty,
             })
-            .pipe(map(() => deleteUserWordsSuccess({ payload: { group, page, wordsPerPage: '20' } })));
+            .pipe(map(() => updateUserWordSuccess({ payload: { group, page, wordsPerPage: '20' } })));
         } else {
           return this.wordsService
             .createUserWord(this.userId, word.id, {
-              difficulty: 'deleted',
+              difficulty: difficulty,
             })
-            .pipe(map(() => deleteUserWordsSuccess({ payload: { group, page, wordsPerPage: '20' } })));
+            .pipe(map(() => updateUserWordSuccess({ payload: { group, page, wordsPerPage: '20' } })));
         }
       }),
     );
   });
 
-  hardWord$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(markWordAsHard),
-      mergeMap(({ payload }) => {
-        const { word, group, page } = payload;
-        if (word.userWord) {
-          return this.wordsService
-            .updateUserWord(this.userId, word.id, {
-              difficulty: 'hard',
-            })
-            .pipe(map(() => markWordAsHardSuccess({ payload: { group, page, wordsPerPage: '20' } })));
-        } else {
-          return this.wordsService
-            .createUserWord(this.userId, word.id, {
-              difficulty: 'hard',
-            })
-            .pipe(map(() => markWordAsHardSuccess({ payload: { group, page, wordsPerPage: '20' } })));
-        }
-      }),
-    );
-  });
   loadHardDeletedWords$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadHardWords),

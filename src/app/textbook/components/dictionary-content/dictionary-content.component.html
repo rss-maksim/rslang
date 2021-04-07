@@ -37,8 +37,7 @@
   <app-word-card
     *ngFor="let item of wordItems$ | async; trackBy: trackByFnWordCard"
     [item]="item"
-    (deleteUserWord)="deleteUserWord($event)"
-    (hardUserWord)="hardUserWord($event)"
+    (updateUserWord)="updateUserWord($event)"
   ></app-word-card>
 </div>
 

@@ -32,13 +32,13 @@ export const setWordSettingsAddButtons = createAction(
   props<{ payload: boolean }>(),
 );
 
-export const deleteUserWords = createAction(
-  '[Textbook]  delete_User_Words',
-  props<{ payload: { word: IWord; page: string; group: string } }>(),
+export const updateUserWord = createAction(
+  '[Textbook]  update_User_Word',
+  props<{ payload: { word: IWord; page: string; group: string; difficulty: string } }>(),
 );
 
-export const deleteUserWordsSuccess = createAction(
-  '[Textbook]  delete_User_Words_Success',
+export const updateUserWordSuccess = createAction(
+  '[Textbook]  update_User_Word_Success',
   props<{ payload: WordsRequestParams }>(),
 );
 

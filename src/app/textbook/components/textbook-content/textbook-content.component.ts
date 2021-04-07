@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/redux/models/state.model';
 import { selectTotalWordsInGroup, selectWords } from 'src/app/redux/selectors/textbook.selector';
-import { deleteUserWords, loadWords, loadWordsSuccess, markWordAsHard } from '../../../redux/actions/textbooks.actions';
+import { loadWords, loadWordsSuccess, markWordAsHard, updateUserWord } from '../../../redux/actions/textbooks.actions';
 import { links } from './const';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { selectIsAuthorized } from 'src/app/redux/selectors/user.selector';
@@ -53,12 +53,18 @@ export class TextbookContentComponent implements OnInit {
   trackByFnTabs(index: number, item: ITextbookContentTabs) {
     return item.title;
   }
-
-  deleteUserWord(word: IWord) {
-    this.store.dispatch(deleteUserWords({ payload: { word, page: this.currentPage, group: this.currentGroup } }));
+  updateUserWord(event: any) {
+    this.store.dispatch(
+      updateUserWord({
+        payload: { word: event.word, page: this.currentPage, group: this.currentGroup, difficulty: event.difficulty },
+      }),
+    );
   }
+  // deleteUserWord(word: IWord) {
+  //   this.store.dispatch(deleteUserWords({ payload: { word, page: this.currentPage, group: this.currentGroup } }));
+  // }
 
-  hardUserWord(word: IWord) {
-    this.store.dispatch(markWordAsHard({ payload: { word, page: this.currentPage, group: this.currentGroup } }));
-  }
+  // hardUserWord(word: IWord) {
+  //   this.store.dispatch(markWordAsHard({ payload: { word, page: this.currentPage, group: this.currentGroup } }));
+  // }
 }

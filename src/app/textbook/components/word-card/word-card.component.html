@@ -27,7 +27,13 @@
           </div>
         </div>
         <div class="word-card__infoButtons" *ngIf="isSettingButtons$ | async">
-          <button class="word-card__infoButtons-delete" mat-raised-button color="warn" (click)="deleteWord(item)">
+          <button
+            class="word-card__infoButtons-delete"
+            mat-raised-button
+            color="warn"
+            (click)="updateWord(item, 'deleted')"
+            *ngIf="item.userWord?.difficulty !== 'deleted'"
+          >
             Удалить
             <span *ngIf="item.difficulty">Удалено</span>
           </button>
@@ -35,9 +41,19 @@
             class="word-card__infoButtons-hard"
             mat-raised-button
             color="primary"
-            *ngIf="item.userWord?.difficulty !== 'hard'"
+            *ngIf="item.userWord?.difficulty !== 'hard' && item.userWord?.difficulty !== 'deleted'"
+            (click)="updateWord(item, 'hard')"
           >
             Сложное
+          </button>
+          <button
+            class="word-card__infoButtons-hard"
+            mat-raised-button
+            color="primary"
+            *ngIf="item.userWord?.difficulty === 'deleted'"
+            (click)="updateWord(item, 'learning')"
+          >
+            Восстановить
           </button>
 
           <span *ngIf="item.difficulty">Удалено</span>
