@@ -53,7 +53,6 @@ export const initialState: AudiochallengeState = {
 const audiochallengeReducer = createReducer(
   initialState,
   on(wordsLoadedSuccess, (state, { payload }) => {
-    console.log(payload);
     const tempWord = payload[0];
     const tempList: IWord[] = payload.filter((elem: IWord, index: number) => index !== 0);
     return {
@@ -96,6 +95,7 @@ const audiochallengeReducer = createReducer(
           timeStamp: Date.now(),
           result: Answer.CORRECT,
           audio: state.currentWord.audio,
+          userWord: state.currentWord.userWord,
         },
       ],
       audioSrc: SUCCESS_AUDIO_URL,
@@ -118,6 +118,7 @@ const audiochallengeReducer = createReducer(
           timeStamp: Date.now(),
           result: Answer.WRONG,
           audio: state.currentWord.audio,
+          userWord: state.currentWord.userWord,
         },
       ],
       audioSrc: FAIL_AUDIO_URL,

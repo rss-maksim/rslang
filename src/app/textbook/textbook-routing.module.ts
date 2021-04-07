@@ -18,7 +18,12 @@ const routes: Routes = [
           { path: 'book/:group', component: TextbookContentPageComponent, pathMatch: 'full' },
         ],
       },
-      { path: 'dictionary', component: DictionaryContentComponent, pathMatch: 'full' },
+      // { path: 'dictionary', redirectTo: 'dictionary?group=0&page=0&filter=learning', pathMatch: 'full' },
+      {
+        path: 'dictionary',
+        component: DictionaryContentComponent,
+        pathMatch: 'full',
+      },
       { path: 'dictionary/:id', component: DictionaryContentComponent, pathMatch: 'full' },
     ],
   },

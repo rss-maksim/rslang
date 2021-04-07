@@ -42,13 +42,14 @@
 @media screen and (max-width: 650px) {
   .translations {
     flex-direction: column;
+    align-items: center;
+    .option__number {
+      display: none;
+    }
   }
 
   .translations__option {
     border: 1px solid rgba(255, 255, 255, 0.5);
     font-size: 1.2rem;
-  }
-  .option__number {
-    border: 0;
   }
 }

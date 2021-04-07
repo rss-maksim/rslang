@@ -14,4 +14,5 @@ export interface IWord {
   word: string;
   wordTranslate: string;
   wordsPerExampleSentence?: number;
+  userWord?: {};
 }

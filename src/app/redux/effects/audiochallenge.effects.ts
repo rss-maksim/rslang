@@ -35,7 +35,14 @@ export class AudiochallengeEffects {
       ofType(loadWords),
       switchMap(({ payload }) => {
         return this.wordsHttpService.getWords(payload).pipe(
-          map((words) => wordsLoadedSuccess({ payload: this.wordsHelper.shuffleArray(Object.values(words)) })),
+          map((words) => {
+            if (words[0].paginatedResults) {
+              words = words[0].paginatedResults.map((word: any) => {
+                return { ...word, id: word._id };
+              });
+            }
+            return wordsLoadedSuccess({ payload: this.wordsHelper.shuffleArray(Object.values(words)) });
+          }),
           catchError(() => EMPTY),
         );
       }),

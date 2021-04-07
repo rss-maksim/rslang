@@ -8,7 +8,7 @@
   <mat-card-content class="game-card__words-list">
     <p class="game-card__wrong">Ошибок: {{ wrongWords.length }}</p>
     <mat-list>
-      <ng-container *ngFor="let word of trainedWords; trackBy: trackByIdentity">
+      <ng-container *ngFor="let word of trainedWords; index as index; trackBy: trackByIdentity">
         <mat-list-item *ngIf="word.result === answer.WRONG">
           <div>
             <button mat-mini-fab class="actions__btn" aria-label="Pronounce word" (click)="playSound(word.audio)">
@@ -17,7 +17,13 @@
             <span class="game-card__word">{{ word.word }}</span>
             <span class="game-card__translation"> — {{ word.translation }}</span>
           </div>
-          <button mat-mini-fab class="actions__btn delete__btn" aria-label="Delete word">
+          <button
+            mat-mini-fab
+            class="actions__btn delete__btn"
+            aria-label="Delete word"
+            (click)="markAsDeleted(index)"
+            [disabled]="word.userWord?.difficulty === 'deleted'"
+          >
             <i class="material-icons">delete</i>
           </button>
         </mat-list-item>
@@ -26,7 +32,7 @@
     <hr />
     <p class="game-card__correct">Знаю: {{ rightWords.length }}</p>
     <mat-list>
-      <ng-container *ngFor="let word of trainedWords; trackBy: trackByIdentity">
+      <ng-container *ngFor="let word of trainedWords; index as index; trackBy: trackByIdentity">
         <mat-list-item *ngIf="word.result === answer.CORRECT">
           <div>
             <button mat-mini-fab class="actions__btn" aria-label="Pronounce word" (click)="playSound(word.audio)">
@@ -35,7 +41,13 @@
             <span class="game-card__word">{{ word.word }}</span>
             <span class="game-card__translation"> — {{ word.translation }}</span>
           </div>
-          <button mat-mini-fab class="actions__btn delete__btn" aria-label="Delete word">
+          <button
+            mat-mini-fab
+            class="actions__btn delete__btn"
+            aria-label="Delete word"
+            (click)="markAsDeleted(index)"
+            [disabled]="word.userWord?.difficulty === 'deleted'"
+          >
             <i class="material-icons">delete</i>
           </button>
         </mat-list-item>

@@ -14,6 +14,7 @@ export interface WordModel {
 }
 
 export interface UserWordModel {
+  id?: string;
   difficulty?: string;
   optional?: object;
 }
@@ -36,4 +37,9 @@ export interface WordRequestParams {
 
 export interface CountResponsePayload {
   count: number;
+}
+
+export interface UpdateUserWordsRequest {
+  userId: string;
+  words: UserWordModel[];
 }

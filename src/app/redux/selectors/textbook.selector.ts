@@ -16,3 +16,8 @@ export const selectWordSettingsAddButtons = createSelector(
   selectTextbook,
   (state: TextbookState): boolean => state.wordSettingsAddButtons,
 );
+
+export const selectTotalWordsInGroup = createSelector(
+  selectTextbook,
+  (state: TextbookState) => state.totalWordsInGroup,
+);

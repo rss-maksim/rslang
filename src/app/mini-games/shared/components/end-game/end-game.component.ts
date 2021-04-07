@@ -5,6 +5,9 @@ import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 import { Answer } from 'src/app/core/models/IAnswer';
 import { ShortTermStatisticsService } from 'src/app/statistics/services/short-term-statistics/short-term-statistics.service';
 import { LongTermStatisticsService } from 'src/app/statistics/services/long-term-statistics/long-term-statistics.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/redux/models/state.model';
+import { updateUserWords } from 'src/app/redux/actions/textbooks.actions';
 
 @Component({
   selector: 'app-end-game',
@@ -24,6 +27,7 @@ export class EndGameComponent implements OnInit, OnDestroy {
   constructor(
     private shortTermStatisticsService: ShortTermStatisticsService,
     private longTermStatisticsService: LongTermStatisticsService,
+    private store: Store<AppState>,
   ) {}
 
   playSound(path: string) {
@@ -44,10 +48,22 @@ export class EndGameComponent implements OnInit, OnDestroy {
     }
   }
 
+  markAsDeleted(index: number) {
+    if (this.trainedWords) {
+      this.trainedWords = this.trainedWords.map((word, ind) => {
+        if (index === ind) {
+          return { ...word, userWord: { ...word.userWord, difficulty: 'deleted' } };
+        }
+        return word;
+      });
+    }
+  }
+
   ngOnDestroy() {
     if (this.trainedWords && this.trainedWords.length > 0) {
       this.shortTermStatisticsService.setStatistics(this.trainedWords, this.game);
       this.longTermStatisticsService.setStatistics(this.trainedWords, this.game);
+      this.store.dispatch(updateUserWords({ payload: this.trainedWords }));
     }
   }
 }

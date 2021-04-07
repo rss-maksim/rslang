@@ -1,1 +1,50 @@
-<a class="textbook-dictionary__link" (click)="goBack()" mat-raised-button>Назад</a>
+<a *ngIf="isAuthorized$ | async" class="textbook-dictionary__link" [routerLink]="['/textbook']" mat-raised-button
+  >Назад к учебнику</a
+>
+<div class="textbook-dictionary__links">
+  <a
+    *ngIf="isAuthorized$ | async"
+    class="textbook-dictionary__linkHeader"
+    [routerLink]="['/textbook/dictionary']"
+    [queryParams]="{ filter: 'learning', group: 0, page: 0 }"
+    mat-raised-button
+    routerLinkActive="active_link"
+    >Изучаемые <span>слова</span></a
+  >
+  <a
+    *ngIf="isAuthorized$ | async"
+    class="textbook-dictionary__linkHeader"
+    [routerLink]="['/textbook/dictionary']"
+    [queryParams]="{ filter: 'hard', group: 0, page: 0 }"
+    mat-raised-button
+    routerLinkActive="active_link"
+    >Трудные <span>слова</span></a
+  >
+  <a
+    *ngIf="isAuthorized$ | async"
+    class="textbook-dictionary__linkHeader"
+    [routerLink]="['/textbook/dictionary']"
+    [queryParams]="{ filter: 'deleted', group: 0, page: 0 }"
+    mat-raised-button
+    routerLinkActive="active_link"
+    >Удаленные <span>слова</span></a
+  >
+</div>
+
+<app-textbook-tab-nav [currentGroup]="currentGroup" (changeGroupEvent)="setCurrentGroup($event)"></app-textbook-tab-nav>
+
+<div [ngClass]="'tab-content-' + currentGroup" class="textbook-content__cardItems">
+  <app-word-card
+    *ngFor="let item of wordItems$ | async; trackBy: trackByFnWordCard"
+    [item]="item"
+    (updateUserWord)="updateUserWord($event)"
+  ></app-word-card>
+</div>
+
+<app-textbook-pagination
+  (currentPage)="(currentPage)"
+  (paginationEvent)="onPaginateChange($event)"
+></app-textbook-pagination>
+<app-textbook-mini-games
+  [queryParams]="{ page: currentPage, group: currentGroup, filter: filter }"
+></app-textbook-mini-games>

@@ -16,7 +16,6 @@ import { waitForAsync } from '@angular/core/testing';
 import { ThemeService } from 'ng2-charts';
 import { Answer } from 'src/app/core/models/IAnswer';
 
-
 @Component({
   selector: 'app-custom-mini-game',
   templateUrl: './custom-mini-game.component.html',

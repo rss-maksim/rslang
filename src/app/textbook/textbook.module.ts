@@ -14,6 +14,8 @@ import {
 import { TextbookContentPageComponent } from './components/textbook-content-page/textbook-content-page.component';
 import { WordCardComponent } from './components/word-card/word-card.component';
 import { TextbookMiniGamesComponent } from './components/textbook-mini-games/textbook-mini-games.component';
+import { TextbookTabNavComponent } from './components/textbook-tab-nav/textbook-tab-nav.component';
+import { TextbookPaginationComponent } from './components/textbook-pagination/textbook-pagination.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { TextbookMiniGamesComponent } from './components/textbook-mini-games/tex
     TextbookContentPageComponent,
     WordCardComponent,
     TextbookMiniGamesComponent,
+    TextbookTabNavComponent,
+    TextbookPaginationComponent,
   ],
   imports: [CommonModule, MaterialModule, TextbookRoutingModule, FormsModule],
 })

@@ -8,12 +8,13 @@ export const initialState: TextbookState = {
   wordSettingsAddButtons: true,
   wordsHards: [],
   wordsDeleted: [],
+  totalWordsInGroup: 600,
 };
 
 const _textbookReducer = createReducer(
   initialState,
   on(loadWordsSuccess, (state, { payload }) => {
-    return { ...state, words: payload };
+    return { ...state, words: payload.words, totalWordsInGroup: payload.totalWordsInGroup };
   }),
   on(setWordSettingsTranslation, (state, { payload }) => {
     return { ...state, wordSettingsTranslation: payload };

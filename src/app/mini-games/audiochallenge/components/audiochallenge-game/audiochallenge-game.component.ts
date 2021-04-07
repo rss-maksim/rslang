@@ -55,7 +55,6 @@ export class AudiochallengeGameComponent implements OnInit {
   skipWord() {
     this.store.dispatch(translationChoosed());
     this.store.dispatch(wrongAnswer());
-    console.log(this.page, this.group);
   }
 
   nextWord() {
