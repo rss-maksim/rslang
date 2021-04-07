@@ -5,10 +5,11 @@
     <p class="card__text" [ngStyle]="{ color: textColor }">Пожалуйста, выберите сложность игры:</p>
     <span class="card__text" [ngStyle]="{ color: textColor }">Легко</span>
     <mat-slider
+      [disabled]="group"
       min="0"
       max="5"
       step="1"
-      value="1"
+      [value]="difficulty"
       thumbLabel
       color="warn"
       #difficultySlider

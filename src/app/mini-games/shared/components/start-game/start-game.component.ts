@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Games } from 'src/app/core/constants/mini-games';
 
 import { DEFAULT_WORDS_DIFFICULTY } from 'src/app/core/constants/sprint-game';
@@ -9,7 +11,7 @@ import { DEFAULT_WORDS_DIFFICULTY } from 'src/app/core/constants/sprint-game';
   styleUrls: ['./start-game.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StartGameComponent {
+export class StartGameComponent implements OnInit, OnDestroy {
   @Input() hasDifficultySlider = true;
   @Input() gameName = '';
   @Input() textColor = 'black';
@@ -20,6 +22,19 @@ export class StartGameComponent {
   @Output() startGame = new EventEmitter();
   difficulty = DEFAULT_WORDS_DIFFICULTY;
   GAMES = Games;
+  group?: string | undefined;
+  querySubscription?: Subscription;
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.querySubscription = this.route.queryParams.subscribe((queryParam: any) => {
+      this.group = queryParam['group'];
+      if (this.group) {
+        this.difficulty = parseInt(this.group);
+      }
+    });
+  }
 
   onDifficultyChange(value: number | null): void {
     if (value !== null) {
@@ -51,5 +66,9 @@ export class StartGameComponent {
     if (value) {
       this.roundLength.emit(value);
     }
+  }
+
+  ngOnDestroy() {
+    this.querySubscription?.unsubscribe();
   }
 }
