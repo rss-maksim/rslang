@@ -34,12 +34,12 @@ export const setWordSettingsAddButtons = createAction(
 
 export const updateUserWord = createAction(
   '[Textbook]  update_User_Word',
-  props<{ payload: { word: IWord; page: string; group: string; difficulty: string } }>(),
+  props<{ payload: { word: IWord; page: string; group: string; difficulty: string; filter?: string } }>(),
 );
 
 export const updateUserWordSuccess = createAction(
   '[Textbook]  update_User_Word_Success',
-  props<{ payload: WordsRequestParams }>(),
+  props<{ payload: AggregatedWordsRequestParams }>(),
 );
 
 export const updateUserWords = createAction('[Textbook]  update_User_Words', props<{ payload: ITrainedWord[] }>());

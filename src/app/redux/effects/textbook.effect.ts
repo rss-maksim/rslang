@@ -6,13 +6,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { AppState } from '../models/state.model';
 
 import { WordsService } from 'src/app/core/services/words.service';
-import {
-  loadHardWords,
-  loadWords,
-  updateUserWord,
-  updateUserWordSuccess,
-  wordsUpdatedSuccess,
-} from '../actions/textbooks.actions';
+import { loadWords, updateUserWord, updateUserWordSuccess, wordsUpdatedSuccess } from '../actions/textbooks.actions';
 import { updateUserWords } from 'src/app/redux/actions/textbooks.actions';
 import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 import { UserWordModel } from 'src/app/core/models/word.model';
@@ -37,15 +31,19 @@ export class TextbookEffects {
       ofType(loadWords, updateUserWordSuccess),
       concatLatestFrom(() => this.store.select(selectIdIsAuth)),
       mergeMap(([{ payload }, authObj]) => {
-        const { group, page, wordsPerPage } = payload;
+        const { group, page, wordsPerPage, filter } = payload;
         if (authObj.isAuth || this.userId) {
-          console.log('auth');
+          let filterToLoad = filters.textBook;
+          if (filter !== undefined) {
+            filterToLoad = filter;
+          }
+          console.log(filter);
           return this.wordsService
             .getUserAggregatedWords(authObj.userId || this.userId, {
               group,
               page,
-              wordsPerPage,
-              filter: filters.textBook,
+              wordsPerPage: wordsPerPage || '20',
+              filter: filterToLoad,
             })
             .pipe(
               map((item: any) => {
@@ -71,50 +69,32 @@ export class TextbookEffects {
     );
   });
 
-  loadHardDeletedWords$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(loadHardWords),
-      concatLatestFrom(() => this.store.select(selectIdIsAuth)),
-      mergeMap(([{ payload }, authObj]) => {
-        return this.wordsService
-          .getUserAggregatedWords(authObj.userId || this.userId, {
-            ...payload,
-            wordsPerPage: '20',
-          })
-          .pipe(
-            map((item: any) => {
-              const wordsArray = item[0].paginatedResults.map((word: any) => {
-                return { ...word, id: word._id };
-              });
-              const totalWordsInGroup = item[0].totalCount[0]?.count || 0;
-              return {
-                type: '[Textbook]  Load_Words_Success',
-                payload: { words: wordsArray, totalWordsInGroup: +totalWordsInGroup },
-              };
-            }),
-          );
-      }),
-    );
-  });
-
-  deleteWords$ = createEffect(() => {
+  updateWord$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(updateUserWord),
       mergeMap(({ payload }) => {
         console.log(payload);
-        const { word, group, page, difficulty } = payload;
+        const { word, group, page, difficulty, filter } = payload;
+        let filterToLoad = filters.textBook;
+        if (filter !== undefined) {
+          filterToLoad = filters[filter];
+        }
         if (word.userWord) {
           return this.wordsService
             .updateUserWord(this.userId, word.id, {
               difficulty: difficulty,
             })
-            .pipe(map(() => updateUserWordSuccess({ payload: { group, page, wordsPerPage: '20' } })));
+            .pipe(
+              map(() => updateUserWordSuccess({ payload: { group, page, filter: filterToLoad, wordsPerPage: '20' } })),
+            );
         } else {
           return this.wordsService
             .createUserWord(this.userId, word.id, {
               difficulty: difficulty,
             })
-            .pipe(map(() => updateUserWordSuccess({ payload: { group, page, wordsPerPage: '20' } })));
+            .pipe(
+              map(() => updateUserWordSuccess({ payload: { group, page, filter: filterToLoad, wordsPerPage: '20' } })),
+            );
         }
       }),
     );
