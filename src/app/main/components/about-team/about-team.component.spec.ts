@@ -7,23 +7,23 @@ describe('AboutTeamComponent', () => {
   let component: AboutTeamComponent;
   let fixture: ComponentFixture<AboutTeamComponent>;
   let store: MockStore;
+  let initialState = { home: { teammates: [] } };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AboutTeamComponent],
-      providers: [{ provide: provideMockStore, useClass: MockStore }],
+      providers: [provideMockStore({ initialState })],
     }).compileComponents();
+    store = TestBed.inject(MockStore);
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AboutTeamComponent);
-    store = TestBed.inject(MockStore);
-    store.setState([]);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });
