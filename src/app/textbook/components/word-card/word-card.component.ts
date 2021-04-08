@@ -15,6 +15,8 @@ import { IWord } from 'src/app/redux/models/textbook.model';
 })
 export class WordCardComponent {
   @Input() item: any;
+  @Input() correctWordsCount = 0;
+  @Input() wrongWordsCount = 0;
   @Output() updateUserWord = new EventEmitter();
   isTranslation$ = this.store.select(selectWordSettingsTranslation);
   isSettingButtons$ = this.store.select(selectWordSettingsAddButtons);

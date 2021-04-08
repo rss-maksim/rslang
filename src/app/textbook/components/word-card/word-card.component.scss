@@ -27,9 +27,19 @@
   }
 }
 
+.mat-card-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .word-card__text {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
   padding-top: 0.625rem;
   border-top: 1px solid rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
 }
 
 .word-card__info {
@@ -81,4 +91,55 @@
 
 .word_hard {
   color: var(--color-primary);
+}
+
+.word-card__progress {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 140%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  box-sizing: border-box;
+
+  span {
+    font-weight: bold;
+  }
+}
+
+.word-card__progressCountWrapper {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 0.3125rem;
+
+  .word-card__progressCount {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+}
+
+.word-card__progressCount-correct,
+.word-card__progressCount-wrong {
+  margin-right: 0.2125rem;
+}
+
+.word-card__progressCount-correct {
+  color: var(--color-accent);
+}
+
+.word-card__progressCount-wrong {
+  color: var(--color-warn);
+}
+
+.word-tooltip-correct {
+  background: var(--color-accent);
+}
+.word-tooltip-wrong {
+  background: var(--color-warn);
 }

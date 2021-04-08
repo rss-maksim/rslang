@@ -39,6 +39,18 @@
     [item]="item"
     (updateUserWord)="updateUserWord($event)"
   ></app-word-card>
+  <div class="word-statistic">
+    <app-textbook-statistic
+      [totalWordsCount]="0"
+      [correctWordsCount]="0"
+      [wrongWordsCount]="0"
+    ></app-textbook-statistic>
+    <app-textbook-statistic
+      [totalWordsCount]="0"
+      [correctWordsCount]="0"
+      [wrongWordsCount]="0"
+    ></app-textbook-statistic>
+  </div>
 </div>
 
 <app-textbook-pagination
