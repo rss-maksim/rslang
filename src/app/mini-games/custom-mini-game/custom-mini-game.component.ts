@@ -343,6 +343,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   onToggleSound(): void {
     this.soundService.toggleSound();
     this.isSoundOn = this.soundService.isSoundOn;
+    console.log('in onToggleSound. isSoundOn = ', this.isSoundOn);
   }
 
   onSetDifficultyLevel(value: number) {
@@ -355,6 +356,10 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
 
   onSetRoundLength(value: number) {
     this.roundLength = value;
+  }
+
+  onStartGameDialog() {
+    this.isGameStarted = false;
   }
 
   onStartGame() {
@@ -382,7 +387,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     this.countdownTimer = 0;
     this.spinnerValue = 100;
     this.isGamePaused = false;
-    this.isSoundOn = false;
     this.isRoundOver = false;
     this.isGameOver = false;
     this.errorsCounter = 0;
