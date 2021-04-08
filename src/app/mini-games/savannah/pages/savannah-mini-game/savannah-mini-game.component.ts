@@ -8,6 +8,7 @@ import { Games } from 'src/app/core/constants/mini-games';
 import { MatDialog } from '@angular/material/dialog';
 import { CloseGameDialogComponent } from 'src/app/mini-games/shared/components/close-game-dialog/close-game-dialog.component';
 import { UserService } from 'src/app/core/services/user.service';
+import { DEFAULT_DIFFICULTY_LEVEL } from 'src/app/core/constants/common';
 
 @Component({
   selector: 'app-savannah-mini-game',
@@ -18,6 +19,7 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
   gameState = GameState;
   games = Games;
   game!: ISavannahGame;
+  DEFAULT_DIFFICULTY_LEVEL = DEFAULT_DIFFICULTY_LEVEL;
 
   constructor(
     private savannahService: SavannahService,

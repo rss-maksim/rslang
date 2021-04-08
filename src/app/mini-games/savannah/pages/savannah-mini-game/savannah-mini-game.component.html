@@ -41,6 +41,7 @@
   <ng-container *ngSwitchCase="gameState.FINISH">
     <app-end-game
       [trainedWords]="game.trainedWords"
+      [wordsGroup]="game.queryParams.group || DEFAULT_DIFFICULTY_LEVEL"
       [gamePoints]="game.points"
       [game]="games.SAVANNAH"
       (closeGameEvent)="resetGame()"

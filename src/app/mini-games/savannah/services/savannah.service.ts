@@ -74,6 +74,7 @@ export class SavannahService implements OnDestroy {
   }
 
   getWords(difficulty: number, page?: string, filter?: string) {
+    this.game.queryParams.group = difficulty.toString();
     let [page1, page2, page3, page4] = getRandomNumbers(4, page);
     page1 = page !== undefined ? +page : page1;
     this.wordsBatch$ = this.gamesService
