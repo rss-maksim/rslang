@@ -1,0 +1,18 @@
+<div class="word-group__progress">
+  <span class="word-card__progressTitle">Прогресс по разделу: </span>
+  <div class="word-group__progressCountWrapper">
+    <div class="word-group__progressCount">Общее количество слов: {{ totalWordsCount }}</div>
+    <div class="word-group__progressCount" matTooltip="Отвечено верно" matTooltipClass="word-tooltip-correct">
+      <span class="word-group__progressCount-correct">
+        <mat-icon>check_circle_outline</mat-icon>
+      </span>
+      {{ correctWordsCount }}
+    </div>
+    <div class="word-group__progressCount" matTooltip="Отвечено с ошибкой" matTooltipClass="word-tooltip-wrong">
+      <span class="word-group__progressCount-wrong">
+        <mat-icon>highlight_off</mat-icon>
+      </span>
+      {{ wrongWordsCount }}
+    </div>
+  </div>
+</div>

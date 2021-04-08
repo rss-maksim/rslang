@@ -1,0 +1,50 @@
+:host {
+  width: 50%;
+}
+
+.word-group__progress,
+.word-page__progress {
+  min-width: 18.75rem;
+  width: 100%;
+}
+
+.word-group__progress {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-size: 1rem;
+  line-height: 140%;
+  box-sizing: border-box;
+  text-align: center;
+
+  .word-card__progressTitle {
+    display: block;
+    margin: 0.5rem 0;
+    font-weight: bold;
+  }
+}
+
+.word-group__progressCount {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.word-group__progressCount-correct,
+.word-group__progressCount-wrong {
+  margin-right: 0.2125rem;
+}
+
+.word-group__progressCount-correct {
+  color: var(--color-accent);
+}
+
+.word-group__progressCount-wrong {
+  color: var(--color-warn);
+}
+
+.word-tooltip-correct {
+  background: var(--color-accent);
+}
+.word-tooltip-wrong {
+  background: var(--color-warn);
+}

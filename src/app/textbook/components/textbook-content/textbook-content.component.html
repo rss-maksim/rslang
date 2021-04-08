@@ -26,7 +26,21 @@
     *ngFor="let item of wordItems$ | async; trackBy: trackByFnWordCard"
     [item]="item"
     (updateUserWord)="updateUserWord($event)"
+    [correctWordsCount]="0"
+    [wrongWordsCount]="0"
   ></app-word-card>
+  <div class="word-statistic">
+    <app-textbook-statistic
+      [totalWordsCount]="0"
+      [correctWordsCount]="0"
+      [wrongWordsCount]="0"
+    ></app-textbook-statistic>
+    <app-textbook-statistic
+      [totalWordsCount]="0"
+      [correctWordsCount]="0"
+      [wrongWordsCount]="0"
+    ></app-textbook-statistic>
+  </div>
 </div>
 <mat-paginator
   [length]="totalCount$ | async"
