@@ -66,6 +66,7 @@
       <app-end-game
         [trainedWords]="game.trainedWords"
         [gamePoints]="game.points"
+        [wordsGroup]="difficulty || group || DEFAULT_DIFFICULTY_LEVEL"
         (closeGameEvent)="resetGame()"
         [game]="GAMES.SPRINT"
       ></app-end-game>
