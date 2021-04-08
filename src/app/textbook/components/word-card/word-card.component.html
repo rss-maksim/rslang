@@ -26,7 +26,7 @@
             {{ item.wordTranslate }}
           </div>
         </div>
-        <div class="word-card__infoButtons" *ngIf="isSettingButtons$ | async">
+        <div class="word-card__infoButtons" *ngIf="isAuthorized && (isSettingButtons$ | async)">
           <button
             class="word-card__infoButtons-delete"
             mat-raised-button

@@ -25,6 +25,7 @@
   <app-word-card
     *ngFor="let item of wordItems$ | async; trackBy: trackByFnWordCard"
     [item]="item"
+    [isAuthorized]="isAuthorized$ | async"
     (updateUserWord)="updateUserWord($event)"
     [correctWordsCount]="0"
     [wrongWordsCount]="0"
