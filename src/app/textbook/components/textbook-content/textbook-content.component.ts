@@ -15,6 +15,8 @@ import { ITextbookContentTabs } from 'src/app/core/models/ITextbookContentTabs';
   styleUrls: ['./textbook-content.component.scss'],
 })
 export class TextbookContentComponent implements OnInit {
+  groupStatisticTitle = 'Прогресс по разделу';
+  pageStatisticTitle = 'Прогресс по странице';
   currentGroup = '0';
   currentPage = '0';
   tabs = links;

@@ -10,6 +10,7 @@ export class TextbookStatisticComponent {
   @Input() totalWordsCount = 0;
   @Input() correctWordsCount = 0;
   @Input() wrongWordsCount = 0;
+  @Input() title = 'Прогресс';
 
   constructor() {}
 }
