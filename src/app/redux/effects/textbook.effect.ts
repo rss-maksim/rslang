@@ -32,12 +32,11 @@ export class TextbookEffects {
       concatLatestFrom(() => this.store.select(selectIdIsAuth)),
       mergeMap(([{ payload }, authObj]) => {
         const { group, page, wordsPerPage, filter } = payload;
-        if (authObj.isAuth || this.userId) {
+        if (authObj.isAuth) {
           let filterToLoad = filters.textBook;
           if (filter !== undefined) {
             filterToLoad = filter;
           }
-          console.log(filter);
           return this.wordsService
             .getUserAggregatedWords(authObj.userId || this.userId, {
               group,
@@ -47,11 +46,13 @@ export class TextbookEffects {
             })
             .pipe(
               map((item: any) => {
-                console.log(item);
                 const wordsArray = item[0].paginatedResults.map((word: any) => {
                   return { ...word, id: word._id };
                 });
-                const totalWordsInGroup = item[0].totalCount[0].count;
+                let totalWordsInGroup = '0';
+                if (item[0].totalCount[0]) {
+                  totalWordsInGroup = item[0].totalCount[0].count;
+                }
                 return {
                   type: '[Textbook]  Load_Words_Success',
                   payload: { words: wordsArray, totalWordsInGroup: +totalWordsInGroup },
@@ -61,7 +62,6 @@ export class TextbookEffects {
         }
         return this.wordsService.getAll({ group, page }).pipe(
           map((item: any) => {
-            console.log(item, 'getAll');
             return { type: '[Textbook]  Load_Words_Success', payload: { words: item, totalWordsInGroup: 600 } };
           }),
         );
@@ -73,7 +73,6 @@ export class TextbookEffects {
     return this.actions$.pipe(
       ofType(updateUserWord),
       mergeMap(({ payload }) => {
-        console.log(payload);
         const { word, group, page, difficulty, filter } = payload;
         let filterToLoad = filters.textBook;
         if (filter !== undefined) {
@@ -107,7 +106,6 @@ export class TextbookEffects {
         const wordsArr = this.createUserWordsArr(payload);
         return this.wordsService.updateUserWords(this.userId, wordsArr).pipe(
           map((item: any) => {
-            console.log(item);
             return wordsUpdatedSuccess({ payload: item });
           }),
         );
