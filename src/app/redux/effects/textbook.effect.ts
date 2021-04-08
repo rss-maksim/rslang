@@ -37,7 +37,6 @@ export class TextbookEffects {
           if (filter !== undefined) {
             filterToLoad = filter;
           }
-          console.log(filter);
           return this.wordsService
             .getUserAggregatedWords(authObj.userId || this.userId, {
               group,
@@ -51,7 +50,11 @@ export class TextbookEffects {
                 const wordsArray = item[0].paginatedResults.map((word: any) => {
                   return { ...word, id: word._id };
                 });
-                const totalWordsInGroup = item[0].totalCount[0].count;
+                let totalWordsInGroup = '0';
+                if (item[0].totalCount[0]) {
+                  totalWordsInGroup = item[0].totalCount[0].count;
+                }
+                console.log(totalWordsInGroup);
                 return {
                   type: '[Textbook]  Load_Words_Success',
                   payload: { words: wordsArray, totalWordsInGroup: +totalWordsInGroup },
