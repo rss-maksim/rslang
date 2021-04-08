@@ -5,10 +5,12 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomMiniGameComponent } from './custom-mini-game.component';
+import { IWord } from 'src/app/core/models/IWord';
 
 describe('CustomMiniGameComponent', () => {
   let component: CustomMiniGameComponent;
   let fixture: ComponentFixture<CustomMiniGameComponent>;
+  let sourceArrayMock: IWord[] = [];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
