@@ -18,6 +18,7 @@ export class EndGameComponent implements OnInit, OnDestroy {
   @Input() trainedWords!: ITrainedWord[] | null;
   @Input() gamePoints!: number | null;
   @Input() game!: Games;
+  @Input() wordsGroup!: string;
   audio = new Audio();
   answer = Answer;
   rightWords: ITrainedWord[] = [];
@@ -63,8 +64,9 @@ export class EndGameComponent implements OnInit, OnDestroy {
     if (this.trainedWords && this.trainedWords.length > 0) {
       console.log(this.trainedWords);
       this.shortTermStatisticsService.setStatistics(this.trainedWords, this.game);
-      this.longTermStatisticsService.setStatistics(this.trainedWords, this.game);
+      this.longTermStatisticsService.setStatistics(this.trainedWords, this.game, this.wordsGroup);
       this.store.dispatch(updateUserWords({ payload: this.trainedWords }));
+      this.longTermStatisticsService.getStatisticsByGroups()?.subscribe((result) => console.log(result));
     }
   }
 }

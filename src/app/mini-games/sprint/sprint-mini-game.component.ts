@@ -11,9 +11,9 @@ import { Answer } from 'src/app/core/models/IAnswer';
 import { getPointsMultiplier, getRandomNumber, getRandomPages, playSound } from './utils/utils';
 import { Color } from 'src/app/core/constants/sprint-game';
 import { CloseGameDialogComponent } from '../shared/components/close-game-dialog/close-game-dialog.component';
-import { ShortTermStatisticsService } from 'src/app/statistics/services/short-term-statistics/short-term-statistics.service';
 import { Games, ASSETS_API_URL } from 'src/app/core/constants/mini-games';
 import { UserService } from 'src/app/core/services/user.service';
+import { DEFAULT_DIFFICULTY_LEVEL } from 'src/app/core/constants/common';
 
 @Component({
   selector: 'app-sprint-mini-game',
@@ -47,8 +47,10 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   wordsBatch3Subscription?: Subscription;
   GAMES = Games;
   GAME_STATE = GameState;
+  DEFAULT_DIFFICULTY_LEVEL = DEFAULT_DIFFICULTY_LEVEL;
   hasDifficultySlider = true;
   group?: string;
+  difficulty?: string;
   page?: string;
   filter!: string;
 
@@ -56,7 +58,6 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     private gameService: MiniGamesHttpService,
     public closeDialog: MatDialog,
     private route: ActivatedRoute,
-    private shortTermStatisticsService: ShortTermStatisticsService,
     private userService: UserService,
   ) {}
 
@@ -92,6 +93,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     let page3ToGet = '';
 
     if (difficulty !== undefined) {
+      this.difficulty = difficulty.toString();
       groupToGet = difficulty.toString();
     }
 
@@ -250,7 +252,6 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
 
   gameOver(): void {
     this.game.gameState = GameState.OVER;
-    this.shortTermStatisticsService.setStatistics(this.game.trainedWords, Games.SPRINT);
   }
 
   launchRipple(answer: string): void {

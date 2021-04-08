@@ -15,6 +15,7 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { waitForAsync } from '@angular/core/testing';
 import { ThemeService } from 'ng2-charts';
 import { Answer } from 'src/app/core/models/IAnswer';
+import { DEFAULT_DIFFICULTY_LEVEL } from 'src/app/core/constants/common';
 
 @Component({
   selector: 'app-custom-mini-game',
@@ -58,6 +59,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   spinnerMode: ProgressSpinnerMode = 'determinate';
   spinnerValue = 100;
   loading = false;
+  DEFAULT_DIFFICULTY_LEVEL = DEFAULT_DIFFICULTY_LEVEL;
 
   private querySubscription?: Subscription;
 

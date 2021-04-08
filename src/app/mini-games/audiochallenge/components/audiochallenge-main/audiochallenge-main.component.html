@@ -15,6 +15,7 @@
   <app-end-game
     *ngIf="isGameEnded | async; else endGameBlock"
     [trainedWords]="trainedWords$ | async"
+    [wordsGroup]="difficulty || group || DEFAULT_DIFFICULTY_LEVEL"
     [game]="games.AUDIOCHALLENGE"
     (closeGameEvent)="clearGame()"
   ></app-end-game>

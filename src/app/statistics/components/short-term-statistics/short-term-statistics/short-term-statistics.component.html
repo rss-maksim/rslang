@@ -1,4 +1,4 @@
-<mat-tab-group class="stats" mat-align-tabs="center" [ngStyle]="{ 'background-color': '#fdfdfd' }">
+<mat-tab-group class="stats" mat-align-tabs="center" [ngStyle]="{ 'background-color': '#fdfdfd', 'max-width': '95vw' }">
   <mat-tab *ngFor="let stat of stats" label="{{ stat.gameName }}">
     <p class="stats__row">
       <span class="stats__title">Изученные слова за день</span>
