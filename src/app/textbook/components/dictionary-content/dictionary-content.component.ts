@@ -18,6 +18,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./dictionary-content.component.scss'],
 })
 export class DictionaryContentComponent implements OnInit, OnDestroy {
+  groupStatisticTitle = 'Прогресс по разделу';
+  pageStatisticTitle = 'Прогресс по странице';
   currentGroup = '0';
   currentPage = '0';
   filter = '';
