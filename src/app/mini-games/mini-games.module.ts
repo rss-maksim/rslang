@@ -28,8 +28,6 @@ import { LevelChoiseComponent } from './audiochallenge/components/level-choise/l
 import { CloseGameDialogComponent } from './shared/components/close-game-dialog/close-game-dialog.component';
 import { EndGameComponent } from './shared/components/end-game/end-game.component';
 import { CustomMiniGameComponent } from './custom-mini-game/custom-mini-game.component';
-import { CloseDialogComponent } from './custom-mini-game/close-dialog/close-dialog.component';
-import { StartDialogComponent } from './custom-mini-game/start-dialog/start-dialog.component';
 
 @NgModule({
   declarations: [
@@ -54,8 +52,6 @@ import { StartDialogComponent } from './custom-mini-game/start-dialog/start-dial
     CloseGameDialogComponent,
     EndGameComponent,
     CustomMiniGameComponent,
-    CloseDialogComponent,
-    StartDialogComponent,
   ],
   imports: [
     CommonModule,
