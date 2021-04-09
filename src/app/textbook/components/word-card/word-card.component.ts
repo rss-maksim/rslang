@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/redux/models/state.model';
 import { selectWordSettingsAddButtons, selectWordSettingsTranslation } from 'src/app/redux/selectors/textbook.selector';
@@ -13,7 +13,7 @@ import { IWord } from 'src/app/redux/models/textbook.model';
   templateUrl: './word-card.component.html',
   styleUrls: ['./word-card.component.scss'],
 })
-export class WordCardComponent {
+export class WordCardComponent implements OnInit {
   @Input() item: any;
   @Input() correctWordsCount = 0;
   @Input() wrongWordsCount = 0;
@@ -23,7 +23,13 @@ export class WordCardComponent {
 
   constructor(private store: Store<AppState>, public api: ApiService) {}
 
+  ngOnInit() {
+    this.correctWordsCount = +this.item.userWord?.optional?.correctAnswers || 0;
+    this.wrongWordsCount = +this.item.userWord?.optional?.wrongAnswers || 0;
+  }
+
   wordSound(arr: any) {
+    console.log(this.item);
     let audioArr: string[] = arr.map((str: string) => `${this.api.githubAssetUrl}/${str}`);
     playRawSoundArr(audioArr);
   }

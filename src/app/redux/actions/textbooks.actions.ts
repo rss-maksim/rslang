@@ -18,7 +18,9 @@ export const loadHardWords = createAction(
 
 export const loadWordsSuccess = createAction(
   '[Textbook]  Load_Words_Success',
-  props<{ payload: { words: IWord[]; totalWordsInGroup: number } }>(),
+  props<{
+    payload: { words: IWord[]; totalWordsInGroup: number; userWordsInGroup: number; userWordsOnPage: number };
+  }>(),
 );
 
 export const getWordSettingsTranslation = createAction('[Textbook]  get_word_Settings_Translation');

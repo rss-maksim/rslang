@@ -8,6 +8,8 @@ import { LongTermStatisticsService } from 'src/app/statistics/services/long-term
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/redux/models/state.model';
 import { updateUserWords } from 'src/app/redux/actions/textbooks.actions';
+import { Subscription } from 'rxjs';
+import { selectIsAuthorized } from 'src/app/redux/selectors/user.selector';
 
 @Component({
   selector: 'app-end-game',
@@ -22,6 +24,8 @@ export class EndGameComponent implements OnInit, OnDestroy {
   answer = Answer;
   rightWords: ITrainedWord[] = [];
   wrongWords: ITrainedWord[] = [];
+  authSubscribition!: Subscription;
+  isAuthorized!: boolean;
   @Output() closeGameEvent = new EventEmitter();
 
   constructor(
@@ -42,6 +46,7 @@ export class EndGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.authSubscribition = this.store.select(selectIsAuthorized).subscribe((value) => (this.isAuthorized = value));
     if (this.trainedWords && this.trainedWords.length > 0) {
       this.rightWords = this.trainedWords.filter((word) => word.result === Answer.CORRECT);
       this.wrongWords = this.trainedWords.filter((word) => word.result === Answer.WRONG);
@@ -61,10 +66,12 @@ export class EndGameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.trainedWords && this.trainedWords.length > 0) {
-      console.log(this.trainedWords);
       this.shortTermStatisticsService.setStatistics(this.trainedWords, this.game);
-      this.longTermStatisticsService.setStatistics(this.trainedWords, this.game);
-      this.store.dispatch(updateUserWords({ payload: this.trainedWords }));
+      if (this.isAuthorized) {
+        this.store.dispatch(updateUserWords({ payload: this.trainedWords }));
+        this.longTermStatisticsService.setStatistics(this.trainedWords, this.game);
+      }
     }
+    this.authSubscribition.unsubscribe();
   }
 }
