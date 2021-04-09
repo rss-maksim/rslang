@@ -32,13 +32,14 @@ export class TextbookEffects {
       concatLatestFrom(() => this.store.select(selectIdIsAuth)),
       mergeMap(([{ payload }, authObj]) => {
         const { group, page, wordsPerPage, filter } = payload;
+        const userId = authObj.userId || this.userServise.getUserId();
         if (authObj.isAuth) {
           let filterToLoad = filters.textBook;
           if (filter !== undefined) {
             filterToLoad = filter;
           }
           return this.wordsService
-            .getUserAggregatedWords(authObj.userId || this.userId, {
+            .getUserAggregatedWords(userId, {
               group,
               page,
               wordsPerPage: wordsPerPage || '20',

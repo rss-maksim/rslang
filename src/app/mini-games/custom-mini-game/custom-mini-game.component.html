@@ -82,6 +82,7 @@
       <app-end-game
         *ngIf="isResultsShown"
         [trainedWords]="trainedWords"
+        [wordsGroup]="difficultyLevel.toString() || group || DEFAULT_DIFFICULTY_LEVEL"
         [game]="games.CUSTOM_GAME"
         (closeGameEvent)="onStartGameDialog()"
       >

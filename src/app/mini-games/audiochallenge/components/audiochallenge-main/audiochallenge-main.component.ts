@@ -15,6 +15,7 @@ import {
 import { Games } from 'src/app/core/constants/mini-games';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
+import { DEFAULT_DIFFICULTY_LEVEL } from 'src/app/core/constants/common';
 
 @Component({
   selector: 'app-audiochallenge-main',
@@ -32,6 +33,7 @@ export class AudiochallengeMainComponent implements OnInit, OnDestroy {
   filter!: string;
   trainedWords$!: Observable<ITrainedWord[]>;
   userId: string | null = this.userService.getUserId();
+  DEFAULT_DIFFICULTY_LEVEL = DEFAULT_DIFFICULTY_LEVEL;
 
   private querySubscription!: Subscription;
 

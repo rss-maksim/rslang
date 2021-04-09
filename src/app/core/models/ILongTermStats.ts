@@ -1,6 +1,10 @@
+import { Answer } from './IAnswer';
+
 export type Training = {
   timeStamp: number;
   wordsIds: string[];
+  answers: Answer[];
+  wordsGroup: string;
 };
 
 export interface ILongTermStats {
@@ -10,5 +14,13 @@ export interface ILongTermStats {
     statistics: {
       trainings: Array<Training>;
     };
+  };
+}
+
+export interface ILongTermStatsByGroups {
+  [wordGroup: string]: {
+    learnedWords: Set<string>;
+    correctAnswers: number;
+    wrongAnswers: number;
   };
 }

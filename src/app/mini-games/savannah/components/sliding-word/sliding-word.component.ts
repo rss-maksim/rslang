@@ -43,6 +43,9 @@ export class SlidingWordComponent implements OnChanges, AfterViewInit {
   }
 
   animate(bool: boolean) {
+    if (this.unClicked !== 'slide') {
+      return;
+    }
     this.unClicked = bool ? 'right' : 'wrong';
     this.destroy('slide');
     bool ? this.rightAnimation() : this.wrongAnimation();
