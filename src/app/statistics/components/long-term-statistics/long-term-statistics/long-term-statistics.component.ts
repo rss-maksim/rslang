@@ -15,6 +15,8 @@ import {
 } from 'src/app/core/constants/statistics';
 import { LongTermStatisticsService } from 'src/app/statistics/services/long-term-statistics/long-term-statistics.service';
 import { Training } from 'src/app/core/models/ILongTermStats';
+import { StatisticsService } from 'src/app/core/services/statistics.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-long-term-statistics',
@@ -66,7 +68,11 @@ export class LongTermStatisticsComponent implements OnInit {
   isError = false;
   errorMessage = '';
 
-  constructor(private longTermStatistics: LongTermStatisticsService) {}
+  constructor(
+    private longTermStatistics: LongTermStatisticsService,
+    private statisticsService: StatisticsService,
+    private userService: UserService,
+  ) {}
 
   ngOnInit(): void {
     const userStatistics$ = this.longTermStatistics.getStatistics();
@@ -92,9 +98,29 @@ export class LongTermStatisticsComponent implements OnInit {
           userStatisticsSubscription.unsubscribe();
         },
         (error) => {
+          if (error.statusText === 'Not Found') {
+            const userId = this.userService.getUserId();
+            if (!userId) {
+              return;
+            }
+            const statisticsToSend = {
+              learnedWords: 0,
+              optional: {
+                statistics: {
+                  trainings: [],
+                },
+              },
+            };
+            const statisticsSubscription: Subscription = this.statisticsService
+              .updateUserStatistics(userId, statisticsToSend)
+              .subscribe(() => {
+                statisticsSubscription.unsubscribe();
+              });
+          } else {
+            this.isError = true;
+            this.errorMessage = error.message;
+          }
           this.isLoading = false;
-          this.isError = true;
-          this.errorMessage = error.message;
         },
       );
     }

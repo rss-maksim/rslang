@@ -66,7 +66,6 @@ export class EndGameComponent implements OnInit, OnDestroy {
       this.shortTermStatisticsService.setStatistics(this.trainedWords, this.game);
       this.longTermStatisticsService.setStatistics(this.trainedWords, this.game, this.wordsGroup);
       this.store.dispatch(updateUserWords({ payload: this.trainedWords }));
-      this.longTermStatisticsService.getStatisticsByGroups()?.subscribe((result) => console.log(result));
     }
   }
 }
