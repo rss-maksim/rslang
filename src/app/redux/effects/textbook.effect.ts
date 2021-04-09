@@ -12,7 +12,7 @@ import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 import { UserWordModel } from 'src/app/core/models/word.model';
 import { filters } from 'src/app/core/constants/textbook';
 import { Answer } from 'src/app/core/models/IAnswer';
-import { selectIdIsAuth } from '../selectors/user.selector';
+import { selectIdIsAuth, selectUserId } from '../selectors/user.selector';
 
 @Injectable()
 export class TextbookEffects {
@@ -73,15 +73,17 @@ export class TextbookEffects {
   updateWord$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(updateUserWord),
-      mergeMap(({ payload }) => {
+      concatLatestFrom(() => this.store.select(selectUserId)),
+      mergeMap(([{ payload }, authId]) => {
         const { word, group, page, difficulty, filter } = payload;
+        const userId = authId || this.userServise.getUserId();
         let filterToLoad = filters.textBook;
         if (filter !== undefined) {
           filterToLoad = filters[filter];
         }
         if (word.userWord) {
           return this.wordsService
-            .updateUserWord(this.userId, word.id, {
+            .updateUserWord(userId, word.id, {
               difficulty: difficulty,
             })
             .pipe(
@@ -89,7 +91,7 @@ export class TextbookEffects {
             );
         } else {
           return this.wordsService
-            .createUserWord(this.userId, word.id, {
+            .createUserWord(userId, word.id, {
               difficulty: difficulty,
             })
             .pipe(
