@@ -10,7 +10,7 @@ import { ShuffleService } from './services/shuffle.service';
 import { SoundService } from './services/sound.service';
 import { Games } from 'src/app/core/constants/mini-games';
 import { UserService } from 'src/app/core/services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { waitForAsync } from '@angular/core/testing';
 import { ThemeService } from 'ng2-charts';
@@ -70,6 +70,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     private httpService: MiniGamesHttpService,
     private userService: UserService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -330,16 +331,20 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     }
     setTimeout(() => {
       this.isResultsShown = true;
+      this.isGameStarted = false;
     }, this.gameOverSoundDelay);
   }
 
   onCloseDialog(): void {
-    this.isGamePaused = true;
-    const dialogRef = this.dialog.open(CloseGameDialogComponent, {});
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.isGamePaused = false;
-    });
+    if (this.isGameStarted) {
+      this.isGamePaused = true;
+      const dialogRef = this.dialog.open(CloseGameDialogComponent, {});
+      dialogRef.afterClosed().subscribe(() => {
+        this.isGamePaused = false;
+      });
+    } else {
+      this.router.navigate(['mini-games']);
+    }
   }
 
   onToggleSound(): void {

@@ -13,9 +13,10 @@ import {
   selectTrainedWords,
 } from 'src/app/redux/selectors/audiochallenge.selectors';
 import { Games } from 'src/app/core/constants/mini-games';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { DEFAULT_DIFFICULTY_LEVEL } from 'src/app/core/constants/common';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-audiochallenge-main',
@@ -42,6 +43,7 @@ export class AudiochallengeMainComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private userService: UserService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -66,7 +68,13 @@ export class AudiochallengeMainComponent implements OnInit, OnDestroy {
     }
   }
   openDialog() {
-    this.dialog.open(CloseGameDialogComponent);
+    this.isGameStarted$.pipe(take(1)).subscribe((started) => {
+      if (started) {
+        this.dialog.open(CloseGameDialogComponent);
+      } else {
+        this.router.navigate(['mini-games']);
+      }
+    });
   }
   clearGame() {
     this.store.dispatch(closeGame());

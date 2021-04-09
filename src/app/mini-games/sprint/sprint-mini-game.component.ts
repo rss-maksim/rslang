@@ -59,6 +59,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     public closeDialog: MatDialog,
     private route: ActivatedRoute,
     private userService: UserService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -273,11 +274,15 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   }
 
   openCloseDialog(): void {
-    this.game.isPaused = true;
-    this.closeDialog.open(CloseGameDialogComponent);
-    this.closeDialogSubsription = this.closeDialog.afterAllClosed.subscribe(() => {
-      this.game.isPaused = false;
-    });
+    if (this.game.gameState === GameState.PLAY) {
+      this.game.isPaused = true;
+      this.closeDialog.open(CloseGameDialogComponent);
+      this.closeDialogSubsription = this.closeDialog.afterAllClosed.subscribe(() => {
+        this.game.isPaused = false;
+      });
+    } else {
+      this.router.navigate(['mini-games']);
+    }
   }
 
   resetGame(): void {
