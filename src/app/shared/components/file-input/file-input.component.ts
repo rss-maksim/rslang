@@ -17,7 +17,9 @@ export class FileInputComponent {
       const file = target.files[0];
       const reader = new FileReader();
       reader.onload = () => this.loadFileEvent.emit(reader?.result?.toString());
-      reader.readAsDataURL(file);
+      if (file) {
+        reader.readAsDataURL(file);
+      }
     }
   }
 
