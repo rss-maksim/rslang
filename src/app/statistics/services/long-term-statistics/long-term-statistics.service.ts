@@ -22,7 +22,6 @@ export class LongTermStatisticsService {
 
   getStatisticsByGroups(): Observable<ILongTermStatsByGroups> | null {
     const statistics = this.getStatistics();
-
     if (statistics) {
       return statistics.pipe(
         map((stats) => {
@@ -68,17 +67,44 @@ export class LongTermStatisticsService {
       return;
     }
 
-    const statisticsSubscription: Subscription = userStatistics$.subscribe((prevStatistics) => {
-      delete prevStatistics?.id;
-      console.log(prevStatistics);
-      const statisticsToSend = this.addStatistics(prevStatistics, trainedWords, wordsGroup);
-      const statisticsUpdateSubscription: Subscription = this.statisticsService
-        .updateUserStatistics(userId, statisticsToSend)
-        .subscribe(() => {
-          statisticsUpdateSubscription.unsubscribe();
-        });
-      statisticsSubscription.unsubscribe();
-    });
+    const statisticsSubscription: Subscription = userStatistics$.subscribe(
+      (prevStatistics) => {
+        delete prevStatistics?.id;
+        console.log(prevStatistics);
+        const statisticsToSend = this.addStatistics(prevStatistics, trainedWords, wordsGroup);
+        const statisticsUpdateSubscription: Subscription = this.statisticsService
+          .updateUserStatistics(userId, statisticsToSend)
+          .subscribe(() => {
+            statisticsUpdateSubscription.unsubscribe();
+          });
+        statisticsSubscription.unsubscribe();
+      },
+      (error) => {
+        if (error.statusText === 'Not Found') {
+          const statisticsToSend = {
+            learnedWords: trainedWords.length,
+            optional: {
+              statistics: {
+                trainings: [
+                  {
+                    timeStamp: Date.now(),
+                    wordsIds: trainedWords.map((word) => word.id),
+                    answers: trainedWords.map((word) => word.result),
+                    wordsGroup,
+                  },
+                ],
+              },
+            },
+          };
+          const statisticsUpdateSubscription: Subscription = this.statisticsService
+            .updateUserStatistics(userId, statisticsToSend)
+            .subscribe(() => {
+              statisticsUpdateSubscription.unsubscribe();
+            });
+          statisticsSubscription.unsubscribe();
+        }
+      },
+    );
   }
 
   private addStatistics(prevStats: ILongTermStats, trainedWords: ITrainedWord[], wordsGroup: string): ILongTermStats {
