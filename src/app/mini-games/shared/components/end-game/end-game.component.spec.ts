@@ -5,10 +5,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EndGameComponent } from './end-game.component';
 import { Answer } from 'src/app/core/models/IAnswer';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 describe('EndGameComponent', () => {
   let component: EndGameComponent;
   let fixture: ComponentFixture<EndGameComponent>;
+  let store: MockStore;
+  let initialState = {};
   let mockWord: ITrainedWord = {
     id: '1',
     word: 'word',
@@ -21,8 +24,10 @@ describe('EndGameComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [EndGameComponent],
       imports: [RouterTestingModule, HttpClientTestingModule],
+      providers: [provideMockStore({ initialState })],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
+    store = TestBed.inject(MockStore);
   });
 
   beforeEach(() => {

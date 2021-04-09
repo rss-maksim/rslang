@@ -23,4 +23,10 @@ describe('FileInputComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit empty on remove clicked', () => {
+    spyOn(component.loadFileEvent, 'emit');
+    component.remove(new Event('click'));
+    expect(component.loadFileEvent.emit).toHaveBeenCalledWith();
+  });
 });

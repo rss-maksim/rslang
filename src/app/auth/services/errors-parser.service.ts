@@ -7,9 +7,9 @@ interface FormControlError {
   message: string;
 }
 
-interface HttpError {
+export interface HttpError {
   status: string;
-  errors: FormControlError;
+  errors: FormControlError[];
 }
 
 @Injectable({
@@ -19,7 +19,7 @@ export class ErrorsParserService {
   constructor() {}
 
   parseError(error: HttpError): string {
-    if (Array.isArray(error.errors)) {
+    if (Array.isArray(error.errors) && error.errors.length) {
       const [{ message }] = error.errors;
       return message ?? defaultErrorText;
     }
