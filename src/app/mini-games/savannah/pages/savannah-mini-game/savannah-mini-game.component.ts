@@ -1,6 +1,6 @@
 import { ISavannahGame } from 'src/app/core/models/ISavannahGame';
 import { SavannahService } from './../../services/savannah.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GameState } from './../../../../core/models/ISavannahGame';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -26,6 +26,7 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
     public closeDialog: MatDialog,
     private route: ActivatedRoute,
     private userService: UserService,
+    private router: Router,
   ) {}
   closeDialogSubsription?: Subscription;
   routeSubscription$?: Subscription;
@@ -62,11 +63,15 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
   }
 
   openCloseDialog() {
-    this.savannahService.setPause(true);
-    this.closeDialog.open(CloseGameDialogComponent);
-    this.closeDialogSubsription = this.closeDialog.afterAllClosed.subscribe(() => {
-      this.savannahService.setPause(false);
-    });
+    if (this.game.gameState === GameState.PLAY) {
+      this.savannahService.setPause(true);
+      this.closeDialog.open(CloseGameDialogComponent);
+      this.closeDialogSubsription = this.closeDialog.afterAllClosed.subscribe(() => {
+        this.savannahService.setPause(false);
+      });
+    } else {
+      this.router.navigate(['mini-games']);
+    }
   }
 
   resetGame() {
