@@ -11,6 +11,7 @@ import {
   ElementRef,
   AfterViewInit,
   OnChanges,
+  OnDestroy,
 } from '@angular/core';
 
 @Component({
@@ -19,7 +20,7 @@ import {
   styleUrls: ['./sliding-word.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SlidingWordComponent implements OnChanges, AfterViewInit {
+export class SlidingWordComponent implements OnChanges, AfterViewInit, OnDestroy {
   @ViewChild('wordElement') wordElement!: ElementRef;
   @Input() word!: string;
   @Output() wordGone = new EventEmitter<boolean>();
@@ -27,12 +28,12 @@ export class SlidingWordComponent implements OnChanges, AfterViewInit {
   private rightPlayer!: AnimationPlayer;
   private wrongPlayer!: AnimationPlayer;
   constructor(private builder: AnimationBuilder, private savannahService: SavannahService) {}
-  unClicked = 'slide';
+  animationState = 'slide';
 
   ngOnChanges(changes: any) {
     if (changes.word.previousValue) {
-      this.destroy(this.unClicked);
-      this.unClicked = 'slide';
+      this.destroy(this.animationState);
+      this.animationState = 'slide';
       this.wordElement.nativeElement.style = { bottom: '*', width: 'fit-content', opacity: 1 };
       this.slideAnimation();
     }
@@ -42,11 +43,15 @@ export class SlidingWordComponent implements OnChanges, AfterViewInit {
     this.slideAnimation();
   }
 
+  ngOnDestroy(): void {
+    this.animationState = '';
+  }
+
   animate(bool: boolean) {
-    if (this.unClicked !== 'slide') {
+    if (this.animationState !== 'slide') {
       return;
     }
-    this.unClicked = bool ? 'right' : 'wrong';
+    this.animationState = bool ? 'right' : 'wrong';
     this.destroy('slide');
     bool ? this.rightAnimation() : this.wrongAnimation();
   }
@@ -64,7 +69,7 @@ export class SlidingWordComponent implements OnChanges, AfterViewInit {
       .create(this.wordElement.nativeElement);
     this.slidePlayer.play();
     this.slidePlayer.onDone(() => {
-      if (this.unClicked === 'slide') {
+      if (this.animationState === 'slide') {
         this.savannahService.playSound(false);
         this.emit(false);
       }

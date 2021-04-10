@@ -8,7 +8,6 @@ import { ChangeDetectionStrategy, Component, HostListener, Inject, Input, OnDest
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FullScreenButtonComponent implements OnInit, OnDestroy {
-  @Input() color = 'primary'; // primary || accent || warn || disabled
   elem!: Element;
   isFullScreen = false;
   constructor(@Inject(DOCUMENT) private document: any) {}

@@ -44,6 +44,10 @@ $font-size-xm: 1.25rem;
   position: absolute;
   bottom: 1rem;
   right: 1rem;
+
+  ::ng-deep button {
+    color: var(--color-dark-background);
+  }
 }
 
 .margins-top-bottom {
