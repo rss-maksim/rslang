@@ -1,19 +1,21 @@
 @import "../../../../styles/variables";
 
 :host {
-  background: rgba(var(--color-primary-rgb), 0.3);
   display: flex;
+  background: url("../../../../assets/images/home//bg-elements-3.svg"),
+    url("../../../../assets/images/home/bg-elements-1.svg");
 }
 
 .home-page {
   margin: 3rem 0;
 
   &__description-block {
+    background: url("../../../../assets/images/home//bg-elements-3.svg") no-repeat top;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
-
+    min-height: 86vh;
     @media screen and (max-width: $tablet-breakpoint) {
       flex-direction: column;
     }
@@ -28,7 +30,9 @@
     width: 50%;
     min-height: 400px;
     flex-shrink: 0;
-    background-image: url("../../../../assets/images/home/globe.svg");
+    background-image: url("../../../../assets/images/home/girl.svg"),
+      url("../../../../assets/images/home//bg-elements-3.svg");
+    transform: scale(-1, 1) rotate(50deg);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -43,7 +47,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px dashed var(--color-primary);
     border-radius: 44%;
     padding: 2rem;
   }
