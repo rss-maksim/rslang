@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { mergeMap, map } from 'rxjs/operators';
+import { mergeMap, map, delay } from 'rxjs/operators';
 import { UserService } from 'src/app/core/services/user.service';
 import { AppState } from '../models/state.model';
 
@@ -27,47 +27,49 @@ export class TextbookEffects {
   userId = this.userServise.getUserId();
 
   loadWords$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(loadWords, updateUserWordSuccess),
-      concatLatestFrom(() => this.store.select(selectIdIsAuth)),
-      mergeMap(([{ payload }, authObj]) => {
-        const { group, page, wordsPerPage, filter } = payload;
-        const userId = authObj.userId || this.userServise.getUserId();
-        if (authObj.isAuth) {
-          let filterToLoad = filters.textBook;
-          if (filter !== undefined) {
-            filterToLoad = filter;
+    return this.actions$
+      .pipe(
+        ofType(loadWords, updateUserWordSuccess),
+        concatLatestFrom(() => this.store.select(selectIdIsAuth)),
+        mergeMap(([{ payload }, authObj]) => {
+          const { group, page, wordsPerPage, filter } = payload;
+          const userId = authObj.userId || this.userServise.getUserId();
+          if (authObj.isAuth) {
+            let filterToLoad = filters.textBook;
+            if (filter !== undefined) {
+              filterToLoad = filter;
+            }
+            return this.wordsService
+              .getUserAggregatedWords(userId, {
+                group,
+                page,
+                wordsPerPage: wordsPerPage || '20',
+                filter: filterToLoad,
+              })
+              .pipe(
+                map((item: any) => {
+                  const wordsArray = item[0].paginatedResults.map((word: any) => {
+                    return { ...word, id: word._id };
+                  });
+                  let totalWordsInGroup = '0';
+                  if (item[0].totalCount[0]) {
+                    totalWordsInGroup = item[0].totalCount[0].count;
+                  }
+                  return {
+                    type: '[Textbook]  Load_Words_Success',
+                    payload: { words: wordsArray, totalWordsInGroup: +totalWordsInGroup },
+                  };
+                }),
+              );
           }
-          return this.wordsService
-            .getUserAggregatedWords(userId, {
-              group,
-              page,
-              wordsPerPage: wordsPerPage || '20',
-              filter: filterToLoad,
-            })
-            .pipe(
-              map((item: any) => {
-                const wordsArray = item[0].paginatedResults.map((word: any) => {
-                  return { ...word, id: word._id };
-                });
-                let totalWordsInGroup = '0';
-                if (item[0].totalCount[0]) {
-                  totalWordsInGroup = item[0].totalCount[0].count;
-                }
-                return {
-                  type: '[Textbook]  Load_Words_Success',
-                  payload: { words: wordsArray, totalWordsInGroup: +totalWordsInGroup },
-                };
-              }),
-            );
-        }
-        return this.wordsService.getAll({ group, page }).pipe(
-          map((item: any) => {
-            return { type: '[Textbook]  Load_Words_Success', payload: { words: item, totalWordsInGroup: 600 } };
-          }),
-        );
-      }),
-    );
+          return this.wordsService.getAll({ group, page }).pipe(
+            map((item: any) => {
+              return { type: '[Textbook]  Load_Words_Success', payload: { words: item, totalWordsInGroup: 600 } };
+            }),
+          );
+        }),
+      )
+      .pipe(delay(700));
   });
 
   updateWord$ = createEffect(() => {

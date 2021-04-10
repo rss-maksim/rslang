@@ -21,3 +21,4 @@ export const selectTotalWordsInGroup = createSelector(
   selectTextbook,
   (state: TextbookState) => state.totalWordsInGroup,
 );
+export const selectLoading = createSelector(selectTextbook, (state: TextbookState) => state.loading);

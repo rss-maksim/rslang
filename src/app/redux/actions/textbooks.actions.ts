@@ -50,3 +50,4 @@ export const wordsUpdatedSuccess = createAction(
   '[Textbook]  update_User_Words_Success',
   props<{ payload: UserWordModel[] }>(),
 );
+export const setLoader = createAction('[Textbook]  set_Loader', props<{ payload: boolean }>());

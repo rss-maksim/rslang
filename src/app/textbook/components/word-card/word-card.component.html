@@ -69,7 +69,7 @@
       <div class="word-card__textMeaningTranslate" *ngIf="isTranslation$ | async">
         {{ item.textMeaningTranslate }}
       </div>
-      <div class="word-card__progress">
+      <div class="word-card__progress" *ngIf="isAuthorized">
         <span>Прогресс: </span>
         <div class="word-card__progressCountWrapper">
           <div class="word-card__progressCount" matTooltip="Отвечено верно" matTooltipClass="word-tooltip-correct">

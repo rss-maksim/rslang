@@ -27,6 +27,7 @@ export interface TextbookState {
   wordsHards: IWord[];
   wordsDeleted: IWord[];
   totalWordsInGroup: number;
+  loading: boolean;
 }
 
 export interface TextbookUrlParams {
