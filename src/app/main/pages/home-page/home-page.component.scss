@@ -16,6 +16,7 @@
     align-items: center;
     flex-wrap: nowrap;
     min-height: 86vh;
+
     @media screen and (max-width: $tablet-breakpoint) {
       flex-direction: column;
     }
