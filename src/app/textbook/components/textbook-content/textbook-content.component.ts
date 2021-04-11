@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/redux/models/state.model';
-import { selectTotalWordsInGroup, selectWords } from 'src/app/redux/selectors/textbook.selector';
+import { selectLoading, selectTotalWordsInGroup, selectWords } from 'src/app/redux/selectors/textbook.selector';
 import { loadWords, updateUserWord } from '../../../redux/actions/textbooks.actions';
 import { links } from './const';
 import { ActivatedRoute, Route, Router } from '@angular/router';
@@ -24,6 +24,7 @@ export class TextbookContentComponent implements OnInit {
   wordItems$ = this.store.select(selectWords);
   isAuthorized$ = this.store.select(selectIsAuthorized);
   totalCount$ = this.store.select(selectTotalWordsInGroup);
+  isLoading$ = this.store.select(selectLoading);
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute, private router: Router) {}
 
