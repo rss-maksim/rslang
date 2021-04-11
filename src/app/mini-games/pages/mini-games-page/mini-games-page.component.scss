@@ -1,3 +1,5 @@
+@import "../../../../styles/variables";
+
 :host {
   min-height: calc(100vh - 10.48rem);
   position: relative;
@@ -26,9 +28,12 @@
   flex-wrap: wrap;
   gap: 2rem;
 
-  @media (max-width: 976px) {
+  @media screen and (max-width: $large-breakpoint) {
     flex-direction: column;
     gap: 0rem;
+  }
+
+  @media (max-width: 976px) {
   }
 }
 

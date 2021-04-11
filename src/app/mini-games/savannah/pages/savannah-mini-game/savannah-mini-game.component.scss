@@ -40,10 +40,7 @@
     top: 10px;
     display: flex;
     flex-direction: row-reverse;
-    $background: rgba(
-      $color: var(--color-dark-rgb),
-      $alpha: 0.5,
-    );
+    $background: var(--color-button);
 
     &_volume {
       background-color: $background;
