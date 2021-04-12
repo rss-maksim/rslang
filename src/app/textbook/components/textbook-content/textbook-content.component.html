@@ -1,3 +1,4 @@
+<app-progress *ngIf="isLoading$ | async"></app-progress>
 <a
   *ngIf="isAuthorized$ | async"
   class="textbook-content__link"
@@ -6,6 +7,7 @@
   mat-raised-button
   >Словарь</a
 >
+
 <div class="textbook-content__info">
   <span>Важная информация!</span> Разделы в учебнике поделены в зависимости от сложности слов. Сложность определяется
   количеством звездочек.
@@ -30,19 +32,9 @@
     [correctWordsCount]="0"
     [wrongWordsCount]="0"
   ></app-word-card>
-  <div class="word-statistic">
-    <app-textbook-statistic
-      [totalWordsCount]="0"
-      [correctWordsCount]="0"
-      [wrongWordsCount]="0"
-      [title]="groupStatisticTitle"
-    ></app-textbook-statistic>
-    <app-textbook-statistic
-      [totalWordsCount]="0"
-      [correctWordsCount]="0"
-      [wrongWordsCount]="0"
-      [title]="pageStatisticTitle"
-    ></app-textbook-statistic>
+  <div class="word-statistic" *ngIf="isAuthorized$ | async">
+    <app-textbook-statistic [pageInfo]="groupStatsInfo | async" [title]="groupStatisticTitle"></app-textbook-statistic>
+    <app-textbook-statistic [pageInfo]="pageStatsInfo | async" [title]="pageStatisticTitle"></app-textbook-statistic>
   </div>
 </div>
 <mat-paginator

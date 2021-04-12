@@ -17,6 +17,7 @@ import { TextbookMiniGamesComponent } from './components/textbook-mini-games/tex
 import { TextbookTabNavComponent } from './components/textbook-tab-nav/textbook-tab-nav.component';
 import { TextbookPaginationComponent } from './components/textbook-pagination/textbook-pagination.component';
 import { TextbookStatisticComponent } from './components/textbook-statistic/textbook-statistic.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,6 @@ import { TextbookStatisticComponent } from './components/textbook-statistic/text
     TextbookPaginationComponent,
     TextbookStatisticComponent,
   ],
-  imports: [CommonModule, MaterialModule, TextbookRoutingModule, FormsModule],
+  imports: [CommonModule, MaterialModule, TextbookRoutingModule, FormsModule, SharedModule],
 })
 export class TextbookModule {}

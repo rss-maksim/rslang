@@ -2,7 +2,7 @@
 
 :host {
   display: flex;
-  background: url("../../../../assets/images/home//bg-elements-3.svg"),
+  background: url("../../../../assets/images/home/bg-elements-3.svg"),
     url("../../../../assets/images/home/bg-elements-1.svg");
 }
 
@@ -10,7 +10,7 @@
   margin: 3rem 0;
 
   &__description-block {
-    background: url("../../../../assets/images/home//bg-elements-3.svg") no-repeat top;
+    background: url("../../../../assets/images/home/bg-elements-3.svg") no-repeat top;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,6 +25,8 @@
   &__slogan {
     font-size: 2.5rem;
     font-weight: bold;
+    text-align: center;
+    color: var(--color-primary);
   }
 
   &__picture {
@@ -32,7 +34,7 @@
     min-height: 400px;
     flex-shrink: 0;
     background-image: url("../../../../assets/images/home/girl.svg"),
-      url("../../../../assets/images/home//bg-elements-3.svg");
+      url("../../../../assets/images/home/bg-elements-3.svg");
     transform: scale(-1, 1) rotate(50deg);
     background-size: contain;
     background-repeat: no-repeat;
@@ -81,6 +83,7 @@
     font-size: 2rem;
     margin-bottom: 2rem;
     text-align: center;
+    color: var(--color-primary);
   }
 
   &__games {
@@ -88,11 +91,13 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 5rem;
+    cursor: pointer;
   }
 
   &__game-card {
-    width: 18.75rem;
-    height: 7rem;
+    width: 22rem;
+    height: 9rem;
     margin: 0 2rem 2rem 0;
 
     @media screen and (max-width: $mobile-breakpoint) {
@@ -107,6 +112,6 @@
   app-demo {
     display: flex;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 7rem;
   }
 }

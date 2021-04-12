@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/redux/models/state.model';
-import { selectTotalWordsInGroup, selectWords } from 'src/app/redux/selectors/textbook.selector';
-import { loadWords, updateUserWord } from '../../../redux/actions/textbooks.actions';
+import { selectLoading, selectTotalWordsInGroup, selectWords } from 'src/app/redux/selectors/textbook.selector';
+import { loadWords, updateGroupStats, updateUserWord } from '../../../redux/actions/textbooks.actions';
 import { links } from './const';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { selectIsAuthorized } from 'src/app/redux/selectors/user.selector';
 import { IWord } from 'src/app/redux/models/textbook.model';
 import { ITextbookContentTabs } from 'src/app/core/models/ITextbookContentTabs';
+import { pageStatsInfo, selectGroupStatsInfo } from '../../../redux/selectors/textbook.selector';
 
 @Component({
   selector: 'app-textbook-content',
@@ -24,6 +25,9 @@ export class TextbookContentComponent implements OnInit {
   wordItems$ = this.store.select(selectWords);
   isAuthorized$ = this.store.select(selectIsAuthorized);
   totalCount$ = this.store.select(selectTotalWordsInGroup);
+  isLoading$ = this.store.select(selectLoading);
+  pageStatsInfo = this.store.select(pageStatsInfo);
+  groupStatsInfo = this.store.select(selectGroupStatsInfo);
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute, private router: Router) {}
 
@@ -33,6 +37,14 @@ export class TextbookContentComponent implements OnInit {
       this.currentPage = page || '0';
       this.store.dispatch(
         loadWords({ payload: { group: this.currentGroup, page: this.currentPage, wordsPerPage: '20' } }),
+      );
+      this.store.dispatch(
+        updateGroupStats({
+          payload: {
+            page: this.currentPage,
+            group: this.currentGroup,
+          },
+        }),
       );
     });
     this.activeLink = this.tabs[+this.currentGroup];
@@ -61,11 +73,4 @@ export class TextbookContentComponent implements OnInit {
       }),
     );
   }
-  // deleteUserWord(word: IWord) {
-  //   this.store.dispatch(deleteUserWords({ payload: { word, page: this.currentPage, group: this.currentGroup } }));
-  // }
-
-  // hardUserWord(word: IWord) {
-  //   this.store.dispatch(markWordAsHard({ payload: { word, page: this.currentPage, group: this.currentGroup } }));
-  // }
 }

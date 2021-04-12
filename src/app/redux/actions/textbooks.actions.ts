@@ -6,7 +6,7 @@ import {
   WordsRequestParams,
 } from 'src/app/core/models/word.model';
 
-import { IWord, TextbookUrlParams } from '../models/textbook.model';
+import { IWord, TextbookPageInfo, TextbookUrlParams } from '../models/textbook.model';
 import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 
 export const loadWords = createAction('[Textbook]  Load_Words', props<{ payload: AggregatedWordsRequestParams }>());
@@ -19,7 +19,7 @@ export const loadHardWords = createAction(
 export const loadWordsSuccess = createAction(
   '[Textbook]  Load_Words_Success',
   props<{
-    payload: { words: IWord[]; totalWordsInGroup: number; userWordsInGroup: number; userWordsOnPage: number };
+    payload: TextbookPageInfo;
   }>(),
 );
 
@@ -50,3 +50,21 @@ export const wordsUpdatedSuccess = createAction(
   '[Textbook]  update_User_Words_Success',
   props<{ payload: UserWordModel[] }>(),
 );
+export const setLoader = createAction('[Textbook]  set_Loader', props<{ payload: boolean }>());
+
+export const updateGroupStats = createAction(
+  '[Textbook]  update_Group_Stats',
+  props<{ payload: AggregatedWordsRequestParams }>(),
+);
+
+export const calculateGroupStats = createAction(
+  '[Textbook]  calculate_Group_Stats',
+  props<{ payload: { correctPerGroup: number; wrongPerGroup: number; userWordsPerGroup: number } }>(),
+);
+
+export const getGroupStats = createAction(
+  '[Textbook]  get_Group_Stats_Success',
+  props<{ payload: { correctPerGroup: number; wrongPerGroup: number; userWordsPerGroup: number } }>(),
+);
+
+export const doNothing = createAction('[Textbook] DoNothing', props<{ payload: string }>());

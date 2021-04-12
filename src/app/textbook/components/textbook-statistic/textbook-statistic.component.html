@@ -1,18 +1,20 @@
 <div class="word-group__progress">
   <span class="word-card__progressTitle">{{ title }}: </span>
   <div class="word-group__progressCountWrapper">
-    <div class="word-group__progressCount">Общее количество слов: {{ totalWordsCount }}</div>
+    <div class="word-group__progressCount">
+      Общее количество слов: {{ pageInfo?.userWordsPerPage || pageInfo?.userWordsPerGroup || 0 }}
+    </div>
     <div class="word-group__progressCount" matTooltip="Отвечено верно" matTooltipClass="word-tooltip-correct">
       <span class="word-group__progressCount-correct">
         <mat-icon>check_circle_outline</mat-icon>
       </span>
-      {{ correctWordsCount }}
+      {{ pageInfo?.correctPerPage || pageInfo?.correctPerGroup || 0 }}
     </div>
     <div class="word-group__progressCount" matTooltip="Отвечено с ошибкой" matTooltipClass="word-tooltip-wrong">
       <span class="word-group__progressCount-wrong">
         <mat-icon>highlight_off</mat-icon>
       </span>
-      {{ wrongWordsCount }}
+      {{ pageInfo?.wrongPerPage || pageInfo?.wrongPerGroup || 0 }}
     </div>
   </div>
 </div>
