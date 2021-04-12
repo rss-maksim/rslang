@@ -7,10 +7,13 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class TextbookStatisticComponent {
-  @Input() totalWordsCount = 0;
-  @Input() correctWordsCount = 0;
-  @Input() wrongWordsCount = 0;
+  @Input() pageInfo!: {
+    userWordsPerPage?: number;
+    correctPerPage?: number;
+    wrongPerPage?: number;
+    userWordsPerGroup?: number;
+    correctPerGroup?: number;
+    wrongPerGroup?: number;
+  } | null;
   @Input() title = 'Прогресс';
-
-  constructor() {}
 }

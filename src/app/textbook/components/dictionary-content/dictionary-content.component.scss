@@ -93,3 +93,8 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
+
+.tab-content__empty {
+  margin: 2rem 0;
+  color: var(--color-secondary-text);
+}

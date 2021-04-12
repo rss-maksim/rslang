@@ -14,9 +14,12 @@ export interface IWord {
   difficulty?: string;
   group: string;
   page: string;
-  userWord: {
-    difficulty: string;
-    optional: {};
+  userWord?: {
+    difficulty?: string;
+    optional?: {
+      correctAnswers: string;
+      wrongAnswers: string;
+    };
   };
 }
 
@@ -26,11 +29,28 @@ export interface TextbookState {
   wordSettingsAddButtons: boolean;
   wordsHards: IWord[];
   wordsDeleted: IWord[];
+  currentGroup: number;
   totalWordsInGroup: number;
   loading: boolean;
+  userWordsPerPage: number;
+  correctPerPage: number;
+  wrongPerPage: number;
+  userWordsPerGroup: number;
+  correctPerGroup: number;
+  wrongPerGroup: number;
+  currentFilter: string;
 }
 
 export interface TextbookUrlParams {
   group: string;
   page: string;
+}
+
+export interface TextbookPageInfo {
+  words: IWord[];
+  totalWordsInGroup: number;
+  userWordsInGroup?: number;
+  userWordsPerPage?: number;
+  correctPerPage?: number;
+  wrongPerPage?: number;
 }
