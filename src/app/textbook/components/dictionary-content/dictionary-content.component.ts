@@ -3,14 +3,15 @@ import { Location } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/redux/models/state.model';
-import { loadHardWords, loadWords, updateUserWord } from '../../../redux/actions/textbooks.actions';
-import { selectWords } from 'src/app/redux/selectors/textbook.selector';
+import { loadHardWords, loadWords, updateUserWord, updateGroupStats } from '../../../redux/actions/textbooks.actions';
+import { pageStatsInfo, selectWords } from 'src/app/redux/selectors/textbook.selector';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IWord } from 'src/app/redux/models/textbook.model';
 import { selectIsAuthorized } from 'src/app/redux/selectors/user.selector';
 import { links } from '../textbook-content/const';
 import { filters } from 'src/app/core/constants/textbook';
 import { Subscription } from 'rxjs';
+import { selectGroupStatsInfo } from '../../../redux/selectors/textbook.selector';
 
 @Component({
   selector: 'app-dictionary-content',
@@ -27,6 +28,8 @@ export class DictionaryContentComponent implements OnInit, OnDestroy {
   activeLink: any;
   wordItems$ = this.store.select(selectWords);
   isAuthorized$ = this.store.select(selectIsAuthorized);
+  pageStatsInfo = this.store.select(pageStatsInfo);
+  groupStatsInfo = this.store.select(selectGroupStatsInfo);
   private querySubscription!: Subscription;
 
   constructor(
@@ -43,6 +46,15 @@ export class DictionaryContentComponent implements OnInit, OnDestroy {
       this.filter = queryParam['filter'];
       this.store.dispatch(
         loadWords({
+          payload: {
+            page: this.currentPage,
+            group: this.currentGroup,
+            filter: filters[this.filter],
+          },
+        }),
+      );
+      this.store.dispatch(
+        updateGroupStats({
           payload: {
             page: this.currentPage,
             group: this.currentGroup,

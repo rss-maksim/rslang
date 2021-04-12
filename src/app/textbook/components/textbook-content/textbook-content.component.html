@@ -33,18 +33,8 @@
     [wrongWordsCount]="0"
   ></app-word-card>
   <div class="word-statistic" *ngIf="isAuthorized$ | async">
-    <app-textbook-statistic
-      [totalWordsCount]="0"
-      [correctWordsCount]="0"
-      [wrongWordsCount]="0"
-      [title]="groupStatisticTitle"
-    ></app-textbook-statistic>
-    <app-textbook-statistic
-      [totalWordsCount]="0"
-      [correctWordsCount]="0"
-      [wrongWordsCount]="0"
-      [title]="pageStatisticTitle"
-    ></app-textbook-statistic>
+    <app-textbook-statistic [pageInfo]="groupStatsInfo | async" [title]="groupStatisticTitle"></app-textbook-statistic>
+    <app-textbook-statistic [pageInfo]="pageStatsInfo | async" [title]="pageStatisticTitle"></app-textbook-statistic>
   </div>
 </div>
 <mat-paginator

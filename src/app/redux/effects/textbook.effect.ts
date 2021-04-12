@@ -1,18 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { mergeMap, map, delay } from 'rxjs/operators';
+import { mergeMap, map, delay, withLatestFrom, switchMap, tap } from 'rxjs/operators';
+
 import { UserService } from 'src/app/core/services/user.service';
 import { AppState } from '../models/state.model';
-
 import { WordsService } from 'src/app/core/services/words.service';
-import { loadWords, updateUserWord, updateUserWordSuccess, wordsUpdatedSuccess } from '../actions/textbooks.actions';
+import {
+  calculateGroupStats,
+  doNothing,
+  getGroupStats,
+  loadWords,
+  updateGroupStats,
+  updateUserWord,
+  updateUserWordSuccess,
+  wordsUpdatedSuccess,
+} from '../actions/textbooks.actions';
 import { updateUserWords } from 'src/app/redux/actions/textbooks.actions';
-import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
-import { UserWordModel } from 'src/app/core/models/word.model';
 import { filters } from 'src/app/core/constants/textbook';
-import { Answer } from 'src/app/core/models/IAnswer';
 import { selectIdIsAuth, selectUserId } from '../selectors/user.selector';
+import { TextbookHelperService } from '../../textbook/services/textbook-helper.service';
+import { selectCurrentGroupFilter, selectGroupStatsInfo } from '../selectors/textbook.selector';
+import { EMPTY } from 'rxjs/internal/observable/empty';
 
 @Injectable()
 export class TextbookEffects {
@@ -21,6 +30,7 @@ export class TextbookEffects {
     private actions$: Actions,
     public userServise: UserService,
     private store: Store<AppState>,
+    private textbookHelperService: TextbookHelperService,
   ) {}
   group = '0';
   page = '0';
@@ -34,7 +44,7 @@ export class TextbookEffects {
         mergeMap(([{ payload }, authObj]) => {
           const { group, page, wordsPerPage, filter } = payload;
           const userId = authObj.userId || this.userServise.getUserId();
-          if (authObj.isAuth) {
+          if (authObj.isAuth || userId) {
             let filterToLoad = filters.textBook;
             if (filter !== undefined) {
               filterToLoad = filter;
@@ -48,16 +58,10 @@ export class TextbookEffects {
               })
               .pipe(
                 map((item: any) => {
-                  const wordsArray = item[0].paginatedResults.map((word: any) => {
-                    return { ...word, id: word._id };
-                  });
-                  let totalWordsInGroup = '0';
-                  if (item[0].totalCount[0]) {
-                    totalWordsInGroup = item[0].totalCount[0].count;
-                  }
+                  const payload = { ...this.textbookHelperService.createPageData(item), currentFilter: filterToLoad };
                   return {
                     type: '[Textbook]  Load_Words_Success',
-                    payload: { words: wordsArray, totalWordsInGroup: +totalWordsInGroup },
+                    payload,
                   };
                 }),
               );
@@ -108,7 +112,7 @@ export class TextbookEffects {
     return this.actions$.pipe(
       ofType(updateUserWords),
       mergeMap(({ payload }) => {
-        const wordsArr = this.createUserWordsArr(payload);
+        const wordsArr = this.textbookHelperService.createUserWordsArr(payload);
         return this.wordsService.updateUserWords(this.userId, wordsArr).pipe(
           map((item: any) => {
             return wordsUpdatedSuccess({ payload: item });
@@ -118,31 +122,55 @@ export class TextbookEffects {
     );
   });
 
-  createUserWordsArr(arr: ITrainedWord[]): UserWordModel[] {
-    return arr.map((elem) => {
-      let difficulty = 'learning';
-      let correctAnswersNum = 0;
-      let wrongAnswersNum = 0;
-      if (elem.userWord?.difficulty) {
-        difficulty = elem.userWord.difficulty;
-      }
-      if (elem.userWord?.optional) {
-        correctAnswersNum = +elem.userWord.optional.correctAnswers;
-        wrongAnswersNum = +elem.userWord.optional.wrongAnswers;
-      }
-      if (elem.result === Answer.CORRECT) {
-        correctAnswersNum += 1;
-      } else if (elem.result === Answer.WRONG) {
-        wrongAnswersNum += 1;
-      }
-      return {
-        wordId: elem.id,
-        difficulty: difficulty,
-        optional: {
-          correctAnswers: correctAnswersNum.toString(),
-          wrongAnswers: wrongAnswersNum.toString(),
-        },
-      };
-    });
-  }
+  getGroupStats$ = createEffect(() => {
+    return this.actions$
+      .pipe(
+        ofType(updateGroupStats),
+        withLatestFrom(this.store.select(selectIdIsAuth), this.store.select(selectCurrentGroupFilter)),
+        mergeMap(([{ payload }, { userId, isAuth }, { currentGroup, currentFilter }]) => {
+          const id = userId || this.userServise.getUserId();
+          const { group, filter } = payload;
+          let filterToLoad = filters.textBook;
+          if (filter !== undefined) {
+            filterToLoad = filter;
+          }
+          if (((group && +group !== currentGroup) || currentFilter !== filterToLoad) && (isAuth || id)) {
+            return this.wordsService
+              .getUserAggregatedWords(id, {
+                group,
+                wordsPerPage: '600',
+                filter: filterToLoad,
+              })
+              .pipe(
+                map((item: any[]) => {
+                  const [{ paginatedResults }] = item;
+                  const groupStats = this.textbookHelperService.createGroupInfo(paginatedResults);
+                  return getGroupStats({ payload: groupStats });
+                }),
+              );
+          }
+          return EMPTY;
+        }),
+      )
+      .pipe(delay(2000));
+  });
+
+  updateGroupStats$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateUserWord),
+      tap(({ payload }) => {
+        console.log(payload);
+      }),
+      concatLatestFrom(() => this.store.select(selectGroupStatsInfo)),
+      map(([{ payload }, groupStatsInfo]) => {
+        const data = this.textbookHelperService.calculateGroupInfo(payload, groupStatsInfo);
+        console.log(data);
+        return calculateGroupStats({
+          payload: {
+            ...data,
+          },
+        });
+      }),
+    );
+  });
 }
