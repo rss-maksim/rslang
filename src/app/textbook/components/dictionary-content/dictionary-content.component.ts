@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/redux/models/state.model';
 import { loadHardWords, loadWords, updateUserWord, updateGroupStats } from '../../../redux/actions/textbooks.actions';
-import { pageStatsInfo, selectWords } from 'src/app/redux/selectors/textbook.selector';
+import { pageStatsInfo, selectTotalWordsInGroup, selectWords } from 'src/app/redux/selectors/textbook.selector';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IWord } from 'src/app/redux/models/textbook.model';
 import { selectIsAuthorized } from 'src/app/redux/selectors/user.selector';
@@ -30,6 +30,7 @@ export class DictionaryContentComponent implements OnInit, OnDestroy {
   isAuthorized$ = this.store.select(selectIsAuthorized);
   pageStatsInfo = this.store.select(pageStatsInfo);
   groupStatsInfo = this.store.select(selectGroupStatsInfo);
+  totalCount = this.store.select(selectTotalWordsInGroup);
   private querySubscription!: Subscription;
 
   constructor(
@@ -68,7 +69,7 @@ export class DictionaryContentComponent implements OnInit, OnDestroy {
 
   setCurrentGroup(group: string) {
     this.currentGroup = group;
-
+    this.currentPage = '0';
     this.router.navigate(['textbook/dictionary'], {
       queryParams: {
         filter: this.filter,
@@ -83,7 +84,6 @@ export class DictionaryContentComponent implements OnInit, OnDestroy {
     this.router.navigate(['textbook/dictionary'], {
       queryParams: {
         filter: this.filter,
-
         page: this.currentPage,
         group: this.currentGroup,
       },
