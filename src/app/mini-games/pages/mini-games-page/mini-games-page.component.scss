@@ -22,26 +22,55 @@
   }
 }
 
+.primary-color {
+  color: var(--color-primary-dark);
+}
+
+.center {
+  display: flex;
+  flex: row;
+  align-self: center;
+  justify-self: center;
+  place-self: center;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+
 .game-cards-row {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 2rem;
+  // margin-top: 2rem;
+  // margin-bottom: 2rem;
+  // gap: 2rem;
+  transform-style: preserve-3d;
 
   @media screen and (max-width: $large-breakpoint) {
     flex-direction: column;
-    gap: 0rem;
+    // gap: 4rem;
   }
 }
 
 .game-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   width: 35vw;
   min-width: 25rem;
-  min-height: 10rem;
-  margin: 1rem;
+  min-height: 15rem;
+  margin: 0 1rem 0 1rem;
   cursor: pointer;
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 16%), 0 0 1px 0 rgb(0 0 0 / 12%);
   user-select: none;
+
+  &__center {
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+  }
 
   &:hover {
     box-shadow: var(--box-shadow);
@@ -53,12 +82,43 @@
 
   &__description {
     display: flex;
+    font-size: 1rem;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
     gap: 1rem;
+  }
+
+  &__title {
+    color: var(--color-primary-dark);
+  }
+
+  &__side {
+    position: relative;
+    backface-visibility: hidden;
+  }
+
+  &__front {
+    position: relative;
+    transform: rotateY(0deg);
+    // backface-visibility: hidden;
+  }
+
+  &__back {
+    position: relative;
+    // transform: rotateY(180deg);
+    // backface-visibility: hidden;
+  }
+
+  &__text-size-sm {
+    font-size: 0.8rem;
   }
 }
 
 .material-icons {
   font-size: 3rem;
+  color: var(--color-primary-dark);
 }
 
 @media (max-width: 500px) {
