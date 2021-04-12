@@ -14,6 +14,7 @@ import { CloseGameDialogComponent } from '../shared/components/close-game-dialog
 import { Games, ASSETS_API_URL } from 'src/app/core/constants/mini-games';
 import { UserService } from 'src/app/core/services/user.service';
 import { DEFAULT_DIFFICULTY_LEVEL } from 'src/app/core/constants/common';
+import { ISettings, MiniGamesSettingsService } from 'src/app/services/mini-games-settings.service';
 
 @Component({
   selector: 'app-sprint-mini-game',
@@ -36,7 +37,6 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     points: 0,
     basePoints: 10,
     multiplier: 1,
-    isMuted: false,
     isPaused: false,
   };
   loadingWordsMessage = '';
@@ -45,6 +45,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   wordsBatch1Subscription?: Subscription;
   wordsBatch2Subscription?: Subscription;
   wordsBatch3Subscription?: Subscription;
+  settingsSubscription$?: Subscription;
   GAMES = Games;
   GAME_STATE = GameState;
   DEFAULT_DIFFICULTY_LEVEL = DEFAULT_DIFFICULTY_LEVEL;
@@ -53,6 +54,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   difficulty?: string;
   page?: string;
   filter!: string;
+  settings!: ISettings;
 
   constructor(
     private gameService: MiniGamesHttpService,
@@ -60,9 +62,13 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private userService: UserService,
     private router: Router,
+    private settingsService: MiniGamesSettingsService,
   ) {}
 
   ngOnInit() {
+    this.settingsSubscription$ = this.settingsService.gameSettings.subscribe((state) => {
+      this.settings = state;
+    });
     const { group, page, filter } = this.route.snapshot.queryParams;
     this.filter = filter;
     if (group !== undefined && page !== undefined) {
@@ -196,7 +202,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
 
       this.launchRipple(Answer.CORRECT);
 
-      if (!this.game.isMuted) {
+      if (!this.settings.isMuted) {
         const soundToPlay =
           this.game.streak % 4 === 0 && this.game.streak <= StreakLevel.THIRD ? Sound.LEVELUP : Sound.CORRECT;
         playSound(soundToPlay);
@@ -213,7 +219,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
 
       this.launchRipple(Answer.WRONG);
 
-      if (!this.game.isMuted) {
+      if (!this.settings.isMuted) {
         playSound(Sound.WRONG);
       }
     }
@@ -270,7 +276,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   }
 
   onMuteClick(): void {
-    this.game.isMuted = !this.game.isMuted;
+    this.settingsService.changeMutedState();
   }
 
   openCloseDialog(): void {

@@ -1,3 +1,4 @@
+import { MiniGamesSettingsService, ISettings } from './../../../../services/mini-games-settings.service';
 import { ISavannahGame } from 'src/app/core/models/ISavannahGame';
 import { SavannahService } from './../../services/savannah.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,6 +21,7 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
   games = Games;
   game!: ISavannahGame;
   DEFAULT_DIFFICULTY_LEVEL = DEFAULT_DIFFICULTY_LEVEL;
+  settings$!: ISettings;
 
   constructor(
     private savannahService: SavannahService,
@@ -27,13 +29,19 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private userService: UserService,
     private router: Router,
+    private settings: MiniGamesSettingsService,
   ) {}
   closeDialogSubsription?: Subscription;
   routeSubscription$?: Subscription;
+  gameSubscription$?: Subscription;
+  settingsSubscription$?: Subscription;
 
   ngOnInit() {
-    this.savannahService.game$.subscribe((game: ISavannahGame) => {
+    this.gameSubscription$ = this.savannahService.game$.subscribe((game: ISavannahGame) => {
       this.game = game;
+    });
+    this.settingsSubscription$ = this.settings.gameSettings.subscribe((state) => {
+      this.settings$ = state;
     });
     this.savannahService.setUserID(this.userService.getUserId());
     this.routeSubscription$ = this.route.queryParams.subscribe((params: any) => {
@@ -47,6 +55,8 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routeSubscription$?.unsubscribe();
     this.savannahService.gameReset();
+    this.gameSubscription$?.unsubscribe();
+    this.settingsSubscription$?.unsubscribe();
   }
 
   startToPlay() {
@@ -77,5 +87,9 @@ export class SavannahMiniGameComponent implements OnInit, OnDestroy {
   resetGame() {
     this.savannahService.gameReset();
     this.savannahService.setGameState(GameState.SETTING);
+  }
+
+  changeMute() {
+    this.settings.changeMutedState();
   }
 }

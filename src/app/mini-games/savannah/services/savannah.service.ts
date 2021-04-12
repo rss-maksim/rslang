@@ -1,3 +1,4 @@
+import { MiniGamesSettingsService } from './../../../services/mini-games-settings.service';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Answer } from 'src/app/core/models/IAnswer';
@@ -38,11 +39,10 @@ export class SavannahService implements OnDestroy {
     lifes: 5,
     progress: 0,
     points: 0,
-    isMuted: false,
     isPaused: false,
     queryParams: {},
   };
-  constructor(private gamesService: MiniGamesHttpService) {}
+  constructor(private gamesService: MiniGamesHttpService, private settings: MiniGamesSettingsService) {}
   wordsBatch$?: Subscription;
   translationsBatch$?: Subscription;
   translationsBatch$2?: Subscription;
@@ -107,7 +107,7 @@ export class SavannahService implements OnDestroy {
 
   nextWord(): void {
     if (!this.game.learningWords.length || this.game.lifes === 0) {
-      this.game.isMuted ? null : sound(this.game.lifes ? Sound.WIN : Sound.LOSE);
+      this.settings.getMutedState() ? null : sound(this.game.lifes ? Sound.WIN : Sound.LOSE);
       this.finishGame();
       return;
     }
@@ -148,7 +148,7 @@ export class SavannahService implements OnDestroy {
   }
 
   playSound(answerCorrect: boolean) {
-    this.game.isMuted ? null : sound(answerCorrect ? Sound.RIGHT : Sound.WRONG);
+    this.settings.getMutedState() ? null : sound(answerCorrect ? Sound.RIGHT : Sound.WRONG);
   }
 
   finishGame() {
