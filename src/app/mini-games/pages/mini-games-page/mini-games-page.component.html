@@ -1,34 +1,22 @@
 <div class="game-cards-row" *ngFor="let gameCard of gameCards; trackBy: trackByCardName">
-  <div class="game-card__side" (click)="onToggleFlip()" [@cardFlip]="flip">
-    <div class="game-card__front">
-      <mat-card class="game-card" matRipple>
-        <mat-card-header>
-          <mat-card-title class="game-card__title">{{ gameCard.name }}</mat-card-title>
-        </mat-card-header>
-        <div class="game-card__center">
-          <mat-card-content class="center">
-            <p class="game-card__description">
-              <span class="material-icons">{{ gameCard.icon }}</span>
-              {{ gameCard.description }}
-            </p>
-          </mat-card-content>
-        </div>
-      </mat-card>
+  <mat-card class="game-card" matRipple [routerLink]="[gameCard.route]">
+    <mat-card-header class="game-card__header">
+      <mat-card-title class="game-card__title">{{ gameCard.name | uppercase }}</mat-card-title>
+      <mat-icon class="material-icons-md" style="white-space: pre-line" matTooltip="{{ gameCard.rules }}">
+        help_outline
+      </mat-icon>
+    </mat-card-header>
+    <div class="game-card__content">
+      <mat-icon class="material-icons-lg">
+        {{ gameCard.icon }}
+      </mat-icon>
+      <mat-card-content>
+        <p class="game-card__description">
+          {{ gameCard.description }}
+        </p>
+      </mat-card-content>
     </div>
-    <!-- [routerLink]="[gameCard.route]" -->
-    <div class="game-card__back">
-      <mat-card class="game-card" matRipple>
-        <mat-card-header>
-          <mat-card-title class="primary-color">{{ gameCard.name }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p style="white-space: pre-line" class="game-card__description game-card__text-size-sm">
-            {{ gameCard.rules }}
-          </p>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
+  </mat-card>
 </div>
 
 <router-outlet></router-outlet>

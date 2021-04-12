@@ -59,8 +59,9 @@
   flex-direction: column;
   width: 35vw;
   min-width: 25rem;
-  min-height: 15rem;
-  margin: 0 1rem 0 1rem;
+  min-height: 13rem;
+  margin: 1rem;
+  // margin: 0 1rem 0 1rem;
   cursor: pointer;
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 16%), 0 0 1px 0 rgb(0 0 0 / 12%);
   user-select: none;
@@ -80,45 +81,53 @@
     outline: none;
   }
 
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__title {
+    display: flex;
+  }
+
   &__description {
     display: flex;
     font-size: 1rem;
-    align-content: center;
-    align-items: center;
-    justify-items: center;
-    justify-content: center;
-    gap: 1rem;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: row;
   }
 
   &__title {
     color: var(--color-primary-dark);
   }
-
-  &__side {
-    position: relative;
-    backface-visibility: hidden;
-  }
-
-  &__front {
-    position: relative;
-    transform: rotateY(0deg);
-    // backface-visibility: hidden;
-  }
-
-  &__back {
-    position: relative;
-    // transform: rotateY(180deg);
-    // backface-visibility: hidden;
-  }
-
-  &__text-size-sm {
-    font-size: 0.8rem;
-  }
 }
 
-.material-icons {
+.material-icons-md {
+  justify-self: right;
+  align-self: flex-start;
+  margin-top: -0.5rem;
+  font-size: 1.5rem;
+  color: var(--color-primary-dark);
+}
+
+.material-icons-lg {
   font-size: 3rem;
   color: var(--color-primary-dark);
+  margin-right: 2rem;
+}
+
+::ng-deep .mat-tooltip {
+  position: relative;
+  left: 3rem;
+  min-width: 25rem;
+  font-size: 0.8rem;
+  background-color: var(--color-divider);
+  color: var(--color-primary-dark);
+  white-space: pre-line;
 }
 
 @media (max-width: 500px) {
