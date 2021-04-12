@@ -27,10 +27,13 @@ const _textbookReducer = createReducer(
     return { ...state, words: payload.words, totalWordsInGroup: payload.totalWordsInGroup, loading: false };
   }),
   on(setWordSettingsTranslation, (state, { payload }) => {
-    return { ...state, wordSettingsTranslation: payload };
+    return { ...state, wordSettingsTranslation: payload, loading: false };
   }),
   on(setWordSettingsAddButtons, (state, { payload }) => {
-    return { ...state, wordSettingsAddButtons: payload };
+    return { ...state, wordSettingsAddButtons: payload, loading: false };
+  }),
+  on(setLoader, (state, { payload }) => {
+    return { ...state, loading: payload };
   }),
 );
 

@@ -16,6 +16,7 @@
     align-items: center;
     flex-wrap: nowrap;
     min-height: 86vh;
+    overflow: hidden;
 
     @media screen and (max-width: $tablet-breakpoint) {
       flex-direction: column;
@@ -73,6 +74,8 @@
   &__text {
     font-size: 1.25rem;
     line-height: 2rem;
+    position: relative;
+    z-index: 2;
   }
 
   &__games-block {
