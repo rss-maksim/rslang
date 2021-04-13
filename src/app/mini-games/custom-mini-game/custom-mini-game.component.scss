@@ -226,7 +226,11 @@ $font-size-xm: 1.25rem;
 }
 
 .next-button {
-  margin-top: 15rem;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 10vh;
   user-select: none;
 }
 

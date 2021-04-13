@@ -1,3 +1,4 @@
+import { ISettings, MiniGamesSettingsService } from './../../services/mini-games-settings.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -42,7 +43,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   roundsLeft = 0;
   isGameStarted = false;
   isGamePaused = false;
-  isSoundOn = false;
   isRoundOver = false;
   isGameOver = false;
   errorsCounter = 0;
@@ -60,8 +60,10 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   spinnerValue = 100;
   loading = false;
   DEFAULT_DIFFICULTY_LEVEL = DEFAULT_DIFFICULTY_LEVEL;
+  globalSettings!: ISettings;
 
   private querySubscription?: Subscription;
+  settingsSubscription$?: Subscription;
 
   constructor(
     public dialog: MatDialog,
@@ -71,9 +73,13 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
+    private settings: MiniGamesSettingsService,
   ) {}
 
   ngOnInit() {
+    this.settingsSubscription$ = this.settings.gameSettings.subscribe((state) => {
+      this.globalSettings = state;
+    });
     this.querySubscription = this.route.queryParams.subscribe((queryParam: any) => {
       this.page = queryParam['page'];
       this.group = queryParam['group'];
@@ -214,7 +220,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
         }
         if (this.countdownTimer === 0) {
           this.isRoundOver = true;
-          this.soundService.playAudio('round lost');
+          this.globalSettings.isMuted ? null : this.soundService.playAudio('round lost');
           this.errorsCounter += 1;
           this.toTrainedWords(Answer.WRONG);
           this.imageSrc = this.srcCommPart + this.errorsCounter + '.png';
@@ -283,13 +289,13 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       if (this.previousScrambledWord !== this.scrambledWordAsArray.join('')) {
         // если буква сдвинулась, то ход засчитываем
         if (this.movesCountdownCounter > 0) this.movesCountdownCounter -= 1;
-        this.soundService.playAudio('move');
+        this.globalSettings.isMuted ? null : this.soundService.playAudio('move');
         this.previousScrambledWord = this.scrambledWordAsArray.join('');
       }
 
       if (this.movesCountdownCounter === 0) {
         this.isGamePaused = true;
-        this.soundService.playAudio('round lost');
+        this.globalSettings.isMuted ? null : this.soundService.playAudio('round lost');
         this.errorsCounter += 1;
         this.imageSrc = this.srcCommPart + this.errorsCounter + '.png';
         this.isRoundOver = true;
@@ -303,7 +309,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
       }
       if (this.currentWord === this.scrambledWordAsArray?.join('')) {
         this.isGamePaused = true;
-        this.soundService.playAudio('round won');
+        this.globalSettings.isMuted ? null : this.soundService.playAudio('round won');
         this.isRoundOver = true;
         this.toTrainedWords(Answer.CORRECT);
         if (this.isLastRound()) {
@@ -325,9 +331,9 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
 
   finalize() {
     if (this.isGameLost()) {
-      this.soundService.playAudio('game lost');
+      this.globalSettings.isMuted ? null : this.soundService.playAudio('game lost');
     } else {
-      this.soundService.playAudio('game won');
+      this.globalSettings.isMuted ? null : this.soundService.playAudio('game won');
     }
     setTimeout(() => {
       this.isResultsShown = true;
@@ -348,9 +354,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
   }
 
   onToggleSound(): void {
-    this.soundService.toggleSound();
-    this.isSoundOn = this.soundService.isSoundOn;
-    console.log('in onToggleSound. isSoundOn = ', this.isSoundOn);
+    this.settings.changeMutedState();
   }
 
   onSetDifficultyLevel(value: number) {
@@ -411,5 +415,6 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     this.countDown?.unsubscribe();
     this.getWords?.unsubscribe();
     this.querySubscription?.unsubscribe();
+    this.settingsSubscription$?.unsubscribe();
   }
 }

@@ -13,11 +13,11 @@
       <span class="material-icons material-icons_black">close</span>
     </button>
 
-    <button mat-fab *ngIf="!game.isMuted" class="game__mute" (click)="onMuteClick()">
+    <button mat-fab *ngIf="!settings.isMuted" class="game__mute" (click)="onMuteClick()">
       <i class="material-icons material-icons_black">music_note</i>
     </button>
 
-    <button mat-fab *ngIf="game.isMuted" class="game__mute" (click)="onMuteClick()">
+    <button mat-fab *ngIf="settings.isMuted" class="game__mute" (click)="onMuteClick()">
       <i class="material-icons material-icons_black">music_off</i>
     </button>
 

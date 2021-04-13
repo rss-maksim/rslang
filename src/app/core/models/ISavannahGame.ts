@@ -26,7 +26,6 @@ export interface ISavannahGame {
   lifes: number;
   progress: number;
   points: number;
-  isMuted: boolean;
   isPaused: boolean;
   queryParams: AggregatedWordsRequestParams;
 }

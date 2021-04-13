@@ -1,3 +1,4 @@
+import { MiniGamesSettingsService } from './../../../services/mini-games-settings.service';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Answer } from 'src/app/core/models/IAnswer';
@@ -38,11 +39,10 @@ export class SavannahService implements OnDestroy {
     lifes: 5,
     progress: 0,
     points: 0,
-    isMuted: false,
     isPaused: false,
     queryParams: {},
   };
-  constructor(private gamesService: MiniGamesHttpService) {}
+  constructor(private gamesService: MiniGamesHttpService, private settings: MiniGamesSettingsService) {}
   wordsBatch$?: Subscription;
   translationsBatch$?: Subscription;
   translationsBatch$2?: Subscription;
@@ -73,12 +73,40 @@ export class SavannahService implements OnDestroy {
     this.game.isPaused = pause;
   }
 
-  getWords(difficulty: number, page?: string, filter?: string) {
-    this.game.queryParams.group = difficulty.toString();
-    let [page1, page2, page3, page4] = getRandomNumbers(4, page);
-    page1 = page !== undefined ? +page : page1;
+  getWords(difficulty: number) {
+    let groupToGet = '';
+    let page1ToGet = '';
+    let page2ToGet = '';
+    let page3ToGet = '';
+    let page4ToGet = '';
+
+    if (difficulty !== undefined) {
+      this.game.queryParams.group = difficulty.toString();
+      groupToGet = difficulty.toString();
+    }
+
+    if (this.game.queryParams.group !== undefined) {
+      groupToGet = this.game.queryParams.group;
+    }
+
+    if (this.game.queryParams.page !== undefined) {
+      page1ToGet = this.game.queryParams.page;
+      page2ToGet = +this.game.queryParams.page - 1 >= 0 ? (+this.game.queryParams.page - 1).toString() : '';
+      page3ToGet = +this.game.queryParams.page - 2 >= 0 ? (+this.game.queryParams.page - 2).toString() : '';
+    } else {
+      let [page1, page2, page3, page4] = getRandomNumbers(4);
+      page1ToGet = page1.toString();
+      page2ToGet = page2.toString();
+      page3ToGet = page3.toString();
+      page4ToGet = page4.toString();
+    }
     this.wordsBatch$ = this.gamesService
-      .getWords({ userId: this.game.userId || undefined, group: `${difficulty}`, page: `${page1}`, filter })
+      .getWords({
+        userId: this.game.userId || undefined,
+        group: `${groupToGet}`,
+        page: `${page1ToGet}`,
+        filter: this.game.queryParams.filter,
+      })
       .subscribe((words: IWord[] | any[]) => {
         if (words[0].paginatedResults) {
           words = words[0].paginatedResults;
@@ -87,17 +115,17 @@ export class SavannahService implements OnDestroy {
         this.game.totalWordsAmount = words.length;
       });
     this.translationsBatch$ = this.gamesService
-      .getWords({ group: `${difficulty}`, page: `${page2}` })
+      .getWords({ group: `${groupToGet}`, page: `${page2ToGet}` })
       .subscribe((words: IWord[]) => {
         this.game.randomTranslations.push(...getTranslations(words));
       });
     this.translationsBatch$2 = this.gamesService
-      .getWords({ group: `${difficulty}`, page: `${page3}` })
+      .getWords({ group: `${groupToGet}`, page: `${page3ToGet}` })
       .subscribe((words: IWord[]) => {
         this.game.randomTranslations.push(...getTranslations(words));
       });
     this.translationsBatch$3 = this.gamesService
-      .getWords({ group: `${difficulty}`, page: `${page4}` })
+      .getWords({ group: `${groupToGet}`, page: `${page4ToGet}` })
       .subscribe((words: IWord[]) => {
         this.game.randomTranslations.push(...getTranslations(words));
       });
@@ -107,7 +135,7 @@ export class SavannahService implements OnDestroy {
 
   nextWord(): void {
     if (!this.game.learningWords.length || this.game.lifes === 0) {
-      this.game.isMuted ? null : sound(this.game.lifes ? Sound.WIN : Sound.LOSE);
+      this.settings.getMutedState() ? null : sound(this.game.lifes ? Sound.WIN : Sound.LOSE);
       this.finishGame();
       return;
     }
@@ -148,7 +176,7 @@ export class SavannahService implements OnDestroy {
   }
 
   playSound(answerCorrect: boolean) {
-    this.game.isMuted ? null : sound(answerCorrect ? Sound.RIGHT : Sound.WRONG);
+    this.settings.getMutedState() ? null : sound(answerCorrect ? Sound.RIGHT : Sound.WRONG);
   }
 
   finishGame() {

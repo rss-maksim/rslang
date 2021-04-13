@@ -6,7 +6,7 @@
   </div>
   <div>
     <button mat-fab class="sound-button center" color="primary" (click)="onToggleSound()">
-      <mat-icon>{{ isSoundOn ? "music_note" : "music_off" }} </mat-icon>
+      <mat-icon>{{ globalSettings.isMuted ? "music_off" : "music_note" }} </mat-icon>
     </button>
   </div>
 

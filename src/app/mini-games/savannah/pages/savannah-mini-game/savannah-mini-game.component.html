@@ -4,8 +4,8 @@
       <mat-icon>close</mat-icon>
     </button>
 
-    <button mat-fab class="savannah-controls_volume" (click)="game.isMuted = !game.isMuted">
-      <ng-container *ngIf="game.isMuted; else up">
+    <button mat-fab class="savannah-controls_volume" (click)="changeMute()">
+      <ng-container *ngIf="settings$.isMuted; else up">
         <mat-icon>music_off</mat-icon>
       </ng-container>
       <ng-template #up>

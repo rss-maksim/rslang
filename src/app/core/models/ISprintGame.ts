@@ -49,6 +49,5 @@ export interface SprintGame {
   points: number;
   basePoints: number;
   multiplier: number;
-  isMuted: boolean;
   isPaused: boolean;
 }
