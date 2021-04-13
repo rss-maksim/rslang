@@ -28,7 +28,7 @@
 }
 
 .card {
-  min-height: 365px;
+  height: 365px;
   background-color: transparent;
   box-shadow: none;
   text-align: center;
@@ -38,8 +38,23 @@
 .mat-card-title {
   line-height: 4rem;
   font-size: 2.8rem;
+
   button {
     display: inline-block;
     vertical-align: middle;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .audio__btn_big {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .card {
+    height: 280px;
+    img {
+      height: 200px;
+    }
   }
 }

@@ -7,6 +7,7 @@ import {
   loadWordsSuccess,
   setWordSettingsAddButtons,
   setWordSettingsTranslation,
+  setLoader,
 } from '../actions/textbooks.actions';
 
 export const initialState: TextbookState = {
