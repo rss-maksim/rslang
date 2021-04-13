@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GameCard, GAME_CARDS } from 'src/app/core/constants/mini-games';
+import { GameCard, GAME_CARDS_NEW } from 'src/app/core/constants/mini-games';
 
 @Component({
   selector: 'app-mini-games-page',
@@ -7,7 +7,7 @@ import { GameCard, GAME_CARDS } from 'src/app/core/constants/mini-games';
   styleUrls: ['./mini-games-page.component.scss'],
 })
 export class MiniGamesPageComponent {
-  gameCards: GameCard[] = GAME_CARDS;
+  gameCards: GameCard[] = GAME_CARDS_NEW;
 
   trackByCardName(index: number, card: GameCard): string {
     return card.name;

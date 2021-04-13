@@ -22,26 +22,56 @@
   }
 }
 
+.primary-color {
+  color: var(--color-primary-dark);
+}
+
+.center {
+  display: flex;
+  flex: row;
+  align-self: center;
+  justify-self: center;
+  place-self: center;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+
 .game-cards-row {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 2rem;
+  // margin-top: 2rem;
+  // margin-bottom: 2rem;
+  // gap: 2rem;
+  transform-style: preserve-3d;
 
   @media screen and (max-width: $large-breakpoint) {
     flex-direction: column;
-    gap: 0rem;
+    // gap: 4rem;
   }
 }
 
 .game-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   width: 35vw;
   min-width: 25rem;
-  min-height: 10rem;
+  min-height: 13rem;
   margin: 1rem;
+  // margin: 0 1rem 0 1rem;
   cursor: pointer;
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 16%), 0 0 1px 0 rgb(0 0 0 / 12%);
   user-select: none;
+
+  &__center {
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+  }
 
   &:hover {
     box-shadow: var(--box-shadow);
@@ -51,14 +81,53 @@
     outline: none;
   }
 
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__title {
+    display: flex;
+  }
+
   &__description {
     display: flex;
-    gap: 1rem;
+    font-size: 1rem;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__title {
+    color: var(--color-primary-dark);
   }
 }
 
-.material-icons {
+.material-icons-md {
+  justify-self: right;
+  align-self: flex-start;
+  margin-top: -0.5rem;
+  font-size: 1.5rem;
+  color: var(--color-primary-dark);
+}
+
+.material-icons-lg {
   font-size: 3rem;
+  color: var(--color-primary-dark);
+  margin-right: 2rem;
+}
+
+::ng-deep .mat-tooltip {
+  position: relative;
+  left: 2rem;
+  min-width: 22rem;
+  font-size: 0.8rem;
+  background-color: var(--color-divider);
+  color: var(--color-primary-dark);
+  white-space: pre-line;
 }
 
 @media (max-width: 500px) {
