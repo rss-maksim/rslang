@@ -1,19 +1,30 @@
-<mat-tab-group class="stats" mat-align-tabs="center" [ngStyle]="{ 'background-color': '#fdfdfd', 'max-width': '95vw' }">
-  <mat-tab *ngFor="let stat of stats" label="{{ stat.gameName }}">
-    <p class="stats__row">
-      <span class="stats__title">Изученные слова за день</span>
-      <span class="stats__result">{{ stat.learnedWordsByIds.size }}</span>
-    </p>
-    <mat-divider></mat-divider>
-    <p class="stats__row">
-      <span class="stats__title">Процент правильных ответов</span>
-      <span class="stats__result">{{ stat.correctAnswers / stat.trainedWords | percent: "1.0-2" }}</span>
-    </p>
-    <mat-divider></mat-divider>
-    <p class="stats__row">
-      <span class="stats__title">Максимальная серия правильных ответов</span>
-      <span class="stats__result">{{ stat.streak }}</span>
-    </p>
-    <mat-divider></mat-divider>
+<mat-tab-group class="stats" [ngStyle]="{ 'background-color': '#fdfdfd', 'max-width': '95vw' }">
+  <mat-tab class="stats__container" *ngFor="let stat of stats" label="{{ stat.gameName }}">
+    <div class="stats__container-item">
+      <div class="stats__words-result">
+        <span>{{ stat.learnedWordsByIds.size }}</span>
+      </div>
+      <span class="stats__words-title">Изученных слов</span>
+    </div>
+    <div class="stats__container-item">
+      <div class="stats__words-result">
+        <div>
+          <div class="words__percent">{{ stat.correctAnswers / stat.trainedWords | percent: "1.0" }}</div>
+          <mat-progress-spinner
+            class="words__spinner"
+            [value]="(stat.correctAnswers / stat.trainedWords) * 100 | number: '1.0'"
+            diameter="100"
+          >
+          </mat-progress-spinner>
+        </div>
+      </div>
+      <span class="stats__words-title">Правильных ответов</span>
+    </div>
+    <div class="stats__container-item">
+      <div class="stats__words-result">
+        <span>{{ stat.streak }}</span>
+      </div>
+      <span class="stats__words-title">Правильных ответов подряд</span>
+    </div>
   </mat-tab>
 </mat-tab-group>
