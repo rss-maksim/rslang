@@ -29,7 +29,8 @@
 
 .stats {
   &__date {
-    margin-bottom: 1rem;
+    color: var(--color-secondary-text);
+    margin: 1rem 0;
     font-weight: 500;
   }
 
