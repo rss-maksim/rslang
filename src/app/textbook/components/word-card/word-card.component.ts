@@ -6,6 +6,7 @@ import { selectWordSettingsAddButtons, selectWordSettingsTranslation } from 'src
 import { IWord } from 'src/app/redux/models/textbook.model';
 import { playRawSoundArr } from '../../../mini-games/sprint/utils/utils';
 import { ApiService } from '../../../core/services/api.service';
+import { setLoader } from 'src/app/redux/actions/textbooks.actions';
 
 @Component({
   selector: 'app-word-card',
@@ -34,6 +35,7 @@ export class WordCardComponent implements OnInit {
   }
 
   updateWord(word: IWord, difficulty: string) {
+    this.store.dispatch(setLoader({ payload: true }));
     this.updateUserWord.emit({ word, difficulty });
   }
 }

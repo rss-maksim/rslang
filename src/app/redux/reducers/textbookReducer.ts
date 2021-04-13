@@ -40,10 +40,13 @@ const _textbookReducer = createReducer(
     };
   }),
   on(setWordSettingsTranslation, (state, { payload }) => {
-    return { ...state, wordSettingsTranslation: payload };
+    return { ...state, wordSettingsTranslation: payload, loading: false };
   }),
   on(setWordSettingsAddButtons, (state, { payload }) => {
-    return { ...state, wordSettingsAddButtons: payload };
+    return { ...state, wordSettingsAddButtons: payload, loading: false };
+  }),
+  on(setLoader, (state, { payload }) => {
+    return { ...state, loading: payload };
   }),
   on(getGroupStats, (state, { payload }) => {
     return { ...state, ...payload };
