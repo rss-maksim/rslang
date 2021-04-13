@@ -1,3 +1,4 @@
+<app-progress *ngIf="isLoading$ | async"></app-progress>
 <a *ngIf="isAuthorized$ | async" class="textbook-dictionary__link" [routerLink]="['/textbook']" mat-raised-button
   >Назад к учебнику</a
 >
