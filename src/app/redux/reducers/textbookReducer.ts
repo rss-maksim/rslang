@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
+
 import { TextbookState } from '../models/textbook.model';
 import {
   calculateGroupStats,
@@ -7,6 +8,7 @@ import {
   loadWordsSuccess,
   setWordSettingsAddButtons,
   setWordSettingsTranslation,
+  setLoader,
 } from '../actions/textbooks.actions';
 
 export const initialState: TextbookState = {
