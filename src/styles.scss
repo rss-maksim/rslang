@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@import "node_modules/@angular/material/theming";
+
+@include mat-core();
+
 :root {
   --color-primary: #039be5;
   --color-primary-dark: #3a9280;
@@ -62,4 +66,124 @@ body {
   position: relative;
   height: inherit;
   justify-content: space-between;
+}
+
+$color-deeppurple-amber-primary: mat-palette($mat-deep-purple);
+$color-deeppurple-amber-accent: mat-palette($mat-amber);
+$color-deeppurple-amber-warn: mat-palette($mat-deep-orange);
+
+$color-indigo-pink-primary: mat-palette($mat-indigo);
+$color-indigo-pink-accent: mat-palette($mat-pink);
+$color-indigo-pink-warn: mat-palette($mat-deep-orange);
+
+$color-pink-bluegrey-primary: mat-palette($mat-pink);
+$color-pink-bluegrey-accent: mat-palette($mat-blue-grey);
+$color-pink-bluegrey-warn: mat-palette($mat-deep-orange);
+
+$color-purple-green-primary: mat-palette($mat-green);
+$color-purple-green-accent: mat-palette($mat-purple);
+$color-purple-green-warn: mat-palette($mat-deep-orange);
+
+$deeppurple-amber-theme: mat-light-theme(
+  (
+    color: (
+      primary: $color-deeppurple-amber-primary,
+      accent: $color-deeppurple-amber-accent,
+      warn: $color-deeppurple-amber-warn,
+    ),
+  )
+);
+
+$indigo-pink-theme: mat-light-theme(
+  (
+    color: (
+      primary: $color-indigo-pink-primary,
+      accent: $color-indigo-pink-accent,
+      warn: $color-indigo-pink-warn,
+    ),
+  )
+);
+
+$pink-bluegrey-theme: mat-light-theme(
+  (
+    color: (
+      primary: $color-pink-bluegrey-primary,
+      accent: $color-pink-bluegrey-accent,
+      warn: $color-pink-bluegrey-warn,
+    ),
+  )
+);
+
+$purple-green-theme: mat-light-theme(
+  (
+    color: (
+      primary: $color-purple-green-primary,
+      accent: $color-purple-green-accent,
+      warn: $color-purple-green-warn,
+    ),
+  )
+);
+
+.deeppurple-amber {
+  @include angular-material-theme($deeppurple-amber-theme);
+  --color-primary: #673ab7;
+  --color-primary-dark: #512da8;
+  --color-primary-normal: #673ab7;
+  --color-primary-rgb: 103, 58, 183;
+  --color-primary-light: #d1c4e9;
+  --color-accent: #ffc107;
+  --color-accent-rgb: 255, 193, 7;
+  --color-warn: #ff5722;
+  --color-primary-text: #212121;
+  --color-secondary-text: #757575;
+  --color-divider: #bdbdbd;
+  --color-text-icons: #ffffff;
+}
+
+.indigo-pink {
+  @include angular-material-theme($indigo-pink-theme);
+  --color-primary: #3f51b5;
+  --color-primary-dark: #303f9f;
+  --color-primary-normal: #3f51b5;
+  --color-primary-rgb: 63, 81, 181;
+  --color-primary-light: #c5cae9;
+  --color-accent: #ff4081;
+  --color-accent-rgb: 255, 64, 129;
+  --color-warn: #ff5722;
+  --color-primary-text: #212121;
+  --color-secondary-text: #757575;
+  --color-divider: #bdbdbd;
+  --color-text-icons: #ffffff;
+}
+
+.pink-bluegrey {
+  @include angular-material-theme($pink-bluegrey-theme);
+  --color-primary: #e91e63;
+  --color-primary-dark: #c2185b;
+  --color-primary-normal: #e91e63;
+  --color-primary-rgb: 233, 30, 99;
+  --color-primary-light: #f8bbd0;
+  --color-accent: #607d8b;
+  --color-accent-rgb: 96, 125, 139;
+  --color-warn: #ff5722;
+  --color-primary-text: #212121;
+  --color-secondary-text: #757575;
+  --color-divider: #bdbdbd;
+  --color-text-icons: #ffffff;
+}
+
+.purple-green {
+  @include angular-material-theme($purple-green-theme);
+  --color-primary: #9c27b0;
+  --color-primary-dark: #7b1fa2;
+  --color-primary-normal: #9c27b0;
+  --color-primary-rgb: 156, 39, 176;
+  --color-primary-light: #e1bee7;
+  --color-accent: #4caf50;
+  --color-accent-rgb: 76, 175, 80;
+  --color-warn: #ff5722;
+  --color-primary-text: #212121;
+  --color-secondary-text: #757575;
+  --color-divider: #bdbdbd;
+  --color-text-icons: #ffffff;
 }

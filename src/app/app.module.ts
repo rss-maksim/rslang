@@ -21,6 +21,7 @@ import { httpInterceptorsProviders } from './shared/interceptors';
 import textbookReducer from './redux/reducers/textbookReducer';
 import { TextbookEffects } from './redux/effects/textbook.effect';
 import { SpellingEffects } from './redux/effects/spelling.effects';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,6 +39,8 @@ import { SpellingEffects } from './redux/effects/spelling.effects';
       maxAge: 25,
       logOnly: environment.production,
     }),
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [...httpInterceptorsProviders],
   bootstrap: [AppComponent],

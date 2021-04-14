@@ -12,6 +12,16 @@
     </ul>
   </nav>
 
+  <div>
+    <mat-form-field appearance="fill">
+      <select matNativeControl (change)="onSelect($event)" name="theme" #theme>
+        <option *ngFor="let theme of themes" [value]="theme.value" class="mat-select-panel">
+          {{ theme.viewValue }}
+        </option>
+      </select>
+    </mat-form-field>
+  </div>
+
   <div *ngIf="!isLoginPage" class="page-header__authorization">
     <div class="page-header__userBlock" *ngIf="user$ | async as user; else login">
       <a [routerLink]="['profile', user.id]" matTooltip="Профайл">
