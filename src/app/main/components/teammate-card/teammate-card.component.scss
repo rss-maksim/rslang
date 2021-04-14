@@ -37,6 +37,7 @@
 
     &__github-link {
       text-decoration: none;
+      color: var(--color-primary);
     }
 
     &__location {
@@ -45,6 +46,7 @@
 
     &__contribution {
       padding: 0;
+      margin-top: 0.25rem;
     }
 
     &__contribution-title {
