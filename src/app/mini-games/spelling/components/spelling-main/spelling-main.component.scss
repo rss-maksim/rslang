@@ -1,0 +1,94 @@
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, #212121 0, #616161 72%, #757575);
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  z-index: 4;
+}
+
+.intro {
+  text-align: center;
+  color: var(--color-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mini-game {
+  width: 100%;
+  min-height: 80vh;
+  transition: all 1s ease;
+  background: #212121;
+  background: linear-gradient(180deg, #212121 0, #616161 72%, #757575);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 3.75rem;
+  color: var(--color-light);
+  opacity: 0.8;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.8125rem;
+}
+
+.text {
+  max-width: 565px;
+  margin: 0 auto 1.25rem;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 300;
+  color: var(--color-light);
+  opacity: 0.8;
+}
+
+.start_btn {
+  background-color: transparent;
+  display: inline-block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 1.1875rem 0.9375rem 1.3125rem;
+  min-width: 162px;
+  border: 1px solid hsla(0, 0%, 100%, 0.2);
+  border-radius: 3px;
+  text-align: center;
+  text-decoration: none;
+  color: hsla(0, 0%, 100%, 0.7);
+  text-transform: uppercase;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.mat-fab {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--color-button);
+}
+
+.full-screen__btn {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}

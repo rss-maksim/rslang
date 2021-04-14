@@ -28,6 +28,12 @@ import { LevelChoiseComponent } from './audiochallenge/components/level-choise/l
 import { CloseGameDialogComponent } from './shared/components/close-game-dialog/close-game-dialog.component';
 import { EndGameComponent } from './shared/components/end-game/end-game.component';
 import { CustomMiniGameComponent } from './custom-mini-game/custom-mini-game.component';
+import { SpellingMainComponent } from './spelling/components/spelling-main/spelling-main.component';
+import { SpellingGameComponent } from './spelling/components/spelling-game/spelling-game.component';
+import { SpellingDecisionButtonsComponent } from './spelling/components/decision-buttons/decision-buttons.component';
+import { SpellingWordComponent } from './spelling/components/spelling-word/spelling-word.component';
+import { SpellingWordCardComponent } from './spelling/components/word-card/word-card.component';
+import { SpellingGameSoundsButtonComponent } from './spelling/components/game-sounds-button/game-sounds-button.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +58,12 @@ import { CustomMiniGameComponent } from './custom-mini-game/custom-mini-game.com
     CloseGameDialogComponent,
     EndGameComponent,
     CustomMiniGameComponent,
+    SpellingMainComponent,
+    SpellingGameComponent,
+    SpellingDecisionButtonsComponent,
+    SpellingWordComponent,
+    SpellingWordCardComponent,
+    SpellingGameSoundsButtonComponent,
   ],
   imports: [
     CommonModule,
