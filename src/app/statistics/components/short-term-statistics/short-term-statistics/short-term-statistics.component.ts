@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Answer } from 'src/app/core/models/IAnswer';
 
 import { IShortTermStats, IShortTermStatsResults } from 'src/app/core/models/IShortTermStats';
@@ -7,6 +7,7 @@ import { IShortTermStats, IShortTermStatsResults } from 'src/app/core/models/ISh
   selector: 'app-short-term-statistics',
   templateUrl: './short-term-statistics.component.html',
   styleUrls: ['./short-term-statistics.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ShortTermStatisticsComponent implements OnInit {
   @Input() shortTermStats: IShortTermStats[] | null = null;
