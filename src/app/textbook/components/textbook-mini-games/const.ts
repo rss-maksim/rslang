@@ -10,11 +10,15 @@ export const mini_games_list: ITextbookMiniGames[] = [
     link: '/mini-games/audiochallenge',
   },
   {
-    name: 'Савана',
+    name: 'Саванна',
     link: '/mini-games/savannah',
   },
   {
     name: 'Своя игра',
     link: '/mini-games/custom-mini-game',
+  },
+  {
+    name: 'Правописание',
+    link: '/mini-games/spelling',
   },
 ];

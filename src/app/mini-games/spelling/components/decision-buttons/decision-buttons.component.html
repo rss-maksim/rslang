@@ -1,0 +1,10 @@
+<ng-template #dontKnowBtn>
+  <button class="spelling__button" (click)="guess()">Проверить</button>
+</ng-template>
+
+<button
+  *ngIf="guessed; else dontKnowBtn"
+  class="spelling__button spelling__button_arrow-right"
+  (click)="nextWord()"
+  #nextBtn
+></button>

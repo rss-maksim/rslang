@@ -1,0 +1,21 @@
+<app-spelling-game-sounds-button></app-spelling-game-sounds-button>
+
+<ng-template [ngIf]="currentWord$ | async" let-currentWord>
+  <div class="spelling__container">
+    <app-spelling-word-card [word]="currentWord" [guessed]="guessed$ | async" (playEvent)="playSound()">
+    </app-spelling-word-card>
+
+    <app-spelling-word
+      #spellingWordComponent
+      [currentWord]="currentWord"
+      (nextWordEvent)="nextWord()"
+      (checkAnswer)="checkAnswer($event)"
+    ></app-spelling-word>
+
+    <app-spelling-decision-buttons
+      [guessed]="guessed$ | async"
+      (guessEvent)="checkWord(currentWord)"
+      (nextWordEvent)="nextWord()"
+    ></app-spelling-decision-buttons>
+  </div>
+</ng-template>

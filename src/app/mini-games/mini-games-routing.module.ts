@@ -6,12 +6,14 @@ import { SprintMiniGameComponent } from './sprint/sprint-mini-game.component';
 import { AudiochallengeMainComponent } from './audiochallenge/components/audiochallenge-main/audiochallenge-main.component';
 import { CustomMiniGameComponent } from './custom-mini-game/custom-mini-game.component';
 import { SavannahMiniGameComponent } from './savannah/pages/savannah-mini-game/savannah-mini-game.component';
+import { SpellingMainComponent } from './spelling/components/spelling-main/spelling-main.component';
 
 const routes: Routes = [
   { path: 'sprint', component: SprintMiniGameComponent },
   { path: 'audiochallenge', component: AudiochallengeMainComponent },
   { path: 'savannah', component: SavannahMiniGameComponent },
   { path: 'custom-mini-game', component: CustomMiniGameComponent },
+  { path: 'spelling', component: SpellingMainComponent },
   { path: '', component: MiniGamesPageComponent, pathMatch: 'full' },
 ];
 

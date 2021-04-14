@@ -1,0 +1,56 @@
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+form.spelling__correct {
+  input[type="text"] {
+    border: 1px solid green;
+  }
+}
+
+form.spelling__wrong {
+  input[type="text"] {
+    border: 1px solid red;
+  }
+}
+
+input[type="text"] {
+  width: 3rem;
+  height: 3rem;
+  font-size: 3rem;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-light);
+  background-color: var(--color-dark);
+  border: 1px solid hsla(0, 0%, 100%, 0.2);
+  border-radius: 3px;
+}
+
+@media (max-width: 800px) {
+  form {
+    gap: 0.3rem;
+  }
+
+  input[type="text"] {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  form {
+    gap: 0.1rem;
+  }
+
+  input[type="text"] {
+    width: 2rem;
+    height: 2rem;
+    font-size: 2rem;
+  }
+}

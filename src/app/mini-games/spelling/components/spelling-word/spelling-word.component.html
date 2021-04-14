@@ -1,0 +1,8 @@
+<form #wordForm (click)="onLettersClick($event)">
+  <input
+    type="text"
+    maxlength="1"
+    [name]="i"
+    *ngFor="let char of currentWord.word.split(''); let i = index; trackBy: trackByIdentity"
+  />
+</form>
