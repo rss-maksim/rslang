@@ -80,19 +80,20 @@ export class SavannahService implements OnDestroy {
     let page3ToGet = '';
     let page4ToGet = '';
 
-    if (difficulty !== undefined) {
-      this.game.queryParams.group = difficulty.toString();
-      groupToGet = difficulty.toString();
+    if (difficulty) {
+      groupToGet = this.game.queryParams.group = difficulty.toString();
     }
 
-    if (this.game.queryParams.group !== undefined) {
+    if (this.game.queryParams.group) {
       groupToGet = this.game.queryParams.group;
     }
 
-    if (this.game.queryParams.page !== undefined) {
+    if (this.game.queryParams.page) {
       page1ToGet = this.game.queryParams.page;
-      page2ToGet = +this.game.queryParams.page - 1 >= 0 ? (+this.game.queryParams.page - 1).toString() : '';
-      page3ToGet = +this.game.queryParams.page - 2 >= 0 ? (+this.game.queryParams.page - 2).toString() : '';
+      let [page2, page3, page4] = getRandomNumbers(3, this.game.queryParams.page);
+      page2ToGet = page2.toString();
+      page3ToGet = page3.toString();
+      page4ToGet = page4.toString();
     } else {
       let [page1, page2, page3, page4] = getRandomNumbers(4);
       page1ToGet = page1.toString();
@@ -129,7 +130,6 @@ export class SavannahService implements OnDestroy {
       .subscribe((words: IWord[]) => {
         this.game.randomTranslations.push(...getTranslations(words));
       });
-
     this.game.gameState = GameState.PREP;
   }
 
