@@ -11,7 +11,7 @@ describe('EndGameComponent', () => {
   let component: EndGameComponent;
   let fixture: ComponentFixture<EndGameComponent>;
   let store: MockStore;
-  let initialState = {};
+  let initialState = { user: { isAuthorized: false } };
   let mockWord: ITrainedWord = {
     id: '1',
     word: 'word',
