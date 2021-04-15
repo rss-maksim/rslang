@@ -26,16 +26,20 @@
       <h2 class="home-page__games-title">Доступные игры</h2>
       <div class="home-page__games">
         <mat-card
-          class="home-page__game-card"
-          [routerLink]="['/mini-games', game.route]"
           *ngFor="let game of games; trackBy: trackByFn"
+          class="game-card"
+          [routerLink]="['/mini-games', game.route]"
+          [ngClass]="game.route"
         >
-          <mat-card-header>
-            <mat-card-title>{{ game.name }}</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            {{ game.description }}
-          </mat-card-content>
+          <div class="bg-overlay"></div>
+          <div class="x-border"></div>
+          <div class="y-border"></div>
+          <div class="game-card__content">
+            <h2 class="game-card__title">{{ game.name }}</h2>
+            <mat-card-content class="game-card__description">
+              {{ game.description }}
+            </mat-card-content>
+          </div>
         </mat-card>
       </div>
     </div>
