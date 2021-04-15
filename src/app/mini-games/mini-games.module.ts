@@ -34,6 +34,7 @@ import { SpellingDecisionButtonsComponent } from './spelling/components/decision
 import { SpellingWordComponent } from './spelling/components/spelling-word/spelling-word.component';
 import { SpellingWordCardComponent } from './spelling/components/word-card/word-card.component';
 import { SpellingGameSoundsButtonComponent } from './spelling/components/game-sounds-button/game-sounds-button.component';
+import { GameRulesComponent } from './game-rules/game-rules.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { SpellingGameSoundsButtonComponent } from './spelling/components/game-so
     SpellingWordComponent,
     SpellingWordCardComponent,
     SpellingGameSoundsButtonComponent,
+    GameRulesComponent,
   ],
   imports: [
     CommonModule,

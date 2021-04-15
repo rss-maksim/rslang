@@ -110,8 +110,13 @@
   justify-self: right;
   align-self: flex-start;
   margin-top: -0.5rem;
-  font-size: 1.5rem;
+  font-size: 3rem;
   color: var(--color-primary-dark);
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  z-index: 200;
+  cursor: pointer;
 }
 
 .material-icons-lg {
