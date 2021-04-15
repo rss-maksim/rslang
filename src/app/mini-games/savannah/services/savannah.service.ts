@@ -109,7 +109,7 @@ export class SavannahService implements OnDestroy {
         filter: this.game.queryParams.filter,
       })
       .subscribe((words: IWord[] | any[]) => {
-        if (words[0].paginatedResults) {
+        if (words.length && words[0].paginatedResults) {
           words = words[0].paginatedResults;
         }
         this.game.learningWords.push(...words);
