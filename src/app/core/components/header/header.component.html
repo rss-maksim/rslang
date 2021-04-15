@@ -12,6 +12,22 @@
     </ul>
   </nav>
 
+  <div class="toggle-switch">
+    <mat-icon class="toggle-icons"> light_mode </mat-icon>
+    <mat-slide-toggle [color]="'accent'" [checked]="isChecked" (change)="onSliderToggle($event)"> </mat-slide-toggle>
+    <mat-icon class="toggle-icons"> dark_mode </mat-icon>
+  </div>
+
+  <!--   <div>
+    <mat-form-field appearance="fill">
+      <select matNativeControl (change)="onSelect($event)" name="theme" #theme>
+        <option *ngFor="let theme of themes" [value]="theme.value" class="mat-select-panel">
+          {{ theme.viewValue }}
+        </option>
+      </select>
+    </mat-form-field>
+  </div> -->
+
   <div *ngIf="!isLoginPage" class="page-header__authorization">
     <div class="page-header__userBlock" *ngIf="user$ | async as user; else login">
       <a [routerLink]="['profile', user.id]" matTooltip="Профайл">

@@ -19,6 +19,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [],
@@ -43,6 +44,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatDividerModule,
     MatSnackBarModule,
     DragDropModule,
+    MatSlideToggleModule,
   ],
   exports: [
     MatCardModule,
@@ -65,6 +67,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatDividerModule,
     MatSnackBarModule,
     DragDropModule,
+    MatSlideToggleModule,
   ],
 })
 export class MaterialModule {}

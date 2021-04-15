@@ -91,6 +91,14 @@ a:hover {
   }
 }
 
+.toggle-switch {
+  justify-self: end;
+}
+
+.toggle-icons {
+  margin: 0 1rem 0 1rem;
+}
+
 @media (max-width: 768px) {
   .page-header-linkText {
     display: none;
