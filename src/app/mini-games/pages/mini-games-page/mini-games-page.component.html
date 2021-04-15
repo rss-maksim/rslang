@@ -1,10 +1,9 @@
+<mat-icon class="material-icons-md" style="white-space: pre-line" (click)="onShow()"> help_outline </mat-icon>
+<app-game-rules [isShow]="showPopup" (hidden)="onHidden()"></app-game-rules>
 <div class="game-cards-row" *ngFor="let gameCard of gameCards; trackBy: trackByCardName">
   <mat-card class="game-card" matRipple [routerLink]="[gameCard.route]">
     <mat-card-header class="game-card__header">
       <mat-card-title class="game-card__title">{{ gameCard.name | uppercase }}</mat-card-title>
-      <mat-icon class="material-icons-md" style="white-space: pre-line" matTooltip="{{ gameCard.rules }}">
-        help_outline
-      </mat-icon>
     </mat-card-header>
     <div class="game-card__content">
       <mat-icon class="material-icons-lg">

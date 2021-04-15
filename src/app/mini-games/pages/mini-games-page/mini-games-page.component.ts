@@ -8,8 +8,16 @@ import { GameCard, GAME_CARDS_NEW } from 'src/app/core/constants/mini-games';
 })
 export class MiniGamesPageComponent {
   gameCards: GameCard[] = GAME_CARDS_NEW;
+  showPopup = false;
 
   trackByCardName(index: number, card: GameCard): string {
     return card.name;
+  }
+
+  onShow() {
+    this.showPopup = true;
+  }
+  onHidden() {
+    this.showPopup = false;
   }
 }
