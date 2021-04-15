@@ -154,6 +154,7 @@ $purple-green-theme: mat-dark-theme(
   --color-secondary-text: #757575;
   --color-divider: #bdbdbd;
   --color-text-icons: #ffffff;
+  --color-text-togglable: #212121;
 }
 
 .pink-bluegrey {
@@ -169,6 +170,7 @@ $purple-green-theme: mat-dark-theme(
   --color-secondary-text: #757575;
   --color-divider: #bdbdbd;
   --color-text-icons: #ffffff;
+  --color-text-togglable: #ffffff;
   background-color: var(--color-dark-background);
 
   @include angular-material-color($pink-bluegrey-theme);

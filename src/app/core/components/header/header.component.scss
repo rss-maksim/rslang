@@ -28,7 +28,7 @@ a:hover {
 .page-header {
   width: 100%;
   display: flex;
-  padding: 0 1rem;
+  padding: 0 2rem;
   box-sizing: border-box;
   justify-content: space-between;
   align-items: center;
@@ -91,12 +91,18 @@ a:hover {
   }
 }
 
+.right-block {
+  display: flex;
+  align-items: center;
+}
+
 .toggle-switch {
-  justify-self: end;
+  margin-right: 2rem;
+  align-items: center;
 }
 
 .toggle-icons {
-  margin: 0 1rem 0 1rem;
+  margin: 0 1rem;
 }
 
 @media (max-width: 768px) {
@@ -106,6 +112,17 @@ a:hover {
 
   .page-header__icon {
     display: flex;
+  }
+
+  .toggle-icons {
+    margin: 0 0.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .toggle-icons {
+    display: none;
   }
 }
 

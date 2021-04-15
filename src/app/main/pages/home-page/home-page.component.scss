@@ -78,6 +78,10 @@
     z-index: 2;
   }
 
+  &__description {
+    color: var(--color-text-togglable);
+  }
+
   &__games-block {
     margin-top: 4rem;
   }
