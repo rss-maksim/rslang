@@ -24,12 +24,13 @@
     </div>
     <div class="home-page__games-block">
       <h2 class="home-page__games-title">Доступные игры</h2>
-      <div class="home-page__games">
+      <div class="home-page__games" [@gamesBlockAnim]="state" #gamesBlock>
         <mat-card
           *ngFor="let game of games; trackBy: trackByFn"
           class="game-card"
           [routerLink]="['/mini-games', game.route]"
           [ngClass]="game.route"
+          [@childAnimation]="state"
         >
           <div class="bg-overlay"></div>
           <div class="x-border"></div>
