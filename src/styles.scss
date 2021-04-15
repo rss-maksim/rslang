@@ -4,7 +4,7 @@
 @include mat-core();
 
 :root {
-  --color-primary: #039be5;
+  /*--color-primary: #039be5;
   --color-primary-dark: #3a9280;
   --color-primary-normal: #6dc5b3;
   --color-primary-light: #488fd5;
@@ -34,7 +34,7 @@
   --color-group-4: 204, 153, 204;
   --color-group-5: 153, 255, 153;
 
-  --box-shadow: -2px 0px 17px 2px rgba(34, 60, 80, 0.16);
+  --box-shadow: -2px 0px 17px 2px rgba(34, 60, 80, 0.16);*/
 }
 
 html,
@@ -72,7 +72,11 @@ $color-blue-teal-primary: mat-palette($mat-light-blue);
 $color-blue-teal-accent: mat-palette($mat-teal);
 $color-blue-teal-warn: mat-palette($mat-red);
 
-$color-deeppurple-amber-primary: mat-palette($mat-deep-purple);
+$color-pink-bluegrey-primary: mat-palette($mat-pink);
+$color-pink-bluegrey-accent: mat-palette($mat-blue-grey);
+$color-pink-bluegrey-warn: mat-palette($mat-deep-orange);
+
+/*$color-deeppurple-amber-primary: mat-palette($mat-deep-purple);
 $color-deeppurple-amber-accent: mat-palette($mat-amber);
 $color-deeppurple-amber-warn: mat-palette($mat-deep-orange);
 
@@ -80,15 +84,11 @@ $color-indigo-pink-primary: mat-palette($mat-indigo);
 $color-indigo-pink-accent: mat-palette($mat-pink);
 $color-indigo-pink-warn: mat-palette($mat-deep-orange);
 
-$color-pink-bluegrey-primary: mat-palette($mat-pink);
-$color-pink-bluegrey-accent: mat-palette($mat-blue-grey);
-$color-pink-bluegrey-warn: mat-palette($mat-deep-orange);
-
 $color-purple-green-primary: mat-palette($mat-green);
 $color-purple-green-accent: mat-palette($mat-purple);
-$color-purple-green-warn: mat-palette($mat-deep-orange);
+$color-purple-green-warn: mat-palette($mat-deep-orange);*/
 
-$blue-teal-theme: mat-light-theme(
+$light-theme: mat-light-theme(
   (
     color: (
       primary: $color-blue-teal-primary,
@@ -98,7 +98,17 @@ $blue-teal-theme: mat-light-theme(
   )
 );
 
-$deeppurple-amber-theme: mat-light-theme(
+$dark-theme: mat-dark-theme(
+  (
+    color: (
+      primary: $color-pink-bluegrey-primary,
+      accent: $color-pink-bluegrey-accent,
+      warn: $color-pink-bluegrey-warn,
+    ),
+  )
+);
+
+/*$deeppurple-amber-theme: mat-light-theme(
   (
     color: (
       primary: $color-deeppurple-amber-primary,
@@ -118,16 +128,6 @@ $indigo-pink-theme: mat-light-theme(
   )
 );
 
-$pink-bluegrey-theme: mat-dark-theme(
-  (
-    color: (
-      primary: $color-pink-bluegrey-primary,
-      accent: $color-pink-bluegrey-accent,
-      warn: $color-pink-bluegrey-warn,
-    ),
-  )
-);
-
 $purple-green-theme: mat-dark-theme(
   (
     color: (
@@ -136,12 +136,11 @@ $purple-green-theme: mat-dark-theme(
       warn: $color-purple-green-warn,
     ),
   )
-);
+);*/
 
-@include angular-material-theme($blue-teal-theme);
+@include angular-material-theme($light-theme);
 
-.blue-teal {
-  //@include angular-material-color($blue-teal-theme);
+.light-theme {
   --color-primary: #039be5;
   --color-primary-dark: #3a9280;
   --color-primary-normal: #6dc5b3;
@@ -155,9 +154,29 @@ $purple-green-theme: mat-dark-theme(
   --color-divider: #bdbdbd;
   --color-text-icons: #ffffff;
   --color-text-togglable: #212121;
+
+  --color-light: #ffffff;
+  --color-light-rgb: 255, 255, 255;
+
+  --color-dark: #000000;
+  --color-dark-rgb: 0, 0, 0;
+  --color-dark-background: #07073d;
+
+  --color-button: rgba(255, 255, 255, 0.2);
+
+  --color-border: #000080;
+
+  --color-group-0: 255, 204, 204;
+  --color-group-1: 204, 255, 255;
+  --color-group-2: 255, 255, 153;
+  --color-group-3: 0, 191, 255;
+  --color-group-4: 204, 153, 204;
+  --color-group-5: 153, 255, 153;
+
+  --box-shadow: -2px 0px 17px 2px rgba(34, 60, 80, 0.16);
 }
 
-.pink-bluegrey {
+.dark-theme {
   --color-primary: #e91e63;
   --color-primary-dark: #c2185b;
   --color-primary-normal: #e91e63;
@@ -173,10 +192,32 @@ $purple-green-theme: mat-dark-theme(
   --color-text-togglable: #ffffff;
   background-color: var(--color-dark-background);
 
-  @include angular-material-color($pink-bluegrey-theme);
+  /* Здесь надо корректировать цвета для парных цветов из светлой темы */
+
+  --color-light: #ffffff;
+  --color-light-rgb: 255, 255, 255;
+
+  --color-dark: #000000;
+  --color-dark-rgb: 0, 0, 0;
+  --color-dark-background: #07073d;
+
+  --color-button: rgba(255, 255, 255, 0.2);
+
+  --color-border: #000080;
+
+  --color-group-0: 255, 204, 204;
+  --color-group-1: 204, 255, 255;
+  --color-group-2: 255, 255, 153;
+  --color-group-3: 0, 191, 255;
+  --color-group-4: 204, 153, 204;
+  --color-group-5: 153, 255, 153;
+
+  --box-shadow: -2px 0px 17px 2px rgba(34, 60, 80, 0.16);
+
+  @include angular-material-color($dark-theme);
 }
 
-.deeppurple-amber {
+/*.deeppurple-amber {
   --color-primary: #673ab7;
   --color-primary-dark: #512da8;
   --color-primary-normal: #673ab7;
@@ -226,4 +267,4 @@ $purple-green-theme: mat-dark-theme(
   background-color: var(--color-dark-background);
 
   @include angular-material-color($purple-green-theme);
-}
+}*/
