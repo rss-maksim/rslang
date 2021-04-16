@@ -1,8 +1,8 @@
-<mat-card class="card">
+<mat-card class="card" [ngStyle]="{ 'box-shadow': 'none' }">
   <div *ngIf="guessed; else audioBtnBlock">
     <img class="card__image" [src]="constPath + '/' + word.image" [alt]="word.word" />
     <mat-card-title>
-      <button mat-mini-fab class="audio__btn" aria-label="Example icon button with a home icon" (click)="onPlay()">
+      <button mat-mini-fab class="audio__btn" [ngStyle]="{ 'background-color': 'transparent' }" (click)="onPlay()">
         <i class="material-icons">volume_up</i>
       </button>
       {{ word.word }} {{ word.transcription }} {{ word.wordTranslate }}
@@ -11,7 +11,12 @@
 </mat-card>
 
 <ng-template #audioBtnBlock>
-  <button mat-fab class="audio__btn audio__btn_big" (click)="onPlay()">
+  <button
+    mat-fab
+    class="audio__btn audio__btn_big"
+    (click)="onPlay()"
+    [ngStyle]="{ 'background-color': 'transparent' }"
+  >
     <i class="material-icons md-48">volume_up</i>
   </button>
 </ng-template>

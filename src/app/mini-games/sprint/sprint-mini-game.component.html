@@ -9,15 +9,27 @@
   </div>
 
   <div class="game-container">
-    <button mat-fab (click)="openCloseDialog()" class="game__close">
+    <button mat-fab (click)="openCloseDialog()" class="game__close" [ngStyle]="{ 'background-color': 'transparent' }">
       <span class="material-icons material-icons_black">close</span>
     </button>
 
-    <button mat-fab *ngIf="!settings.isMuted" class="game__mute" (click)="onMuteClick()">
+    <button
+      *ngIf="!settings.isMuted"
+      mat-fab
+      class="game__mute"
+      (click)="onMuteClick()"
+      [ngStyle]="{ 'background-color': 'transparent' }"
+    >
       <i class="material-icons material-icons_black">music_note</i>
     </button>
 
-    <button mat-fab *ngIf="settings.isMuted" class="game__mute" (click)="onMuteClick()">
+    <button
+      *ngIf="settings.isMuted"
+      mat-fab
+      class="game__mute"
+      (click)="onMuteClick()"
+      [ngStyle]="{ 'background-color': 'transparent' }"
+    >
       <i class="material-icons material-icons_black">music_off</i>
     </button>
 

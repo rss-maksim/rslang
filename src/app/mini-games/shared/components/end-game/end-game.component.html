@@ -11,7 +11,13 @@
       <ng-container *ngFor="let word of trainedWords; index as index; trackBy: trackByIdentity">
         <mat-list-item *ngIf="word.result === answer.WRONG">
           <div>
-            <button mat-mini-fab class="actions__btn" aria-label="Pronounce word" (click)="playSound(word.audio)">
+            <button
+              mat-mini-fab
+              class="actions__btn"
+              aria-label="Pronounce word"
+              (click)="playSound(word.audio)"
+              [ngStyle]="{ 'box-shadow': 'none', 'background-color': 'transparent' }"
+            >
               <i class="material-icons">volume_up</i>
             </button>
             <span class="game-card__word">{{ word.word }}</span>
@@ -23,6 +29,7 @@
             aria-label="Delete word"
             (click)="markAsDeleted(index)"
             [disabled]="word.userWord?.difficulty === 'deleted'"
+            [ngStyle]="{ 'box-shadow': 'none', 'background-color': 'transparent' }"
           >
             <i class="material-icons">delete</i>
           </button>
@@ -35,7 +42,13 @@
       <ng-container *ngFor="let word of trainedWords; index as index; trackBy: trackByIdentity">
         <mat-list-item *ngIf="word.result === answer.CORRECT">
           <div>
-            <button mat-mini-fab class="actions__btn" aria-label="Pronounce word" (click)="playSound(word.audio)">
+            <button
+              mat-mini-fab
+              class="actions__btn"
+              aria-label="Pronounce word"
+              (click)="playSound(word.audio)"
+              [ngStyle]="{ 'box-shadow': 'none', 'background-color': 'transparent' }"
+            >
               <i class="material-icons">volume_up</i>
             </button>
             <span class="game-card__word">{{ word.word }}</span>
@@ -47,6 +60,7 @@
             aria-label="Delete word"
             (click)="markAsDeleted(index)"
             [disabled]="word.userWord?.difficulty === 'deleted'"
+            [ngStyle]="{ 'box-shadow': 'none', 'background-color': 'transparent' }"
           >
             <i class="material-icons">delete</i>
           </button>
@@ -55,6 +69,6 @@
     </mat-list>
   </mat-card-content>
 
-  <button mat-stroked-button color="primary" class="game-card__exit" [routerLink]="'../'">К списку тренировок</button>
+  <button mat-stroked-button color="warn" class="game-card__exit" [routerLink]="'../'">К списку тренировок</button>
   <button mat-stroked-button class="game-card__reset" (click)="closeGame()">Продолжить тренировку</button>
 </mat-card>

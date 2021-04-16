@@ -10,6 +10,8 @@ import {
   CHART_LABEL_2,
   LINE_CHART_COLORS_1,
   LINE_CHART_COLORS_2,
+  Y_AXES_0_GRID_LINES_COLOR,
+  Y_AXES_0_TICKS_COLOR,
   Y_AXES_1_GRID_LINES_COLOR,
   Y_AXES_1_TICKS_COLOR,
 } from 'src/app/core/constants/statistics';

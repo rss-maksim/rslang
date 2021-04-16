@@ -206,7 +206,6 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
         const soundToPlay =
           this.game.streak % 4 === 0 && this.game.streak <= StreakLevel.THIRD ? Sound.LEVELUP : Sound.CORRECT;
         playSound(soundToPlay);
-        playSound(soundToPlay);
       }
     } else {
       this.game.streak = 0;
