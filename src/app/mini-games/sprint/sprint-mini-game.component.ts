@@ -45,7 +45,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   wordsBatch1Subscription?: Subscription;
   wordsBatch2Subscription?: Subscription;
   wordsBatch3Subscription?: Subscription;
-  settingsSubscription$?: Subscription;
+  settingsSubscription?: Subscription;
   GAMES = Games;
   GAME_STATE = GameState;
   DEFAULT_DIFFICULTY_LEVEL = DEFAULT_DIFFICULTY_LEVEL;
@@ -66,7 +66,7 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.settingsSubscription$ = this.settingsService.gameSettings.subscribe((state) => {
+    this.settingsSubscription = this.settingsService.gameSettings.subscribe((state) => {
       this.settings = state;
     });
     const { group, page, filter } = this.route.snapshot.queryParams;
@@ -90,6 +90,9 @@ export class SprintMiniGameComponent implements OnInit, OnDestroy {
     }
     if (this.wordsBatch3Subscription) {
       this.wordsBatch3Subscription.unsubscribe();
+    }
+    if (this.settingsSubscription) {
+      this.settingsSubscription.unsubscribe();
     }
   }
 

@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+input {
+  color: var(--color-text-togglable);
+}
+
 .signup {
   display: flex;
   flex-direction: column;

@@ -1,10 +1,20 @@
 <div class="savannah" [ngSwitch]="game.gameState">
   <div class="savannah-controls">
-    <button mat-fab class="savannah-controls_close" (click)="openCloseDialog()">
+    <button
+      mat-fab
+      class="savannah-controls_close"
+      (click)="openCloseDialog()"
+      [ngStyle]="{ 'background-color': 'transparent' }"
+    >
       <mat-icon>close</mat-icon>
     </button>
 
-    <button mat-fab class="savannah-controls_volume" (click)="changeMute()">
+    <button
+      mat-fab
+      class="savannah-controls_volume"
+      (click)="changeMute()"
+      [ngStyle]="{ 'background-color': 'transparent' }"
+    >
       <ng-container *ngIf="settings$.isMuted; else up">
         <mat-icon>music_off</mat-icon>
       </ng-container>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { soundOf, soundOn } from 'src/app/redux/actions/audiochallenge.actions';
 import { AppState } from 'src/app/redux/models/state.model';
 import { selectIsSoundOnBool } from 'src/app/redux/selectors/audiochallenge.selectors';
+import { MiniGamesSettingsService } from 'src/app/services/mini-games-settings.service';
 
 @Component({
   selector: 'app-game-sounds-button',
@@ -13,7 +14,7 @@ import { selectIsSoundOnBool } from 'src/app/redux/selectors/audiochallenge.sele
 export class GameSoundsButtonComponent implements OnInit {
   isSoundOn$!: Observable<boolean>;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private settingsService: MiniGamesSettingsService) {}
 
   ngOnInit() {
     this.isSoundOn$ = this.store.select(selectIsSoundOnBool);
@@ -21,9 +22,11 @@ export class GameSoundsButtonComponent implements OnInit {
 
   soundON() {
     this.store.dispatch(soundOn());
+    this.settingsService.changeMutedState();
   }
 
   soundOFF() {
     this.store.dispatch(soundOf());
+    this.settingsService.changeMutedState();
   }
 }
