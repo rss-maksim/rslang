@@ -92,6 +92,10 @@ a:hover {
   margin: 0 1rem;
 }
 
+.active {
+  background-size: 100% 2px;
+}
+
 @media (max-width: 768px) {
   .page-header-linkText {
     display: none;
