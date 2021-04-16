@@ -201,3 +201,70 @@ $purple-green-theme: mat-dark-theme(
 .dark-theme .mat-paginator {
   background: transparent;
 }
+
+.active {
+  background-size: 100% 2px;
+}
+
+.page-header__icon {
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center;
+  background-color: transparent;
+}
+
+.dark-theme .active {
+  .page-header__icon {
+    background-color: rgba($color: #ffffff, $alpha: 0.2);
+  }
+}
+
+.dark-theme .page-header__icon {
+  &:hover {
+    background-color: rgba($color: #ffffff, $alpha: 0.2);
+  }
+}
+
+.dark-theme .page-header__icon-1 {
+  background-image: url("./assets/images/icons/header/home.svg");
+}
+
+.dark-theme .page-header__icon-2 {
+  background-image: url("./assets/images/icons/header/textbook.svg");
+}
+
+.dark-theme .page-header__icon-3 {
+  background-image: url("./assets/images/icons/header/game.svg");
+}
+
+.dark-theme .page-header__icon-4 {
+  background-image: url("./assets/images/icons/header/statistics.svg");
+}
+
+.light-theme .active {
+  .page-header__icon {
+    background-color: rgba($color: #000000, $alpha: 0.2);
+  }
+}
+
+.light-theme .page-header__icon {
+  &:hover {
+    background-color: rgba($color: #000000, $alpha: 0.2);
+  }
+}
+
+.light-theme .page-header__icon-1 {
+  background-image: url("./assets/images/icons/header/home-dark.svg");
+}
+
+.light-theme .page-header__icon-2 {
+  background-image: url("./assets/images/icons/header/textbook-dark.svg");
+}
+
+.light-theme .page-header__icon-3 {
+  background-image: url("./assets/images/icons/header/game-dark.svg");
+}
+
+.light-theme .page-header__icon-4 {
+  background-image: url("./assets/images/icons/header/statistics-dark.svg");
+}
