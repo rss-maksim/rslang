@@ -1,6 +1,10 @@
 {
   "name": "rslang",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "repository": "https://github.com/rss-maksim/rslang",
+  "author": {
+    "name": "Ilya Kozak, Ivan Grakov, Tonya Dubich, Diana Valeeva, Arslan Tadjiev, Maksim Kirilko"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng lint && ng serve -o",
