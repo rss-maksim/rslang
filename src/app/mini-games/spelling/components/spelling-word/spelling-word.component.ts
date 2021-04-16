@@ -95,6 +95,9 @@ export class SpellingWordComponent implements OnChanges {
         }
         break;
 
+      case ' ':
+        break;
+
       default:
         if (/^[a-z]$/.test(event.key) && this.wordForm) {
           this.wordForm.nativeElement.children[this.selectedIndex].value = event.key;

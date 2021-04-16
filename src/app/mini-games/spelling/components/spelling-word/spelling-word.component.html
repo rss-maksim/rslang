@@ -3,6 +3,7 @@
     type="text"
     maxlength="1"
     [name]="i"
+    autocomplete="off"
     *ngFor="let char of currentWord.word.split(''); let i = index; trackBy: trackByIdentity"
   />
 </form>

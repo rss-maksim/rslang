@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="card" [ngStyle]="{ 'box-shadow': 'none' }">
   <mat-card-title class="card__title" [ngStyle]="{ color: textColor }">{{ gameName }}</mat-card-title>
 
   <mat-card-content class="card__content" *ngIf="hasDifficultySlider">
@@ -61,7 +61,7 @@
       color="warn"
       class="card__start-button"
       (click)="onStart()"
-      [ngStyle]="{ color: textColor }"
+      [ngStyle]="{ color: textColor, 'background-color': 'transparent' }"
     >
       Начать
     </button>

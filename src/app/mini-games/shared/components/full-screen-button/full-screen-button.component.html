@@ -1,3 +1,3 @@
-<button class="btn-screen" mat-fab (click)="changeScreen()">
+<button class="btn-screen" mat-fab (click)="changeScreen()" [ngStyle]="{ 'background-color': 'transparent' }">
   <mat-icon class="btn-screen_icon" inline>{{ isFullScreen ? "fullscreen_exit" : "fullscreen" }}</mat-icon>
 </button>

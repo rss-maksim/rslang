@@ -1,6 +1,7 @@
 .game-card {
   width: 60vw;
   background-color: var(--color-light);
+  color: var(--color-dark);
   vertical-align: middle;
 
   &__points {
@@ -11,15 +12,17 @@
     height: 60vh;
     padding: 1rem;
     overflow-y: scroll;
+    color: var(--color-dark);
   }
 
   &__word {
-    color: var(--color-primary);
     font-size: 1.2rem;
+    color: var(--color-dark);
   }
 
   &__translation {
     font-size: 1.2rem;
+    color: var(--color-dark);
   }
 
   &__reset {

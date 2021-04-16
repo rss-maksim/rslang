@@ -1,4 +1,6 @@
 .game-card {
+  background-color: var(--color-light);
+  position: relative;
   width: 27rem;
 
   &__content {
