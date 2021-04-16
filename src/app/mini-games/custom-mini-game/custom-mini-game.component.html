@@ -1,11 +1,11 @@
 <div class="background-container">
   <div>
-    <button mat-fab class="close-game-button" color="warn" (click)="onCloseDialog()">
+    <button mat-fab class="close-game-button" (click)="onCloseDialog()">
       <mat-icon>close</mat-icon>
     </button>
   </div>
   <div>
-    <button mat-fab class="sound-button center" color="primary" (click)="onToggleSound()">
+    <button mat-fab class="sound-button center" (click)="onToggleSound()">
       <mat-icon>{{ globalSettings.isMuted ? "music_off" : "music_note" }} </mat-icon>
     </button>
   </div>
