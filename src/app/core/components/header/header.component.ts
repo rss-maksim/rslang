@@ -31,6 +31,15 @@ export class HeaderComponent implements OnInit {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((route: any) => {
       this.isLoginPage = route.url === '/auth/login';
     });
+
+    const theme = this.storage.getItem<string>('theme');
+    if (theme) {
+      if (theme === 'light-theme') {
+        this.isChecked = false;
+      } else {
+        this.isChecked = true;
+      }
+    }
   }
 
   trackByFn(index: number, item: IHeaderMenu) {
