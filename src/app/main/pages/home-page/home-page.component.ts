@@ -43,7 +43,7 @@ export class HomePageComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     var options = {
-      threshold: 0.25,
+      threshold: 0.1,
     };
 
     var observer = new IntersectionObserver((entries, observer) => {
