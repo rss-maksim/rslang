@@ -59,13 +59,13 @@
   &__actions {
     display: flex;
     justify-content: space-around;
-    margin: 0;
   }
 
   &__button {
-    width: 9rem;
+    width: 8rem;
     height: 3rem;
     font-size: 1.5rem;
+    margin: 0;
     margin-top: 1.3rem;
   }
 
@@ -83,7 +83,7 @@ mat-icon:hover {
 
 @media (max-width: 600px) {
   .game-card {
-    width: 17rem;
+    width: 18rem;
 
     &__streak-progress {
       left: 4rem;

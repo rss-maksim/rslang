@@ -6,8 +6,8 @@ export enum Sprinter {
 }
 
 export enum SoundSrc {
-  CORRECT = '../../../assets/sounds/mini-games/wrong.mp3',
-  WRONG = '../../../assets/sounds/mini-games/right.mp3',
+  CORRECT = '../../../assets/sounds/mini-games/right.mp3',
+  WRONG = '../../../assets/sounds/mini-games/wrong.mp3',
   LEVELUP = '../../../assets/sounds/mini-games/sprint/level-up.mp3',
 }
 

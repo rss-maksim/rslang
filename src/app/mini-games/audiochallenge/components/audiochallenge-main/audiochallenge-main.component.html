@@ -1,7 +1,6 @@
 <ng-template #introBlock>
   <div class="intro">
     <h2 class="title">Аудиовызов</h2>
-    <p class="text">Тренировка улучшает восприятие речи на слух</p>
     <app-audiochallenge-level-choise
       *ngIf="!page"
       (difficultySelected)="setDifficulty($event)"
@@ -31,7 +30,7 @@
 </div>
 
 <ng-template #gameBlock> </ng-template>
-<button mat-fab (click)="openDialog()">
+<button mat-fab (click)="openDialog()" [ngStyle]="{ 'background-color': 'transparent' }">
   <span class="material-icons">close</span>
 </button>
 

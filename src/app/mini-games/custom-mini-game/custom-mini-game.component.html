@@ -1,11 +1,21 @@
 <div class="background-container">
   <div>
-    <button mat-fab class="close-game-button" (click)="onCloseDialog()">
+    <button
+      mat-fab
+      class="close-game-button"
+      (click)="onCloseDialog()"
+      [ngStyle]="{ 'background-color': 'transparent' }"
+    >
       <mat-icon>close</mat-icon>
     </button>
   </div>
   <div>
-    <button mat-fab class="sound-button center" (click)="onToggleSound()">
+    <button
+      mat-fab
+      class="sound-button center"
+      (click)="onToggleSound()"
+      [ngStyle]="{ 'background-color': 'transparent' }"
+    >
       <mat-icon>{{ globalSettings.isMuted ? "music_off" : "music_note" }} </mat-icon>
     </button>
   </div>

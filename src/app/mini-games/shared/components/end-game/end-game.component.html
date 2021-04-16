@@ -29,6 +29,7 @@
             aria-label="Delete word"
             (click)="markAsDeleted(index)"
             [disabled]="word.userWord?.difficulty === 'deleted'"
+            *ngIf="word.userWord?.difficulty !== 'deleted'"
             [ngStyle]="{ 'box-shadow': 'none', 'background-color': 'transparent' }"
           >
             <i class="material-icons">delete</i>
@@ -60,6 +61,7 @@
             aria-label="Delete word"
             (click)="markAsDeleted(index)"
             [disabled]="word.userWord?.difficulty === 'deleted'"
+            *ngIf="word.userWord?.difficulty !== 'deleted'"
             [ngStyle]="{ 'box-shadow': 'none', 'background-color': 'transparent' }"
           >
             <i class="material-icons">delete</i>

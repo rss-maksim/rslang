@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import {
@@ -9,19 +9,22 @@ import {
   translationChoosed,
   checkAnswer,
   checkGameOver,
+  soundOn,
+  soundOf,
 } from 'src/app/redux/actions/spelling.actions';
 import { selectCurrentWord, selectIsChoosed, selectWords } from 'src/app/redux/selectors/spelling.selectors';
 import { AppState } from 'src/app/redux/models/state.model';
 import { IWord } from '../../../../core/models/IWord';
 import { ISpellingWord } from 'src/app/redux/models/spelling.state.model';
 import { SpellingWordComponent } from '../spelling-word/spelling-word.component';
+import { ISettings, MiniGamesSettingsService } from 'src/app/services/mini-games-settings.service';
 
 @Component({
   selector: 'app-spelling-game',
   templateUrl: './spelling-game.component.html',
   styleUrls: ['./spelling-game.component.scss'],
 })
-export class SpellingGameComponent implements OnInit {
+export class SpellingGameComponent implements OnInit, OnDestroy {
   @Input() difficulty!: string;
   @Input() page!: string;
   @Input() group!: string;
@@ -32,10 +35,20 @@ export class SpellingGameComponent implements OnInit {
   word$!: Observable<IWord[]>;
   words$!: Observable<IWord[]>;
   guessed$!: Observable<boolean>;
+  settingsSubscription?: Subscription;
+  settings!: ISettings;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private settingsService: MiniGamesSettingsService) {}
 
   ngOnInit(): void {
+    this.settingsSubscription = this.settingsService.gameSettings.subscribe((state) => {
+      this.settings = state;
+      if (this.settings.isMuted) {
+        this.store.dispatch(soundOf());
+      } else {
+        this.store.dispatch(soundOn());
+      }
+    });
     this.store.dispatch(
       loadWords({
         payload: {
@@ -49,6 +62,12 @@ export class SpellingGameComponent implements OnInit {
     this.currentWord$ = this.store.select(selectCurrentWord);
     this.words$ = this.store.select(selectWords);
     this.guessed$ = this.store.select(selectIsChoosed);
+  }
+
+  ngOnDestroy(): void {
+    if (this.settingsSubscription) {
+      this.settingsSubscription.unsubscribe();
+    }
   }
 
   playSound() {
