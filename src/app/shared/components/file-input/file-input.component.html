@@ -1,5 +1,7 @@
 <div class="file-input">
-  <button type="button" mat-stroked-button (click)="fileUploader.click()">Загрузить фото</button>
+  <button type="button" mat-stroked-button (click)="fileUploader.click()">
+    <span class="file-input__load-button color-text-togglable">Загрузить фото</span>
+  </button>
 
   <div
     class="file-input__preview-image"
@@ -15,7 +17,7 @@
       (click)="remove($event)"
       matTooltip="Удалить"
     >
-      <mat-icon>close</mat-icon>
+      <mat-icon class="color-text-togglable">close</mat-icon>
     </button>
   </div>
 </div>

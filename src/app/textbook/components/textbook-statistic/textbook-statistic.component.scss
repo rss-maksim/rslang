@@ -39,7 +39,7 @@
 }
 
 .word-group__progressCount-correct {
-  color: var(--color-accent);
+  color: var(--color-warn);
 }
 
 .word-group__progressCount-wrong {
@@ -47,7 +47,7 @@
 }
 
 .word-tooltip-correct {
-  background: var(--color-accent);
+  background: var(--color-warn);
 }
 .word-tooltip-wrong {
   background: var(--color-warn);

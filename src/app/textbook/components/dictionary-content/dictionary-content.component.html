@@ -10,7 +10,7 @@
     [routerLink]="['/textbook/dictionary']"
     [queryParams]="{ filter: 'learning', group: 0, page: 0 }"
     mat-raised-button
-    >Изучаемые <span>слова</span></a
+    >Изучаемые слова</a
   >
   <a
     *ngIf="isAuthorized$ | async"
@@ -20,7 +20,7 @@
     [queryParams]="{ filter: 'hard', group: 0, page: 0 }"
     mat-raised-button
     routerLinkActive="active_link"
-    >Трудные <span>слова</span></a
+    >Трудные слова</a
   >
   <a
     *ngIf="isAuthorized$ | async"
@@ -30,7 +30,7 @@
     [queryParams]="{ filter: 'deleted', group: 0, page: 0 }"
     mat-raised-button
     routerLinkActive="active_link"
-    >Удаленные <span>слова</span></a
+    >Удаленные слова</a
   >
 </div>
 
@@ -43,7 +43,9 @@
     (updateUserWord)="updateUserWord($event)"
     [isAuthorized]="isAuthorized$ | async"
   ></app-word-card>
-  <h3 class="tab-content__empty" *ngIf="(wordItems$ | async)?.length === 0">Пока на этой странице нет слов</h3>
+  <h3 class="tab-content__empty color-text-togglable" *ngIf="(wordItems$ | async)?.length === 0">
+    Пока на этой странице нет слов
+  </h3>
 
   <div class="word-statistic">
     <app-textbook-statistic [pageInfo]="groupStatsInfo | async" [title]="groupStatisticTitle"></app-textbook-statistic>

@@ -9,6 +9,10 @@ $btn-size: 1.75rem;
   justify-content: space-between;
   align-items: center;
 
+  &__load-button {
+    opacity: 0.5;
+  }
+
   &__preview-image {
     width: 4rem;
     height: 4rem;
