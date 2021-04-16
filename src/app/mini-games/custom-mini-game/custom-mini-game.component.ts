@@ -98,8 +98,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
         filter: this.filter,
       })
       .subscribe((words) => {
-        console.log(words);
-        if (words[0].paginatedResults) {
+        if (words.length && words[0].paginatedResults) {
           words = words[0].paginatedResults;
         }
         this.sourceArray.push(...words);
@@ -116,7 +115,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
             filter: this.filter,
           })
           .subscribe((words) => {
-            if (words[0].paginatedResults) {
+            if (words.length && words[0].paginatedResults) {
               words = words[0].paginatedResults;
             }
             this.sourceArray.push(...words);

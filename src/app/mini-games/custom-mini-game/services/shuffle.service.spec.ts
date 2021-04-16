@@ -13,4 +13,12 @@ describe('ShuffleService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('getRandomInt should return random number less than given', () => {
+    expect(service.getRandomInt(5)).toBeLessThan(6);
+  });
+
+  it('shuffle should return array of same length as given word', () => {
+    expect(service.shuffleLettersInWord('qwerty').join('').length).toEqual(6);
+  });
 });
