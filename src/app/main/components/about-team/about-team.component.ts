@@ -34,11 +34,11 @@ export class AboutTeamComponent implements AfterViewInit {
     return id;
   }
   ngAfterViewInit() {
-    var options = {
+    const options = {
       threshold: 0.1,
     };
 
-    var observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach((elem) => {
         if (elem.isIntersecting) {
           console.log('intersd');

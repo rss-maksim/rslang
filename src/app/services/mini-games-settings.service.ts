@@ -25,8 +25,12 @@ export class MiniGamesSettingsService {
   }
 
   changeMutedState(): boolean {
-    this.settings.isMuted = !JSON.parse(localStorage.getItem('isMuted') || '');
-    localStorage.setItem('isMuted', JSON.stringify(this.settings.isMuted));
-    return this.settings.isMuted;
+    try {
+      this.settings.isMuted = !JSON.parse(localStorage.getItem('isMuted') || '');
+      localStorage.setItem('isMuted', JSON.stringify(this.settings.isMuted));
+      return this.settings.isMuted;
+    } catch {
+      return this.settings.isMuted;
+    }
   }
 }
