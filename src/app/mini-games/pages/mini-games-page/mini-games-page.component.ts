@@ -7,7 +7,7 @@ import { GameCard, GAME_CARDS_NEW } from 'src/app/core/constants/mini-games';
   styleUrls: ['./mini-games-page.component.scss'],
 })
 export class MiniGamesPageComponent {
-  gameCards: GameCard[] = GAME_CARDS_NEW;
+  games: GameCard[] = GAME_CARDS_NEW;
   showPopup = false;
 
   trackByCardName(index: number, card: GameCard): string {

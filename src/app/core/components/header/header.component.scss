@@ -3,7 +3,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  background-color: var(--color-primary);
+  background-color: var(--color-background-togglable);
   position: sticky;
   top: 0;
   z-index: 3;
@@ -11,7 +11,7 @@
 
 a {
   text-decoration: none;
-  background: linear-gradient(var(--color-light), var(--color-light));
+  background: linear-gradient(var(--color-text-togglable), var(--color-text-togglable));
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 0 2px;
@@ -32,7 +32,7 @@ a:hover {
   box-sizing: border-box;
   justify-content: space-between;
   align-items: center;
-  color: var(--color-light);
+  color: var(--color-text-togglable);
 }
 
 .page-header__navigation ul {
@@ -71,7 +71,6 @@ a:hover {
   height: 3.125rem;
   overflow: hidden;
   transition: 0.5s;
-
   img {
     width: 2.5rem;
     object-fit: cover;
@@ -79,7 +78,7 @@ a:hover {
   }
 
   &:hover {
-    background: rgba($color: var(--color-light), $alpha: 0.2);
+    background: rgba($color: var(--color-text-togglable), $alpha: 0.2);
   }
 }
 

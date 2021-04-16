@@ -24,12 +24,12 @@ import {
   styleUrls: ['./home-page.component.scss'],
   animations: [
     trigger('gamesBlockAnim', [
-      transition('initial <=> expanded', [query('@childAnimation', stagger(300, [animateChild()]))]),
+      transition('initial <=> expanded', [query('@childAnimation', stagger(100, [animateChild()]))]),
     ]),
     trigger('childAnimation', [
       state('initial', style({ opacity: 0 })),
       state('expanded', style({ opacity: 1 })),
-      transition('initial <=> expanded', [animate('0.3s')]),
+      transition('initial <=> expanded', [animate('0.1s')]),
     ]),
   ],
 })

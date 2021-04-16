@@ -83,10 +83,11 @@
   top: 1.3125rem;
   left: 1.3125rem;
   position: absolute;
-  background-color: var(--color-light);
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   cursor: pointer;
   z-index: 2;
+  color: var(--color-light);
 }
 
 .word_hard {

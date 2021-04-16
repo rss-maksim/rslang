@@ -17,7 +17,7 @@
   --color-divider: #bdbdbd;
   --color-text-icons: #ffffff;
   --color-text-togglable: #212121;
-
+  --color-background-togglable: #ffffff;
   --color-light: #ffffff;
   --color-light-rgb: 255, 255, 255;
 
@@ -29,14 +29,15 @@
 
   --color-border: #000080;
 
-  --color-group-0: 255, 204, 204;
-  --color-group-1: 204, 255, 255;
-  --color-group-2: 255, 255, 153;
-  --color-group-3: 0, 191, 255;
-  --color-group-4: 204, 153, 204;
-  --color-group-5: 153, 255, 153;
+  --color-group-0: rgba(255, 204, 204, 0.5);
+  --color-group-1: rgba(204, 255, 255, 0.5);
+  --color-group-2: rgba(255, 255, 153, 0.5);
+  --color-group-3: rgba(0, 191, 255, 0.5);
+  --color-group-4: rgba(204, 153, 204, 0.5);
+  --color-group-5: rgba(153, 255, 153, 0.5);
 
   --box-shadow: -2px 0px 17px 2px rgba(34, 60, 80, 0.16);
+  --color-stars: #ff6600;
 }
 
 :root {
@@ -164,6 +165,7 @@ $purple-green-theme: mat-dark-theme(
   --color-divider: #bdbdbd;
   --color-text-icons: #ffffff;
   --color-text-togglable: #ffffff;
+  --color-background-togglable: #07073d;
   background-color: var(--color-dark-background);
 
   /* Здесь надо корректировать цвета для парных цветов из светлой темы */
@@ -179,14 +181,15 @@ $purple-green-theme: mat-dark-theme(
 
   --color-border: #000080;
 
-  --color-group-0: 255, 204, 204;
-  --color-group-1: 204, 255, 255;
-  --color-group-2: 255, 255, 153;
-  --color-group-3: 0, 191, 255;
-  --color-group-4: 204, 153, 204;
-  --color-group-5: 153, 255, 153;
+  --color-group-0: #4a789c;
+  --color-group-1: #2d6b9c;
+  --color-group-2: #6f4c9d;
+  --color-group-3: #5e2f9d;
+  --color-group-4: #51519e;
+  --color-group-5: #35359e;
 
   --box-shadow: -2px 0px 17px 2px rgba(34, 60, 80, 0.16);
+  --color-stars: #ffb404;
 
   @include angular-material-color($dark-theme);
 }
@@ -195,54 +198,10 @@ $purple-green-theme: mat-dark-theme(
   color: var(--color-text-togglable);
 }
 
-/*.deeppurple-amber {
-  --color-primary: #673ab7;
-  --color-primary-dark: #512da8;
-  --color-primary-normal: #673ab7;
-  --color-primary-rgb: 103, 58, 183;
-  --color-primary-light: #d1c4e9;
-  --color-accent: #ffc107;
-  --color-accent-rgb: 255, 193, 7;
-  --color-warn: #ff5722;
-  --color-primary-text: #212121;
-  --color-secondary-text: #757575;
-  --color-divider: #bdbdbd;
-  --color-text-icons: #ffffff;
-
-  @include angular-material-color($deeppurple-amber-theme);
+input#mat-input-0 {
+  color: var(--color-text-togglable);
 }
 
-.indigo-pink {
-  --color-primary: #3f51b5;
-  --color-primary-dark: #303f9f;
-  --color-primary-normal: #3f51b5;
-  --color-primary-rgb: 63, 81, 181;
-  --color-primary-light: #c5cae9;
-  --color-accent: #ff4081;
-  --color-accent-rgb: 255, 64, 129;
-  --color-warn: #ff5722;
-  --color-primary-text: #212121;
-  --color-secondary-text: #757575;
-  --color-divider: #bdbdbd;
-  --color-text-icons: #ffffff;
-
-  @include angular-material-color($indigo-pink-theme);
+.dark-theme .mat-paginator {
+  background: transparent;
 }
-
-.purple-green {
-  --color-primary: #9c27b0;
-  --color-primary-dark: #7b1fa2;
-  --color-primary-normal: #9c27b0;
-  --color-primary-rgb: 156, 39, 176;
-  --color-primary-light: #e1bee7;
-  --color-accent: #4caf50;
-  --color-accent-rgb: 76, 175, 80;
-  --color-warn: #ff5722;
-  --color-primary-text: #212121;
-  --color-secondary-text: #757575;
-  --color-divider: #bdbdbd;
-  --color-text-icons: #ffffff;
-  background-color: var(--color-dark-background);
-
-  @include angular-material-color($purple-green-theme);
-}*/

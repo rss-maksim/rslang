@@ -24,27 +24,27 @@
 
 .tab-link-0,
 .tab-content-0 {
-  background-color: rgba(var(--color-group-0), 0.5);
+  background-color: var(--color-group-0);
 }
 .tab-link-1,
 .tab-content-1 {
-  background-color: rgba(var(--color-group-1), 0.5);
+  background-color: var(--color-group-1);
 }
 .tab-link-2,
 .tab-content-2 {
-  background-color: rgba(var(--color-group-2), 0.8);
+  background-color: var(--color-group-2);
 }
 .tab-link-3,
 .tab-content-3 {
-  background-color: rgba(var(--color-group-3), 0.5);
+  background-color: var(--color-group-3);
 }
 .tab-link-4,
 .tab-content-4 {
-  background-color: rgba(var(--color-group-4), 0.5);
+  background-color: var(--color-group-4);
 }
 .tab-link-5,
 .tab-content-5 {
-  background-color: rgba(var(--color-group-5), 0.5);
+  background-color: var(--color-group-5);
 }
 
 ::ng-deep .mat-tab-links {
@@ -52,8 +52,9 @@
 }
 
 .tab-link {
-  color: var(--color-primary);
+  // color: var(--color-primary);
   font-size: 1.125rem;
+  color: var(--color-stars);
 }
 
 @media (max-width: 768px) {
