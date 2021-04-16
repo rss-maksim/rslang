@@ -1,5 +1,5 @@
 .background-container {
-  min-height: calc(100vh - 10.48rem);
+  min-height: calc(100vh - 14rem);
   position: relative;
   background: url("../../../../assets/images/home/bg-elements-3.svg"),
     url("../../../../assets/images/home/bg-elements-1.svg");
@@ -20,7 +20,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 13.56em);
+  min-height: calc(100vh - 14rem);
   font-size: 1rem;
   text-align: center;
   color: var(--color-text-togglable);
