@@ -191,6 +191,10 @@ $purple-green-theme: mat-dark-theme(
   @include angular-material-color($dark-theme);
 }
 
+.color-text-togglable {
+  color: var(--color-text-togglable);
+}
+
 /*.deeppurple-amber {
   --color-primary: #673ab7;
   --color-primary-dark: #512da8;

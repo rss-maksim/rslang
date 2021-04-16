@@ -1,5 +1,5 @@
 <div class="signup">
-  <h1>Регистрация</h1>
+  <h1 class="color-text-togglable">Регистрация</h1>
   <form class="signup__form" (submit)="register($event)" [formGroup]="signupForm" novalidate>
     <div class="signup__form-field-container">
       <mat-form-field class="signup__form-field" appearance="outline">
@@ -51,7 +51,11 @@
           placeholder="Пароль"
           (input)="onPasswordInput()"
         />
-        <mat-icon class="signup__visibility-icon" matSuffix (click)="changeVisibility('passwordIsVisible')">
+        <mat-icon
+          class="signup__visibility-icon color-text-togglable"
+          matSuffix
+          (click)="changeVisibility('passwordIsVisible')"
+        >
           {{ visibility.passwordIsVisible ? "visibility" : "visibility_off" }}
         </mat-icon>
         <mat-error class="signup__password-error" *ngIf="passwordFormControl.hasError('required')">
@@ -74,7 +78,11 @@
           placeholder="Подтвердите пароль"
           (input)="onPasswordInput()"
         />
-        <mat-icon class="signup__visibility-icon" matSuffix (click)="changeVisibility('confirmPasswordIsVisible')">
+        <mat-icon
+          class="signup__visibility-icon color-text-togglable"
+          matSuffix
+          (click)="changeVisibility('confirmPasswordIsVisible')"
+        >
           {{ visibility.confirmPasswordIsVisible ? "visibility" : "visibility_off" }}
         </mat-icon>
         <mat-error
@@ -91,7 +99,7 @@
     </button>
 
     <div class="signup__go-login">
-      <span class="signup__go-login-text">Есть аккаунт?</span>
+      <span class="signup__go-login-text color-text-togglable">Есть аккаунт?</span>
       <a class="signup__go-login-link" routerLink="/auth/login">Войти</a>
     </div>
 

@@ -1,5 +1,5 @@
 <div class="login">
-  <h1>Логин</h1>
+  <h1 class="color-text-togglable">Логин</h1>
   <form class="login__form" (submit)="login($event)" [formGroup]="loginForm" novalidate>
     <div class="login__form-field-container">
       <mat-form-field class="login__form-field" appearance="outline">
@@ -34,7 +34,7 @@
           (input)="onPasswordInput()"
           class="login__form-field-password"
         />
-        <mat-icon class="login__visibility-icon" matSuffix (click)="changeVisibility()">{{
+        <mat-icon class="login__visibility-icon color-text-togglable" matSuffix (click)="changeVisibility()">{{
           passwordIsVisible ? "visibility" : "visibility_off"
         }}</mat-icon>
         <mat-error class="login__password-error" *ngIf="passwordFormControl.hasError('required')">
@@ -51,7 +51,7 @@
     </button>
 
     <div class="login__go-signup">
-      <span class="login__go-signup-text">Нет аккаунта?</span>
+      <span class="login__go-signup-text color-text-togglable">Нет аккаунта?</span>
       <a class="login__go-signup-link" routerLink="/auth/signup">Зарегистрироваться</a>
     </div>
 
