@@ -76,18 +76,6 @@ a:hover {
     object-fit: cover;
     object-position: center;
   }
-
-  &:hover {
-    background: rgba($color: var(--color-text-togglable), $alpha: 0.2);
-  }
-}
-
-.active {
-  background-size: 100% 2px;
-
-  .page-header__icon {
-    background: rgba($color: #ffffff, $alpha: 0.2);
-  }
 }
 
 .right-block {

@@ -3,8 +3,8 @@
     <ul>
       <li *ngFor="let item of headerMenu; trackBy: trackByFn">
         <a [routerLink]="item.router" routerLinkActive="active">
-          <span class="page-header__icon">
-            <img [src]="item.srcImg" alt="item.name" />
+          <span [ngClass]="'page-header__icon-' + item.count" class="page-header__icon">
+            <!-- <img [src]="item.srcImg" alt="item.name" /> -->
           </span>
           <span class="page-header-linkText">{{ item.name }}</span>
         </a>
