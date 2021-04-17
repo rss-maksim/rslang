@@ -112,7 +112,8 @@ export class TextbookEffects {
       ofType(updateUserWords),
       mergeMap(({ payload }) => {
         const wordsArr = this.textbookHelperService.createUserWordsArr(payload);
-        return this.wordsService.updateUserWords(this.userId, wordsArr).pipe(
+        const userId = this.userServise.getUserId();
+        return this.wordsService.updateUserWords(userId, wordsArr).pipe(
           map((item: any) => {
             return wordsUpdatedSuccess({ payload: item });
           }),
