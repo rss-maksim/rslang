@@ -70,7 +70,6 @@ export class LongTermStatisticsService {
     const statisticsSubscription: Subscription = userStatistics$.subscribe(
       (prevStatistics) => {
         delete prevStatistics?.id;
-        console.log(prevStatistics);
         const statisticsToSend = this.addStatistics(prevStatistics, trainedWords, wordsGroup);
         const statisticsUpdateSubscription: Subscription = this.statisticsService
           .updateUserStatistics(userId, statisticsToSend)

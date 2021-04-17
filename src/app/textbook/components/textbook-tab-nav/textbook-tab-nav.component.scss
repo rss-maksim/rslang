@@ -11,30 +11,30 @@
 
 .tab-link-0,
 .tab-content-0 {
-  background-color: rgba($color: #ffcccc, $alpha: 0.5);
+  background-color: var(--color-group-0);
 }
 .tab-link-1,
 .tab-content-1 {
-  background-color: rgba($color: #ccffff, $alpha: 0.5);
+  background-color: var(--color-group-1);
 }
 .tab-link-2,
 .tab-content-2 {
-  background-color: rgba($color: #ffff99, $alpha: 0.8);
+  background-color: var(--color-group-2);
 }
 .tab-link-3,
 .tab-content-3 {
-  background-color: rgba($color: #00bfff, $alpha: 0.5);
+  background-color: var(--color-group-3);
 }
 .tab-link-4,
 .tab-content-4 {
-  background-color: rgba($color: #cc99cc, $alpha: 0.5);
+  background-color: var(--color-group-4);
 }
 .tab-link-5,
 .tab-content-5 {
-  background-color: rgba($color: #99ff99, $alpha: 0.5);
+  background-color: var(--color-group-5);
 }
 
 .tab-link {
-  color: var(--color-primary);
+  color: var(--color-stars);
   font-size: 1.125rem;
 }

@@ -20,7 +20,6 @@ export class MiniGamesHttpService {
     group ? group : (group = '0');
     filter ? (filter = filters[filter]) : (filter = filters.textBook);
     this.group = group;
-    console.log(userId, group, filter);
 
     if (userId) {
       return this.wordsService.getUserAggregatedWords(userId, { page, group, filter, wordsPerPage: '20' });

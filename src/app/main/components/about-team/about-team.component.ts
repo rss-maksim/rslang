@@ -41,7 +41,6 @@ export class AboutTeamComponent implements AfterViewInit {
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach((elem) => {
         if (elem.isIntersecting) {
-          console.log('intersd');
           this.state = 'expanded';
           observer.unobserve(elem.target);
         } else {

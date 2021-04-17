@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { mergeMap, map, delay, withLatestFrom, switchMap, tap } from 'rxjs/operators';
+import { mergeMap, map, delay, withLatestFrom, tap } from 'rxjs/operators';
 
 import { UserService } from 'src/app/core/services/user.service';
 import { AppState } from '../models/state.model';
 import { WordsService } from 'src/app/core/services/words.service';
 import {
   calculateGroupStats,
-  doNothing,
   getGroupStats,
   loadWords,
   updateGroupStats,
@@ -158,13 +157,10 @@ export class TextbookEffects {
   updateGroupStats$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(updateUserWord),
-      tap(({ payload }) => {
-        console.log(payload);
-      }),
+      tap(({ payload }) => {}),
       concatLatestFrom(() => this.store.select(selectGroupStatsInfo)),
       map(([{ payload }, groupStatsInfo]) => {
         const data = this.textbookHelperService.calculateGroupInfo(payload, groupStatsInfo);
-        console.log(data);
         return calculateGroupStats({
           payload: {
             ...data,

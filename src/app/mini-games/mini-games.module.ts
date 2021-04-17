@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+import { SharedModule } from '../shared/shared.module';
 import { SprintMiniGameComponent } from './sprint/sprint-mini-game.component';
 import { MiniGamesRoutingModule } from './mini-games-routing.module';
 import { MaterialModule } from '../material/material.module';
@@ -70,6 +71,7 @@ import { GameRulesComponent } from './game-rules/game-rules.component';
   imports: [
     CommonModule,
     MiniGamesRoutingModule,
+    SharedModule,
     MaterialModule,
     StoreModule.forFeature('audiochallenge', audiochallengeReducer),
     EffectsModule.forFeature([AudiochallengeEffects]),

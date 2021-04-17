@@ -57,7 +57,6 @@ export class TextbookContentComponent implements OnInit {
   }
 
   onPaginateChange(event: any) {
-    console.log('onPaginateChange', event.pageIndex);
     this.router.navigate(['textbook', 'book', 'groups', this.currentGroup, 'pages', event.pageIndex]);
   }
 

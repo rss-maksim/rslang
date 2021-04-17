@@ -14,6 +14,7 @@ import {
   soundOn,
   translationsShuffled,
   closeGame,
+  loadWords,
 } from '../actions/audiochallenge.actions';
 import { AudiochallengeState, IAudiochallengeWord } from '../models/audiochallenge.state.model';
 import { ASSETS_API_URL } from 'src/app/core/constants/mini-games';
@@ -48,10 +49,14 @@ export const initialState: AudiochallengeState = {
   previousMaxAnswers: 0,
   isSoundOn: true,
   audioSrc: '',
+  isLoading: false,
 };
 
 const audiochallengeReducer = createReducer(
   initialState,
+  on(loadWords, (state) => {
+    return { ...state, isLoading: true };
+  }),
   on(wordsLoadedSuccess, (state, { payload }) => {
     const tempWord = payload[0];
     const tempList: IWord[] = payload.filter((elem: IWord, index: number) => index !== 0);
@@ -67,6 +72,7 @@ const audiochallengeReducer = createReducer(
     const tempArray = payload.filter((elem: string, index: number) => index > 3);
     return {
       ...state,
+      isLoading: false,
       translations: tempArray,
       currentWord: {
         ...state.currentWord,

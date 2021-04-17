@@ -10,6 +10,7 @@ import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 import {
   selectIsGameEnded,
   selectIsGameStarted,
+  selectIsLoading,
   selectTrainedWords,
 } from 'src/app/redux/selectors/audiochallenge.selectors';
 import { Games } from 'src/app/core/constants/mini-games';
@@ -32,6 +33,7 @@ export class AudiochallengeMainComponent implements OnInit, OnDestroy {
   page!: string;
   group!: string;
   filter!: string;
+  isLoading$!: Observable<boolean>;
   trainedWords$!: Observable<ITrainedWord[]>;
   userId: string | null = this.userService.getUserId();
   DEFAULT_DIFFICULTY_LEVEL = DEFAULT_DIFFICULTY_LEVEL;
@@ -51,6 +53,7 @@ export class AudiochallengeMainComponent implements OnInit, OnDestroy {
     this.isGameStarted$ = this.store.select(selectIsGameStarted);
     this.isGameEnded = this.store.select(selectIsGameEnded);
     this.trainedWords$ = this.store.select(selectTrainedWords);
+    this.isLoading$ = this.store.select(selectIsLoading);
     this.querySubscription = this.route.queryParams.subscribe((queryParam: any) => {
       this.page = queryParam['page'];
       this.group = queryParam['group'];

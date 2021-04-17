@@ -48,7 +48,6 @@ export class WordsService {
   }
 
   createUserWord(userId: string | null, wordId: string, body: UserWordModel): Observable<UserWordModel> {
-    console.log(userId, wordId, body, 'createUserWord');
     return this.http.post<UserWordModel>(`${this.apiUrl}/users/${userId}/words/${wordId}`, body);
   }
 

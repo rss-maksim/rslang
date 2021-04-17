@@ -16,7 +16,6 @@ export class TextbookTabNavComponent implements OnChanges {
 
   ngOnChanges() {
     this.activeLink = this.tabs[+this.currentGroup];
-    console.log(this.currentGroup);
   }
 
   setCurrentGroup(group: string, tab: any) {
