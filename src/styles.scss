@@ -191,6 +191,10 @@ $purple-green-theme: mat-dark-theme(
   --box-shadow: -2px 0px 17px 2px rgba(34, 60, 80, 0.16);
   --color-stars: #ffb404;
 
+  .rs-logo {
+    -webkit-filter: invert(1);
+    filter: invert(1);
+  }
   @include angular-material-color($dark-theme);
 }
 
