@@ -51,3 +51,8 @@ export const selectWordsTranslations = createSelector(
   selectAudiochallenge,
   (state: AudiochallengeState) => state.currentWord.translationsArray,
 );
+
+export const selectWordSoundData = createSelector(selectAudiochallenge, (state: AudiochallengeState) => ({
+  isStarted: state.isGameStarted,
+  currentWord: state.currentWord,
+}));

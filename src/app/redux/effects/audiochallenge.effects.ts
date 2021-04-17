@@ -12,6 +12,8 @@ import {
   selectCurrentWord,
   selectIsSoundOn,
   selectWordsTranslations,
+  selectIsGameStarted,
+  selectWordSoundData,
 } from 'src/app/redux/selectors/audiochallenge.selectors';
 import {
   loadWords,
@@ -27,13 +29,15 @@ import {
   translationsShuffled,
 } from '../actions/audiochallenge.actions';
 import { ASSETS_API_URL } from 'src/app/core/constants/mini-games';
+import { doNothing } from '../actions/textbooks.actions';
 
 @Injectable()
 export class AudiochallengeEffects {
   loadWords$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadWords),
-      switchMap(({ payload }) => {
+      concatLatestFrom(() => this.store.select(selectIsGameStarted)),
+      switchMap(([{ payload }, isGameStarted]) => {
         return this.wordsHttpService.getWords(payload).pipe(
           map((words) => {
             if (words[0].paginatedResults) {
@@ -65,10 +69,12 @@ export class AudiochallengeEffects {
     () => {
       return this.actions$.pipe(
         ofType(playWordSound, wordsLoadedSuccess, showNextWord),
-        concatLatestFrom(() => this.store.select(selectCurrentWord)),
-        tap(([, currentWord$]) => {
-          const audio = new Audio(`${ASSETS_API_URL}/${currentWord$.audio}?raw=true`);
-          audio.play();
+        concatLatestFrom(() => this.store.select(selectWordSoundData)),
+        tap(([, { isStarted, currentWord }]) => {
+          if (isStarted) {
+            const audio = new Audio(`${ASSETS_API_URL}/${currentWord.audio}?raw=true`);
+            audio.play();
+          }
         }),
       );
     },
