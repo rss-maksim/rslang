@@ -16,9 +16,9 @@ describe('MiniGamesSettingsService', () => {
   });
 
   it('changeMutedState function should change muted state', () => {
-    const boolean = settingsMock.isMuted;
+    const boolean = service.getMutedState();
     service.changeMutedState();
-    expect(settingsMock.isMuted).toEqual(!boolean);
+    expect(settingsMock.isMuted).toBe(!boolean);
     expect(service.changeMutedState()).toBe(boolean);
   });
 });
