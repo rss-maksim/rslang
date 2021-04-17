@@ -96,7 +96,7 @@ a:hover {
   background-size: 100% 2px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 780px) {
   .page-header-linkText {
     display: none;
   }
@@ -111,17 +111,11 @@ a:hover {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 630px) {
   .toggle-icons {
     display: none;
   }
 
-  .page-header__navigation ul li {
-    margin-right: 1.5rem;
-  }
-}
-
-@media (max-width: 475px) {
   .page-header__icon {
     width: 2.5rem;
     height: 2.5rem;
