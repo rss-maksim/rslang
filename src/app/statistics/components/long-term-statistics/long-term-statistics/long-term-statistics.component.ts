@@ -88,10 +88,15 @@ export class LongTermStatisticsComponent implements OnInit {
             return;
           }
 
-          this.hasStatistics = true;
           [this.labels, this.learnedWords, this.learnedWordsCumulative] = this.generateStatisticsByDays(
             userStatistics.optional.statistics.trainings,
           );
+
+          if (this.learnedWords.length === 0 && this.learnedWordsCumulative.length === 0) {
+            return;
+          }
+
+          this.hasStatistics = true;
           this.lineChartData = [
             { data: this.learnedWords, label: CHART_LABEL_1 },
             { data: this.learnedWordsCumulative, label: CHART_LABEL_2, yAxisID: 'y-axis-1' },
