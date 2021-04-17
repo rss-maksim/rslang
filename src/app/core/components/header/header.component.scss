@@ -38,7 +38,7 @@ a:hover {
 .page-header__navigation ul {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   list-style: none;
   padding: 0;
   margin: 0;
