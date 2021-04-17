@@ -25,13 +25,7 @@
       <app-file-input [image]="imagePreview" (loadFileEvent)="onLoadImage($event)"></app-file-input>
     </div>
 
-    <button
-      class="profile__submit-btn"
-      type="submit"
-      mat-stroked-button
-      color="primary"
-      [disabled]="profileForm.invalid"
-    >
+    <button class="profile__submit-btn" type="submit" mat-stroked-button [disabled]="profileForm.invalid">
       Сохранить
     </button>
 
