@@ -86,6 +86,8 @@ a:hover {
 .toggle-switch {
   margin-right: 2rem;
   align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .toggle-icons {

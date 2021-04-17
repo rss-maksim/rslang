@@ -27,10 +27,16 @@ export class ShortTermStatisticsService {
         );
       });
 
+      // store statistics only with trained words
+      stats = stats.filter((stat) => {
+        return stat.trainedWords.length > 0;
+      });
+
       if (stats.length > 0) {
         this.storageService.setItem(LOCAL_STORAGE_STATS_KEY, stats);
       } else {
         this.storageService.removeItem(LOCAL_STORAGE_STATS_KEY);
+        stats = null;
       }
     }
 
