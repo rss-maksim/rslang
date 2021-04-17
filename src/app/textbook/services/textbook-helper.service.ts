@@ -48,7 +48,6 @@ export class TextbookHelperService {
     if (totalCount.length) {
       [{ count }] = totalCount;
     }
-    console.log(wordsArray);
     const userWordsInfo = wordsArray.reduce(
       (accum: { correctPerPage: number; wrongPerPage: number; userWordsPerPage: number }, current: IWord) => {
         if (current.userWord) {

@@ -9,8 +9,9 @@
     <button class="start_btn" (click)="startGame()">Начать</button>
   </div>
 </ng-template>
-
 <div *ngIf="isGameStarted$ | async; else introBlock">
+  <app-progress *ngIf="isLoading$ | async"></app-progress>
+
   <app-end-game
     *ngIf="isGameEnded | async; else endGameBlock"
     [trainedWords]="trainedWords$ | async"

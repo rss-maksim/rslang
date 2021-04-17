@@ -35,6 +35,8 @@ export const selectTrainedWords = createSelector(
   (state: AudiochallengeState) => state.trainedWords,
 );
 
+export const selectIsLoading = createSelector(selectAudiochallenge, (state: AudiochallengeState) => state.isLoading);
+
 export const selectIsSoundOn = createSelector(selectAudiochallenge, (state: AudiochallengeState) => ({
   isSoundOn: state.isSoundOn,
   audio: state.audioSrc,

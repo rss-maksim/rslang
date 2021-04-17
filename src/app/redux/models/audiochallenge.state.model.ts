@@ -13,6 +13,7 @@ export interface AudiochallengeState {
   isGameEnded: boolean;
   isSoundOn: boolean;
   audioSrc: string;
+  isLoading: boolean;
 }
 
 export interface IAudiochallengeWord extends IWord {

@@ -17,13 +17,10 @@ export class StatisticsService {
   }
 
   getUserStatistics(userId: string): Observable<ILongTermStats> {
-    console.log(userId);
     return this.http.get<ILongTermStats>(`${this.apiUrl}/users/${userId}/statistics`);
   }
 
   updateUserStatistics(userId: string, body: ILongTermStats): Observable<ILongTermStats> {
-    console.log(userId);
-
     return this.http.put<ILongTermStats>(`${this.apiUrl}/users/${userId}/statistics`, body);
   }
 }

@@ -7,7 +7,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class LevelChoiseComponent {
   @Output() difficultySelected = new EventEmitter();
-  difficulty = 2;
+  difficulty = 0;
 
   onDifficultyChange(value: number | null): void {
     if (value !== null) {
