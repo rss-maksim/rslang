@@ -265,7 +265,7 @@ export class CustomMiniGameComponent implements OnInit, OnDestroy {
     }
     setTimeout(() => {
       this.isResultsShown = true;
-      this.isGameStarted = false;
+      // this.isGameStarted = false;
     }, this.gameOverSoundDelay);
   }
 
