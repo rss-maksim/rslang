@@ -192,6 +192,11 @@ $purple-green-theme: mat-dark-theme(
   --color-stars: #ffb404;
 
   @include angular-material-color($dark-theme);
+
+  .rs-logo {
+    -webkit-filter: invert(1);
+    filter: invert(1);
+  }
 }
 
 .color-text-togglable {
