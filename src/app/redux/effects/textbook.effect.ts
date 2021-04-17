@@ -33,7 +33,6 @@ export class TextbookEffects {
   ) {}
   group = '0';
   page = '0';
-  userId = this.userServise.getUserId();
 
   loadWords$ = createEffect(() => {
     return this.actions$
