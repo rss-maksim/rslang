@@ -12,6 +12,7 @@ import {
   wrongAnswer,
   soundOf,
   soundOn,
+  audiochallengeEnded,
 } from 'src/app/redux/actions/audiochallenge.actions';
 import { selectCurrentWord, selectIsChoosed, selectWords } from 'src/app/redux/selectors/audiochallenge.selectors';
 import { AppState } from 'src/app/redux/models/state.model';
@@ -67,6 +68,7 @@ export class AudiochallengeGameComponent implements OnInit, OnDestroy {
     if (this.settingsSubscription) {
       this.settingsSubscription.unsubscribe();
     }
+    this.store.dispatch(audiochallengeEnded());
   }
 
   playSound() {

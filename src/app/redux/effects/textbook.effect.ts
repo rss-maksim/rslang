@@ -109,9 +109,10 @@ export class TextbookEffects {
   updateUserWords$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(updateUserWords),
-      mergeMap(({ payload }) => {
+      concatLatestFrom(() => this.store.select(selectUserId)),
+      mergeMap(([{ payload }, authId]) => {
+        const userId = authId || this.userServise.getUserId();
         const wordsArr = this.textbookHelperService.createUserWordsArr(payload);
-        const userId = this.userServise.getUserId();
         return this.wordsService.updateUserWords(userId, wordsArr).pipe(
           map((item: any) => {
             return wordsUpdatedSuccess({ payload: item });
