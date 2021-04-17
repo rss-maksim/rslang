@@ -39,12 +39,12 @@ describe('DecisionButtonsComponent', () => {
     const keyup = new KeyboardEvent('keyup', { key: 'Enter' });
     component.keyEvent(keyup);
     fixture.detectChanges();
-    expect(component.guessEvent.emit).toHaveBeenCalled;
+    expect(component.guessEvent.emit).toHaveBeenCalled();
 
     spyOn(component.nextWordEvent, 'emit');
     component.guessed = true;
     component.keyEvent(keyup);
     fixture.detectChanges();
-    expect(component.nextWordEvent.emit).toHaveBeenCalled;
+    expect(component.nextWordEvent.emit).toHaveBeenCalled();
   });
 });
