@@ -59,6 +59,9 @@
   [totalCount]="totalCount | async"
   (paginationEvent)="onPaginateChange($event)"
 ></app-textbook-pagination>
-<app-textbook-mini-games
-  [queryParams]="{ page: currentPage, group: currentGroup, filter: filter }"
-></app-textbook-mini-games>
+<div *ngIf="wordItems$ | async as words">
+  <app-textbook-mini-games
+    *ngIf="words.length > 0"
+    [queryParams]="{ page: currentPage, group: currentGroup, filter: filter }"
+  ></app-textbook-mini-games>
+</div>
