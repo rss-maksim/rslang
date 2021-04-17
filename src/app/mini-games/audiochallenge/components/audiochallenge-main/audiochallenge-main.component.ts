@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
@@ -17,7 +17,7 @@ import { Games } from 'src/app/core/constants/mini-games';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { DEFAULT_DIFFICULTY_LEVEL } from 'src/app/core/constants/common';
-import { take } from 'rxjs/operators';
+import { delay, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-audiochallenge-main',
@@ -35,8 +35,8 @@ export class AudiochallengeMainComponent implements OnInit, OnDestroy {
   filter!: string;
   trainedWords$!: Observable<ITrainedWord[]>;
   userId: string | null = this.userService.getUserId();
-  isLoading$ = this.store.select(selectIsLoading);
-
+  isLoading$!: Subscription;
+  loading!: boolean;
   DEFAULT_DIFFICULTY_LEVEL = DEFAULT_DIFFICULTY_LEVEL;
 
   private querySubscription!: Subscription;
@@ -59,6 +59,12 @@ export class AudiochallengeMainComponent implements OnInit, OnDestroy {
       this.group = queryParam['group'];
       this.filter = queryParam['filter'];
     });
+    this.isLoading$ = this.store
+      .select(selectIsLoading)
+      .pipe(delay(0))
+      .subscribe((value) => {
+        this.loading = value;
+      });
   }
 
   startGame() {
@@ -84,5 +90,6 @@ export class AudiochallengeMainComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.querySubscription.unsubscribe();
+    this.isLoading$.unsubscribe();
   }
 }
