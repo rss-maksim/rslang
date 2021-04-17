@@ -19,16 +19,17 @@
       <mat-icon>{{ globalSettings.isMuted ? "music_off" : "music_note" }} </mat-icon>
     </button>
   </div>
-
-  <app-start-game
-    [gameName]="games.CUSTOM_GAME"
-    *ngIf="!isGameStarted"
-    (difficultyLevel)="onSetDifficultyLevel($event)"
-    (numOfRounds)="onSetNumberOfRounds($event)"
-    (roundLength)="onSetRoundLength($event)"
-    (startGame)="onStartGame()"
-  >
-  </app-start-game>
+  <div *ngIf="!isGameStarted">
+    <app-start-game
+      [gameName]="games.CUSTOM_GAME"
+      *ngIf="!isGameStarted"
+      (difficultyLevel)="onSetDifficultyLevel($event)"
+      (numOfRounds)="onSetNumberOfRounds($event)"
+      (roundLength)="onSetRoundLength($event)"
+      (startGame)="onStartGame()"
+    >
+    </app-start-game>
+  </div>
 
   <mat-spinner *ngIf="loading" class="center margins-top-bottom"></mat-spinner>
 

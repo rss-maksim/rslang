@@ -17,4 +17,4 @@ export enum Color {
 }
 
 export const MAX_TRAINED_WORDS = 60;
-export const DEFAULT_WORDS_DIFFICULTY = 2;
+export const DEFAULT_WORDS_DIFFICULTY = 1;

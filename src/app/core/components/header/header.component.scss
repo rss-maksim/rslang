@@ -111,9 +111,13 @@ a:hover {
   }
 }
 
-@media (max-width: 580px) {
+@media (max-width: 600px) {
   .toggle-icons {
     display: none;
+  }
+
+  .page-header__navigation ul li {
+    margin-right: 1.5rem;
   }
 }
 
