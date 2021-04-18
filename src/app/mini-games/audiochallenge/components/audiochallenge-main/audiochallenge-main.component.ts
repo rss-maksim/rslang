@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { CloseGameDialogComponent } from 'src/app/mini-games/shared/components/close-game-dialog/close-game-dialog.component';
-import { audiochallengeStarted, closeGame } from 'src/app/redux/actions/audiochallenge.actions';
+import { audiochallengeEnded, audiochallengeStarted, closeGame } from 'src/app/redux/actions/audiochallenge.actions';
 import { AppState } from 'src/app/redux/models/state.model';
 import { ITrainedWord } from 'src/app/core/models/ITrainedWord';
 
@@ -91,5 +91,6 @@ export class AudiochallengeMainComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.querySubscription.unsubscribe();
     this.isLoading$.unsubscribe();
+    this.store.dispatch(audiochallengeEnded());
   }
 }

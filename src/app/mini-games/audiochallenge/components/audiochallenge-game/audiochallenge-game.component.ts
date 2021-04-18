@@ -68,7 +68,6 @@ export class AudiochallengeGameComponent implements OnInit, OnDestroy {
     if (this.settingsSubscription) {
       this.settingsSubscription.unsubscribe();
     }
-    this.store.dispatch(audiochallengeEnded());
   }
 
   playSound() {
