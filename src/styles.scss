@@ -260,18 +260,22 @@ $purple-green-theme: mat-dark-theme(
   }
 }
 
-.light-theme .page-header__icon-1 {
+.light-theme .page-header__icon-1,
+.page-header__icon-1 {
   background-image: url("./assets/images/icons/header/home-dark.svg");
 }
 
-.light-theme .page-header__icon-2 {
+.light-theme .page-header__icon-2,
+.page-header__icon-2 {
   background-image: url("./assets/images/icons/header/textbook-dark.svg");
 }
 
-.light-theme .page-header__icon-3 {
+.light-theme .page-header__icon-3,
+.page-header__icon-3 {
   background-image: url("./assets/images/icons/header/game-dark.svg");
 }
 
-.light-theme .page-header__icon-4 {
+.light-theme .page-header__icon-4,
+.page-header__icon-4 {
   background-image: url("./assets/images/icons/header/statistics-dark.svg");
 }
