@@ -66,7 +66,7 @@ export class SpellingGameComponent implements OnInit, OnDestroy {
     this.guessed$ = this.store.select(selectIsChoosed);
 
     this.loadingSubscription = this.words$.subscribe((words) => {
-      if (words.length > 0) {
+      if (words?.length > 0) {
         this.isLoading = false;
         this.loadingSubscription?.unsubscribe();
       }
