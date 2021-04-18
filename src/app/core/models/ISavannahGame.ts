@@ -28,4 +28,5 @@ export interface ISavannahGame {
   points: number;
   isPaused: boolean;
   queryParams: AggregatedWordsRequestParams;
+  loading: boolean;
 }

@@ -25,6 +25,7 @@
   </div>
 
   <ng-container *ngSwitchCase="gameState.SETTING">
+    <app-progress *ngIf="game.loading"></app-progress>
     <app-start-game
       [hasDifficultySlider]="true"
       [gameName]="games.SAVANNAH"
