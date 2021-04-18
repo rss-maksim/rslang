@@ -20,6 +20,7 @@
   --color-background-togglable: #ffffff;
   --color-light: #ffffff;
   --color-light-rgb: 255, 255, 255;
+  --color-icon-success: #4caf50;
 
   --color-dark: #000000;
   --color-dark-rgb: 0, 0, 0;
@@ -167,6 +168,7 @@ $purple-green-theme: mat-dark-theme(
   --color-text-togglable: #ffffff;
   --color-background-togglable: #07073d;
   background-color: var(--color-dark-background);
+  --color-icon-success: #4caf50;
 
   /* Здесь надо корректировать цвета для парных цветов из светлой темы */
 
