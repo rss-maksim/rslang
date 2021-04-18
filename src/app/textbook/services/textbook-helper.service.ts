@@ -103,7 +103,7 @@ export class TextbookHelperService {
     } = payload;
     if (!filter && difficulty === 'deleted') {
       userWordsPerGroup -= 1;
-      if (userWord.optional?.correctAnswers) {
+      if (userWord?.optional?.correctAnswers) {
         correctPerGroup -= +userWord.optional.correctAnswers;
         wrongPerGroup -= +userWord.optional.wrongAnswers;
       }
@@ -111,7 +111,7 @@ export class TextbookHelperService {
       userWordsPerGroup += 1;
     } else if (difficulty === 'deleted' || difficulty === 'learning') {
       userWordsPerGroup -= 1;
-      if (userWord.optional?.correctAnswers) {
+      if (userWord?.optional?.correctAnswers) {
         correctPerGroup -= +userWord.optional.correctAnswers;
         wrongPerGroup -= +userWord.optional.wrongAnswers;
       }
