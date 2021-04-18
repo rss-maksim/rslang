@@ -28,6 +28,7 @@ describe('SavannahService', () => {
     points: 0,
     isPaused: false,
     queryParams: {},
+    loading: false,
   };
 
   beforeEach(() => {
