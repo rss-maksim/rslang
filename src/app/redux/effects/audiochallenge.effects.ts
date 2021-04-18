@@ -87,7 +87,7 @@ export class AudiochallengeEffects {
         ofType(rightAnswer, wrongAnswer),
         concatLatestFrom(() => this.store.select(selectIsSoundOn)),
         tap(([, options]) => {
-          if (options.isSoundOn) {
+          if (options && options.isSoundOn && options.audio) {
             const audio = new Audio(`${options.audio}`);
             audio.play();
           }
