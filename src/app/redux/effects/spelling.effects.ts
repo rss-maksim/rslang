@@ -50,18 +50,6 @@ export class SpellingEffects {
     );
   });
 
-  loadRandomTranslations$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(wordsLoadedSuccess),
-      switchMap(() => {
-        return this.wordsHttpService.getRandomTranslations().pipe(
-          map((words) => translationsLoadedSuccess({ payload: this.wordsHelper.getValuesArray(Object.values(words)) })),
-          catchError(() => EMPTY),
-        );
-      }),
-    );
-  });
-
   playSound$ = createEffect(
     () => {
       return this.actions$.pipe(
