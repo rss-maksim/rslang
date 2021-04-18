@@ -63,18 +63,7 @@ const spellingReducer = createReducer(
       audioSrc: `${ASSETS_API_URL}/${tempWord.audio}?raw=true`,
     };
   }),
-  on(translationsLoadedSuccess, (state, { payload }) => {
-    const translationsSlice = payload.slice(0, 4);
-    const tempArray = payload.filter((elem: string, index: number) => index > 3);
-    return {
-      ...state,
-      translations: tempArray,
-      currentWord: {
-        ...state.currentWord,
-        translationsArray: [...translationsSlice, state.currentWord.wordTranslate],
-      },
-    };
-  }),
+
   on(spellingStarted, (state) => {
     return { ...state, isGameStarted: true };
   }),

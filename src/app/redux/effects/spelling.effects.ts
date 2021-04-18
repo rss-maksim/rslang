@@ -50,26 +50,16 @@ export class SpellingEffects {
     );
   });
 
-  loadRandomTranslations$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(wordsLoadedSuccess),
-      switchMap(() => {
-        return this.wordsHttpService.getRandomTranslations().pipe(
-          map((words) => translationsLoadedSuccess({ payload: this.wordsHelper.getValuesArray(Object.values(words)) })),
-          catchError(() => EMPTY),
-        );
-      }),
-    );
-  });
-
   playSound$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(playWordSound, wordsLoadedSuccess, showNextWord),
         concatLatestFrom(() => this.store.select(selectCurrentWord)),
         tap(([, currentWord$]) => {
-          const audio = new Audio(`${ASSETS_API_URL}/${currentWord$.audio}?raw=true`);
-          audio.play();
+          if(currentWord$.audio){
+            const audio = new Audio(`${ASSETS_API_URL}/${currentWord$.audio}?raw=true`);
+            audio.play();
+          }
         }),
       );
     },
