@@ -71,7 +71,7 @@ export class AudiochallengeEffects {
         ofType(playWordSound, translationsLoadedSuccess, showNextWord),
         concatLatestFrom(() => this.store.select(selectWordSoundData)),
         tap(([, { isStarted, currentWord }]) => {
-          if (isStarted && currentWord?.audio) {
+          if (isStarted && currentWord && currentWord?.audio) {
             const audio = new Audio(`${ASSETS_API_URL}/${currentWord.audio}?raw=true`);
             audio.play();
           }

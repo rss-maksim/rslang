@@ -56,7 +56,7 @@ export class SpellingEffects {
         ofType(playWordSound, wordsLoadedSuccess, showNextWord),
         concatLatestFrom(() => this.store.select(selectCurrentWord)),
         tap(([, currentWord$]) => {
-          if (currentWord$.audio) {
+          if (currentWord$ && currentWord$?.audio) {
             const audio = new Audio(`${ASSETS_API_URL}/${currentWord$.audio}?raw=true`);
             audio.play();
           }
@@ -72,7 +72,7 @@ export class SpellingEffects {
         ofType(rightAnswer, wrongAnswer),
         concatLatestFrom(() => this.store.select(selectIsSoundOn)),
         tap(([, options]) => {
-          if (options && options.isSoundOn && options.audio) {
+          if (options && options?.isSoundOn && options?.audio) {
             const audio = new Audio(`${options.audio}`);
             audio.play();
           }

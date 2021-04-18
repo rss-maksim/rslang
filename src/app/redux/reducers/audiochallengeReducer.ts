@@ -64,7 +64,7 @@ const audiochallengeReducer = createReducer(
       ...state,
       list: tempList,
       currentWord: { ...tempWord, translationsArray: [] },
-      audioSrc: `${ASSETS_API_URL}/${tempWord.audio}?raw=true`,
+      audioSrc: '',
     };
   }),
   on(translationsLoadedSuccess, (state, { payload }) => {
@@ -145,7 +145,7 @@ const audiochallengeReducer = createReducer(
         translationsArray: [...translationsSlice, tempWord.wordTranslate],
       },
       translations: [...tempArray],
-      audio: new Audio(`${ASSETS_API_URL}/${tempWord.audio}?raw=true`),
+      audio: '',
       isTranslationChoosed: false,
     };
   }),

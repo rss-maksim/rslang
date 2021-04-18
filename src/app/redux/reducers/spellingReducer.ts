@@ -60,7 +60,7 @@ const spellingReducer = createReducer(
       ...state,
       list: tempList,
       currentWord: { ...tempWord, translationsArray: [] },
-      audioSrc: `${ASSETS_API_URL}/${tempWord.audio}?raw=true`,
+      audioSrc: '',
     };
   }),
 
@@ -129,7 +129,7 @@ const spellingReducer = createReducer(
         translationsArray: [...translationsSlice, tempWord.wordTranslate],
       },
       translations: [...tempArray],
-      audio: new Audio(`${ASSETS_API_URL}/${tempWord.audio}?raw=true`),
+      audio: '',
       isTranslationChoosed: false,
     };
   }),
