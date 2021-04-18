@@ -24,7 +24,7 @@ export class SpellingWordComponent implements OnChanges {
   @Output() nextWordEvent = new EventEmitter();
   @ViewChild('wordForm') wordForm?: ElementRef;
   isGuessed = false;
-  selectedIndex!: number;
+  selectedIndex = 0;
 
   ngOnChanges(changes: SimpleChanges) {
     this.isGuessed = false;
@@ -48,6 +48,8 @@ export class SpellingWordComponent implements OnChanges {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
+    if (this.selectedIndex === undefined) return;
+
     switch (event.key) {
       case 'ArrowRight':
         if (this.selectedIndex < this.currentWord.word.length - 1) {
