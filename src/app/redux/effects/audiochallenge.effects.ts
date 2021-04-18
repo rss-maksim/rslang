@@ -68,10 +68,10 @@ export class AudiochallengeEffects {
   playSound$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(playWordSound, wordsLoadedSuccess, showNextWord),
+        ofType(playWordSound, translationsLoadedSuccess, showNextWord),
         concatLatestFrom(() => this.store.select(selectWordSoundData)),
         tap(([, { isStarted, currentWord }]) => {
-          if (isStarted) {
+          if (isStarted && currentWord?.audio) {
             const audio = new Audio(`${ASSETS_API_URL}/${currentWord.audio}?raw=true`);
             audio.play();
           }
