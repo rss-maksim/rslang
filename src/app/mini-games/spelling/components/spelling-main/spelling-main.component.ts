@@ -34,6 +34,7 @@ export class SpellingMainComponent implements OnInit, OnDestroy {
   userId: string | null = this.userService.getUserId();
   DEFAULT_DIFFICULTY_LEVEL = DEFAULT_DIFFICULTY_LEVEL;
   hasDifficultySlider = true;
+  isLoading = false;
 
   private querySubscription!: Subscription;
 
@@ -68,6 +69,7 @@ export class SpellingMainComponent implements OnInit, OnDestroy {
     }
     this.startGame();
   }
+
   openDialog() {
     this.isGameStarted$.pipe(take(1)).subscribe((started) => {
       if (started) {
@@ -77,9 +79,11 @@ export class SpellingMainComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   clearGame() {
     this.store.dispatch(closeGame());
   }
+
   ngOnDestroy() {
     this.querySubscription.unsubscribe();
   }

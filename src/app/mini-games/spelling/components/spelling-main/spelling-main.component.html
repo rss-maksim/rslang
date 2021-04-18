@@ -17,6 +17,7 @@
     [game]="games.SPELLING"
     (closeGameEvent)="clearGame()"
   ></app-end-game>
+
   <ng-template #endGameBlock>
     <app-spelling-game
       [difficulty]="difficulty"
@@ -30,7 +31,7 @@
 
 <ng-template #gameBlock> </ng-template>
 <button mat-fab (click)="openDialog()" [ngStyle]="{ 'background-color': 'transparent' }">
-  <span class="material-icons">close</span>
+  <span class="material-icons close-btn">close</span>
 </button>
 
 <app-full-screen-button class="full-screen__btn"></app-full-screen-button>

@@ -1,3 +1,5 @@
+<app-progress *ngIf="isLoading"></app-progress>
+
 <app-spelling-game-sounds-button></app-spelling-game-sounds-button>
 
 <ng-template [ngIf]="currentWord$ | async" let-currentWord>

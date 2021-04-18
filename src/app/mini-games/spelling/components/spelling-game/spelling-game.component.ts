@@ -37,6 +37,8 @@ export class SpellingGameComponent implements OnInit, OnDestroy {
   guessed$!: Observable<boolean>;
   settingsSubscription?: Subscription;
   settings!: ISettings;
+  loadingSubscription?: Subscription;
+  isLoading = true;
 
   constructor(private store: Store<AppState>, private settingsService: MiniGamesSettingsService) {}
 
@@ -62,6 +64,13 @@ export class SpellingGameComponent implements OnInit, OnDestroy {
     this.currentWord$ = this.store.select(selectCurrentWord);
     this.words$ = this.store.select(selectWords);
     this.guessed$ = this.store.select(selectIsChoosed);
+
+    this.loadingSubscription = this.words$.subscribe((words) => {
+      if (words.length > 0) {
+        this.isLoading = false;
+        this.loadingSubscription?.unsubscribe();
+      }
+    });
   }
 
   ngOnDestroy(): void {
