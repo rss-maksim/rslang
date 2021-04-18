@@ -41,6 +41,7 @@ export class SavannahService implements OnDestroy {
     points: 0,
     isPaused: false,
     queryParams: {},
+    loading: false,
   };
   constructor(private gamesService: MiniGamesHttpService, private settings: MiniGamesSettingsService) {}
   wordsBatch$?: Subscription;
@@ -74,6 +75,7 @@ export class SavannahService implements OnDestroy {
   }
 
   getWords(difficulty: number) {
+    this.game.loading = true;
     let groupToGet = '';
     let page1ToGet = '';
     let page2ToGet = '';
@@ -114,6 +116,8 @@ export class SavannahService implements OnDestroy {
         }
         this.game.learningWords.push(...words);
         this.game.totalWordsAmount = words.length;
+        this.game.loading = false;
+        this.game.gameState = GameState.PREP;
       });
     this.translationsBatch$ = this.gamesService
       .getWords({ group: `${groupToGet}`, page: `${page2ToGet}` })
@@ -130,7 +134,6 @@ export class SavannahService implements OnDestroy {
       .subscribe((words: IWord[]) => {
         this.game.randomTranslations.push(...getTranslations(words));
       });
-    this.game.gameState = GameState.PREP;
   }
 
   nextWord(): void {
