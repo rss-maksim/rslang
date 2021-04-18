@@ -56,8 +56,10 @@ export class SpellingEffects {
         ofType(playWordSound, wordsLoadedSuccess, showNextWord),
         concatLatestFrom(() => this.store.select(selectCurrentWord)),
         tap(([, currentWord$]) => {
-          const audio = new Audio(`${ASSETS_API_URL}/${currentWord$.audio}?raw=true`);
-          audio.play();
+          if(currentWord$.audio){
+            const audio = new Audio(`${ASSETS_API_URL}/${currentWord$.audio}?raw=true`);
+            audio.play();
+          }
         }),
       );
     },
