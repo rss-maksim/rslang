@@ -1,0 +1,75 @@
+.game-card {
+  width: 60vw;
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  vertical-align: middle;
+
+  &__points {
+    text-align: center;
+  }
+
+  &__words-list {
+    height: 60vh;
+    padding: 1rem;
+    overflow-y: scroll;
+    color: var(--color-dark);
+  }
+
+  &__word {
+    font-size: 1.2rem;
+    color: var(--color-dark);
+  }
+
+  &__translation {
+    font-size: 1.2rem;
+    color: var(--color-dark);
+  }
+
+  &__reset {
+    width: 100%;
+    font-size: 1.2rem;
+  }
+
+  &__exit {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  &__wrong {
+    color: var(--color-warn);
+    font-size: 1.2rem;
+    margin-bottom: 0;
+  }
+
+  &__correct {
+    color: var(--color-accent);
+    font-size: 1.2rem;
+  }
+}
+
+.actions__btn {
+  background-color: transparent;
+  box-shadow: none;
+  margin-right: 0.5rem;
+  margin-bottom: -0.5rem;
+  color: var(--color-button);
+
+  .material-icons {
+    color: var(--color-dark-background);
+  }
+}
+
+.delete__btn {
+  margin-right: 0;
+}
+
+@media (max-width: 850px) {
+  .game-card {
+    width: 85vw;
+
+    &__words-list {
+      height: 50vh;
+    }
+  }
+}

@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="home-page">
+    <div class="home-page__description-block">
+      <div class="home-page__text">
+        <h1 class="home-page__slogan">Английский - легко!</h1>
+        <div class="home-page__description color-text-togglable">
+          С приложением <em class="home-page__app-title">RS Lang</em> вы сможете изучать английский язык легко и с
+          удовольствием. <em class="home-page__app-title">RS Lang</em> содержит большую базу слов для изучения,
+          увлекательные мини-игры для интервального повторения, страницу статистики для отслеживания индивидуального
+          прогресса. Приложение доступно с компьютера и смартфона, что позволит заниматься в любое удобное время.
+        </div>
+        <div class="home-page__actions" *ngIf="isAuthorized$ | async as isAuthorized; else anonymousLinks">
+          <a class="home-page__action" mat-button [routerLink]="['/textbook/']">К учебнику</a>
+          <a class="home-page__action" mat-button [routerLink]="['/mini-games']">Играть</a>
+        </div>
+        <ng-template #anonymousLinks>
+          <div class="home-page__actions">
+            <a class="home-page__action" mat-button [routerLink]="['/auth/signup']">Создать аккаунт</a>
+            <a class="home-page__action" mat-button [routerLink]="['/auth/login']">Войти</a>
+          </div>
+        </ng-template>
+      </div>
+      <div class="home-page__picture"></div>
+    </div>
+    <div class="home-page__games-block">
+      <h2 class="home-page__games-title">Доступные игры</h2>
+      <div class="home-page__games" [@gamesBlockAnim]="state" #gamesBlock>
+        <mat-card
+          *ngFor="let game of games; trackBy: trackByFn"
+          class="game-card"
+          [routerLink]="['/mini-games', game.route]"
+          [ngClass]="game.route"
+          [@childAnimation]="state"
+        >
+          <div class="bg-overlay"></div>
+          <div class="x-border"></div>
+          <div class="y-border"></div>
+          <div class="game-card__content">
+            <h2 class="game-card__title">{{ game.name }}</h2>
+            <mat-card-content class="game-card__description">
+              {{ game.description }}
+            </mat-card-content>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <app-demo></app-demo>
+    <app-about-team></app-about-team>
+  </div>
+</div>

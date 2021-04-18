@@ -1,0 +1,10 @@
+<div class="about-team" [@teamBlockAnim]="state">
+  <h2 class="about-team__title">О команде</h2>
+  <div class="about-team__cards" #cardsBlock>
+    <app-teammate-card
+      *ngFor="let mate of teammates$ | async; trackBy: trackByFn"
+      [mate]="mate"
+      [@childAnimation]="state"
+    ></app-teammate-card>
+  </div>
+</div>

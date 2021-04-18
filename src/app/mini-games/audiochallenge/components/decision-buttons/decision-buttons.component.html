@@ -1,0 +1,10 @@
+<ng-template #dontKnowBtn>
+  <button class="audiochallenge__button" (click)="guess()">Не знаю</button>
+</ng-template>
+
+<button
+  *ngIf="guessed; else dontKnowBtn"
+  class="audiochallenge__button audiochallenge__button_arrow-right"
+  (click)="nextWord()"
+  #nextBtn
+></button>

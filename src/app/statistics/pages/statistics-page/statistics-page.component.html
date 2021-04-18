@@ -1,0 +1,28 @@
+<div class="background-container">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Краткосрочная Статистика">
+      <div class="container">
+        <ng-container *ngIf="isShortTermStatisticsAvailable; else noShortTermStats">
+          <p class="stats__date">Статистика за {{ today }}:</p>
+          <app-short-term-statistics [shortTermStats]="shortTermStats"></app-short-term-statistics>
+        </ng-container>
+        <ng-template #noShortTermStats>
+          <p>Сегодня Вы не тренировались.</p>
+          <p>Пожалуйста, поиграйте мини-игры для тренировки английских слов и отображения краткосрочной статистики.</p>
+          <button class="stats__play" mat-raised-button color="primary" routerLink="../mini-games">Играть</button>
+        </ng-template>
+      </div>
+    </mat-tab>
+    <mat-tab label="Долгосрочная Статистика">
+      <div class="container">
+        <ng-container *ngIf="isAuthorized">
+          <app-long-term-statistics></app-long-term-statistics>
+        </ng-container>
+        <ng-container *ngIf="!isAuthorized">
+          <p>Для получения долгосрочной статистики, пожалуйста, залогиньтесь.</p>
+          <button class="stats__login" mat-raised-button color="primary" routerLink="../auth/login">Войти</button>
+        </ng-container>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

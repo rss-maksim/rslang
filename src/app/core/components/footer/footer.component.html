@@ -1,0 +1,19 @@
+<footer class="page-footer">
+  <ul class="page-footer__list">
+    <li *ngFor="let developer of teammates$ | async; trackBy: trackByFn">
+      <a [href]="developer.github" target="_blank">
+        <div class="page-footer__image">
+          <img [src]="developer.pictureUrl" [alt]="developer.name" [title]="developer.name" />
+        </div>
+      </a>
+    </li>
+  </ul>
+  <div class="page-footer__info">
+    <span class="page-footer__date">2021</span>
+    <a [href]="rssUrl" target="_blank">
+      <div class="page-footer__rss">
+        <img class="rs-logo" [src]="rssImage" alt="RSSchool" />
+      </div>
+    </a>
+  </div>
+</footer>

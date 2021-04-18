@@ -1,0 +1,28 @@
+<div class="word-group__progress">
+  <span class="word-card__progressTitle color-text-togglable">{{ title }}: </span>
+  <div class="word-group__progressCountWrapper">
+    <div class="word-group__progressCount color-text-togglable">
+      Общее количество слов: {{ pageInfo?.userWordsPerPage || pageInfo?.userWordsPerGroup || 0 }}
+    </div>
+    <div
+      class="word-group__progressCount color-text-togglable"
+      matTooltip="Отвечено верно"
+      matTooltipClass="word-tooltip-correct"
+    >
+      <span class="word-group__progressCount-correct">
+        <mat-icon class="icon-success">check_circle_outline</mat-icon>
+      </span>
+      {{ pageInfo?.correctPerPage || pageInfo?.correctPerGroup || 0 }}
+    </div>
+    <div
+      class="word-group__progressCount color-text-togglable"
+      matTooltip="Отвечено с ошибкой"
+      matTooltipClass="word-tooltip-wrong"
+    >
+      <span class="word-group__progressCount-wrong">
+        <mat-icon>highlight_off</mat-icon>
+      </span>
+      {{ pageInfo?.wrongPerPage || pageInfo?.wrongPerGroup || 0 }}
+    </div>
+  </div>
+</div>

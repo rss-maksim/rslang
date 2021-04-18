@@ -1,0 +1,19 @@
+.dialog {
+  text-align: center;
+  font-size: 1.1rem;
+
+  &__content {
+    overflow: visible;
+    line-height: 1.4rem;
+  }
+
+  &__exit {
+    margin: 0.5rem auto;
+    font-size: 1.2rem;
+  }
+
+  &__close {
+    margin: 0 auto;
+    font-size: 1.2rem;
+  }
+}

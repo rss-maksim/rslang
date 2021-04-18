@@ -1,0 +1,69 @@
+<mat-card class="card" [ngStyle]="{ 'box-shadow': 'none' }">
+  <mat-card-title class="card__title" [ngStyle]="{ color: textColor }">{{ gameName }}</mat-card-title>
+
+  <mat-card-content class="card__content" *ngIf="hasDifficultySlider">
+    <p class="card__text" [ngStyle]="{ color: textColor }">Пожалуйста, выберите сложность игры:</p>
+    <span class="card__text" [ngStyle]="{ color: textColor }">Легко</span>
+    <mat-slider
+      [disabled]="group"
+      min="0"
+      max="5"
+      step="1"
+      [value]="difficulty"
+      thumbLabel
+      color="warn"
+      #difficultySlider
+      (input)="onDifficultyChange(difficultySlider.value)"
+    ></mat-slider>
+    <span class="card__text" [ngStyle]="{ color: textColor }">Сложно</span>
+  </mat-card-content>
+
+  <ng-container *ngIf="gameName === GAMES.CUSTOM_GAME">
+    <div>
+      <p class="card__text" [ngStyle]="{ color: textColor }">Количество раундов:</p>
+      <span class="card__text" [ngStyle]="{ color: textColor }">10</span>
+      <mat-slider
+        class="margins-left-right"
+        thumbLabel
+        min="10"
+        max="20"
+        step="1"
+        value="15"
+        color="warn"
+        #numOfRounds
+        (input)="onSetNumOfRounds(numOfRounds.value)"
+      >
+      </mat-slider>
+      <span class="card__text" [ngStyle]="{ color: textColor }">20</span>
+    </div>
+    <div class="card__margin-top">
+      <p class="card__text" [ngStyle]="{ color: textColor }">Время на раунд (сек.):</p>
+      <span class="card__text" [ngStyle]="{ color: textColor }">10</span>
+      <mat-slider
+        class="margins-left-right"
+        thumbLabel
+        min="10"
+        max="20"
+        step="1"
+        value="15"
+        color="warn"
+        #roundLength
+        (input)="onSetRoundLength(roundLength.value)"
+      >
+      </mat-slider>
+      <span class="card__text" [ngStyle]="{ color: textColor }">20</span>
+    </div>
+  </ng-container>
+
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="warn"
+      class="card__start-button"
+      (click)="onStart()"
+      [ngStyle]="{ color: textColor, 'background-color': 'transparent' }"
+    >
+      Начать
+    </button>
+  </mat-card-actions>
+</mat-card>

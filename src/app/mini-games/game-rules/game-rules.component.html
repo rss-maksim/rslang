@@ -1,0 +1,16 @@
+<div class="popup" *ngIf="isShow">
+  <div class="popup__overlay" [ngClass]="{ overlayAnimation: isShow }" (click)="onHiddenPopup()"></div>
+  <div class="popup__content" [ngClass]="{ contentAnimation: isShow }">
+    <button mat-mini-fab class="popup__closeBtn" (click)="onHiddenPopup()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-card class="popup__text" *ngFor="let gameCard of gameCards; trackBy: trackByCardName">
+      <div class="popup__text-block">
+        <div class="popup__text-block-name">
+          {{ gameCard.name }}
+        </div>
+        <div [innerHTML]="gameCard.rules"></div>
+      </div>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+<div class="background-container">
+  <div>
+    <button
+      mat-fab
+      class="close-game-button"
+      (click)="onCloseDialog()"
+      [ngStyle]="{ 'background-color': 'transparent' }"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div>
+    <button
+      mat-fab
+      class="sound-button center"
+      (click)="onToggleSound()"
+      [ngStyle]="{ 'background-color': 'transparent' }"
+    >
+      <mat-icon>{{ globalSettings.isMuted ? "music_off" : "music_note" }} </mat-icon>
+    </button>
+  </div>
+  <div *ngIf="!isGameStarted">
+    <app-start-game
+      [gameName]="games.CUSTOM_GAME"
+      *ngIf="!isGameStarted"
+      (difficultyLevel)="onSetDifficultyLevel($event)"
+      (numOfRounds)="onSetNumberOfRounds($event)"
+      (roundLength)="onSetRoundLength($event)"
+      (startGame)="onStartGame()"
+    >
+    </app-start-game>
+  </div>
+
+  <mat-spinner *ngIf="loading" class="center margins-top-bottom"></mat-spinner>
+
+  <div class="game-container" *ngIf="isGameStarted && !loading">
+    <div>
+      <div *ngIf="!isResultsShown" class="center margins-top-bottom">
+        <img class="gallows-img" [src]="imageSrc" />
+      </div>
+      <div *ngIf="!isGameOver" class="one-row center margins-top-bottom">
+        <div class="margins-left-right text-primary-normal">
+          Раунд <span class="text-warn">{{ addLeadingZero(currentRound) }}</span> из
+          {{ addLeadingZero(numberOfGameRounds) }}
+        </div>
+      </div>
+
+      <div *ngIf="!isRoundOver" class="one-row center margins-top-bottom">
+        <div>
+          <mat-spinner [value]="spinnerValue" [mode]="spinnerMode" class="spinner"></mat-spinner>
+          <div class="text-warn time-counter">{{ addLeadingZero(countdownTimer) }}</div>
+        </div>
+        <div class="margins-left-right text-primary-normal" *ngIf="currentWord">
+          <mat-icon *ngFor="let i of [].constructor(currentWord!.length - movesCountdownCounter)">
+            favorite_border
+          </mat-icon>
+          <mat-icon *ngFor="let i of [].constructor(movesCountdownCounter)"> favorite </mat-icon>
+        </div>
+      </div>
+
+      <div *ngIf="!isRoundOver" class="center margins-top-bottom">
+        <p class="margins-left-right text-primary-normal">{{ currentWordTranslation | uppercase }}</p>
+      </div>
+
+      <div *ngIf="!isRoundOver" class="full-height center">
+        <div
+          cdkDropList
+          cdkDropListOrientation="horizontal"
+          class="word-list"
+          (cdkDropListDropped)="dropLetter($event)"
+        >
+          <div class="word-box" *ngFor="let letter of scrambledWordAsArray" cdkDrag>
+            {{ letter }}
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isRoundOver && !isResultsShown" class="center margins-top-bottom display-block">
+        <div class="margins-top-bottom text-primary-normal">{{ currentWordTranslation }}</div>
+        <div class="margins-top-bottom text-warn">{{ currentWord }}</div>
+      </div>
+
+      <div *ngIf="isRoundOver && !isGameOver" class="center next-button">
+        <button mat-raised-button color="primary" (click)="startNextRound()">Начать следующий раунд</button>
+      </div>
+
+      <div
+        *ngIf="isGameOver && !isResultsShown"
+        class="center center-text margins-top-bottom margins-left-right text-primary-normal"
+      >
+        {{ isGameLost() ? "В следующий раз обязательно получится!" : "Так держать!" }}
+      </div>
+      <app-end-game
+        *ngIf="isResultsShown"
+        [trainedWords]="trainedWords"
+        [wordsGroup]="difficultyLevel.toString() || group || DEFAULT_DIFFICULTY_LEVEL"
+        [game]="games.CUSTOM_GAME"
+        (closeGameEvent)="onStartGameDialog()"
+      >
+      </app-end-game>
+    </div>
+  </div>
+
+  <app-full-screen-button class="game-fullscreen"></app-full-screen-button>
+</div>

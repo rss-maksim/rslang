@@ -1,0 +1,66 @@
+@import "../../../../styles/variables";
+
+:host {
+  $card-size: 300px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .teammate-card {
+    box-sizing: border-box;
+    width: $card-size;
+    height: $card-size;
+    margin: 0 30px 30px 0;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+
+    @media screen and (max-width: $mobile-breakpoint) {
+      margin-right: 0;
+    }
+
+    &:hover {
+      box-shadow: var(--box-shadow);
+      transform: scale(1.07);
+    }
+
+    &__avatar-wrapper {
+      height: 100px;
+    }
+
+    &__header-image {
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    &__github-link {
+      text-decoration: none;
+      color: var(--color-primary);
+    }
+
+    &__location {
+      margin-left: 5px;
+    }
+
+    &__contribution {
+      padding: 0;
+      margin-top: 0.25rem;
+    }
+
+    &__contribution-title {
+      font-size: 0.85rem;
+      opacity: 0.75;
+      margin: 0;
+    }
+
+    &__contribution-item {
+      list-style: none;
+    }
+
+    &__contribution-item:before {
+      content: "- ";
+    }
+  }
+}

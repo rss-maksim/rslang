@@ -1,0 +1,12 @@
+.counter {
+  position: relative;
+  user-select: none;
+
+  &__count {
+    position: relative;
+    font-size: 3rem;
+    top: 3rem;
+    width: 4.75rem;
+    text-align: center;
+  }
+}

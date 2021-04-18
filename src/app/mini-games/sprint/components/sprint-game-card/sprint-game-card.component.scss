@@ -1,0 +1,92 @@
+.game-card {
+  background-color: var(--color-light);
+  position: relative;
+  width: 27rem;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__image {
+    background-size: contain;
+    width: 9rem;
+    height: 9rem;
+  }
+
+  &__text {
+    margin-top: 0.8rem;
+    font-size: 2rem;
+    line-height: 2rem;
+    text-align: center;
+  }
+
+  &__streak-progress {
+    position: absolute;
+    top: 2.2rem;
+    left: 8.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__star {
+    color: var(--color-warn);
+    font-size: 2.3rem;
+
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  &__points {
+    cursor: default;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    box-shadow: none;
+  }
+
+  &__volume {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    font-size: 3rem;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__button {
+    width: 8rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    margin: 0;
+    margin-top: 1.3rem;
+  }
+
+  &__arrow {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    font-size: 2rem;
+  }
+}
+
+mat-icon:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .game-card {
+    width: 18rem;
+
+    &__streak-progress {
+      left: 4rem;
+    }
+  }
+}

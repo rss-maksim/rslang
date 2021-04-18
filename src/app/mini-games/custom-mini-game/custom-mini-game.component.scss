@@ -1,0 +1,336 @@
+$color-blue-md: #407df4;
+$color-gray-light: #ccc;
+$color-gray-md: #95aac0;
+$color-gray-dark: #999;
+$font-size-lg: 2.5rem;
+$font-size-md: 2rem;
+$font-size-sm: 1.5rem;
+$font-size-xm: 1.25rem;
+
+.background-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $color-gray-md url("../../../assets/images/mini-games/custom-mini-game/custom-mini-game-background.png") 0
+    0 no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 4;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    background: rgba($color-gray-md, 0.65);
+  }
+}
+
+.game-container {
+  margin-top: 5rem;
+  display: flex;
+  align-self: flex-start;
+  z-index: 5;
+}
+
+.game-fullscreen {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+
+  ::ng-deep button {
+    color: var(--color-dark-background);
+  }
+}
+
+.margins-top-bottom {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.margins-left-right {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.one-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.background {
+  background-color: gainsboro;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-text {
+  display: flex;
+  text-align: center;
+}
+
+.text-primary-normal {
+  color: var(--color-primary-normal);
+  font-size: $font-size-md;
+  user-select: none;
+}
+
+.text-warn {
+  color: var(--color-warn);
+  font-size: $font-size-md;
+  user-select: none;
+}
+
+.word-list {
+  max-width: 100%;
+  border: transparent;
+  min-height: 6rem;
+  display: flex;
+  flex-direction: row;
+  background: transparent;
+  border-color: transparent;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.word-box {
+  max-width: 6rem;
+  max-height: 6rem;
+  min-width: 3rem;
+  min-height: 3rem;
+  resize: both;
+  padding: 1rem;
+  margin: 0.5rem;
+  border-radius: 4px;
+  color: var(--color-primary-normal);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 3rem;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: min-content;
+  user-select: none;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-width: 1px;
+  border-color: var(--color-warn);
+  // color: rgba(0, 0, 0, 0.87);
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.word-box:last-child {
+  border: transparent;
+}
+
+.word-list.cdk-drop-list-dragging .word-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drag-placeholder {
+  background-color: $color-gray-light;
+  border: dotted 1px $color-gray-dark;
+  opacity: 1;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.word-custom-placeholder {
+  background: $color-gray-light;
+  border: dotted 1px $color-gray-dark;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.close-game-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+  background-color: var(--color-button);
+  color: var(--color-dark-background);
+  user-select: none;
+}
+
+.close-icon {
+  font-size: $font-size-lg;
+  user-select: none;
+}
+
+.sound-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  cursor: pointer;
+  background-color: var(--color-button);
+  color: var(--color-dark-background);
+  user-select: none;
+}
+
+.sound-icon {
+  font-size: $font-size-lg;
+  user-select: none;
+}
+
+.gallows-img {
+  transition: opacity 3s ease-in-out;
+  height: 20vh;
+  user-select: none;
+}
+
+.wrap-text {
+  flex-wrap: wrap;
+}
+
+.display-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.time-counter {
+  position: relative;
+  top: -3.2rem;
+  left: 2rem;
+  user-select: none;
+}
+
+.spinner {
+  position: relative;
+  top: 0.5rem;
+}
+
+.next-button {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 10vh;
+  user-select: none;
+}
+
+@media (min-width: 1001px) and (max-width: 1300px) {
+  .word-box {
+    max-width: 4rem;
+    max-height: 4rem;
+    min-width: 2.3rem;
+    min-height: 2.3rem;
+    resize: both;
+    padding: 0.5rem;
+    margin: 0.2rem;
+    font-size: $font-size-md;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1000px) {
+  .word-box {
+    max-width: 4rem;
+    max-height: 4rem;
+    min-width: 2.1rem;
+    min-height: 2.1rem;
+    resize: both;
+    padding: 0.5rem;
+    margin: 0.2rem;
+    font-size: $font-size-md;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 700px) {
+  .word-box {
+    max-width: 4rem;
+    max-height: 4rem;
+    min-width: 1.9rem;
+    min-height: 2rem;
+    resize: both;
+    padding: 0.35rem;
+    margin: 0.2rem;
+    font-size: $font-size-md;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 599px) {
+  .word-box {
+    max-width: 3rem;
+    max-height: 3rem;
+    min-width: 1.4rem;
+    min-height: 1.4rem;
+    resize: both;
+    padding: 0.3rem;
+    margin: 0.2rem;
+    font-size: $font-size-sm;
+  }
+}
+
+@media (max-width: 499px) {
+  .word-list {
+    min-height: 4rem;
+  }
+
+  .word-box {
+    max-width: 3rem;
+    max-height: 3rem;
+    min-width: 1.3rem;
+    min-height: 1.3rem;
+    resize: both;
+    padding: 0.3rem;
+    margin: 0.1rem;
+    font-size: $font-size-xm;
+  }
+
+  .margins-top-bottom {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .margins-left-right {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .next-button {
+    margin-top: 8rem;
+  }
+
+  .text-primary-normal {
+    font-size: $font-size-sm;
+  }
+
+  .text-warn {
+    font-size: $font-size-sm;
+  }
+
+  .time-counter {
+    left: 2.3rem;
+  }
+}
+
+@media (min-height: 700px) {
+  .game-container {
+    margin-top: 3rem;
+  }
+
+  .margins-top-bottom {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}

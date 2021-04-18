@@ -1,0 +1,143 @@
+:host {
+  min-height: 3.75rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-background-togglable);
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+a {
+  text-decoration: none;
+  background: linear-gradient(var(--color-text-togglable), var(--color-text-togglable));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 2px;
+  transition: background-size 0.3s;
+  color: inherit;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+a:hover {
+  background-size: 100% 2px;
+}
+
+.page-header {
+  width: 100%;
+  display: flex;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-text-togglable);
+}
+
+.page-header__navigation ul {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin-right: 1.875rem;
+  }
+}
+
+.page-header__userBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    width: 3.125rem;
+    height: 3.125rem;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    margin-right: 0.2rem;
+  }
+}
+
+.page-header__icon {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 3.125rem;
+  height: 3.125rem;
+  overflow: hidden;
+  transition: 0.5s;
+  img {
+    width: 2.5rem;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.right-block {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-switch {
+  margin-right: 2rem;
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.toggle-icons {
+  margin: 0 1rem;
+  text-align: center;
+}
+
+.active {
+  background-size: 100% 2px;
+}
+
+@media (max-width: 780px) {
+  .page-header-linkText {
+    display: none;
+  }
+
+  .page-header__icon {
+    display: flex;
+  }
+
+  .toggle-icons {
+    margin: 0 0.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 630px) {
+  .toggle-icons {
+    display: none;
+  }
+
+  .page-header__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+
+    img {
+      width: 1.875rem;
+    }
+  }
+
+  .page-header__navigation ul {
+    li {
+      margin-right: 1rem;
+    }
+  }
+
+  .page-header__userBlock {
+    img {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+}

@@ -1,0 +1,38 @@
+<app-progress *ngIf="loading"></app-progress>
+
+<ng-template #introBlock>
+  <div class="intro">
+    <h2 class="title">Аудиовызов</h2>
+    <app-audiochallenge-level-choise
+      *ngIf="!page"
+      (difficultySelected)="setDifficulty($event)"
+    ></app-audiochallenge-level-choise>
+
+    <button class="start_btn" (click)="startGame()">Начать</button>
+  </div>
+</ng-template>
+<div *ngIf="isGameStarted$ | async; else introBlock" #gameBlock>
+  <app-end-game
+    *ngIf="isGameEnded | async; else endGameBlock"
+    [trainedWords]="trainedWords$ | async"
+    [wordsGroup]="difficulty || group || DEFAULT_DIFFICULTY_LEVEL"
+    [game]="games.AUDIOCHALLENGE"
+    (closeGameEvent)="clearGame()"
+  ></app-end-game>
+  <ng-template #endGameBlock>
+    <app-audiochallenge-game
+      [difficulty]="difficulty"
+      [page]="page"
+      [group]="group"
+      [filter]="filter"
+      [userId]="userId"
+    ></app-audiochallenge-game>
+  </ng-template>
+</div>
+
+<ng-template #gameBlock> </ng-template>
+<button mat-fab (click)="openDialog()" class="close-btn" [ngStyle]="{ 'background-color': 'transparent' }">
+  <span class="material-icons">close</span>
+</button>
+
+<app-full-screen-button class="full-screen__btn"></app-full-screen-button>

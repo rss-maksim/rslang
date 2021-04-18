@@ -1,0 +1,46 @@
+<app-progress *ngIf="isLoading$ | async"></app-progress>
+<a
+  *ngIf="isAuthorized$ | async"
+  class="textbook-content__link"
+  [routerLink]="['/textbook/dictionary']"
+  [queryParams]="{ filter: 'learning', group: 0, page: 0 }"
+  mat-raised-button
+  >Словарь</a
+>
+
+<div class="textbook-content__info color-text-togglable">
+  <span>Важная информация!</span> Разделы в учебнике поделены в зависимости от сложности слов. Сложность определяется
+  количеством звездочек.
+</div>
+<nav class="textbook-content__navigation" mat-tab-nav-bar>
+  <a
+    mat-tab-link
+    *ngFor="let tab of tabs; let i = index; trackBy: trackByFnTabs"
+    [ngClass]="'tab-link tab-link-' + i"
+    (click)="setCurrentGroup(tab.group, tab)"
+    [active]="activeLink == tab"
+    [innerHTML]="tab.title"
+  >
+  </a>
+</nav>
+<div [ngClass]="'tab-content-' + currentGroup" class="textbook-content__cardItems">
+  <app-word-card
+    *ngFor="let item of wordItems$ | async; trackBy: trackByFnWordCard"
+    [item]="item"
+    [isAuthorized]="isAuthorized$ | async"
+    (updateUserWord)="updateUserWord($event)"
+    [correctWordsCount]="0"
+    [wrongWordsCount]="0"
+  ></app-word-card>
+  <div class="word-statistic" *ngIf="isAuthorized$ | async">
+    <app-textbook-statistic [pageInfo]="groupStatsInfo | async" [title]="groupStatisticTitle"></app-textbook-statistic>
+    <app-textbook-statistic [pageInfo]="pageStatsInfo | async" [title]="pageStatisticTitle"></app-textbook-statistic>
+  </div>
+</div>
+<mat-paginator
+  [length]="totalCount$ | async"
+  [pageSize]="20"
+  [pageIndex]="+currentPage"
+  (page)="onPaginateChange($event)"
+></mat-paginator>
+<app-textbook-mini-games [queryParams]="{ group: currentGroup, page: currentPage }"></app-textbook-mini-games>

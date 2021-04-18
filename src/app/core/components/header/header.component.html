@@ -1,0 +1,36 @@
+<header class="page-header">
+  <nav class="page-header__navigation">
+    <ul>
+      <li *ngFor="let item of headerMenu; trackBy: trackByFn">
+        <a [routerLink]="item.router" routerLinkActive="active">
+          <span [ngClass]="'page-header__icon-' + item.count" class="page-header__icon">
+            <!-- <img [src]="item.srcImg" alt="item.name" /> -->
+          </span>
+          <span class="page-header-linkText">{{ item.name }}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="right-block">
+    <div class="toggle-switch">
+      <mat-icon class="toggle-icons"> light_mode </mat-icon>
+      <mat-slide-toggle [color]="'accent'" [checked]="isChecked" (change)="onSliderToggle($event)"> </mat-slide-toggle>
+      <mat-icon class="toggle-icons"> dark_mode </mat-icon>
+    </div>
+
+    <div *ngIf="!isLoginPage" class="page-header__authorization">
+      <div class="page-header__userBlock" *ngIf="user$ | async as user; else login">
+        <a [routerLink]="['profile', user.id]" matTooltip="Профайл">
+          <img [src]="user?.image || userDefaultPhoto" alt="User Photo" />
+        </a>
+        <button mat-icon-button aria-label="Logout icon button" (click)="logout()" matTooltip="Выйти">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </div>
+      <ng-template #login>
+        <a [routerLink]="['auth', 'login']">Войти</a>
+      </ng-template>
+    </div>
+  </div>
+</header>

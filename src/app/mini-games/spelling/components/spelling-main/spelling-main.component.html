@@ -1,0 +1,37 @@
+<ng-template #introBlock>
+  <div class="intro">
+    <app-start-game
+      (difficultySelected)="setDifficulty($event)"
+      [gameName]="games.SPELLING"
+      [textColor]="'#fff'"
+      [hasDifficultySlider]="hasDifficultySlider"
+    ></app-start-game>
+  </div>
+</ng-template>
+
+<div *ngIf="isGameStarted$ | async; else introBlock">
+  <app-end-game
+    *ngIf="isGameEnded | async; else endGameBlock"
+    [trainedWords]="trainedWords$ | async"
+    [wordsGroup]="difficulty || group || DEFAULT_DIFFICULTY_LEVEL"
+    [game]="games.SPELLING"
+    (closeGameEvent)="clearGame()"
+  ></app-end-game>
+
+  <ng-template #endGameBlock>
+    <app-spelling-game
+      [difficulty]="difficulty"
+      [page]="page"
+      [group]="group"
+      [filter]="filter"
+      [userId]="userId"
+    ></app-spelling-game>
+  </ng-template>
+</div>
+
+<ng-template #gameBlock> </ng-template>
+<button mat-fab (click)="openDialog()" [ngStyle]="{ 'background-color': 'transparent' }">
+  <span class="material-icons close-btn">close</span>
+</button>
+
+<app-full-screen-button class="full-screen__btn"></app-full-screen-button>

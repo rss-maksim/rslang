@@ -1,0 +1,56 @@
+<div class="game-card">
+  <mat-card-content class="game-card__content">
+    <div class="game-card__image" [ngStyle]="{ 'background-image': onStreakChange(streak).imageSrc }"></div>
+
+    <div class="game-card__streak-progress">
+      <mat-icon class="game-card__star" *ngIf="onStreakChange(streak).firstStar">star</mat-icon>
+      <mat-icon class="game-card__star" *ngIf="onStreakChange(streak).secondStar">star</mat-icon>
+      <mat-icon class="game-card__star" *ngIf="onStreakChange(streak).thirdStar">star</mat-icon>
+    </div>
+
+    <button class="game-card__points" mat-fab color="warn">+{{ 10 * multiplier }}</button>
+
+    <p class="game-card__text">
+      {{ word }}
+      <mat-icon
+        class="game-card__volume"
+        matRipple
+        [matRippleUnbounded]="true"
+        [matRippleCentered]="true"
+        (click)="onVolumeBtnClick()"
+      >
+        volume_up
+      </mat-icon>
+    </p>
+
+    <p class="game-card__text">{{ translation }}</p>
+  </mat-card-content>
+
+  <mat-card-actions class="game-card__actions">
+    <button class="game-card__button" mat-raised-button color="warn" (click)="onWrongBtnClick()">Неверно</button>
+
+    <button class="game-card__button" mat-raised-button color="primary" (click)="onCorrectBtnClick()">Верно</button>
+  </mat-card-actions>
+
+  <mat-card-actions class="game-card__actions">
+    <mat-icon
+      class="game-card__arrow"
+      matRipple
+      [matRippleUnbounded]="true"
+      [matRippleCentered]="true"
+      (click)="onWrongBtnClick()"
+    >
+      west
+    </mat-icon>
+
+    <mat-icon
+      class="game-card__arrow"
+      matRipple
+      [matRippleUnbounded]="true"
+      [matRippleCentered]="true"
+      (click)="onCorrectBtnClick()"
+    >
+      east
+    </mat-icon>
+  </mat-card-actions>
+</div>

@@ -1,35 +1,41 @@
-import { TestBed } from '@angular/core/testing';
+import { UserService } from './core/services/user.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let app: AppComponent;
+  let userServiceMock: UserService;
+  let storeMock: MockStore;
+  let initialState = {};
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
+      imports: [RouterTestingModule, HttpClientTestingModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [provideMockStore({ initialState }), UserService],
     }).compileComponents();
+    storeMock = TestBed.inject(MockStore);
+    userServiceMock = TestBed.inject(UserService);
+    spyOn(userServiceMock, 'getUserId').and.returnValue(null);
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    app = fixture.componentInstance;
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'rslang'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('rslang');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('rslang app is running!');
+  it('application should dispatch action on init', () => {
+    spyOn(storeMock, 'dispatch').and.callThrough();
+    app.ngOnInit();
+    expect(storeMock.dispatch).toHaveBeenCalled();
   });
 });

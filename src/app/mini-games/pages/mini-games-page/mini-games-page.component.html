@@ -1,0 +1,30 @@
+<div class="container__parallax">
+  <div class="parallax">
+    <img src="../../../../assets/images/mini-games/mini-games-page/background-confetti-lg-arcade.svg" />
+    <img src="../../../../assets/images/mini-games/mini-games-page/background-confetti-md-arcade.svg" />
+    <img src="../../../../assets/images/mini-games/mini-games-page/background-confetti-sm-arcade.svg" />
+    <img src="../../../../assets/images/mini-games/mini-games-page/background-confetti-xl-arcade.svg" />
+    <img src="../../../../assets/images/mini-games/mini-games-page/background-confetti-xs-arcade.svg" />
+  </div>
+</div>
+<mat-icon class="material-icons-md" style="white-space: pre-line" (click)="onShow()"> help_outline </mat-icon>
+<app-game-rules [isShow]="showPopup" (hidden)="onHidden()"></app-game-rules>
+<div class="mini-games__container">
+  <mat-card
+    *ngFor="let game of games; trackBy: trackByCardName"
+    class="game-card"
+    [routerLink]="['/mini-games', game.route]"
+    [ngClass]="game.route"
+  >
+    <div class="bg-overlay"></div>
+    <div class="x-border"></div>
+    <div class="y-border"></div>
+    <div class="game-card__content">
+      <h2 class="game-card__title">{{ game.name }}</h2>
+      <mat-card-content class="game-card__description">
+        {{ game.description }}
+      </mat-card-content>
+    </div>
+  </mat-card>
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,40 @@
+.textbook-mini-games__title {
+  font-size: 1.875rem;
+  text-align: center;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+.textbook-mini-games__list {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 2px dashed var(--color-primary);
+  border-radius: 44%;
+  padding: 3rem 2rem 2rem 2rem;
+
+  a {
+    min-width: 35%;
+    font-size: 1.25rem;
+    font-weight: lighter;
+    border: 1px var(--color-accent) solid;
+    color: var(--color-light);
+    background-color: var(--color-accent);
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .textbook-mini-games__list {
+    a {
+      min-width: 45%;
+    }
+  }
+}

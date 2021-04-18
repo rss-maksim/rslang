@@ -1,0 +1,17 @@
+<mat-card class="card" [ngStyle]="{ 'box-shadow': 'none' }">
+  <mat-card-content class="card__content">
+    <p class="card__text">Пожалуйста, выберите сложность игры:</p>
+    <span>Легко</span>
+    <mat-slider
+      min="0"
+      max="5"
+      step="1"
+      value="1"
+      color="warn"
+      thumbLabel
+      #difficultySlider
+      (input)="onDifficultyChange(difficultySlider.value)"
+    ></mat-slider>
+    <span>Сложно</span>
+  </mat-card-content>
+</mat-card>

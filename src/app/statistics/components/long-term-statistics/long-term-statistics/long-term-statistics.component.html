@@ -1,0 +1,27 @@
+<ng-container *ngIf="isError; else Success">
+  <p>Произошла ошибка. Пожалуйста, попробуйте позже.</p>
+  <button class="stats__login" mat-raised-button color="primary" routerLink="../">На главную</button>
+</ng-container>
+
+<ng-template #Success>
+  <div class="chart-container" *ngIf="!isLoading && hasStatistics">
+    <canvas
+      id="chart"
+      baseChart
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+    >
+    </canvas>
+  </div>
+
+  <ng-container *ngIf="!isLoading && !hasStatistics">
+    <p>Для получения долгосрочной статистики, пожалуйста, потренируйтесь.</p>
+    <button class="stats__login" mat-raised-button color="primary" routerLink="../mini-games">Тренироваться</button>
+  </ng-container>
+</ng-template>
+
+<mat-spinner color="primary" diameter="50" *ngIf="isLoading"></mat-spinner>

@@ -1,0 +1,236 @@
+@import "../../../../styles/variables";
+
+:host {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 3rem;
+  min-height: 70vh;
+}
+
+.mini-games__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.primary-color {
+  color: var(--color-light);
+}
+
+.material-icons-md {
+  justify-self: right;
+  align-self: flex-start;
+  margin-top: -0.5rem;
+  font-size: 3rem;
+  color: var(--color-text-togglable);
+  position: absolute;
+  right: 2rem;
+  top: 1rem;
+  z-index: 2;
+  cursor: pointer;
+}
+
+@media (max-width: 500px) {
+  .game-cards-row {
+    .game-card {
+      min-width: 70vw;
+    }
+  }
+}
+
+.game-card {
+  flex-basis: 300px;
+  background: #eee;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 250ms ease-in;
+  min-height: 220px;
+  background-size: cover;
+  margin: 0% 1% 2% 1%;
+  cursor: pointer;
+
+  &.sprint {
+    background-image: url("../../../../assets/images/mini-games/sprint/mini-games-sprint-background.jpg");
+  }
+
+  &.audiochallenge {
+    background-image: url("../../../../assets/images/mini-games/audiochallenge-bg.jpg");
+  }
+  &.savannah {
+    background-image: url("../../../../assets/images/mini-games/savannah-bg.jpg");
+  }
+  &.custom-mini-game {
+    background-image: url("../../../../assets/images/mini-games/custom-mini-game/custom-mini-game-background.png");
+  }
+  &.spelling {
+    background-image: url("../../../../assets/images/mini-games/spelling-bg.jpg");
+  }
+
+  &__content {
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  &__title {
+    margin: 0;
+    text-transform: uppercase;
+    transition: all 250ms ease-out 200ms;
+    opacity: 1;
+    transform: translate3d(0px, 0px, 1px);
+  }
+  &__description {
+    padding: 10%;
+    position: absolute;
+    opacity: 0;
+    left: 5%;
+    right: 5%;
+    transform: translate3d(0px, 30px, 1px);
+    transition: all 200ms linear 0ms;
+    margin: 0;
+  }
+}
+.game-card:active,
+.game-card:hover {
+  box-shadow: var(--box-shadow);
+
+  .x-border:before,
+  .x-border:after {
+    width: 90%;
+    left: 5%;
+  }
+
+  .y-border:after,
+  .y-border:before {
+    height: 90%;
+    top: 5%;
+  }
+  .game-card__title {
+    opacity: 0;
+    transform: translate3d(0px, 20px, 1px);
+    transition: all 200ms linear 0ms;
+  }
+  .game-card__description {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 1px);
+    transition: all 200ms linear 200ms;
+  }
+
+  .bg-overlay {
+    background: rgba(0, 0, 0, 0.45);
+  }
+}
+
+.bg-overlay {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: inherit;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  transition: all 200ms linear;
+}
+
+.x-border {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  &:before,
+  &:after {
+    position: absolute;
+    content: "";
+    width: 0%;
+    height: 1px;
+    transition: all 250ms ease-out;
+    background: #fff;
+  }
+  &:before {
+    top: 10%;
+  }
+  &:after {
+    bottom: 10%;
+  }
+}
+
+.y-border {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+
+    height: 0%;
+    width: 1px;
+    transition: all 250ms ease-out;
+    background: #fff;
+  }
+  &:before {
+    left: 10%;
+  }
+  &:after {
+    right: 10%;
+  }
+}
+
+//from https://codepen.io/jawhitney/pen/dEGVpx
+$layers: 5;
+$duration: 200s;
+
+@keyframes confetti {
+  0% {
+    top: 100%;
+  }
+  100% {
+    top: -100%;
+  }
+}
+
+.container__parallax {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+}
+
+.parallax {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100%;
+    height: auto;
+    transform: translateX(-50%) translateZ(0);
+    animation: confetti linear infinite;
+
+    @for $i from 1 through $layers {
+      &:nth-child(#{$i}) {
+        animation-delay: $duration * (($i - $layers) / $layers);
+        animation-duration: $duration * ($i / $layers);
+      }
+    }
+  }
+}
